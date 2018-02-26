@@ -1,4 +1,4 @@
-var app = angular.module('main', ['chart.js','smart-table','ui.grid','ui.grid.pinning']);
+var app = angular.module('main', ['chart.js','smart-table','ui.bootstrap']);
 app.controller('mainController',['$rootScope','$scope','$http', function($rootScope,$scope,$http){
 	var mi = this;
 	mi.etiqueta = 'Bienvenido';
@@ -68,22 +68,22 @@ app.controller('mainController',['$rootScope','$scope','$http', function($rootSc
 		    { name: 'cantidad', displayName: 'Cantidad de personas', type: 'number', cellClass: 'grid-align-left' },
 			{ name: 'zona', displayName: 'Zonas', cellClass: 'grid-align-right'}
 		]
-	};	
+	};
+	
+	/*-----------------------CAROUSEL-----------------------------------*/
+	
+	mi.interval = 5000;
+	mi.wrap = false;
+	mi.active = 0;
+	mi.slides = [];
+	var currIndex = 0;
+	
+	for (var i = 0; i < 4; i++) {
+		mi.slides.push({
+		      image: '/assets/img/slider/' + i + '.jpg',
+		      text: '',
+		      id: i
+		 });
+	 }
+	
 }])
-
-app.directive('stFilteredCollection', function () {
-	  return {
-	    require: '^stTable',
-	    link: function (scope, element, attr, ctrl) {
-	      scope.$watch(ctrl.getFilteredCollection, function(val) {
-	        scope.filteredCollection = val;
-	        
-	        scope.ctrl.totales = 0;
-	        
-	        for(x in val){
-	        	scope.ctrl.totales = scope.ctrl.totales + val[x].cantidad;
-	        }
-	      })
-	    }
-	  }
-	});
