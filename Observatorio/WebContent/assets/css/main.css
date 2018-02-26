@@ -1,0 +1,30 @@
+@CHARSET "UTF-8";
+
+* {
+    margin: 0;
+}
+
+body {
+	height: 100%;
+	background-color: transparent;
+	line-height: unset;
+}
+
+#mainview{
+	height: calc(100% - 30px);
+	width: 95%;
+	margin: 0 auto;
+	display: block;
+	padding-top: 51px;
+}
+
+.all_page{
+	height: 100%;
+}
+
+.footer{
+	padding: 5px 0px 10px 0px;
+	bottom: 0px;
+	width: 100%;
+	display: flex;
+}
