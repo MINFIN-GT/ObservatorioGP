@@ -1,5 +1,5 @@
-angular.module('productoController', ['ngUtilidades']).controller('productoController',['$rootScope','$scope','$http', 
-	function($rootScope,$scope,$http){
+angular.module('productoController', []).controller('productoController',['$rootScope','$scope','$http','$routeParams', 
+	function($rootScope,$scope,$http,$routeParams){
 	var mi = this;
 	var fecha = new Date();
 	mi.anio = fecha.getFullYear();
@@ -16,12 +16,11 @@ angular.module('productoController', ['ngUtilidades']).controller('productoContr
 	mi.tot_p_ejecucion = 0;
 	mi.meses = ['Ene-','Feb-','Mar-','Abr-','May-','Jun-','Jul-','Ago-','Sep-','Oct-','Nov-','Dic-'];
 	
-	mi.entidad = 11130009;
-	mi.unidadEjecutora = 219;
-	mi.programa = 15;
-	mi.subPrograma = 0;
-	mi.actividad = 3;
-	mi.obra = 0;
+	mi.entidad = $routeParams.entidad;
+	mi.unidadEjecutora = $routeParams.unidadejecutora;
+	mi.programa = $routeParams.programa;
+	mi.subPrograma = $routeParams.subprograma;
+	mi.actividad = $routeParams.actividad;
 	
 	$http.post('/SEjecucionFisica',
 		{
@@ -31,7 +30,6 @@ angular.module('productoController', ['ngUtilidades']).controller('productoContr
 			programa: mi.programa,
 			subProbrama: mi.subPrograma,
 			actividad: mi.actividad,
-			obra: mi.obra,
 			t: new Date().getTime()
 		}).then(			
 		function(response){
@@ -59,7 +57,7 @@ angular.module('productoController', ['ngUtilidades']).controller('productoContr
 					mi.tot_p_ejecucion_1 = ((mi.tot_p_ejecucion_1 / mi.dato.length)).toFixed(2);
 					mi.tot_p_ejecucion = ((mi.tot_p_ejecucion / mi.dato.length)).toFixed(2);
 					
-					mi.getGraficaProducto({metaDescripcion:'Todos los productos y sub productos', entidad: mi.entidad, unidadEjecutora: mi.unidadEjecutora, programa: mi.programa, subPrograma: mi.subPrograma, actividad: mi.actividad, obra: mi.obra});
+					mi.getGraficaProducto({metaDescripcion:'Todos los productos y sub productos', entidad: mi.entidad, unidadEjecutora: mi.unidadEjecutora, programa: mi.programa, subPrograma: mi.subPrograma, actividad: mi.actividad});
 				}
 			}
 		});
@@ -79,7 +77,6 @@ angular.module('productoController', ['ngUtilidades']).controller('productoContr
 				programa: row.programa,
 				subProbrama: row.subPrograma,
 				actividad: row.actividad,
-				obra: row.obra,
 				codigo_meta: row.codigo_meta,
 				t: new Date().getTime()
 			}).then(function(response){
@@ -128,7 +125,6 @@ angular.module('productoController', ['ngUtilidades']).controller('productoContr
 					programa: row.programa,
 					subProbrama: row.subPrograma,
 					actividad: row.actividad,
-					obra: row.obra,
 					codigo_meta: row.codigo_meta,
 					t: new Date().getTime()
 				}).then(
