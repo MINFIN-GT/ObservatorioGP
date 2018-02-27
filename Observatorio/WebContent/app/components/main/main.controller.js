@@ -1,5 +1,5 @@
 var app = angular.module('observatorio', ['ngRoute','chart.js','smart-table','ngUtilidades','loadOnDemand',
-	'uiGmapgoogle-maps','chart.js','smart-table']);
+	'uiGmapgoogle-maps']);
 
 app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
 	$locationProvider.hashPrefix('!');
@@ -19,6 +19,9 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
          .when('/producto/:entidad/:unidadejecutora/:programa/:subprograma/:actividad',{
          	template: '<div load-on-demand="\'productoController\'" class="all_page"></div>'
          })
+         .when("/:redireccion?",{
+            	controller:"MainController"
+            })
          /*.when('/salir',{
          	templateUrl : '<div></div>',
          	resolve:{
@@ -70,4 +73,7 @@ app.controller('MainController',['$scope','$document','$rootScope','$location','
 	    		$window.ga('send', 'pageview', $location.path());
 			}
 	    });
+		
+		var fecha = new Date();
+		$scope.anio = fecha.getFullYear();
 	}]);
