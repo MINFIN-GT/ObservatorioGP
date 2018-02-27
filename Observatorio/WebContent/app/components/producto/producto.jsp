@@ -7,7 +7,7 @@
 	</style>
 	<div ng-controller="productoController as ctrl">
 		<div align="center" class="row" style="width: 80%; margin: 0 auto;">
-			<table st-table="ctrl.displayedCollection" st-safe-src="ctrl.rowCollection" class="table table-striped" st-filtered-collection>
+			<table st-table="ctrl.displayedCollection" st-safe-src="ctrl.rowCollection" class="table table-striped">
 				<thead>
 					<tr>
 						<th style="width: 50%" st-sort="metaDescripcion">Descripción</th>
