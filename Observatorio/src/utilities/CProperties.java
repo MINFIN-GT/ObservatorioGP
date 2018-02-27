@@ -37,14 +37,6 @@ public class CProperties {
 			memsql_user = properties.getProperty("memsql_user");
 			memsql_password = properties.getProperty("memsql_password");
 			
-			maria_host = properties.getProperty("maria_host");
-			maria_port = properties.getProperty("maria_port") != null ? 
-					Integer.parseInt(properties.getProperty("maria_port")) : null;
-			maria_schema = properties.getProperty("maria_schema");
-			maria_schema_analytic = properties.getProperty("maria_schema_analytic");
-			maria_user = properties.getProperty("maria_user");
-			maria_password = properties.getProperty("maria_password");
-			
 			
 		}
 		catch(Throwable e){
