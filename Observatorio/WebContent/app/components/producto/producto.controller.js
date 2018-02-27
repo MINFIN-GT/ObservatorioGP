@@ -77,7 +77,7 @@ angular.module('productoController', []).controller('productoController',['$root
 				programa: mi.programa,
 				subProbrama: mi.subPrograma,
 				actividad: mi.actividad,
-				codigo_meta: mi.codigo_meta,
+				codigo_meta: row.codigo_meta,
 				t: new Date().getTime()
 			}).then(function(response){
 				if (response.data.success){
@@ -125,7 +125,7 @@ angular.module('productoController', []).controller('productoController',['$root
 					programa: mi.programa,
 					subProbrama: mi.subPrograma,
 					actividad: mi.actividad,
-					codigo_meta: mi.codigo_meta,
+					codigo_meta: row.codigo_meta,
 					t: new Date().getTime()
 				}).then(
 				function(response){

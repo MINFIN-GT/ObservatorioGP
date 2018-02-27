@@ -1,12 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <style>
-    	.table-striped>tbody>tr:nth-child(odd)>td, .table-striped>tbody>tr:nth-child(odd)>th {
-    		background-color: #f3f3f3;
-		}
-	</style>
 	<div ng-controller="productoController as ctrl">
 		<div align="center" class="row" style="width: 80%; margin: 0 auto;">
+			<h3>Productos</h3>
+			<br>
 			<table st-table="ctrl.displayedCollection" st-safe-src="ctrl.rowCollection" class="table table-striped">
 				<thead>
 					<tr>
@@ -19,7 +16,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="row in ctrl.displayedCollection" ng-click="ctrl.getGraficaProducto(row);">
+					<tr st-select-row="row" st-select-mode="single" ng-repeat="row in ctrl.displayedCollection" ng-click="ctrl.getGraficaProducto(row);">
 						<td align="left">
 							{{row.metaDescripcion}}
 						</td>
