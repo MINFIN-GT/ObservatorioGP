@@ -22,11 +22,11 @@ public class CMemsql {
 	private static Statement st;
 	
 	static {		
-		host = CProperties.getMaria_host();
-		port = CProperties.getMaria_port();
-		user = CProperties.getMaria_user();
-		password = CProperties.getMaria_password();
-		schema = CProperties.getMaria_schema();		
+		host = CProperties.getmemsql_host();
+		port = CProperties.getmemsql_port();
+		user = CProperties.getmemsql_user();
+		password = CProperties.getmemsql_password();
+		schema = CProperties.getmemsql_schema();		
 	}
 	
 	public static boolean connect(){
