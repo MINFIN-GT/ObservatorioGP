@@ -49,13 +49,18 @@
 							</tr>
 						</tfoot>
 					</table>
+					<div style="text-align: center;">Fuente de información SICOIN. Cifras en millones.</div>
 				</div>
 				<br/>
 				<br/>
+				<br/>
+				<br/>
 				<div align="center" class="row" style="width: 80%; margin: 0 auto;">
+					<div class="titulo_grafica">{{ ctrl.grafica_titulo }}</div>
+					<br/>
 					<div align="center">
 						<canvas id="line" class="chart chart-line" chart-data="ctrl.grafica_data"
-							chart-labels="ctrl.labels" chart-series="ctrl.series" chart-options="ctrl.grafica_opciones"
+							chart-labels="ctrl.grafica_labels" chart-series="ctrl.grafica_series" chart-options="ctrl.grafica_opciones"
 							chart-legend="true">
 						</canvas>
 					</div>

@@ -10,8 +10,20 @@ angular.module('obligacionesController',[]).controller('obligacionesController',
 	mi.tot_dano3 = 0;
 	mi.tot_dano4 = 0;
 	
+	mi.grafica_data = [];
+	mi.grafica_series = ['Aporte'];
+	mi.grafica_labels = [mi.ano-4, mi.ano-3, mi.ano-2, mi.ano-1];
+	mi.grafica_titulo = "Todas la entidades";
+	
 	mi.grafica_opciones = {
-			line : { tension : 0 },
+			elements: {
+		        line: {
+		            tension: 0
+		        },
+		        point:{
+		        	radius: 5
+		        }
+		    },
 			legend: {
 				display: true,
 				position: 'bottom',
@@ -19,7 +31,6 @@ angular.module('obligacionesController',[]).controller('obligacionesController',
 			scales: {
 				yAxes: [
 				{
-					id: 'y-axis-1',
 					type: 'linear',
 					display: true,
 					position: 'left',
@@ -27,23 +38,33 @@ angular.module('obligacionesController',[]).controller('obligacionesController',
 		        	     callback: function (value) {
 		        	    	 if (true)
 		        	    		 value = value.toFixed(2);
-		        	    	 return 'Q '+numeral(value).format(' 0,000.00');
+		        	    	 return 'Q '+numeral(value).format('0,000.00');
 	                   }
 					},
 					scaleLabel: {
 	                    display: true,
-	                    labelString: 'Quetzales'
+	                    labelString: 'Millones de quetzales'
 	                }
 				}
 				],
 				xAxes: [{
-			    	  scaleLabel: {
+			    	  	scaleLabel: {
 	                     display: true,
-	                     labelString: mi.etiquetaX
+	                     labelString: 'Años'
 	                   }
-			      }
+			      	}
 			      ]
-			}
+			},
+			tooltips: {
+		           mode: 'label',
+		           label: 'mylabel',
+		           callbacks: {
+		               label: function(tooltipItem, data) {
+		                   return 'Q ' + numeral(tooltipItem.yLabel).format('0,000.00'); 
+		               } 
+		           }
+		        }
+
 		};
 	
 	
@@ -69,8 +90,18 @@ angular.module('obligacionesController',[]).controller('obligacionesController',
 							mi.tot_dano3 += mi.dato[i].d2016;
 							mi.tot_dano4 += mi.dato[i].d2017;
 						}
+						
+						var serie = [mi.tot_dano1/1000000, mi.tot_dano2/1000000, mi.tot_dano3/1000000, mi.tot_dano4/1000000];
+						mi.grafica_data.push(serie);
 					}
 				}
 			});
+	
+	mi.getGraficaEntidad =  function(row){
+		mi.grafica_titulo = row.entidad_nombre;
+		var serie = [row.d2014/1000000,row.d2015/1000000,row.d2016/1000000,row.d2017/1000000];
+		mi.grafica_data = [];
+		mi.grafica_data.push(serie);
+	}
 	
 }]);
