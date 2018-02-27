@@ -37,8 +37,13 @@ body {
     content: '\25BC';
 }
 
+.st-selected {
+    background: #ccffff !important;
+}
+
 .titulo_grafica{
 	font-size: 14px;
 	font-weight: bold;
 	text-align: center;
 }
+

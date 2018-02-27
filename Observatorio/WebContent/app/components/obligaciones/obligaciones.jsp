@@ -13,7 +13,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="row in ctrl.displayedCollection" ng-click="ctrl.getGraficaEntidad(row);">
+							<tr st-select-row="row" st-select-mode="single" ng-repeat="row in ctrl.displayedCollection" ng-click="ctrl.getGraficaEntidad(row);">
 								<td align="left">
 									{{row.entidad_nombre }}
 								</td>
