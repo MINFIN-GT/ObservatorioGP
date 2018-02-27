@@ -22,6 +22,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import dao.EjecucionFisicaDAO;
+import utilities.CLogger;
 import utilities.Utils;
 
 @WebServlet("/SEjecucionFisica")
@@ -64,16 +65,7 @@ public class SEjecucionFisica extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String response_text = "{ \"success\": false }";
 
-		response.setHeader("Content-Encoding", "gzip");
-		response.setCharacterEncoding("UTF-8");
-
-        OutputStream output = response.getOutputStream();
-		GZIPOutputStream gz = new GZIPOutputStream(output);
-        gz.write(response_text.getBytes("UTF-8"));
-        gz.close();
-        output.close();
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -95,13 +87,12 @@ public class SEjecucionFisica extends HttpServlet {
 		Integer programa = Utils.String2Int(map.get("programa"));
 		Integer subPrograma = Utils.String2Int(map.get("subPrograma"));
 		Integer actividad = Utils.String2Int(map.get("actividad"));
-		Integer obra = Utils.String2Int(map.get("obra"));
 		Integer codigo_meta = Utils.String2Int(map.get("codigo_meta")) != 0 ? Utils.String2Int(map.get("codigo_meta")) : null;
 		
 		if(accion.equals("getEjecucionFisica")){
 			try{
 				
-				ResultSet info = EjecucionFisicaDAO.getEjecucionFisica(entidad,unidadEjecutora,programa,subPrograma,actividad,obra);
+				ResultSet info = EjecucionFisicaDAO.getEjecucionFisica(entidad,unidadEjecutora,programa,subPrograma,actividad);
 				List<stejecucionfisica> lstejecucionfisica = new ArrayList<stejecucionfisica>();
 				
 				while(info.next()){
@@ -127,11 +118,11 @@ public class SEjecucionFisica extends HttpServlet {
 				response_text = String.join(" ", "\"ejecucionFisica\": ", ejecucion_fisica);
 				response_text = String.join(" ","{\"success\": true,", response_text, "}");
 			}catch(Exception e){
-				e.getMessage();
+				CLogger.write("1", SEjecucionFisica.class, e);
 			}
 		}else if(accion.equals("getEjecucionFisicaMensual")){
 			try{
-				ResultSet info = EjecucionFisicaDAO.getEjecucionFisicaMensual(entidad,unidadEjecutora,programa,subPrograma,actividad,obra, codigo_meta);
+				ResultSet info = EjecucionFisicaDAO.getEjecucionFisicaMensual(entidad,unidadEjecutora,programa,subPrograma,actividad, codigo_meta);
 				List<stejecucionfisciamensual> lstejecucionfisicamensual = new ArrayList<stejecucionfisciamensual>();
 				
 				while(info.next()){
@@ -146,11 +137,11 @@ public class SEjecucionFisica extends HttpServlet {
 				response_text = String.join(" ", "\"ejecucionFisicaMensual\": ", ejecucion_fisica);
 				response_text = String.join(" ","{\"success\": true,", response_text, "}");
 			}catch(Exception e){
-				e.getMessage();
+				CLogger.write("2", SEjecucionFisica.class, e);
 			}
 		}else if(accion.equals("getVectoresValores")){
 			try{
-				ResultSet info = EjecucionFisicaDAO.getVectorValores(entidad,unidadEjecutora,programa,subPrograma,actividad,obra, codigo_meta);
+				ResultSet info = EjecucionFisicaDAO.getVectorValores(entidad,unidadEjecutora,programa,subPrograma,actividad, codigo_meta);
 				List<stvectorvalores> lstvectorvalores = new ArrayList<stvectorvalores>();
 				while(info.next()){
 					stvectorvalores temp = new stvectorvalores();
@@ -166,7 +157,7 @@ public class SEjecucionFisica extends HttpServlet {
 				response_text = String.join(" ", "\"vectorValores\": ", ejecucion_fisica);
 				response_text = String.join(" ","{\"success\": true,", response_text, "}");
 			}catch(Exception e){
-				e.getMessage();
+				CLogger.write("3", SEjecucionFisica.class, e);
 			}
 		}
 		

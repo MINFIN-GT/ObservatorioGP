@@ -2,12 +2,12 @@ package dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
+import utilities.CLogger;
 import utilities.CMemsql;
 
 public class EjecucionFisicaDAO {
 	
-	public static ResultSet getEjecucionFisica(Integer entidad, Integer unidad_ejecutora, Integer programa, Integer sub_programa, Integer actividad, Integer obra){
+	public static ResultSet getEjecucionFisica(Integer entidad, Integer unidad_ejecutora, Integer programa, Integer sub_programa, Integer actividad){
 		String query = "";
 		ResultSet result = null;
 		try{
@@ -25,7 +25,7 @@ public class EjecucionFisicaDAO {
 						"IFNULL(NULLIF(sum(case when mef.ejercicio = YEAR(CURDATE()) then ifnull(mef.cantidad,0) else 0 end) + sum(case when mef.ejercicio = YEAR(CURDATE()) then ifnull(mef.modificacion,0) else 0 end),0),1) p_ejecucion",
 						"FROM mv_ejecucion_fisica mef", 
 						"WHERE mef.proyecto=0 and mef.entidad=?  and mef.unidad_ejecutora=? and ",
-						"mef.programa=?  and mef.subprograma=?  and mef.actividad=? and mef.obra=?", 
+						"mef.programa=?  and mef.subprograma=?  and mef.actividad=? and mef.obra=0", 
 						"GROUP BY mef.codigo_meta, mef.meta_descripcion");
 				
 				PreparedStatement pstmt = CMemsql.getConnection().prepareStatement(query);
@@ -34,12 +34,12 @@ public class EjecucionFisicaDAO {
 				pstmt.setInt(3, programa);
 				pstmt.setInt(4, sub_programa);
 				pstmt.setInt(5, actividad);
-				pstmt.setInt(6, obra);
 				
 				result = CMemsql.runPreparedStatement(pstmt);
 			}
 			return result;
 		}catch(Exception e){
+			CLogger.write("1", EjecucionFisicaDAO.class, e);
 			return result;
 		}
 	}
@@ -74,11 +74,12 @@ public class EjecucionFisicaDAO {
 			
 			return result;
 		}catch(Exception e){
+			CLogger.write("2", EjecucionFisicaDAO.class, e);
 			return null;
 		}
 	}
 	
-	public static ResultSet getEjecucionFisicaMensual(Integer entidad, Integer unidad_ejecutora, Integer programa, Integer sub_programa, Integer actividad, Integer obra, Integer codigo_meta){
+	public static ResultSet getEjecucionFisicaMensual(Integer entidad, Integer unidad_ejecutora, Integer programa, Integer sub_programa, Integer actividad, Integer codigo_meta){
 		ResultSet result = null;
 		String query = "";
 		
@@ -88,7 +89,7 @@ public class EjecucionFisicaDAO {
 						"sum(IFNULL(mef.ejecucion,0)) / IFNULL(NULLIF(sum(ifnull(mef.cantidad,0)) + sum(ifnull(mef.modificacion,0)),0),1) p_ejecucion",
 						"FROM mv_ejecucion_fisica mef",
 						"WHERE mef.proyecto=0 and mef.entidad=? and mef.unidad_ejecutora=? and", 
-						"mef.programa=? and mef.subprograma=? and mef.actividad=? and mef.obra=?",
+						"mef.programa=? and mef.subprograma=? and mef.actividad=? and mef.obra=0",
 						codigo_meta != null ? "and mef.codigo_meta=?" : "", 
 						"GROUP BY mef.ejercicio, mef.mes");
 				
@@ -98,20 +99,20 @@ public class EjecucionFisicaDAO {
 				pstmt.setInt(3, programa);
 				pstmt.setInt(4, sub_programa);
 				pstmt.setInt(5, actividad);
-				pstmt.setInt(6, obra);
 				if(codigo_meta != null)
-					pstmt.setInt(7, codigo_meta);
+					pstmt.setInt(6, codigo_meta);
 				
 				result = CMemsql.runPreparedStatement(pstmt);
 			}
 			
 			return result;
 		}catch(Exception e){
+			CLogger.write("3", EjecucionFisicaDAO.class, e);
 			return null;
 		}
 	}
 	
-	public static ResultSet getVectorValores(Integer entidad, Integer unidad_ejecutora, Integer programa, Integer sub_programa, Integer actividad, Integer obra, Integer codigo_meta){
+	public static ResultSet getVectorValores(Integer entidad, Integer unidad_ejecutora, Integer programa, Integer sub_programa, Integer actividad, Integer codigo_meta){
 		ResultSet result = null;
 		String query = "";
 		
@@ -121,7 +122,7 @@ public class EjecucionFisicaDAO {
 					"sum(ejecucion) ejecucion, sum(modificacion) modificacion",
 					"FROM mv_ejecucion_fisica mef",
 					"WHERE mef.proyecto=0 and mef.entidad=? and mef.unidad_ejecutora=? and", 
-					"mef.programa=? and mef.subprograma=? and mef.actividad=? and mef.obra=?",
+					"mef.programa=? and mef.subprograma=? and mef.actividad=? and mef.obra=0",
 					codigo_meta != null ? "and mef.codigo_meta=?" : "", 
 					"GROUP BY mef.ejercicio, mef.mes");
 				
@@ -131,15 +132,15 @@ public class EjecucionFisicaDAO {
 				pstmt.setInt(3, programa);
 				pstmt.setInt(4, sub_programa);
 				pstmt.setInt(5, actividad);
-				pstmt.setInt(6, obra);
 				if(codigo_meta != null)
-					pstmt.setInt(7, codigo_meta);
+					pstmt.setInt(6, codigo_meta);
 				
 				result = CMemsql.runPreparedStatement(pstmt);
 			}
 			
 			return result;
 		}catch(Exception e){
+			CLogger.write("4", EjecucionFisicaDAO.class, e);
 			return null;
 		}
 	}
