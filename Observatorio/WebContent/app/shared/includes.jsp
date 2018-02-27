@@ -22,3 +22,4 @@
 <script type="text/javascript" src="/assets/libs/utilidades.js"></script>
 <script type="text/javascript" src="/assets/libs/numeral.es.js"></script>
 <script type="text/javascript" src="/assets/libs/numeral.min.js"></script>
+<script type="text/javascript" src="/assets/libs/moment.min.js"></script>
