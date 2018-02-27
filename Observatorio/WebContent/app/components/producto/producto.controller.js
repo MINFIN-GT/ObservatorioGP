@@ -1,5 +1,4 @@
-var app = angular.module('productoController', ['ui.grid','ui.grid.pinning','ngUtilidades']);
-app.controller('productoController',['$rootScope','$scope','$http', 
+angular.module('productoController', ['ngUtilidades']).controller('productoController',['$rootScope','$scope','$http', 
 	function($rootScope,$scope,$http){
 	var mi = this;
 	var fecha = new Date();

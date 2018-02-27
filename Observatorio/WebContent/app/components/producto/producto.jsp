@@ -10,7 +10,7 @@
 			<table st-table="ctrl.displayedCollection" st-safe-src="ctrl.rowCollection" class="table table-striped" st-filtered-collection>
 				<thead>
 					<tr>
-						<th style="width: 50%">Descripción</th>
+						<th style="width: 50%" st-sort="metaDescripcion">Descripción</th>
 						<th style="text-align: right; width: 10%">{{ctrl.anio - 4}}</th>
 						<th style="text-align: right; width: 10%">{{ctrl.anio - 3}}</th>
 						<th style="text-align: right; width: 10%">{{ctrl.anio - 2}}</th>
