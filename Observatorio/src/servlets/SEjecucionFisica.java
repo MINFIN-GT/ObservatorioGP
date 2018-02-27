@@ -4,10 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.lang.reflect.Type;
-import java.math.BigDecimal;
-import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.zip.GZIPOutputStream;
 
@@ -22,6 +19,9 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import dao.EjecucionFisicaDAO;
+import dao.EjecucionFisicaDAO.EjecucionFisciaMensual;
+import dao.EjecucionFisicaDAO.EjecucionFisica;
+import dao.EjecucionFisicaDAO.VectorValores;
 import utilities.CLogger;
 import utilities.Utils;
 
@@ -29,38 +29,7 @@ import utilities.Utils;
 public class SEjecucionFisica extends HttpServlet {
 	private static final long serialVersionUID = 1L;
       
-	class stejecucionfisica{
-		Integer codigo_meta;
-		String metaDescripcion;
-		BigDecimal p_ejecucion_4;
-		BigDecimal p_ejecucion_3;
-		BigDecimal p_ejecucion_2;
-		BigDecimal p_ejecucion_1;
-		BigDecimal p_ejecucion;
-		Integer entidad;
-		Integer unidadEjecutora;
-		Integer programa;
-		Integer subPrograma;
-		Integer actividad;
-		Integer obra;
-		Integer ejercicio;
-	}
-	
-	class stejecucionfisciamensual{
-		Integer ejercicio;
-		Integer mes;
-		BigDecimal p_ejecucion;
-	}
-	
-	class stvectorvalores{
-		Integer ejercicio;
-		Integer mes;
-		BigDecimal ejecucion;
-		BigDecimal modificacion;
-		BigDecimal cantidad;
-	}
-	
-    public SEjecucionFisica() {
+	public SEjecucionFisica() {
         super();
     }
 
@@ -92,27 +61,7 @@ public class SEjecucionFisica extends HttpServlet {
 		if(accion.equals("getEjecucionFisica")){
 			try{
 				
-				ResultSet info = EjecucionFisicaDAO.getEjecucionFisica(entidad,unidadEjecutora,programa,subPrograma,actividad);
-				List<stejecucionfisica> lstejecucionfisica = new ArrayList<stejecucionfisica>();
-				
-				while(info.next()){
-					stejecucionfisica temp = new stejecucionfisica();
-					temp.codigo_meta = info.getInt("codigo_meta");
-					temp.entidad = info.getInt("entidad");
-					temp.unidadEjecutora = info.getInt("unidad_ejecutora");
-					temp.programa = info.getInt("programa");
-					temp.subPrograma = info.getInt("subprograma");
-					temp.actividad = info.getInt("actividad");
-					temp.obra = info.getInt("obra");
-					temp.ejercicio = info.getInt("ejercicio");
-					temp.p_ejecucion_4 = info.getBigDecimal("p_ejecucion_4").multiply(new BigDecimal(100));
-					temp.p_ejecucion_3 = info.getBigDecimal("p_ejecucion_3").multiply(new BigDecimal(100));
-					temp.p_ejecucion_2 = info.getBigDecimal("p_ejecucion_2").multiply(new BigDecimal(100));
-					temp.p_ejecucion_1 = info.getBigDecimal("p_ejecucion_1").multiply(new BigDecimal(100));
-					temp.p_ejecucion = info.getBigDecimal("p_ejecucion").multiply(new BigDecimal(100));
-					temp.metaDescripcion = EjecucionFisicaDAO.getDescripcionProducto(temp.entidad, temp.unidadEjecutora, temp.programa, temp.subPrograma, temp.actividad, temp.obra, temp.ejercicio, temp.codigo_meta);
-					lstejecucionfisica.add(temp);
-				}
+				ArrayList<EjecucionFisica> lstejecucionfisica = EjecucionFisicaDAO.getEjecucionFisica(entidad,unidadEjecutora,programa,subPrograma,actividad);
 				
 				String ejecucion_fisica = new GsonBuilder().serializeNulls().create().toJson(lstejecucionfisica);
 				response_text = String.join(" ", "\"ejecucionFisica\": ", ejecucion_fisica);
@@ -122,16 +71,7 @@ public class SEjecucionFisica extends HttpServlet {
 			}
 		}else if(accion.equals("getEjecucionFisicaMensual")){
 			try{
-				ResultSet info = EjecucionFisicaDAO.getEjecucionFisicaMensual(entidad,unidadEjecutora,programa,subPrograma,actividad, codigo_meta);
-				List<stejecucionfisciamensual> lstejecucionfisicamensual = new ArrayList<stejecucionfisciamensual>();
-				
-				while(info.next()){
-					stejecucionfisciamensual temp = new stejecucionfisciamensual();
-					temp.ejercicio = info.getInt("ejercicio");
-					temp.mes = info.getInt("mes");
-					temp.p_ejecucion = info.getBigDecimal("p_ejecucion").multiply(new BigDecimal(100)).setScale(2, BigDecimal.ROUND_HALF_UP);
-					lstejecucionfisicamensual.add(temp);
-				}
+				ArrayList<EjecucionFisciaMensual> lstejecucionfisicamensual = EjecucionFisicaDAO.getEjecucionFisicaMensual(entidad,unidadEjecutora,programa,subPrograma,actividad, codigo_meta);
 				
 				String ejecucion_fisica = new GsonBuilder().serializeNulls().create().toJson(lstejecucionfisicamensual);
 				response_text = String.join(" ", "\"ejecucionFisicaMensual\": ", ejecucion_fisica);
@@ -141,17 +81,7 @@ public class SEjecucionFisica extends HttpServlet {
 			}
 		}else if(accion.equals("getVectoresValores")){
 			try{
-				ResultSet info = EjecucionFisicaDAO.getVectorValores(entidad,unidadEjecutora,programa,subPrograma,actividad, codigo_meta);
-				List<stvectorvalores> lstvectorvalores = new ArrayList<stvectorvalores>();
-				while(info.next()){
-					stvectorvalores temp = new stvectorvalores();
-					temp.ejercicio = info.getInt("ejercicio");
-					temp.mes = info.getInt("mes");
-					temp.ejecucion = info.getBigDecimal("ejecucion");
-					temp.modificacion = info.getBigDecimal("modificacion");
-					temp.cantidad = info.getBigDecimal("cantidad");
-					lstvectorvalores.add(temp);
-				}
+				ArrayList<VectorValores> lstvectorvalores = EjecucionFisicaDAO.getVectorValores(entidad,unidadEjecutora,programa,subPrograma,actividad, codigo_meta);
 				
 				String ejecucion_fisica = new GsonBuilder().serializeNulls().create().toJson(lstvectorvalores);
 				response_text = String.join(" ", "\"vectorValores\": ", ejecucion_fisica);

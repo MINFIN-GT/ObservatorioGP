@@ -72,12 +72,12 @@ angular.module('productoController', []).controller('productoController',['$root
 		$http.post('/SEjecucionFisica', 
 			{
 				accion : 'getEjecucionFisicaMensual',
-				entidad: row.entidad,
-				unidadEjecutora: row.unidadEjecutora,
-				programa: row.programa,
-				subProbrama: row.subPrograma,
-				actividad: row.actividad,
-				codigo_meta: row.codigo_meta,
+				entidad: mi.entidad,
+				unidadEjecutora: mi.unidadEjecutora,
+				programa: mi.programa,
+				subProbrama: mi.subPrograma,
+				actividad: mi.actividad,
+				codigo_meta: mi.codigo_meta,
 				t: new Date().getTime()
 			}).then(function(response){
 				if (response.data.success){
@@ -120,12 +120,12 @@ angular.module('productoController', []).controller('productoController',['$root
 			$http.post('/SEjecucionFisica', 
 				{
 					accion: 'getVectoresValores', 
-					entidad: row.entidad,
-					unidadEjecutora: row.unidadEjecutora,
-					programa: row.programa,
-					subProbrama: row.subPrograma,
-					actividad: row.actividad,
-					codigo_meta: row.codigo_meta,
+					entidad: mi.entidad,
+					unidadEjecutora: mi.unidadEjecutora,
+					programa: mi.programa,
+					subProbrama: mi.subPrograma,
+					actividad: mi.actividad,
+					codigo_meta: mi.codigo_meta,
 					t: new Date().getTime()
 				}).then(
 				function(response){
