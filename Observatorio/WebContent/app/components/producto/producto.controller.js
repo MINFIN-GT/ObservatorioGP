@@ -204,7 +204,14 @@ angular.module('productoController', []).controller('productoController',['$root
 	}
 	
 	mi.options = {
-		line : { tension : 1 },
+		elements: {
+	        line: {
+	            tension: 0
+	        },
+	        point:{
+	        	radius: 5
+	        }
+	    },
 		legend: {
 			display: true,
 			position: 'bottom',
@@ -238,9 +245,4 @@ angular.module('productoController', []).controller('productoController',['$root
 		      ]
 		}
 	};
-	
-	mi.datasetOverride = [{
-        yAxisID: 'y-axis-1',
-        tension: 0
-    }]
 }])

@@ -78,7 +78,7 @@
 			<div align="center">
 				<canvas id="line" class="chart chart-line" chart-data="ctrl.data"
 					chart-labels="ctrl.labels" chart-series="ctrl.series" chart-options="ctrl.options"
-					chart-dataset-override="ctrl.datasetOverride" chart-legend="true">
+					chart-legend="true">
 				</canvas>
 			</div>
 		</div>
