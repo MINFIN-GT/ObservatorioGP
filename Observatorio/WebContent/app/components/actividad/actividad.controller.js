@@ -32,7 +32,8 @@ angular.module('actividadController',[]).controller('actividadController', ['$ro
 		entidad: mi.entidad,
 		unidadEjecutora: mi.unidadEjecutora,
 		programa: mi.programa,
-		subPrograma: mi.subPrograma
+		subPrograma: mi.subPrograma,
+		t: new Date().getTime()
 	}).then(function(response){
 		if(response.data.actividades){
 			mi.dato = [];
@@ -85,7 +86,8 @@ angular.module('actividadController',[]).controller('actividadController', ['$ro
 			unidadEjecutora: mi.unidadEjecutora,
 			programa: mi.programa,
 			subPrograma: mi.subPrograma,
-			actividad: row.id
+			actividad: row.id,
+			t: new Date().getTime()
 		}).then(function(response){
 			if(response.data.success){
 				var datoMensual = [];
