@@ -19,6 +19,9 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
          .when('/producto/:entidad/:unidadejecutora/:programa/:subprograma/:actividad',{
          	template: '<div load-on-demand="\'productoController\'" class="all_page"></div>'
          })
+         .when('/actividad/:entidad/:unidadejecutora/:programa/:subprograma',{
+         	template: '<div load-on-demand="\'actividadController\'" class="all_page"></div>'
+         })
          .when("/:redireccion?",{
             	controller:"MainController"
             })
@@ -50,6 +53,11 @@ app.config(['$loadOnDemandProvider', function ($loadOnDemandProvider) {
 	    	   name: 'productoController',
 	    	   script: '/app/components/producto/producto.controller.js',
 	    	   template: '/app/components/producto/producto.jsp'
+	       },
+	       {
+	    	   name: 'actividadController',
+	    	   script: '/app/components/actividad/actividad.controller.js',
+	    	   template: '/app/components/actividad/actividad.jsp'
 	       }
 	   ];
 	   $loadOnDemandProvider.config(modules);
@@ -73,7 +81,4 @@ app.controller('MainController',['$scope','$document','$rootScope','$location','
 	    		$window.ga('send', 'pageview', $location.path());
 			}
 	    });
-		
-		var fecha = new Date();
-		$scope.anio = fecha.getFullYear();
 	}]);
