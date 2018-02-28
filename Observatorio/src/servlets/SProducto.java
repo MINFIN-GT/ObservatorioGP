@@ -18,18 +18,18 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import dao.EjecucionFisicaDAO;
-import dao.EjecucionFisicaDAO.EjecucionFisciaMensual;
-import dao.EjecucionFisicaDAO.EjecucionFisica;
-import dao.EjecucionFisicaDAO.VectorValores;
+import dao.ProductoDAO;
+import dao.ProductoDAO.EjecucionFisciaMensual;
+import dao.ProductoDAO.EjecucionFisica;
+import dao.ProductoDAO.VectorValores;
 import utilities.CLogger;
 import utilities.Utils;
 
-@WebServlet("/SEjecucionFisica")
-public class SEjecucionFisica extends HttpServlet {
+@WebServlet("/SProducto")
+public class SProducto extends HttpServlet {
 	private static final long serialVersionUID = 1L;
       
-	public SEjecucionFisica() {
+	public SProducto() {
         super();
     }
 
@@ -61,33 +61,33 @@ public class SEjecucionFisica extends HttpServlet {
 		if(accion.equals("getEjecucionFisica")){
 			try{
 				
-				ArrayList<EjecucionFisica> lstejecucionfisica = EjecucionFisicaDAO.getEjecucionFisica(entidad,unidadEjecutora,programa,subPrograma,actividad);
+				ArrayList<EjecucionFisica> lstejecucionfisica = ProductoDAO.getEjecucionFisica(entidad,unidadEjecutora,programa,subPrograma,actividad);
 				
 				String ejecucion_fisica = new GsonBuilder().serializeNulls().create().toJson(lstejecucionfisica);
 				response_text = String.join(" ", "\"ejecucionFisica\": ", ejecucion_fisica);
 				response_text = String.join(" ","{\"success\": true,", response_text, "}");
 			}catch(Exception e){
-				CLogger.write("1", SEjecucionFisica.class, e);
+				CLogger.write("1", SProducto.class, e);
 			}
 		}else if(accion.equals("getEjecucionFisicaMensual")){
 			try{
-				ArrayList<EjecucionFisciaMensual> lstejecucionfisicamensual = EjecucionFisicaDAO.getEjecucionFisicaMensual(entidad,unidadEjecutora,programa,subPrograma,actividad, codigo_meta);
+				ArrayList<EjecucionFisciaMensual> lstejecucionfisicamensual = ProductoDAO.getEjecucionFisicaMensual(entidad,unidadEjecutora,programa,subPrograma,actividad, codigo_meta);
 				
 				String ejecucion_fisica = new GsonBuilder().serializeNulls().create().toJson(lstejecucionfisicamensual);
 				response_text = String.join(" ", "\"ejecucionFisicaMensual\": ", ejecucion_fisica);
 				response_text = String.join(" ","{\"success\": true,", response_text, "}");
 			}catch(Exception e){
-				CLogger.write("2", SEjecucionFisica.class, e);
+				CLogger.write("2", SProducto.class, e);
 			}
 		}else if(accion.equals("getVectoresValores")){
 			try{
-				ArrayList<VectorValores> lstvectorvalores = EjecucionFisicaDAO.getVectorValores(entidad,unidadEjecutora,programa,subPrograma,actividad, codigo_meta);
+				ArrayList<VectorValores> lstvectorvalores = ProductoDAO.getVectorValores(entidad,unidadEjecutora,programa,subPrograma,actividad, codigo_meta);
 				
 				String ejecucion_fisica = new GsonBuilder().serializeNulls().create().toJson(lstvectorvalores);
 				response_text = String.join(" ", "\"vectorValores\": ", ejecucion_fisica);
 				response_text = String.join(" ","{\"success\": true,", response_text, "}");
 			}catch(Exception e){
-				CLogger.write("3", SEjecucionFisica.class, e);
+				CLogger.write("3", SProducto.class, e);
 			}
 		}
 		

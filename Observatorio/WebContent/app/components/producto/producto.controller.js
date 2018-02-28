@@ -22,7 +22,7 @@ angular.module('productoController', []).controller('productoController',['$root
 	mi.subPrograma = $routeParams.subprograma;
 	mi.actividad = $routeParams.actividad;
 	
-	$http.post('/SEjecucionFisica',
+	$http.post('/SProducto',
 		{
 			accion: 'getEjecucionFisica',
 			entidad: mi.entidad,
@@ -69,7 +69,7 @@ angular.module('productoController', []).controller('productoController',['$root
 	
 	mi.getInfoGraficas = function(row){
 		mi.limpiarData();
-		$http.post('/SEjecucionFisica', 
+		$http.post('/SProducto', 
 			{
 				accion : 'getEjecucionFisicaMensual',
 				entidad: mi.entidad,
@@ -117,7 +117,7 @@ angular.module('productoController', []).controller('productoController',['$root
 				}
 			});
 				
-			$http.post('/SEjecucionFisica', 
+			$http.post('/SProducto', 
 				{
 					accion: 'getVectoresValores', 
 					entidad: mi.entidad,

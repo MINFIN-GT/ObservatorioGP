@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import utilities.CLogger;
 import utilities.CMemsql;
 
-public class EjecucionFisicaDAO {
+public class ProductoDAO {
 	
 	public class EjecucionFisica{
 		Integer codigo_meta;
@@ -66,7 +66,7 @@ public class EjecucionFisicaDAO {
 				ResultSet rs = CMemsql.runPreparedStatement(pstmt);
 				
 				while(rs.next()){
-					EjecucionFisica temp = (new EjecucionFisicaDAO()).new EjecucionFisica();
+					EjecucionFisica temp = (new ProductoDAO()).new EjecucionFisica();
 					temp.codigo_meta = rs.getInt("codigo_meta");
 					temp.ejercicio = rs.getInt("ejercicio");
 					temp.p_ejecucion_4 = rs.getBigDecimal("p_ejecucion_4").multiply(new BigDecimal(100));
@@ -81,7 +81,7 @@ public class EjecucionFisicaDAO {
 			}
 			return ret;
 		}catch(Exception e){
-			CLogger.write("1", EjecucionFisicaDAO.class, e);
+			CLogger.write("1", ProductoDAO.class, e);
 			return ret;
 		}
 	}
@@ -115,7 +115,7 @@ public class EjecucionFisicaDAO {
 			
 			return result;
 		}catch(Exception e){
-			CLogger.write("2", EjecucionFisicaDAO.class, e);
+			CLogger.write("2", ProductoDAO.class, e);
 			return null;
 		}
 	}
@@ -146,7 +146,7 @@ public class EjecucionFisicaDAO {
 				ResultSet rs = CMemsql.runPreparedStatement(pstmt);
 				
 				while(rs.next()){
-					EjecucionFisciaMensual temp = (new EjecucionFisicaDAO()).new EjecucionFisciaMensual();
+					EjecucionFisciaMensual temp = (new ProductoDAO()).new EjecucionFisciaMensual();
 					temp.ejercicio = rs.getInt("ejercicio");
 					temp.mes = rs.getInt("mes");
 					temp.p_ejecucion = rs.getBigDecimal("p_ejecucion").multiply(new BigDecimal(100)).setScale(2, BigDecimal.ROUND_HALF_UP);
@@ -156,7 +156,7 @@ public class EjecucionFisicaDAO {
 			
 			return ret;
 		}catch(Exception e){
-			CLogger.write("3", EjecucionFisicaDAO.class, e);
+			CLogger.write("3", ProductoDAO.class, e);
 			return ret;
 		}
 	}
@@ -186,7 +186,7 @@ public class EjecucionFisicaDAO {
 				
 				ResultSet rs = CMemsql.runPreparedStatement(pstmt);
 				while(rs.next()){
-					VectorValores temp = (new EjecucionFisicaDAO()).new VectorValores();
+					VectorValores temp = (new ProductoDAO()).new VectorValores();
 					temp.ejercicio = rs.getInt("ejercicio");
 					temp.mes = rs.getInt("mes");
 					temp.ejecucion = rs.getBigDecimal("ejecucion");
@@ -198,7 +198,7 @@ public class EjecucionFisicaDAO {
 			
 			return ret;
 		}catch(Exception e){
-			CLogger.write("4", EjecucionFisicaDAO.class, e);
+			CLogger.write("4", ProductoDAO.class, e);
 			return ret;
 		}
 	}
