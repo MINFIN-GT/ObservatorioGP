@@ -22,6 +22,9 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
          .when('/actividad/:entidad/:unidadejecutora/:programa/:subprograma',{
          	template: '<div load-on-demand="\'actividadController\'" class="all_page"></div>'
          })
+         .when('/subprograma/:entidad/:unidadejecutora/:programa',{
+         	template: '<div load-on-demand="\'subprogramaController\'" class="all_page"></div>'
+         })
          .when("/:redireccion?",{
             	controller:"MainController"
             })
@@ -58,6 +61,11 @@ app.config(['$loadOnDemandProvider', function ($loadOnDemandProvider) {
 	    	   name: 'actividadController',
 	    	   script: '/app/components/actividad/actividad.controller.js',
 	    	   template: '/app/components/actividad/actividad.jsp'
+	       },
+	       {
+	    	   name: 'subprogramaController',
+	    	   script: '/app/components/subprograma/subprograma.controller.js',
+	    	   template: '/app/components/subprograma/subprograma.jsp'
 	       }
 	   ];
 	   $loadOnDemandProvider.config(modules);
