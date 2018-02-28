@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 	<div ng-controller="obligacionesController as ctrl">
+			<h3>Obligaciones</h3>
+			<br/>
 			<div align="center" class="row" style="width: 80%; margin: 0 auto;">
 					<table st-table="ctrl.displayedCollection" st-safe-src="ctrl.rowCollection" class="table table-striped" st-filtered-collection>
 						<thead>

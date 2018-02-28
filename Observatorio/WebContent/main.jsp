@@ -11,7 +11,7 @@
 <title>Observatorio</title>
 </head>
 <body ng-app="observatorio" ng-controller="MainController as mainController">
-	<div align="center">
+	<div align="center" style="margin-top: 40px;">
 		<div class="btn-group btn-group-lg">
 			<label class="btn btn-default"><a href="/main.jsp#!/ri"><span>RI</span></a></label>
 			<label class="btn btn-default"><a href="/main.jsp#!/re"><span>RE</span></a></label>
