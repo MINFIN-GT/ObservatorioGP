@@ -19,6 +19,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import dao.SubprogramaDAO;
+import dao.SubprogramaDAO.AnioEjecucion;
 import dao.SubprogramaDAO.Subprograma;
 import utilities.Utils;
 
@@ -60,11 +61,11 @@ public class SSubprograma extends HttpServlet {
 			response_text = String.join(" ", "\"subprogramas\": ", subprogramas);
 			response_text = String.join(" ","{\"success\": true,", response_text, "}");
 		}else if(accion.equals("getInfoMensual")){
-//			ArrayList<> lstejecucionfisicafinanciera= SubprogramaDAO.getEjecucionFisicaFinancieraPonderadaMensual(entidad, unidadEjecutora, programa, subPrograma);
+			ArrayList<AnioEjecucion> lstejecucionfisicafinanciera= SubprogramaDAO.getEjecucionFisicaFinancieraPonderadaMensual(entidad, unidadEjecutora, programa, subPrograma);
 			
-//			String informacionMensual = new GsonBuilder().serializeNulls().create().toJson(lstejecucionfisicafinanciera);
-//			response_text = String.join(" ", "\"informacionMensual\": ", informacionMensual);
-//			response_text = String.join(" ","{\"success\": true,", response_text, "}");
+			String informacionMensual = new GsonBuilder().serializeNulls().create().toJson(lstejecucionfisicafinanciera);
+			response_text = String.join(" ", "\"informacionMensual\": ", informacionMensual);
+			response_text = String.join(" ","{\"success\": true,", response_text, "}");
 		}
 		
 		response.setHeader("Content-Encoding", "gzip");
