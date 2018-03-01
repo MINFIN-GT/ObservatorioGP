@@ -28,3 +28,22 @@ body {
 	width: 100%;
 	display: flex;
 }
+
+.st-sort-ascent:before{
+    content: '\25B2';
+}
+
+.st-sort-descent:before{
+    content: '\25BC';
+}
+
+.st-selected {
+    background: #ccffff !important;
+}
+
+.titulo_grafica{
+	font-size: 14px;
+	font-weight: bold;
+	text-align: center;
+}
+

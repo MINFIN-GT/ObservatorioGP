@@ -3,11 +3,9 @@ package servlets;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Map;
 import java.util.zip.GZIPOutputStream;
 
 import javax.servlet.ServletException;
@@ -20,33 +18,21 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-@WebServlet("/STest")
-public class STest extends HttpServlet {
+import dao.ActividadDAO;
+import dao.ActividadDAO.Actividad;
+import dao.ActividadDAO.EjecucionFisicaFinanciera;
+import utilities.Utils;
+
+@WebServlet("/SActividad")
+public class SActividad extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    
-	class sttest{
-		Integer cantidad;
-		String zona;
-		String lugar;		
-	}
-	
-	String[] lugares = {"Champerico","El Asintal", "Nuevo San Carlos", "Retalhuleu", "San Andrés Villa Seca", "San Felipe", "San Martín Zapotitlán", "San Sebastián"};
-	
-    public STest() {
+       
+    public SActividad() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String response_text = "{ \"success\": false }";
 
-		response.setHeader("Content-Encoding", "gzip");
-		response.setCharacterEncoding("UTF-8");
-
-        OutputStream output = response.getOutputStream();
-		GZIPOutputStream gz = new GZIPOutputStream(output);
-        gz.write(response_text.getBytes("UTF-8"));
-        gz.close();
-        output.close();
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -63,22 +49,23 @@ public class STest extends HttpServlet {
 		String accion = map.get("accion");
 		String response_text="";
 		
-		if(accion.equals("getData")){
-			List<sttest> lsttest = new ArrayList<sttest>();
+		Integer entidad = Utils.String2Int(map.get("entidad"));
+		Integer unidadEjecutora = Utils.String2Int(map.get("unidadEjecutora"));
+		Integer programa = Utils.String2Int(map.get("programa"));
+		Integer subPrograma = Utils.String2Int(map.get("subPrograma"));
+		Integer actividad = Utils.String2Int(map.get("actividad")) != 0 ? Utils.String2Int(map.get("actividad")) : null;
+		
+		if(accion.equals("getActividades")){
+			ArrayList<Actividad> lstactividades = ActividadDAO.getActividades(entidad, unidadEjecutora, programa, subPrograma);
 			
-			for(int i=0; i<5; i++){
-				sttest test = new sttest();
-				Random rn = new Random();
-				test.zona = "Zona " + (i+1); 
-				test.cantidad = rn.nextInt(100000) + 1;
-				Random rn2 = new Random();
-				test.lugar = lugares[rn2.nextInt(6) +1];
-				lsttest.add(test);
-			}
+			String actividades = new GsonBuilder().serializeNulls().create().toJson(lstactividades);
+			response_text = String.join(" ", "\"actividades\": ", actividades);
+			response_text = String.join(" ","{\"success\": true,", response_text, "}");
+		}else if(accion.equals("getInfoMensual")){
+			ArrayList<EjecucionFisicaFinanciera> lstejecucionfisicafinanciera= ActividadDAO.getEjecucionFisicaFinancieraMensual(entidad, unidadEjecutora, programa, subPrograma, actividad);
 			
-			String valores = new GsonBuilder().serializeNulls().create().toJson(lsttest);
-			
-			response_text = String.join(" ", "\"valores\": ", valores);
+			String informacionMensual = new GsonBuilder().serializeNulls().create().toJson(lstejecucionfisicafinanciera);
+			response_text = String.join(" ", "\"informacionMensual\": ", informacionMensual);
 			response_text = String.join(" ","{\"success\": true,", response_text, "}");
 		}
 		

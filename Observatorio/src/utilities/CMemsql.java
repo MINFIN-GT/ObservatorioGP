@@ -13,29 +13,25 @@ import utilities.CProperties;
 
 public class CMemsql {
 	private static Connection connection;
-	private static Connection connection_analytic;
 	private static String host;
 	private static Integer port; 
 	private static String user;
 	private static String password;
 	private static String schema;
-	private static String schema_analytic;
 	
 	private static Statement st;
 	
 	static {		
-		host = CProperties.getMaria_host();
-		port = CProperties.getMaria_port();
-		user = CProperties.getMaria_user();
-		password = CProperties.getMaria_password();
-		schema = CProperties.getMaria_schema();
-		schema_analytic = CProperties.getMaria_schema_analytic();
-		
+		host = CProperties.getmemsql_host();
+		port = CProperties.getmemsql_port();
+		user = CProperties.getmemsql_user();
+		password = CProperties.getmemsql_password();
+		schema = CProperties.getmemsql_schema();		
 	}
 	
 	public static boolean connect(){
 		try{
-			Class.forName("org.mariadb.jdbc.Driver").newInstance();
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			connection=DriverManager.getConnection("jdbc:mysql://"+host+":"+port+"/"+schema+"?" +
                     "user="+user+"&password="+password);
 			if(!connection.isClosed())
@@ -44,7 +40,7 @@ public class CMemsql {
 		catch(Exception e){
 			try{
 				host = "localhost";
-				Class.forName("org.mariadb.jdbc.Driver").newInstance();
+				Class.forName("com.mysql.jdbc.Driver").newInstance();
 				connection=DriverManager.getConnection("jdbc:mysql://"+host+":"+port+"/"+schema+"?" +
 	                    "user="+user+"&password="+password);
 				if(!connection.isClosed())
@@ -131,45 +127,4 @@ public class CMemsql {
 		}
 		return ret;
 	}
-	
-	public static boolean connectAnalytic(){
-		try{
-			Class.forName("org.mariadb.jdbc.Driver").newInstance();
-			connection_analytic=DriverManager.getConnection("jdbc:mysql://"+host+":"+port+"/"+schema_analytic+"?" +
-                    "user="+user+"&password="+password);
-			if(!connection_analytic.isClosed())
-				return true;
-		}
-		catch(Exception e){
-			try{
-				host = "localhost";
-				Class.forName("org.mariadb.jdbc.Driver").newInstance();
-				connection_analytic=DriverManager.getConnection("jdbc:mysql://"+host+":"+port+"/"+schema_analytic+"?" +
-	                    "user="+user+"&password="+password);
-				if(!connection_analytic.isClosed())
-					return true;
-				
-			}catch(Exception ee){
-				CLogger.writeFullConsole("Error 7 : CMariaDB.class ", ee);
-			}
-			
-			
-			
-		}
-		return false;
-	}
-	
-	public static Connection getConnection_analytic(){
-		return connection_analytic;
-	}
-	
-
-	public static void close_analytic(){
-		try {
-			connection_analytic.close();
-		} catch (SQLException e) {
-			CLogger.writeFullConsole("Error 8 : CMariaDB.class ", e);
-		}
-	}
-
 }

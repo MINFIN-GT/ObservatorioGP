@@ -10,5 +10,5 @@
 		jdbcInterceptors="org.apache.tomcat.jdbc.pool.interceptor.ConnectionState;
             org.apache.tomcat.jdbc.pool.interceptor.StatementFinalizer"
 		username="root" password="" driverClassName="com.mysql.jdbc.Driver"
-		url="jdbc:mysql://172.18.28.202:3000/minfin" />
+		url="jdbc:mysql://172.20.1.202:3000/minfin" />
 </Context>
