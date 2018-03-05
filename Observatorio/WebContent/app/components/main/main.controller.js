@@ -19,6 +19,9 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
          .when('/deuda',{
          	template: '<div load-on-demand="\'deudaController\'" class="all_page"></div>'
          })
+         .when('/deuda_detalle',{
+         	template: '<div load-on-demand="\'deudadetalleController\'" class="all_page"></div>'
+         })
          .when('/producto/:entidad/:unidadejecutora/:programa/:subprograma/:actividad',{
          	template: '<div load-on-demand="\'productoController\'" class="all_page"></div>'
          })
@@ -59,6 +62,11 @@ app.config(['$loadOnDemandProvider', function ($loadOnDemandProvider) {
 	    	   name: 'deudaController',
 	    	   script: '/app/components/deuda/deuda.controller.js',
 	    	   template: '/app/components/deuda/deuda.jsp'
+	       },
+	       {
+	    	   name: 'deudadetalleController',
+	    	   script: '/app/components/deuda/deuda_detalle.controller.js',
+	    	   template: '/app/components/deuda/deuda_detalle.jsp'
 	       },
 	       {
 	    	   name: 'productoController',
