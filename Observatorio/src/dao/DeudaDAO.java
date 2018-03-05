@@ -87,7 +87,7 @@ public class DeudaDAO {
 						"where ejercicio >= ? "+
 						"group by tipo_deuda, tipo_deuda_nombre, clasificacion, clasificacion_nombre, programa, programa_nombre, " +
 						"actividad, actividad_obra_nombre, ejercicio " +
-						"order by tipo_deuda, ejercicio";
+						"order by tipo_deuda, clasificacion, programa, actividad, renglon, ejercicio";
 				break;
 		}
 		try{
@@ -98,8 +98,14 @@ public class DeudaDAO {
 				ResultSet rs = pstm.executeQuery();
 				int entidad_actual = -1;
 				Deuda deuda=null;
+				Deuda deuda_renglon=null;
 				Double[] datos = null;
 				Double[] totales = new Double[25];
+				int tipo_deuda = 0;
+				int clasificacion = 0;
+				int programa = 0; 
+				int actividad = 0;
+				int renglon = 0;
 				for(int i=0; i<25; i++)
 					totales[i] = 0.0d;
 				while(rs.next()){
@@ -122,7 +128,60 @@ public class DeudaDAO {
 						deuda.ejercicio_data.add(datos);
 					}
 					else if(nivel==2){
-						
+						if(tipo_deuda!=rs.getInt(2)){
+							deuda = (new DeudaDAO()).new Deuda();
+							deuda.entdiad_id = rs.getInt(2);
+							deuda.entidad_nombre = rs.getString(3);
+							deuda.nivel = 1;
+							deuda.ejercicio_data = new ArrayList<Double[]>();
+							deuda.ejercicios = new ArrayList<Integer>();
+							tipo_deuda = deuda.entdiad_id;
+							ret.add(deuda);
+						}
+						if(clasificacion!=rs.getInt(4)){
+							deuda = (new DeudaDAO()).new Deuda();
+							deuda.entdiad_id = rs.getInt(4);
+							deuda.entidad_nombre = rs.getString(5);
+							deuda.nivel = 2;
+							deuda.ejercicio_data = new ArrayList<Double[]>();
+							deuda.ejercicios = new ArrayList<Integer>();
+							clasificacion = deuda.entdiad_id;
+							ret.add(deuda);
+						}
+						if(programa!=rs.getInt(6)){
+							deuda = (new DeudaDAO()).new Deuda();
+							deuda.entdiad_id = rs.getInt(6);
+							deuda.entidad_nombre = rs.getString(7);
+							deuda.nivel = 3;
+							deuda.ejercicio_data = new ArrayList<Double[]>();
+							deuda.ejercicios = new ArrayList<Integer>();
+							programa = deuda.entdiad_id;
+							ret.add(deuda);
+						}
+						if(actividad!=rs.getInt(8)){
+							deuda = (new DeudaDAO()).new Deuda();
+							deuda.entdiad_id = rs.getInt(8);
+							deuda.entidad_nombre = rs.getString(9);
+							deuda.nivel = 4;
+							deuda.ejercicio_data = new ArrayList<Double[]>();
+							deuda.ejercicios = new ArrayList<Integer>();
+							actividad = deuda.entdiad_id;
+							ret.add(deuda);
+						}
+						if(renglon!=rs.getInt(10)){
+							deuda_renglon = (new DeudaDAO()).new Deuda();
+							deuda_renglon.entdiad_id = rs.getInt(10);
+							deuda_renglon.entidad_nombre = rs.getString(11);
+							deuda_renglon.nivel = 5;
+							deuda_renglon.ejercicio_data = new ArrayList<Double[]>();
+							deuda_renglon.ejercicios = new ArrayList<Integer>();
+							renglon = deuda_renglon.entdiad_id;
+						}
+						deuda_renglon.ejercicios.add(rs.getInt(1));
+						datos = new Double[25];
+						for(int i=0; i<25; i++)
+							datos[i] = rs.getDouble(i+13);
+						deuda_renglon.ejercicio_data.add(datos);
 					}
 				}
 				CMemsql.close();

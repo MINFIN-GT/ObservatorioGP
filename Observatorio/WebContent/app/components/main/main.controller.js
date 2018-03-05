@@ -65,8 +65,8 @@ app.config(['$loadOnDemandProvider', function ($loadOnDemandProvider) {
 	       },
 	       {
 	    	   name: 'deudadetalleController',
-	    	   script: '/app/components/deuda/deuda_detalle.controller.js',
-	    	   template: '/app/components/deuda/deuda_detalle.jsp'
+	    	   script: '/app/components/deuda_detalle/deuda_detalle.controller.js',
+	    	   template: '/app/components/deuda_detalle/deuda_detalle.jsp'
 	       },
 	       {
 	    	   name: 'productoController',

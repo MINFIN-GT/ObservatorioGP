@@ -67,8 +67,7 @@ angular.module('deudaController',[]).controller('deudaController',['$rootScope',
 	
 	$http.post('/SDeuda',
 			{
-				accion: 'getDeuda',
-				nivel: 1,
+				accion: 'getDeudaDetalle',
 				t: new Date().getTime()
 			}).then(			
 			function(response){
@@ -116,15 +115,11 @@ angular.module('deudaController',[]).controller('deudaController',['$rootScope',
 			mi.grafica_data.push([row.ejercicio_data[0][24]/1000000,row.ejercicio_data[1][24]/1000000, row.ejercicio_data[2][24]/1000000, row.ejercicio_data[3][24]/1000000, row.ejercicio_data[4][24]/1000000]);
 		}
 		else{
-			mi.grafica_titulo = "Presupuesto de Deuda Pública";
+			mi.grafica_titulo = "Presupuesto de Deuda Pública - Detalle";
 			for(var i=0; i<3; i++)
 				mi.grafica_data.push([mi.tot[0][i]/1000000,mi.tot[1][i]/1000000, mi.tot[2][i]/1000000, mi.tot[3][i]/1000000, mi.tot[4][i]/1000000]);
 		}
 		
-	}
-	
-	mi.goSegundoNivel = function(){
-		$window.location.href="/main.jsp#!deuda_detalle";
 	}
 	
 }]);

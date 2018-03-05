@@ -66,6 +66,12 @@ public class SDeuda extends HttpServlet {
 			response_text = String.join(" ", "\"deuda\": ", sdeuda);
 			response_text = String.join(" ","{\"success\": true,", response_text, "}");
 		}
+		else if(accion.equals("getDeudaDetalle")){
+			ArrayList<Deuda> deuda = DeudaDAO.getDeuda(2);
+			String sdeuda = new GsonBuilder().serializeNulls().create().toJson(deuda);
+			response_text = String.join(" ", "\"deuda\": ", sdeuda);
+			response_text = String.join(" ","{\"success\": true,", response_text, "}");
+		}
 		response.setHeader("Content-Encoding", "gzip");
 		response.setCharacterEncoding("UTF-8");
 

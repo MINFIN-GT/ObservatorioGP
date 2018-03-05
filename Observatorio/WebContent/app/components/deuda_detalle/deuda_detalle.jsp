@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 	<div ng-controller="deudaController as ctrl">
-			<h3>Presupuesto de Deuda Pública</h3>
+			<h3>Presupuesto de Deuda Pública - Detalle</h3>
 			<br/>
 			<div align="center" class="row" style="width: 80%; margin: 0 auto;">
 					<table st-table="ctrl.displayedCollection" st-safe-src="ctrl.rowCollection" class="table table-striped" st-filtered-collection>
@@ -34,7 +34,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr st-select-row="row" st-select-mode="single" ng-repeat="row in ctrl.displayedCollection" ng-click="ctrl.getGraficaEntidad(row);" ng-dblclick="ctrl.goSegundoNivel()" class="smart_table_withclick">
+							<tr st-select-row="row" st-select-mode="single" ng-repeat="row in ctrl.displayedCollection" ng-click="ctrl.getGraficaEntidad(row);" class="smart_table_withclick">
 								<td align="left" style="white-space: nowrap;">
 									<span ng-class="{{ 'deuda_tab_'+row.nivel }}">{{row.entidad_nombre }}</span>
 								</td>
