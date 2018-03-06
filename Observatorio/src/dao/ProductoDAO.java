@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import utilities.CLogger;
 import utilities.CMemsql;
@@ -14,6 +13,7 @@ public class ProductoDAO {
 	public class EjecucionFisica{
 		Integer codigo_meta;
 		String metaDescripcion;
+		String unidad_medida;
 		BigDecimal p_ejecucion_4;
 		BigDecimal p_ejecucion_3;
 		BigDecimal p_ejecucion_2;
@@ -32,20 +32,26 @@ public class ProductoDAO {
 	public static ArrayList<EjecucionFisica> getEjecucionFisica(Integer entidad, Integer unidadEjecutora, Integer programa, Integer subPrograma, Integer actividad){
 		String query = "";
 		ArrayList<EjecucionFisica> ret = new ArrayList<EjecucionFisica>();
-		int anio = Calendar.getInstance().get(Calendar.YEAR);
 		
 		try{
 			if(CMemsql.connect()){
-				query = String.join(" ", "SELECT mef.codigo_meta,",
-					"sum(case when mef.ejercicio = YEAR(CURDATE()) -4 then ifnull(ejecucion,0) else 0 end) / (IFNULL(NULLIF(avg(case when mef.ejercicio = YEAR(CURDATE()) -4 then mef.cantidad else null end) + sum(case when mef.ejercicio = YEAR(CURDATE()) -4 then ifnull(mef.modificacion,0) else 0 end),0),1)) p_ejecucion_4,",
-					"sum(case when mef.ejercicio = YEAR(CURDATE()) -3 then ifnull(mef.ejecucion,0) else 0 end) / (IFNULL(NULLIF(avg(case when mef.ejercicio = YEAR(CURDATE()) -3 then mef.cantidad else null end) + sum(case when mef.ejercicio = YEAR(CURDATE()) -3 then ifnull(mef.modificacion,0) else 0 end),0),1)) p_ejecucion_3,",
-					"sum(case when mef.ejercicio = YEAR(CURDATE()) -2 then ifnull(mef.ejecucion,0) else 0 end) / (IFNULL(NULLIF(avg(case when mef.ejercicio = YEAR(CURDATE()) -2 then mef.cantidad else null end) + sum(case when mef.ejercicio = YEAR(CURDATE()) -2 then ifnull(mef.modificacion,0) else 0 end),0),1)) p_ejecucion_2,",
-					"sum(case when mef.ejercicio = YEAR(CURDATE()) -1 then ifnull(mef.ejecucion,0) else 0 end) / (IFNULL(NULLIF(avg(case when mef.ejercicio = YEAR(CURDATE()) -1 then mef.cantidad else null end) + sum(case when mef.ejercicio = YEAR(CURDATE()) -1 then ifnull(mef.modificacion,0) else 0 end),0),1)) p_ejecucion_1,",
-					"sum(case when mef.ejercicio = YEAR(CURDATE()) then ifnull(mef.ejecucion,0) else 0 end) / (IFNULL(NULLIF(avg(case when mef.ejercicio = YEAR(CURDATE()) then mef.cantidad else null end) + sum(case when mef.ejercicio = YEAR(CURDATE()) then ifnull(mef.modificacion,0) else 0 end),0),1)) p_ejecucion",
-					"FROM mv_ejecucion_fisica mef", 
-					"WHERE mef.proyecto=0 and mef.entidad=? and mef.unidad_ejecutora=? and", 
-					"mef.programa=? and mef.subprograma=? and mef.actividad=? and mef.obra=0", 
-					"GROUP BY mef.codigo_meta");
+				query = String.join(" ", "SELECT mef.codigo_meta, mef.unidad_nombre, (", 
+						"  select descripcion", 
+						"  from sf_meta", 
+						"  where entidad=mef.entidad and unidad_ejecutora=mef.unidad_ejecutora and programa=mef.programa  ", 
+						"  and subprograma=mef.subprograma and proyecto=0 and actividad=mef.actividad and obra=0 and (ejercicio between YEAR(CURRENT_TIMESTAMP)-5 AND YEAR(CURRENT_TIMESTAMP))", 
+						"  and codigo_meta = mef.codigo_meta", 
+						"  order by ejercicio DESC limit 1", 
+						") descripcion, ", 
+						"sum(case when mef.ejercicio = YEAR(CURDATE()) -4 then ifnull(ejecucion,0) else 0 end) / (IFNULL(NULLIF(avg(case when mef.ejercicio = YEAR(CURDATE()) -4 then mef.cantidad else null end) + sum(case when mef.ejercicio = YEAR(CURDATE()) -4 then ifnull(mef.modificacion,0) else 0 end),0),1)) p_ejecucion_4,", 
+						"sum(case when mef.ejercicio = YEAR(CURDATE()) -3 then ifnull(mef.ejecucion,0) else 0 end) / (IFNULL(NULLIF(avg(case when mef.ejercicio = YEAR(CURDATE()) -3 then mef.cantidad else null end) + sum(case when mef.ejercicio = YEAR(CURDATE()) -3 then ifnull(mef.modificacion,0) else 0 end),0),1)) p_ejecucion_3,", 
+						"sum(case when mef.ejercicio = YEAR(CURDATE()) -2 then ifnull(mef.ejecucion,0) else 0 end) / (IFNULL(NULLIF(avg(case when mef.ejercicio = YEAR(CURDATE()) -2 then mef.cantidad else null end) + sum(case when mef.ejercicio = YEAR(CURDATE()) -2 then ifnull(mef.modificacion,0) else 0 end),0),1)) p_ejecucion_2,", 
+						"sum(case when mef.ejercicio = YEAR(CURDATE()) -1 then ifnull(mef.ejecucion,0) else 0 end) / (IFNULL(NULLIF(avg(case when mef.ejercicio = YEAR(CURDATE()) -1 then mef.cantidad else null end) + sum(case when mef.ejercicio = YEAR(CURDATE()) -1 then ifnull(mef.modificacion,0) else 0 end),0),1)) p_ejecucion_1,", 
+						"sum(case when mef.ejercicio = YEAR(CURDATE()) then ifnull(mef.ejecucion,0) else 0 end) / (IFNULL(NULLIF(avg(case when mef.ejercicio = YEAR(CURDATE()) then mef.cantidad else null end) + sum(case when mef.ejercicio = YEAR(CURDATE()) then ifnull(mef.modificacion,0) else 0 end),0),1)) p_ejecucion", 
+						"FROM mv_ejecucion_fisica mef", 
+						"WHERE mef.entidad=? and mef.unidad_ejecutora=? and ", 
+						"mef.programa=? and mef.subprograma=? and mef.proyecto=0 and mef.actividad=? and mef.obra=0", 
+						"GROUP BY mef.codigo_meta, mef.unidad_nombre");
 				
 				PreparedStatement pstmt = CMemsql.getConnection().prepareStatement(query);
 				pstmt.setInt(1, entidad);
@@ -64,7 +70,8 @@ public class ProductoDAO {
 					temp.p_ejecucion_2 = rs.getBigDecimal("p_ejecucion_2").multiply(new BigDecimal(100));
 					temp.p_ejecucion_1 = rs.getBigDecimal("p_ejecucion_1").multiply(new BigDecimal(100));
 					temp.p_ejecucion = rs.getBigDecimal("p_ejecucion").multiply(new BigDecimal(100));
-					temp.metaDescripcion = getDescripcionProducto(entidad, unidadEjecutora, programa, subPrograma, actividad, anio, temp.codigo_meta);
+					temp.metaDescripcion = rs.getString("descripcion");
+					temp.unidad_medida = rs.getString("unidad_nombre");
 					ret.add(temp);
 				}
 				
@@ -73,40 +80,6 @@ public class ProductoDAO {
 		}catch(Exception e){
 			CLogger.write("1", ProductoDAO.class, e);
 			return ret;
-		}
-	}
-	
-	public static String getDescripcionProducto(Integer entidad, Integer unidad_ejecutora, Integer programa, Integer sub_programa, Integer actividad, Integer ejercicio, Integer codigo_meta){
-		String query = "";
-		String result = "";
-		
-		try{
-			if(CMemsql.connect()){
-				query = String.join(" ", "select descripcion", 
-						"from sf_meta",
-						"where entidad=? and unidad_ejecutora=? and programa=?",  
-						"and subprograma=? and proyecto=0 and actividad=? and obra=0 and ejercicio=?",
-						"and codigo_meta=?");
-				
-				PreparedStatement pstmt = CMemsql.getConnection().prepareStatement(query);
-				pstmt.setInt(1, entidad);
-				pstmt.setInt(2, unidad_ejecutora);
-				pstmt.setInt(3, programa);
-				pstmt.setInt(4, sub_programa);
-				pstmt.setInt(5, actividad);
-				pstmt.setInt(6, ejercicio);
-				pstmt.setInt(7, codigo_meta);
-				ResultSet ret = CMemsql.runPreparedStatement(pstmt);
-				
-				if(ret.next()){
-					result = ret.getString("descripcion");
-				}
-			}
-			
-			return result;
-		}catch(Exception e){
-			CLogger.write("2", ProductoDAO.class, e);
-			return null;
 		}
 	}
 	
