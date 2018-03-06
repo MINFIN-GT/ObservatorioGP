@@ -90,8 +90,10 @@ angular.module('actividadController',[]).controller('actividadController', ['$ro
 			t: new Date().getTime()
 		}).then(function(response){
 			if(response.data.success){
-				var datoMensual = [];
-				datoMensual = response.data.informacionMensual;
+				var datoMensualFisico = [];
+				var datoMensualFinanciero = [];
+				datoMensualFisico = response.data.informacionFisicaMensual;
+				datoMensualFinanciero = response.data.informacionFinancieraMensual;
 				
 				mi.series = ['% Financiera', '% Fisica'];
 				mi.options.scales.xAxes["0"].scaleLabel.labelString = "Meses";
@@ -106,34 +108,38 @@ angular.module('actividadController',[]).controller('actividadController', ['$ro
 				
 				var acumuladoFin = 0;
 				var acumuladoFis = 0;
-				for(var i=0; i< datoMensual.length; i++){
-					for(var j=0; j<12; j++){
-						if(datoMensual[i].ejercicio==mi.anio && j==mi.mes)
+				
+				for(var i=0; i< datoMensualFisico.length; i++){
+					if(datoMensualFisico[i].ejercicio==mi.anio && datoMensualFisico[i].mes==mi.mes)
+						break;
+					
+					mi.datoAcumuladoMensualFis.push({mes: datoMensualFisico[i].mes, ejercicio: datoMensualFisico[i].ejercicio, p_ejecucion: datoMensualFisico[i].p_ejecucion});
+					
+					if(datoMensualFisico[i].mes == 11){
+						mi.datoAcumuladoAnualFis.push({ejercicio: datoMensualFisico[i].ejercicio, p_ejecucion: datoMensualFisico[i].p_ejecucion});
+					}
+				}
+				
+				for(var i=0; i<datoMensualFinanciero.length; i++){
+					for(var j=0; j<12;j++){
+						if(datoMensualFinanciero[i].ejercicio==mi.anio && j==mi.mes)
 							break;
 						
-						if(j==0){
-							acumuladoFin = 0;
-							acumuladoFis = 0;
-						}else{
-							acumuladoFin = mi.datoAcumuladoMensualFin.length != 0 ? mi.datoAcumuladoMensualFin[j-1].p_ejecucion + datoMensual[i].ejecucionFisicaFinanciera.financiera.mes[j] : datoMensual[i].financiera.mes[j]; 
-							acumuladoFis = mi.datoAcumuladoMensualFis.length != 0 ? mi.datoAcumuladoMensualFis[j-1].p_ejecucion + datoMensual[i].ejecucionFisicaFinanciera.fisica.mes[j] : datoMensual[i].fisica.mes[j];
-						}
-						
-						mi.datoAcumuladoMensualFin.push({mes: j+1, ejercicio: datoMensual[i].ejercicio, p_ejecucion: acumuladoFin});
-						mi.datoAcumuladoMensualFis.push({mes: j+1, ejercicio: datoMensual[i].ejercicio, p_ejecucion: acumuladoFis});
+						mi.datoAcumuladoMensualFin.push({mes: j+1, ejercicio: datoMensualFinanciero[i].ejercicio, p_ejecucion: datoMensualFinanciero[i].mes[j]});
 						
 						if(j == 11){
-							mi.datoAcumuladoAnualFin.push({ejercicio: datoMensual[i].ejercicio, p_ejecucion: acumuladoFin});
-							mi.datoAcumuladoAnualFis.push({ejercicio: datoMensual[i].ejercicio, p_ejecucion: acumuladoFis});
-						}							
+							mi.datoAcumuladoAnualFin.push({ejercicio: datoMensualFinanciero[i].ejercicio, p_ejecucion: datoMensualFinanciero[i].mes[j]});
+						}
 					}
 				}
 				
 				for(var i=0; i<mi.datoAcumuladoMensualFin.length; i++){
 					mi.labels.push(mi.meses[mi.datoAcumuladoMensualFin[i].mes - 1] + mi.datoAcumuladoMensualFin[i].ejercicio);
-					cantidadesFin.push(Number(mi.datoAcumuladoMensualFin[i].p_ejecucion*100).toFixed(2));
+					cantidadesFin.push(Number(mi.datoAcumuladoMensualFin[i].p_ejecucion*100).toFixed(2));					
+				}
+				
+				for(var i=0; i<mi.datoAcumuladoMensualFis.length; i++){
 					cantidadesFis.push(Number(mi.datoAcumuladoMensualFis[i].p_ejecucion*100).toFixed(2));
-					
 				}
 				
 				mi.data.push(cantidadesFin, cantidadesFis);
@@ -149,7 +155,10 @@ angular.module('actividadController',[]).controller('actividadController', ['$ro
 		
 		for(var i=0; i<mi.datoAcumuladoMensualFin.length; i++){
 			mi.labels.push(mi.meses[mi.datoAcumuladoMensualFin[i].mes - 1] + mi.datoAcumuladoMensualFin[i].ejercicio);
-			cantidadesFin.push(Number(mi.datoAcumuladoMensualFin[i].p_ejecucion*100).toFixed(2));
+			cantidadesFin.push(Number(mi.datoAcumuladoMensualFin[i].p_ejecucion*100).toFixed(2));					
+		}
+		
+		for(var i=0; i<mi.datoAcumuladoMensualFis.length; i++){
 			cantidadesFis.push(Number(mi.datoAcumuladoMensualFis[i].p_ejecucion*100).toFixed(2));
 		}
 		
@@ -166,6 +175,9 @@ angular.module('actividadController',[]).controller('actividadController', ['$ro
 		for(var i=0; i<mi.datoAcumuladoAnualFin.length; i++){
 			mi.labels.push(mi.datoAcumuladoAnualFin[i].ejercicio);
 			cantidadesFin.push(Number(mi.datoAcumuladoAnualFin[i].p_ejecucion*100).toFixed(2));
+		}
+		
+		for(var i=0; i<mi.datoAcumuladoAnualFis.length; i++){
 			cantidadesFis.push(Number(mi.datoAcumuladoAnualFis[i].p_ejecucion*100).toFixed(2));
 		}
 		

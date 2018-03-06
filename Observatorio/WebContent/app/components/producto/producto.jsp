@@ -68,7 +68,7 @@
 			<div class="btn-group btn-group-xs">
 				<label class="btn btn-default" ng-click="ctrl.cambioAcumuladoMensual();"><span>Mensual</span></label>
 				<label class="btn btn-default" ng-click="ctrl.cambioAcumuladoAnual();"><span>Anual</span></label>
-				<label class="btn btn-default" ng-click="ctrl.cambioAcumuladoMensualNormal();"><span>Continua</span></label>
+				<label class="btn btn-default" ng-click="ctrl.cambioAcumuladoMensualContinua();"><span>Continua</span></label>
 			</div>
 		</div>
 		<div align="center" class="row" style="width: 80%;margin: 0 auto;">
