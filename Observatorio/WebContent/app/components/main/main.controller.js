@@ -28,8 +28,8 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
          .when('/actividad/:entidad/:unidadejecutora/:programa/:subprograma',{
          	template: '<div load-on-demand="\'actividadController\'" class="all_page"></div>'
          })
-         .when('/subprograma/:entidad/:unidadejecutora/:programa',{
-         	template: '<div load-on-demand="\'subprogramaController\'" class="all_page"></div>'
+         .when('/programa/:entidad/:unidadejecutora',{
+         	template: '<div load-on-demand="\'programaController\'" class="all_page"></div>'
          })
          .when("/:redireccion?",{
             	controller:"MainController"
@@ -79,9 +79,9 @@ app.config(['$loadOnDemandProvider', function ($loadOnDemandProvider) {
 	    	   template: '/app/components/actividad/actividad.jsp'
 	       },
 	       {
-	    	   name: 'subprogramaController',
-	    	   script: '/app/components/subprograma/subprograma.controller.js',
-	    	   template: '/app/components/subprograma/subprograma.jsp'
+	    	   name: 'programaController',
+	    	   script: '/app/components/programa/programa.controller.js',
+	    	   template: '/app/components/programa/programa.jsp'
 	       }
 	   ];
 	   $loadOnDemandProvider.config(modules);

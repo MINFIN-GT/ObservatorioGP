@@ -19,7 +19,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import dao.ProductoDAO;
-import dao.ProductoDAO.EjecucionFisciaMensual;
 import dao.ProductoDAO.EjecucionFisica;
 import dao.ProductoDAO.VectorValores;
 import utilities.CLogger;
@@ -68,16 +67,6 @@ public class SProducto extends HttpServlet {
 				response_text = String.join(" ","{\"success\": true,", response_text, "}");
 			}catch(Exception e){
 				CLogger.write("1", SProducto.class, e);
-			}
-		}else if(accion.equals("getEjecucionFisicaMensual")){
-			try{
-				ArrayList<EjecucionFisciaMensual> lstejecucionfisicamensual = ProductoDAO.getEjecucionFisicaMensual(entidad,unidadEjecutora,programa,subPrograma,actividad, codigo_meta);
-				
-				String ejecucion_fisica = new GsonBuilder().serializeNulls().create().toJson(lstejecucionfisicamensual);
-				response_text = String.join(" ", "\"ejecucionFisicaMensual\": ", ejecucion_fisica);
-				response_text = String.join(" ","{\"success\": true,", response_text, "}");
-			}catch(Exception e){
-				CLogger.write("2", SProducto.class, e);
 			}
 		}else if(accion.equals("getVectoresValores")){
 			try{

@@ -20,7 +20,8 @@ import com.google.gson.reflect.TypeToken;
 
 import dao.ActividadDAO;
 import dao.ActividadDAO.Actividad;
-import dao.ActividadDAO.EjecucionFisicaFinanciera;
+import dao.ActividadDAO.VectorValoresFinancieros;
+import dao.ActividadDAO.VectorValoresFisicos;
 import utilities.Utils;
 
 @WebServlet("/SActividad")
@@ -62,10 +63,12 @@ public class SActividad extends HttpServlet {
 			response_text = String.join(" ", "\"actividades\": ", actividades);
 			response_text = String.join(" ","{\"success\": true,", response_text, "}");
 		}else if(accion.equals("getInfoMensual")){
-			ArrayList<EjecucionFisicaFinanciera> lstejecucionfisicafinanciera= ActividadDAO.getEjecucionFisicaFinancieraMensual(entidad, unidadEjecutora, programa, subPrograma, actividad);
-			
-			String informacionMensual = new GsonBuilder().serializeNulls().create().toJson(lstejecucionfisicafinanciera);
-			response_text = String.join(" ", "\"informacionMensual\": ", informacionMensual);
+			ArrayList<VectorValoresFisicos> lstejecucionfisica= ActividadDAO.getEjecucionFisicaMensual(entidad, unidadEjecutora, programa, subPrograma, actividad);
+			ArrayList<VectorValoresFinancieros> lstejecucionfinanciera= ActividadDAO.getEjecucionFinancieraMensual(entidad, unidadEjecutora, programa, subPrograma, actividad);
+			String informacionFisicaMensual = new GsonBuilder().serializeNulls().create().toJson(lstejecucionfisica);
+			String informacionFinancieraMensual =  new GsonBuilder().serializeNulls().create().toJson(lstejecucionfinanciera);
+			response_text = String.join(" ", "\"informacionFisicaMensual\": ", informacionFisicaMensual);
+			response_text = String.join(" ", "\"informacionFinancieraMensual\" :", informacionFinancieraMensual, "," +response_text);
 			response_text = String.join(" ","{\"success\": true,", response_text, "}");
 		}
 		

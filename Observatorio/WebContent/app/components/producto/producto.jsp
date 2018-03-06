@@ -7,7 +7,8 @@
 			<table st-table="ctrl.displayedCollection" st-safe-src="ctrl.rowCollection" class="table table-striped">
 				<thead>
 					<tr>
-						<th style="width: 50%" st-sort="metaDescripcion">Descripción</th>
+						<th style="width: 40%" st-sort="metaDescripcion">Descripción</th>
+						<th style="width: 10%" st-sort="unidad_medida">Unidad</th>
 						<th style="text-align: right; width: 10%">{{ctrl.anio - 4}}</th>
 						<th style="text-align: right; width: 10%">{{ctrl.anio - 3}}</th>
 						<th style="text-align: right; width: 10%">{{ctrl.anio - 2}}</th>
@@ -19,6 +20,9 @@
 					<tr st-select-row="row" st-select-mode="single" ng-repeat="row in ctrl.displayedCollection" ng-click="ctrl.getGraficaProducto(row);">
 						<td align="left">
 							{{row.metaDescripcion}}
+						</td>
+						<td align="left">
+							{{row.unidad_medida}}
 						</td>
 						<td align="right">
 							{{row.p_ejecucion_4 | formatoMillonesSinTipo : ctrl.decimales}}%
@@ -39,6 +43,7 @@
 				</tbody>
 				<tfoot>
 					<tr>
+						<th></th>
 						<th style="text-align: right;">Totales:</th>
 						<th style="text-align: right;">
 							<div>{{ctrl.tot_p_ejecucion_4}}%</div>
@@ -68,7 +73,7 @@
 			<div class="btn-group btn-group-xs">
 				<label class="btn btn-default" ng-click="ctrl.cambioAcumuladoMensual();"><span>Mensual</span></label>
 				<label class="btn btn-default" ng-click="ctrl.cambioAcumuladoAnual();"><span>Anual</span></label>
-				<label class="btn btn-default" ng-click="ctrl.cambioAcumuladoMensualNormal();"><span>Continua</span></label>
+				<label class="btn btn-default" ng-click="ctrl.cambioAcumuladoMensualContinua();"><span>Continua</span></label>
 			</div>
 		</div>
 		<div align="center" class="row" style="width: 80%;margin: 0 auto;">
@@ -79,4 +84,6 @@
 				</canvas>
 			</div>
 		</div>
+		<div style="text-align: center;">Fuente de información SICOIN. Cifras en porcentajes.</div>
+		<br>
 	</div>
