@@ -18,7 +18,7 @@
 	    	<table st-table="ctrl.displayedCollection" st-safe-src="ctrl.rowCollection" class="table table-striped cuerpotabla">
 				<thead>
 					<tr>
-						<th style="width: 50%" st-sort="metaDescripcion">Descripción</th>
+						<th style="width: 50%"></th>
 						<th style="text-align: center; width: 400px;" colspan="5">{{ctrl.anio - 4}}</th>
 						<th style="text-align: center;" colspan="5">{{ctrl.anio - 3}}</th>
 						<th style="text-align: center;" colspan="5">{{ctrl.anio - 2}}</th>
@@ -26,7 +26,7 @@
 						<th style="text-align: center;" colspan="5">{{ctrl.anio}}</th>
 					</tr>
 					<tr>
-						<th></th>
+						<th st-sort="metaDescripcion">Nombre</th>
 						<th style="text-align: center; min-width: 50px; max-width: 50px;">Asig.</th>
 						<th style="text-align: center; min-width: 50px; max-width: 50px;">Vig.</th>
 						<th style="text-align: center; min-width: 50px; max-width: 50px;">Ejec.</th>
@@ -57,82 +57,82 @@
 				<tbody>
 					<tr st-select-row="row" st-select-mode="single" ng-repeat="row in ctrl.displayedCollection" ng-click="ctrl.getGraficaActividad(row);">
 						<td align="left" style="white-space: nowrap;">
-							{{row.descripcionActividad}}
+							{{row.nombre_actividad}}
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.asignado4 | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{row.ejercicio_data[0][0] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.vigente4 | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{row.ejercicio_data[0][24] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.ejecutado4 | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{row.ejercicio_data[0][12] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.p_ejecucion_4 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{(row.ejercicio_data[0][12] / (row.ejercicio_data[0][24] > 0 ? row.ejercicio_data[0][24] : 1)) *100  | formatoMillonesSinTipo : ctrl.decimales}}%</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.p_avance_4 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{(row.ejercicio_data[0][37] / ((row.ejercicio_data[0][25] + row.ejercicio_data[0][49]) > 0 ? row.ejercicio_data[0][25] + row.ejercicio_data[0][49] : 1)) *100 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.asignado3 | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{row.ejercicio_data[1][0] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.vigente3 | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{row.ejercicio_data[1][24] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.ejecutado3 | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{row.ejercicio_data[1][12] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.p_ejecucion_3 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{(row.ejercicio_data[1][12] / (row.ejercicio_data[1][24] > 0 ? row.ejercicio_data[1][24] : 1)) *100  | formatoMillonesSinTipo : ctrl.decimales}}%</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.p_avance_3 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{(row.ejercicio_data[1][37] / ((row.ejercicio_data[1][25] + row.ejercicio_data[1][49]) > 0 ? row.ejercicio_data[1][25] + row.ejercicio_data[1][49] : 1)) *100 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.asignado2 | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{row.ejercicio_data[2][0] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.vigente2 | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{row.ejercicio_data[2][24] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.ejecutado2 | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{row.ejercicio_data[2][12] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.p_ejecucion_2 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{(row.ejercicio_data[2][12] / (row.ejercicio_data[2][24] > 0 ? row.ejercicio_data[2][24] : 1)) *100  | formatoMillonesSinTipo : ctrl.decimales}}%</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.p_avance_2 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{(row.ejercicio_data[2][37] / ((row.ejercicio_data[2][25] + row.ejercicio_data[2][49]) > 0 ? row.ejercicio_data[2][25] + row.ejercicio_data[2][49] : 1)) *100 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.asignado1 | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{row.ejercicio_data[3][0] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.vigente1 | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{row.ejercicio_data[3][24] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.ejecutado1 | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{row.ejercicio_data[3][12] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.p_ejecucion_1 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{(row.ejercicio_data[3][12] / (row.ejercicio_data[3][24] > 0 ? row.ejercicio_data[3][24] : 1)) *100  | formatoMillonesSinTipo : ctrl.decimales}}%</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.p_avance_2 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{(row.ejercicio_data[3][37] / ((row.ejercicio_data[3][25] + row.ejercicio_data[3][49]) > 0 ? row.ejercicio_data[3][25] + row.ejercicio_data[3][49] : 1)) *100 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.asignado | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{row.ejercicio_data[4][0] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.vigente | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{row.ejercicio_data[4][24] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.ejecutado | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{row.ejercicio_data[4][12] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.p_ejecucion | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{(row.ejercicio_data[4][12] / (row.ejercicio_data[4][24] > 0 ? row.ejercicio_data[4][24] : 1)) *100  | formatoMillonesSinTipo : ctrl.decimales}}%</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.p_avance | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{(row.ejercicio_data[4][37] / ((row.ejercicio_data[4][25] + row.ejercicio_data[4][49]) > 0 ? row.ejercicio_data[4][25] + row.ejercicio_data[4][49] : 1)) *100 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
 						</td>
 					</tr>
 				</tbody>

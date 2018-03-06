@@ -5,39 +5,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import org.joda.time.DateTime;
+
 import utilities.CLogger;
 import utilities.CMemsql;
 
 public class ActividadDAO {
 	public class Actividad{
 		Integer id;
-		String descripcionActividad;
-		BigDecimal asignado4;
-		BigDecimal asignado3;
-		BigDecimal asignado2;
-		BigDecimal asignado1;
-		BigDecimal asignado;
-		BigDecimal vigente4;
-		BigDecimal vigente3;
-		BigDecimal vigente2;
-		BigDecimal vigente1;
-		BigDecimal vigente;
-		BigDecimal ejecutado4;
-		BigDecimal ejecutado3;
-		BigDecimal ejecutado2;
-		BigDecimal ejecutado1;
-		BigDecimal ejecutado;
-		BigDecimal p_ejecucion_4;
-		BigDecimal p_ejecucion_3;
-		BigDecimal p_ejecucion_2;
-		BigDecimal p_ejecucion_1;
-		BigDecimal p_ejecucion;
-		BigDecimal p_avance_4;
-		BigDecimal p_avance_3;
-		BigDecimal p_avance_2;
-		BigDecimal p_avance_1;
-		BigDecimal p_avance;
-	}
+		String nombre_actividad;
+		ArrayList<Integer> ejercicios;
+		ArrayList<Double[]> ejercicio_data;
+ 	}
 	
 	public class VectorValoresFisicos{
 		Integer ejercicio;
@@ -50,90 +29,52 @@ public class ActividadDAO {
 		BigDecimal[] mes = new BigDecimal[12]; 
 	}
 	
-	public static ArrayList<Actividad> getActividades(Integer entidad, Integer unidadEjecutora, Integer programa, Integer subPrograma){
+	public static ArrayList<Actividad> getActividades(Integer entidad, Integer unidadEjecutora, Integer programa, Integer subPrograma, String tipo_resultaldo){
 		ArrayList<Actividad> ret = new ArrayList<Actividad>();
 		String query = "";
 		try{
 			if(CMemsql.connect()){
-				query = String.join(" ", "select mff.actividad, mff.actividad_obra_nombre,",
-					"sum(case when mff.ejercicio = YEAR(curdate()) -4 then mff.financiero_asignado else 0 end) asignado_4,", 
-					"sum(case when mff.ejercicio = YEAR(curdate()) -3 then mff.financiero_asignado else 0 end) asignado_3,", 
-					"sum(case when mff.ejercicio = YEAR(curdate()) -2 then mff.financiero_asignado else 0 end) asignado_2,", 
-					"sum(case when mff.ejercicio = YEAR(curdate()) -1 then mff.financiero_asignado else 0 end) asignado_1,",
-					"sum(case when mff.ejercicio = YEAR(curdate()) then mff.financiero_asignado else 0 end) asignado,",
-					"sum(case when mff.ejercicio = YEAR(curdate()) -4 then (mff.financiero_vigente_m12) else 0 end) vigente_4,", 
-					"sum(case when mff.ejercicio = YEAR(curdate()) -3 then (mff.financiero_vigente_m12) else 0 end) vigente_3,", 
-					"sum(case when mff.ejercicio = YEAR(curdate()) -2 then (mff.financiero_vigente_m12) else 0 end) vigente_2,", 
-					"sum(case when mff.ejercicio = YEAR(curdate()) -1 then (mff.financiero_vigente_m12) else 0 end) vigente_1,", 
-					"sum(case when mff.ejercicio = YEAR(curdate()) then (mff.financiero_vigente_m12) else 0 end) vigente,",
-					"sum(case when mff.ejercicio = YEAR(curdate()) -4 then (mff.financiero_ejecutado_m12) else 0 end) ejecutado_4,", 
-					"sum(case when mff.ejercicio = YEAR(curdate()) -3 then (mff.financiero_ejecutado_m12) else 0 end) ejecutado_3,", 
-					"sum(case when mff.ejercicio = YEAR(curdate()) -2 then (mff.financiero_ejecutado_m12) else 0 end) ejecutado_2,",
-					"sum(case when mff.ejercicio = YEAR(curdate()) -1 then (mff.financiero_ejecutado_m12) else 0 end) ejecutado_1,", 
-					"sum(case when mff.ejercicio = YEAR(curdate()) then (mff.financiero_ejecutado_m12) else 0 end) ejecutado,",
-					"sum(case when mff.ejercicio = YEAR(curdate()) -4 then (mff.financiero_ejecutado_m12 / mff.financiero_vigente_m12) else 0 end) p_ejecucion_fin_4,", 
-					"sum(case when mff.ejercicio = YEAR(curdate()) -3 then (mff.financiero_ejecutado_m12 / mff.financiero_vigente_m12) else 0 end) p_ejecucion_fin_3,", 
-					"sum(case when mff.ejercicio = YEAR(curdate()) -2 then (mff.financiero_ejecutado_m12 / mff.financiero_vigente_m12) else 0 end) p_ejecucion_fin_2,", 
-					"sum(case when mff.ejercicio = YEAR(curdate()) -1 then (mff.financiero_ejecutado_m12 / mff.financiero_vigente_m12) else 0 end) p_ejecucion_fin_1,", 
-					"sum(case when mff.ejercicio = YEAR(curdate()) then (mff.financiero_ejecutado_m12 / mff.financiero_vigente_m12) else 0 end) p_ejecucion_fin,", 
-					"avg(case when mff.ejercicio = YEAR(curdate()) -4 then (t2.p_avance_f) else 0 end) p_avance_fis_4,", 
-					"avg(case when mff.ejercicio = YEAR(curdate()) -3 then (t2.p_avance_f) else 0 end) p_avance_fis_3,",
-					"avg(case when mff.ejercicio = YEAR(curdate()) -2 then (t2.p_avance_f) else 0 end) p_avance_fis_2,", 
-					"avg(case when mff.ejercicio = YEAR(curdate()) -1 then (t2.p_avance_f) else 0 end) p_avance_fis_1,", 
-					"avg(case when mff.ejercicio = YEAR(curdate()) then (t2.p_avance_f) else 0 end) p_avance_fis",
-					"from mv_financiera_fisica mff",
-					"left join",  
-					"(select ejercicio, actividad, avg(t.p_ejecucion_f) p_avance_f from (",
-					"select actividad, ejercicio, (sum(ejecucion) / (avg(cantidad) +sum(modificacion))) p_ejecucion_f",
-					"from mv_ejecucion_fisica",
-					"where entidad=? and unidad_ejecutora=? and programa=? and subprograma=? and proyecto=0",
-					"group by actividad, ejercicio) t",
-					"group by t.ejercicio, t.actividad) t2 on t2.actividad=mff.actividad",
-					"where mff.ejercicio=t2.ejercicio and entidad=? and unidad_ejecutora=? and programa=? and subprograma=? and proyecto=0",
-					"group by mff.actividad, mff.actividad_obra_nombre");
+				query = String.join(" ", "select * ", 
+						"from mv_financiera_fisica", 
+						"where entidad=? and unidad_ejecutora=? and programa=? and subprograma=? and proyecto=0 and tipo_resultado=?", 
+						"order by entidad, unidad_ejecutora, programa, subprograma, proyecto, actividad, obra, ejercicio");
 				
 				PreparedStatement pstmt = CMemsql.getConnection().prepareStatement(query);
 				pstmt.setInt(1, entidad);
 				pstmt.setInt(2, unidadEjecutora);
 				pstmt.setInt(3, programa);
 				pstmt.setInt(4, subPrograma);
-				pstmt.setInt(5, entidad);
-				pstmt.setInt(6, unidadEjecutora);
-				pstmt.setInt(7, programa);
-				pstmt.setInt(8, subPrograma);
+				pstmt.setString(5, tipo_resultaldo);
 				
 				ResultSet rs = CMemsql.runPreparedStatement(pstmt);
 				
+				int actividad_actual = -1;
+				Actividad temp = null;
 				while(rs.next()){
-					Actividad temp = (new ActividadDAO()).new Actividad();
-					temp.id = rs.getInt("actividad");
-					temp.descripcionActividad = rs.getString("actividad_obra_nombre");
-					temp.asignado4 = rs.getBigDecimal("asignado_4");
-					temp.asignado3 = rs.getBigDecimal("asignado_3");
-					temp.asignado2 = rs.getBigDecimal("asignado_2");
-					temp.asignado1 = rs.getBigDecimal("asignado_1");
-					temp.asignado = rs.getBigDecimal("asignado");
-					temp.vigente4 = rs.getBigDecimal("vigente_4");
-					temp.vigente3 = rs.getBigDecimal("vigente_3");
-					temp.vigente2 = rs.getBigDecimal("vigente_2");
-					temp.vigente1 = rs.getBigDecimal("vigente_1");
-					temp.vigente = rs.getBigDecimal("vigente");
-					temp.ejecutado4 = rs.getBigDecimal("ejecutado_4");
-					temp.ejecutado3 = rs.getBigDecimal("ejecutado_3");
-					temp.ejecutado2 = rs.getBigDecimal("ejecutado_2");
-					temp.ejecutado1 = rs.getBigDecimal("ejecutado_1");
-					temp.ejecutado = rs.getBigDecimal("ejecutado");
-					temp.p_ejecucion_4 = rs.getBigDecimal("p_ejecucion_fin_4") != null ? rs.getBigDecimal("p_ejecucion_fin_4").multiply(new BigDecimal(100)) : new BigDecimal(0);
-					temp.p_ejecucion_3 = rs.getBigDecimal("p_ejecucion_fin_3") != null ? rs.getBigDecimal("p_ejecucion_fin_3").multiply(new BigDecimal(100)) : new BigDecimal(0);
-					temp.p_ejecucion_2 = rs.getBigDecimal("p_ejecucion_fin_2") != null ? rs.getBigDecimal("p_ejecucion_fin_2").multiply(new BigDecimal(100)) : new BigDecimal(0);
-					temp.p_ejecucion_1 = rs.getBigDecimal("p_ejecucion_fin_1") != null ? rs.getBigDecimal("p_ejecucion_fin_1").multiply(new BigDecimal(100)) : new BigDecimal(0);
-					temp.p_ejecucion = rs.getBigDecimal("p_ejecucion_fin") != null ? rs.getBigDecimal("p_ejecucion_fin").multiply(new BigDecimal(100)) : new BigDecimal(0);
-					temp.p_avance_4 = rs.getBigDecimal("p_avance_fis_4") != null ? rs.getBigDecimal("p_avance_fis_4").multiply(new BigDecimal(100)) : new BigDecimal(0);
-					temp.p_avance_3 = rs.getBigDecimal("p_avance_fis_3") != null ? rs.getBigDecimal("p_avance_fis_3").multiply(new BigDecimal(100)) : new BigDecimal(0);
-					temp.p_avance_2 = rs.getBigDecimal("p_avance_fis_2") != null ? rs.getBigDecimal("p_avance_fis_2").multiply(new BigDecimal(100)) : new BigDecimal(0);
-					temp.p_avance_1 = rs.getBigDecimal("p_avance_fis_1") != null ? rs.getBigDecimal("p_avance_fis_1").multiply(new BigDecimal(100)) : new BigDecimal(0);
-					temp.p_avance = rs.getBigDecimal("p_avance_fis") != null ? rs.getBigDecimal("p_avance_fis").multiply(new BigDecimal(100)) : new BigDecimal(0);
-					ret.add(temp);
+					if(actividad_actual != rs.getInt("actividad")){
+						if(temp != null)
+							ret.add(temp);
+						temp = (new ActividadDAO()).new Actividad();
+						temp.id = rs.getInt("actividad");
+						temp.nombre_actividad = rs.getString("actividad_obra_nombre");
+						int year = DateTime.now().getYear();
+						temp.ejercicios = new ArrayList<Integer>();
+						temp.ejercicio_data = new ArrayList<Double[]>();
+						for(int i=0;i<5;i++){
+							temp.ejercicios.add(i+(year-4));
+							temp.ejercicio_data.add(new Double[50]);
+							for(int z=0;z<50;z++)
+								temp.ejercicio_data.get(temp.ejercicio_data.size()-1)[z]=0.0d;
+						}
+						actividad_actual = temp.id;						
+					}
+					
+					Double[] datos = new Double[50];
+					for(int i=0; i<50;i++){
+						datos[i] = rs.getDouble(i+15);
+					}
+					temp.ejercicio_data.set(rs.getInt("ejercicio")-DateTime.now().getYear()+4,datos);
+					temp.nombre_actividad = rs.getString("actividad_obra_nombre");
 				}
 			}	
 			

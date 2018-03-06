@@ -25,7 +25,7 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
          .when('/producto/:entidad/:unidadejecutora/:programa/:subprograma/:actividad',{
          	template: '<div load-on-demand="\'productoController\'" class="all_page"></div>'
          })
-         .when('/actividad/:entidad/:unidadejecutora/:programa/:subprograma',{
+         .when('/actividad/:tipo_resultado/:entidad/:unidadejecutora/:programa/:subprograma',{
          	template: '<div load-on-demand="\'actividadController\'" class="all_page"></div>'
          })
          .when('/programa/:entidad/:unidadejecutora',{

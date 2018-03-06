@@ -26,6 +26,7 @@ angular.module('actividadController',[]).controller('actividadController', ['$ro
 	mi.unidadEjecutora = $routeParams.unidadejecutora;
 	mi.programa = $routeParams.programa;
 	mi.subPrograma = $routeParams.subprograma;
+	mi.tipo_resultado = $routeParams.tipo_resultado;
 	
 	$http.post('/SActividad',{
 		accion: 'getActividades',
@@ -33,42 +34,44 @@ angular.module('actividadController',[]).controller('actividadController', ['$ro
 		unidadEjecutora: mi.unidadEjecutora,
 		programa: mi.programa,
 		subPrograma: mi.subPrograma,
+		tipo_resultado: mi.tipo_resultado,
 		t: new Date().getTime()
 	}).then(function(response){
 		if(response.data.actividades){
 			mi.dato = [];
 			mi.dato = response.data.actividades;
 			
+			
 			mi.rowCollection = [];
 			mi.rowCollection = mi.dato;
-			
+				
 			mi.displayedCollection = [].concat(mi.rowCollection);
-			
-			for(var i=0; i<mi.dato.length; i++){
-				mi.tot_p_ejecucion_4 += mi.dato[i].p_ejecucion_4;
-				mi.tot_p_ejecucion_3 += mi.dato[i].p_ejecucion_3;
-				mi.tot_p_ejecucion_2 += mi.dato[i].p_ejecucion_2;
-				mi.tot_p_ejecucion_1 += mi.dato[i].p_ejecucion_1;
-				mi.tot_p_ejecucion += mi.dato[i].p_ejecucion;
-				mi.tot_p_avance_4 += mi.dato[i].p_avance_4;
-				mi.tot_p_avance_3 += mi.dato[i].p_avance_3;
-				mi.tot_p_avance_2 += mi.dato[i].p_avance_2;
-				mi.tot_p_avance_1 += mi.dato[i].p_avance_1;
-				mi.tot_p_avance += mi.dato[i].p_avance;
-			}
-			
-			mi.tot_p_ejecucion_4 = (mi.tot_p_ejecucion_4 / mi.dato.length).toFixed(2);
-			mi.tot_p_ejecucion_3 = (mi.tot_p_ejecucion_3 / mi.dato.length).toFixed(2);
-			mi.tot_p_ejecucion_2 = (mi.tot_p_ejecucion_2 / mi.dato.length).toFixed(2);
-			mi.tot_p_ejecucion_1 = (mi.tot_p_ejecucion_1 / mi.dato.length).toFixed(2);
-			mi.tot_p_ejecucion = (mi.tot_p_ejecucion / mi.dato.length).toFixed(2);
-			mi.tot_p_avance_4 = (mi.tot_p_avance_4 / mi.dato.length).toFixed(2);
-			mi.tot_p_avance_3 = (mi.tot_p_avance_3 / mi.dato.length).toFixed(2);
-			mi.tot_p_avance_2 = (mi.tot_p_avance_2 / mi.dato.length).toFixed(2);
-			mi.tot_p_avance_1 = (mi.tot_p_avance_1 / mi.dato.length).toFixed(2);
-			mi.tot_p_avance = (mi.tot_p_avance / mi.dato.length).toFixed(2);
-			
-			mi.getGraficaActividad({descripcionActividad:'Todos los productos y sub productos', entidad: mi.entidad, unidadEjecutora: mi.unidadEjecutora, programa: mi.programa, subPrograma: mi.subPrograma});
+//			
+//			for(var i=0; i<mi.dato.length; i++){
+//				mi.tot_p_ejecucion_4 += mi.dato[i].p_ejecucion_4;
+//				mi.tot_p_ejecucion_3 += mi.dato[i].p_ejecucion_3;
+//				mi.tot_p_ejecucion_2 += mi.dato[i].p_ejecucion_2;
+//				mi.tot_p_ejecucion_1 += mi.dato[i].p_ejecucion_1;
+//				mi.tot_p_ejecucion += mi.dato[i].p_ejecucion;
+//				mi.tot_p_avance_4 += mi.dato[i].p_avance_4;
+//				mi.tot_p_avance_3 += mi.dato[i].p_avance_3;
+//				mi.tot_p_avance_2 += mi.dato[i].p_avance_2;
+//				mi.tot_p_avance_1 += mi.dato[i].p_avance_1;
+//				mi.tot_p_avance += mi.dato[i].p_avance;
+//			}
+//			
+//			mi.tot_p_ejecucion_4 = (mi.tot_p_ejecucion_4 / mi.dato.length).toFixed(2);
+//			mi.tot_p_ejecucion_3 = (mi.tot_p_ejecucion_3 / mi.dato.length).toFixed(2);
+//			mi.tot_p_ejecucion_2 = (mi.tot_p_ejecucion_2 / mi.dato.length).toFixed(2);
+//			mi.tot_p_ejecucion_1 = (mi.tot_p_ejecucion_1 / mi.dato.length).toFixed(2);
+//			mi.tot_p_ejecucion = (mi.tot_p_ejecucion / mi.dato.length).toFixed(2);
+//			mi.tot_p_avance_4 = (mi.tot_p_avance_4 / mi.dato.length).toFixed(2);
+//			mi.tot_p_avance_3 = (mi.tot_p_avance_3 / mi.dato.length).toFixed(2);
+//			mi.tot_p_avance_2 = (mi.tot_p_avance_2 / mi.dato.length).toFixed(2);
+//			mi.tot_p_avance_1 = (mi.tot_p_avance_1 / mi.dato.length).toFixed(2);
+//			mi.tot_p_avance = (mi.tot_p_avance / mi.dato.length).toFixed(2);
+//			
+//			mi.getGraficaActividad({descripcionActividad:'Todos los productos y sub productos', entidad: mi.entidad, unidadEjecutora: mi.unidadEjecutora, programa: mi.programa, subPrograma: mi.subPrograma});
 		}
 	})
 	
