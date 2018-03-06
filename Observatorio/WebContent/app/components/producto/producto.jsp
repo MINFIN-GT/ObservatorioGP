@@ -84,4 +84,6 @@
 				</canvas>
 			</div>
 		</div>
+		<div style="text-align: center;">Fuente de información SICOIN. Cifras en porcentajes.</div>
+		<br>
 	</div>
