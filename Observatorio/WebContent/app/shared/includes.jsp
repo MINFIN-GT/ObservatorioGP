@@ -7,6 +7,9 @@
 <link href="/assets/css/bootstrap.adds.css" rel="stylesheet" type="text/css"/>
 <link href="/assets/css/angular-bootstrap-toggle.min.css" rel="stylesheet" type="text/css"/>
 <link href="/assets/css/main.css" rel="stylesheet" type="text/css"/>
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:400,600,300,800,700,400italic|PT+Serif:400,400italic" />
+
+
 
 <script type="text/javascript" src="/assets/libs/angular/angular.js"></script>
 <script type="text/javascript" src="/assets/libs/Chart.min.js"></script>

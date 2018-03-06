@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 	<div ng-controller="deudadetalleController as ctrl">
-			<h3>Presupuesto de Deuda Pública - Detalle</h3>
+		
 			<br/>
-			<div align="center" class="row" style="width: 95%; margin: 0 auto;">
+			<div align="center" class="row" style="width: 95%; margin: 0 auto; font-size: 11px;">
 					<table st-table="ctrl.displayedCollection" st-safe-src="ctrl.rowCollection" class="table table-striped" st-filtered-collection>
 						<thead>
 							<tr>
@@ -142,7 +142,7 @@
 				<br/>
 				<br/>
 				<br/>
-				<div align="center" class="row" style="width: 80%; margin: 0 auto;">
+				<div align="center" class="row" style="width: 90%; margin: 0 auto;">
 					<div class="titulo_grafica">{{ ctrl.grafica_titulo }}</div>
 					<br/>
 					<div align="center">
