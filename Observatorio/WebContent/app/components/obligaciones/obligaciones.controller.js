@@ -1,5 +1,5 @@
-angular.module('obligacionesController',[]).controller('obligacionesController',['$rootScope','$scope','$http', 
-	function($rootScope,$scope,$http){
+angular.module('obligacionesController',[]).controller('obligacionesController',['$rootScope','$scope','$http','$filter',
+	function($rootScope,$scope,$http,$filter){
 	var mi = this;
 	
 	mi.hoy = moment();
@@ -14,6 +14,8 @@ angular.module('obligacionesController',[]).controller('obligacionesController',
 	mi.grafica_series = ['Aporte'];
 	mi.grafica_labels = [mi.ano-4, mi.ano-3, mi.ano-2, mi.ano-1];
 	mi.grafica_titulo = "Todas la entidades";
+	
+	$rootScope.page_title = 'Obligaciones del Estado a cargo del tesoro'
 	
 	mi.grafica_opciones = {
 			elements: {
