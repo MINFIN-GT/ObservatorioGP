@@ -11,6 +11,9 @@
 								<th style="text-align: right" st-sort="d2016">{{ ctrl.ano - 2 }}</th>
 								<th style="text-align: right" st-sort="d2017">{{ ctrl.ano - 1 }}</th>
 							</tr>
+							<tr>
+								<th><input st-search="entidad_nombre" placeholder="Buscar..." class="input-sm form-control" type="search"/></th>
+							</tr>
 						</thead>
 						<tbody>
 							<tr st-select-row="row" st-select-mode="single" ng-repeat="row in ctrl.displayedCollection" ng-click="ctrl.getGraficaEntidad(row);">

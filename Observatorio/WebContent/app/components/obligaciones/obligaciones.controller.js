@@ -1,5 +1,5 @@
-angular.module('obligacionesController',[]).controller('obligacionesController',['$rootScope','$scope','$http', 
-	function($rootScope,$scope,$http){
+angular.module('obligacionesController',[]).controller('obligacionesController',['$rootScope','$scope','$http','$filter',
+	function($rootScope,$scope,$http,$filter){
 	var mi = this;
 	
 	mi.hoy = moment();

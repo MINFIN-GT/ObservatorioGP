@@ -18,15 +18,9 @@
 			<div class="col-sm-5" style="height: 105px">
 				<br />
 				<img src="/assets/img/logo.png" alt="Observatorio" />
-				
 			</div>
 			<!-- header derecho -->
 			<div class="col-sm-5">
-	
-
-	
-	
-	   			
 			</div>
 			<div class="col-sm-1">
 			</div>
