@@ -55,7 +55,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr st-select-row="row" st-select-mode="single" ng-repeat="row in ctrl.displayedCollection" ng-click="ctrl.getGraficaActividad(row);">
+					<tr st-select-row="row" st-select-mode="single" ng-repeat="row in ctrl.displayedCollection" ng-click="ctrl.getGraficaActividad(row);" ng-dblclick="ctrl.irProducto(row.id)">
 						<td align="left" style="white-space: nowrap;">
 							{{row.nombre_actividad}}
 						</td>

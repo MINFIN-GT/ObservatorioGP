@@ -1,5 +1,5 @@
-angular.module('actividadController',[]).controller('actividadController', ['$rootScope','$scope','$http','$routeParams', 
-	function($rootScope,$scope,$http,$routeParams){
+angular.module('actividadController',[]).controller('actividadController', ['$rootScope','$scope','$http','$routeParams', '$window',
+	function($rootScope,$scope,$http,$routeParams, $window){
 	var mi = this;
 	var fecha = new Date();
 	mi.anio = fecha.getFullYear();
@@ -41,12 +41,32 @@ angular.module('actividadController',[]).controller('actividadController', ['$ro
 			mi.dato = [];
 			mi.dato = response.data.actividades;
 			
-			
 			mi.rowCollection = [];
 			mi.rowCollection = mi.dato;
 				
 			mi.displayedCollection = [].concat(mi.rowCollection);
-//			
+			
+			/*
+			for(var i=0; i<mi.dato.length; i++){
+				for(var h=0; h<mi.dato[i].ejercicios.length;h++){
+					for(var j=0; j<12; j++){
+						if(mi.dato[i].ejercicios[h] == mi.anio && j==mi.mes)
+							break;
+						mi.labels.push(mi.meses[j] + mi.dato[i].ejercicios[h]);
+					}
+				}
+			}
+			
+			var ejecutadoMensual = [];
+			for(var i=0; i<mi.dato.length;i++){
+				for(var h=0; h<mi.dato[i].ejercicio_data.length; h++){
+					for(var j=0; j<12; j++){
+						ejecutadoMensual.push(mi.dato.ejercicio_data[j]);
+					}
+				}
+			}
+			
+			mi.data.push(ejecutadoMensual);*/
 //			for(var i=0; i<mi.dato.length; i++){
 //				mi.tot_p_ejecucion_4 += mi.dato[i].p_ejecucion_4;
 //				mi.tot_p_ejecucion_3 += mi.dato[i].p_ejecucion_3;
@@ -235,4 +255,8 @@ angular.module('actividadController',[]).controller('actividadController', ['$ro
 			      ]
 			}
 		};
+	
+		mi.irProducto = function(actividad_id){
+			window.location = "main.jsp#!/producto/" + mi.tipo_resultado + "/" + mi.entidad + "/" + mi.unidadEjecutora + "/" + mi.programa + "/" + mi.subPrograma + "/" +  actividad_id;
+		}
 }]);
