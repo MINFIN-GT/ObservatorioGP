@@ -10,19 +10,38 @@
 
 <title>Observatorio</title>
 </head>
-<body ng-app="observatorio" ng-controller="MainController as mainController">
-	<div align="center" style="margin-top: 40px;">
-		<div class="btn-group btn-group-lg">
-			<label class="btn btn-default"><a href="/main.jsp#!/ri"><span>RI</span></a></label>
-			<label class="btn btn-default"><a href="/main.jsp#!/re"><span>RE</span></a></label>
-			<label class="btn btn-default"><a href="/main.jsp#!/otros"><span>Otros</span></a></label>
-			<label class="btn btn-default"><a href="/main.jsp#!/deuda"><span>Deuda</span></a></label>
-			<label class="btn btn-default"><a href="/main.jsp#!/obligaciones"><span>Obligaciones</span></a></label>
+<body ng-app="observatorio" ng-controller="MainController as ctrl">
+	<div class="row" style="margin: 0px;">
+			<div class="col-sm-1">
+			</div>
+			<!-- header izquierdo -->
+			<div class="col-sm-5" style="height: 105px">
+				<br />
+				<img src="/assets/img/logo.png" alt="Observatorio" />
+				
+			</div>
+			<!-- header derecho -->
+			<div class="col-sm-5">
+	
+
+	
+	
+	   			
+			</div>
+			<div class="col-sm-1">
+			</div>
+	</div>
+	<div>
+		<div id="head">
+			{{ $root.page_title }}
 		</div>
 	</div>
 	<div id="mainview">
 		<div ng-view></div>
     </div>
-    <div class="footer"><div style="text-align: center; width: 100%;" class="label-form">- Minfin 2018 -</div></div>
+    <div id="foot">
+	<div>- MINFIN 2018 -
+	</div>
+</div>
 </body>
 </html>

@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 	<div ng-controller="deudaController as ctrl">
-			<h3>Presupuesto de Deuda Pública</h3>
-			<br/>
-			<div align="center" class="row" style="width: 80%; margin: 0 auto;">
+			<div align="center" class="row" style="width: 90%; margin: 0 auto;">
 					<table st-table="ctrl.displayedCollection" st-safe-src="ctrl.rowCollection" class="table table-striped" st-filtered-collection>
 						<thead>
 							<tr>
@@ -142,7 +140,7 @@
 				<br/>
 				<br/>
 				<br/>
-				<div align="center" class="row" style="width: 80%; margin: 0 auto;">
+				<div align="center" class="row" style="width: 90%; margin: 0 auto;">
 					<div class="titulo_grafica">{{ ctrl.grafica_titulo }}</div>
 					<br/>
 					<div align="center">
@@ -152,5 +150,6 @@
 						</canvas>
 					</div>
 				</div>
-				
+				<div style="text-align: center;">Fuente de información SICOIN. Cifras en millones.</div>
+				<br/>
 </div>

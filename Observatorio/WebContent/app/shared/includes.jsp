@@ -14,6 +14,10 @@
 <script type="text/javascript" src="/assets/libs/angular/angular-messages.min.js"></script>
 <script type="text/javascript" src="/assets/libs/angular/angular-route.min.js"></script>
 <script type="text/javascript" src="/assets/libs/angular/angular-touch.min.js"></script>
+<script type="text/javascript" src="/assets/libs/angular/angular-cookies.js"></script>
+<script type="text/javascript" src="/assets/libs/angular/angular-resource.js"></script>
+<script type="text/javascript" src="/assets/libs/angular/angular-animate.min.js"></script>
+<script type="text/javascript" src="/assets/libs/angular/angular-sanitize.min.js"></script>
 <script type="text/javascript" src="/assets/libs/ui-bootstrap-tpls-2.5.0.min.js"></script>
 <script type="text/javascript" src="/assets/libs/angular/angular-bootstrap-toggle.min.js"></script>
 <script type="text/javascript" src="/assets/libs/smart-table.min.js"></script>

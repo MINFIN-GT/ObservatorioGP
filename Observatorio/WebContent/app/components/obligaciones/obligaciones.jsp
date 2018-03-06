@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 	<div ng-controller="obligacionesController as ctrl">
-			<h3>Obligaciones</h3>
-			<br/>
-			<div align="center" class="row" style="width: 80%; margin: 0 auto;">
+			<div align="center" class="row" style="width: 90%; margin: 0 auto;">
 					<table st-table="ctrl.displayedCollection" st-safe-src="ctrl.rowCollection" class="table table-striped" st-filtered-collection>
 						<thead>
 							<tr>
@@ -16,19 +14,19 @@
 						</thead>
 						<tbody>
 							<tr st-select-row="row" st-select-mode="single" ng-repeat="row in ctrl.displayedCollection" ng-click="ctrl.getGraficaEntidad(row);">
-								<td align="left">
+								<td align="left" style="white-space: nowrap;">
 									{{row.entidad_nombre }}
 								</td>
-								<td align="right">
+								<td align="right" style="white-space: nowrap;">
 									{{row.d2014 | formatoMillones : true }} 
 								</td>
-								<td align="right">
+								<td align="right" style="white-space: nowrap;">
 									{{row.d2015 | formatoMillones : true }}
 								</td>
-								<td align="right">
+								<td align="right" style="white-space: nowrap;">
 									{{row.d2016 | formatoMillones : true }}
 								</td>
-								<td align="right">
+								<td align="right" style="white-space: nowrap;">
 									{{row.d2017 | formatoMillones : true }}
 								</td>
 							</tr>
@@ -36,16 +34,16 @@
 						<tfoot>
 							<tr>
 								<th style="text-align: right;">Totales</th>
-								<th style="text-align: right;">
+								<th style="text-align: right; white-space: nowrap;">
 									<div>{{ctrl.tot_dano1 | formatoMillones : true}}</div>
 								</th>
-								<th style="text-align: right;">
+								<th style="text-align: right; white-space: nowrap;">
 									<div>{{ctrl.tot_dano2 | formatoMillones : true}}</div>
 								</th>
-								<th style="text-align: right;">
+								<th style="text-align: right; white-space: nowrap;">
 									<div>{{ctrl.tot_dano3 | formatoMillones : true}}</div>
 								</th>
-								<th style="text-align: right;">
+								<th style="text-align: right; white-space: nowrap;">
 									<div>{{ctrl.tot_dano4 | formatoMillones : true}}</div>
 								</th>
 							</tr>
@@ -57,7 +55,7 @@
 				<br/>
 				<br/>
 				<br/>
-				<div align="center" class="row" style="width: 80%; margin: 0 auto;">
+				<div align="center" class="row" style="width: 90%; margin: 0 auto;">
 					<div class="titulo_grafica">{{ ctrl.grafica_titulo }}</div>
 					<br/>
 					<div align="center">
@@ -67,5 +65,6 @@
 						</canvas>
 					</div>
 				</div>
-				
+				<div style="text-align: center;">Fuente de información SICOIN. Cifras en millones.</div>
+				<br/>
 </div>

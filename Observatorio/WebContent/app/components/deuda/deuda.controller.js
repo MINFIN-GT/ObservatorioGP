@@ -2,6 +2,8 @@ angular.module('deudaController',[]).controller('deudaController',['$rootScope',
 	function($rootScope,$scope,$http,$window){
 	var mi = this;
 	
+	$rootScope.page_title = 'Presupuesto de Deuda Pública'
+	
 	mi.hoy = moment();
 	mi.ano = mi.hoy.year();
 	
