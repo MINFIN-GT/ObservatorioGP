@@ -29,7 +29,7 @@ public class ProductoDAO {
 		BigDecimal cantidad;
 	}
 	
-	public static ArrayList<EjecucionFisica> getEjecucionFisica(Integer entidad, Integer unidadEjecutora, Integer programa, Integer subPrograma, Integer actividad){
+	public static ArrayList<EjecucionFisica> getEjecucionFisica(Integer entidad, Integer unidadEjecutora, Integer programa, Integer subPrograma, Integer actividad, String tipo_resultado){
 		String query = "";
 		ArrayList<EjecucionFisica> ret = new ArrayList<EjecucionFisica>();
 		
@@ -50,7 +50,7 @@ public class ProductoDAO {
 						"sum(case when mef.ejercicio = YEAR(CURDATE()) then ifnull(mef.ejecucion,0) else 0 end) / (IFNULL(NULLIF(avg(case when mef.ejercicio = YEAR(CURDATE()) then mef.cantidad else null end) + sum(case when mef.ejercicio = YEAR(CURDATE()) then ifnull(mef.modificacion,0) else 0 end),0),1)) p_ejecucion", 
 						"FROM mv_ejecucion_fisica mef", 
 						"WHERE mef.entidad=? and mef.unidad_ejecutora=? and ", 
-						"mef.programa=? and mef.subprograma=? and mef.proyecto=0 and mef.actividad=? and mef.obra=0", 
+						"mef.programa=? and mef.subprograma=? and mef.proyecto=0 and mef.actividad=? and mef.obra=0 and mef.tipo_resultado=?", 
 						"GROUP BY mef.codigo_meta, mef.unidad_nombre");
 				
 				PreparedStatement pstmt = CMemsql.getConnection().prepareStatement(query);
@@ -59,6 +59,7 @@ public class ProductoDAO {
 				pstmt.setInt(3, programa);
 				pstmt.setInt(4, subPrograma);
 				pstmt.setInt(5, actividad);
+				pstmt.setString(6, tipo_resultado);
 				
 				ResultSet rs = CMemsql.runPreparedStatement(pstmt);
 				

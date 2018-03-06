@@ -24,6 +24,7 @@ angular.module('productoController', []).controller('productoController',['$root
 	mi.programa = $routeParams.programa;
 	mi.subPrograma = $routeParams.subprograma;
 	mi.actividad = $routeParams.actividad;
+	mi.tipo_resultado = $routeParams.tipo_resultado;
 	
 	$http.post('/SProducto',
 		{
@@ -33,6 +34,7 @@ angular.module('productoController', []).controller('productoController',['$root
 			programa: mi.programa,
 			subProbrama: mi.subPrograma,
 			actividad: mi.actividad,
+			tipo_resultado: mi.tipo_resultado,
 			t: new Date().getTime()
 		}).then(			
 		function(response){
@@ -81,6 +83,7 @@ angular.module('productoController', []).controller('productoController',['$root
 				subProbrama: mi.subPrograma,
 				actividad: mi.actividad,
 				codigo_meta: row.codigo_meta,
+				tipo_resultado: mi.tipo_resultado,
 				t: new Date().getTime()
 			}).then(
 			function(response){
