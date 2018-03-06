@@ -6,11 +6,9 @@
 <link href="/assets/css/angular-chart.min.css" rel="stylesheet" type="text/css"/>
 <link href="/assets/css/bootstrap.adds.css" rel="stylesheet" type="text/css"/>
 <link href="/assets/css/angular-bootstrap-toggle.min.css" rel="stylesheet" type="text/css"/>
-<link href="/assets/css/ui-grid.min.css" rel="stylesheet" type="text/css"/>
 <link href="/assets/css/main.css" rel="stylesheet" type="text/css"/>
 
 <script type="text/javascript" src="/assets/libs/angular/angular.js"></script>
-<script type="text/javascript" src="/assets/libs/angular/ui-grid.min.js"></script>
 <script type="text/javascript" src="/assets/libs/Chart.min.js"></script>
 <script type="text/javascript" src="/assets/libs/angular/angular-chart.min.js"></script>
 <script type="text/javascript" src="/assets/libs/angular/angular-messages.min.js"></script>
