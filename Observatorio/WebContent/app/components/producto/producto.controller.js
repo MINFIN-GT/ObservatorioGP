@@ -1,6 +1,9 @@
 angular.module('productoController', []).controller('productoController',['$rootScope','$scope','$http','$routeParams', 
 	function($rootScope,$scope,$http,$routeParams){
 	var mi = this;
+	
+	$rootScope.page_title = 'Productos';
+		
 	var fecha = new Date();
 	mi.anio = fecha.getFullYear();
 	mi.mes = fecha.getMonth() + 1;
