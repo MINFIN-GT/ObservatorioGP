@@ -1,4 +1,4 @@
-angular.module('subprogramaController',[]).controller('subprogramaController', ['$rootScope','$scope','$http','$routeParams', 
+angular.module('programaController',[]).controller('programaController', ['$rootScope','$scope','$http','$routeParams', 
 	function($rootScope,$scope,$http,$routeParams){
 	var mi = this;
 	
@@ -25,8 +25,8 @@ angular.module('subprogramaController',[]).controller('subprogramaController', [
 	mi.tot_ep_4 = 0;mi.tot_ep_3 = 0;mi.tot_ep_2 = 0;mi.tot_ep_1 = 0;mi.tot_ep = 0;
 	mi.tot_ef_4 = 0;mi.tot_ef_3 = 0;mi.tot_ef_2 = 0;mi.tot_ef_1 = 0;mi.tot_ef = 0;
 	
-	$http.post('/SSubprograma',{
-		accion: 'getSubProgramas',
+	$http.post('/SPrograma',{
+		accion: 'getProgramas',
 		entidad: mi.entidad,
 		unidadEjecutora: mi.unidadEjecutora,
 		programa: mi.programa,
@@ -64,7 +64,7 @@ angular.module('subprogramaController',[]).controller('subprogramaController', [
 	mi.getInfoGraficas = function(row){
 		mi.limpiarData();
 		
-		$http.post('/SSubprograma',{
+		$http.post('/SPrograma',{
 			accion: 'getInfoMensual',
 			entidad: mi.entidad,
 			unidadEjecutora: mi.unidadEjecutora,

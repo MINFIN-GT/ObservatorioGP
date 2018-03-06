@@ -11,9 +11,9 @@
 		    font-size: 13px;
 		}
     </style>
-    <div ng-controller="subprogramaController as ctrl">
+    <div ng-controller="programaController as ctrl">
     	<div align="center" class="row" style="width: 80%; margin: 0 auto;">
-	    	<h3>Sub Programa</h3>
+	    	<h3>Programa</h3>
 	    	<br>
 	    	<table st-table="ctrl.displayedCollection" st-safe-src="ctrl.rowCollection" class="table table-striped cuerpotabla">
 				<thead>
@@ -74,7 +74,7 @@
 						<td align="right">
 							<div style="min-width: 50px;">{{row.ef4 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
 						</td>
-						<td align="right">
+						<td align="right" class="bordeIzquierda">
 							<div style="min-width: 50px;">{{row.asignado3 | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
@@ -89,7 +89,7 @@
 						<td align="right">
 							<div style="min-width: 50px;">{{row.ef3 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
 						</td>
-						<td align="right">
+						<td align="right" class="bordeIzquierda">
 							<div style="min-width: 50px;">{{row.asignado2 | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
@@ -104,7 +104,7 @@
 						<td align="right">
 							<div style="min-width: 50px;">{{row.ef2 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
 						</td>
-						<td align="right">
+						<td align="right" class="bordeIzquierda">
 							<div style="min-width: 50px;">{{row.asignado1 | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
@@ -119,7 +119,7 @@
 						<td align="right">
 							<div style="min-width: 50px;">{{row.ef1 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
 						</td>
-						<td align="right">
+						<td align="right" class="bordeIzquierda">
 							<div style="min-width: 50px;">{{row.asignado | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">

@@ -18,16 +18,17 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import dao.SubprogramaDAO;
-import dao.SubprogramaDAO.AnioEjecucion;
-import dao.SubprogramaDAO.Subprograma;
+import dao.ProgramaDAO;
+import dao.ProgramaDAO.VectorValoresFinancieros;
+import dao.ProgramaDAO.AnioEjecucion;
+import dao.ProgramaDAO.Programa;
 import utilities.Utils;
 
-@WebServlet("/SSubprograma")
-public class SSubprograma extends HttpServlet {
+@WebServlet("/SPrograma")
+public class SPrograma extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public SSubprograma() {
+    public SPrograma() {
         super();
     }
 
@@ -52,19 +53,22 @@ public class SSubprograma extends HttpServlet {
 		Integer entidad = Utils.String2Int(map.get("entidad"));
 		Integer unidadEjecutora = Utils.String2Int(map.get("unidadEjecutora"));
 		Integer programa = Utils.String2Int(map.get("programa"));
-		Integer subPrograma = Utils.String2Int(map.get("subPrograma")) != 0 ? Utils.String2Int(map.get("subPrograma")) : null;
 		
-		if(accion.equals("getSubProgramas")){
-			ArrayList<Subprograma> lstsubprogramas = SubprogramaDAO.getSubProgramas(entidad, unidadEjecutora, programa);
+		if(accion.equals("getProgramas")){
+			ArrayList<Programa> lstprogramas = ProgramaDAO.getProgramas(entidad, unidadEjecutora, programa);
 			
-			String subprogramas = new GsonBuilder().serializeNulls().create().toJson(lstsubprogramas);
+			String subprogramas = new GsonBuilder().serializeNulls().create().toJson(lstprogramas);
 			response_text = String.join(" ", "\"subprogramas\": ", subprogramas);
 			response_text = String.join(" ","{\"success\": true,", response_text, "}");
 		}else if(accion.equals("getInfoMensual")){
-			ArrayList<AnioEjecucion> lstejecucionfisicafinanciera= SubprogramaDAO.getEjecucionFisicaFinancieraPonderadaMensual(entidad, unidadEjecutora, programa, subPrograma);
+			ArrayList<AnioEjecucion> lstejecucionfisicafinanciera= ProgramaDAO.getEjecucionFisicaFinancieraPonderadaMensual(entidad, unidadEjecutora, programa);
+			ArrayList<VectorValoresFinancieros> lstejecucionfinanciera= ProgramaDAO.getEjecucionFinancieraMensual(entidad, unidadEjecutora, programa);
 			
 			String informacionMensual = new GsonBuilder().serializeNulls().create().toJson(lstejecucionfisicafinanciera);
-			response_text = String.join(" ", "\"informacionMensual\": ", informacionMensual);
+			String informacionFinancieraMensual =  new GsonBuilder().serializeNulls().create().toJson(lstejecucionfinanciera);
+			
+			//response_text = String.join(" ", "\"informacionFisicaMensual\": ", informacionFisicaMensual);
+			response_text = String.join(" ", "\"informacionFinancieraMensual\" :", informacionFinancieraMensual, "," +response_text);
 			response_text = String.join(" ","{\"success\": true,", response_text, "}");
 		}
 		
