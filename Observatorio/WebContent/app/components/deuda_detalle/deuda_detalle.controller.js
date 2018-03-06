@@ -1,4 +1,4 @@
-angular.module('deudaController',[]).controller('deudaController',['$rootScope','$scope','$http','$window', 
+angular.module('deudadetalleController',[]).controller('deudadetalleController',['$rootScope','$scope','$http','$window', 
 	function($rootScope,$scope,$http,$window){
 	var mi = this;
 	
@@ -67,8 +67,7 @@ angular.module('deudaController',[]).controller('deudaController',['$rootScope',
 	
 	$http.post('/SDeuda',
 			{
-				accion: 'getDeuda',
-				nivel: 1,
+				accion: 'getDeudaDetalle',
 				t: new Date().getTime()
 			}).then(			
 			function(response){
@@ -84,21 +83,23 @@ angular.module('deudaController',[]).controller('deudaController',['$rootScope',
 					if(mi.dato.length > 0){
 						mi.tot = [[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]];
 						for(var i=0; i<mi.dato.length;i++){
-							mi.tot[0][0] += mi.dato[i].ejercicio_data[0][0];
-							mi.tot[0][1] += mi.dato[i].ejercicio_data[0][12];
-							mi.tot[0][2] += mi.dato[i].ejercicio_data[0][24];
-							mi.tot[1][0] += mi.dato[i].ejercicio_data[1][0];
-							mi.tot[1][1] += mi.dato[i].ejercicio_data[1][12];
-							mi.tot[1][2] += mi.dato[i].ejercicio_data[1][24];
-							mi.tot[2][0] += mi.dato[i].ejercicio_data[2][0];
-							mi.tot[2][1] += mi.dato[i].ejercicio_data[2][12];
-							mi.tot[2][2] += mi.dato[i].ejercicio_data[2][24];
-							mi.tot[3][0] += mi.dato[i].ejercicio_data[3][0];
-							mi.tot[3][1] += mi.dato[i].ejercicio_data[3][12];
-							mi.tot[3][2] += mi.dato[i].ejercicio_data[3][24];
-							mi.tot[4][0] += mi.dato[i].ejercicio_data[4][0];
-							mi.tot[4][1] += mi.dato[i].ejercicio_data[4][12];
-							mi.tot[4][2] += mi.dato[i].ejercicio_data[4][24];
+							if(mi.dato[i].nivel==5){
+								mi.tot[0][0] += mi.dato[i].ejercicio_data[0] ? mi.dato[i].ejercicio_data[0][0] : 0;
+								mi.tot[0][1] += mi.dato[i].ejercicio_data[0] ? mi.dato[i].ejercicio_data[0][12] : 0;
+								mi.tot[0][2] += mi.dato[i].ejercicio_data[0] ? mi.dato[i].ejercicio_data[0][24] : 0;
+								mi.tot[1][0] += mi.dato[i].ejercicio_data[1] ? mi.dato[i].ejercicio_data[1][0]: 0;
+								mi.tot[1][1] += mi.dato[i].ejercicio_data[1] ? mi.dato[i].ejercicio_data[1][12] : 0;
+								mi.tot[1][2] += mi.dato[i].ejercicio_data[1] ? mi.dato[i].ejercicio_data[1][24] : 0;
+								mi.tot[2][0] += mi.dato[i].ejercicio_data[2] ? mi.dato[i].ejercicio_data[2][0] : 0;
+								mi.tot[2][1] += mi.dato[i].ejercicio_data[2] ? mi.dato[i].ejercicio_data[2][12] : 0;
+								mi.tot[2][2] += mi.dato[i].ejercicio_data[2] ? mi.dato[i].ejercicio_data[2][24] : 0;
+								mi.tot[3][0] += mi.dato[i].ejercicio_data[3] ? mi.dato[i].ejercicio_data[3][0] : 0;
+								mi.tot[3][1] += mi.dato[i].ejercicio_data[3] ? mi.dato[i].ejercicio_data[3][12] : 0;
+								mi.tot[3][2] += mi.dato[i].ejercicio_data[3] ? mi.dato[i].ejercicio_data[3][24] : 0;
+								mi.tot[4][0] += mi.dato[i].ejercicio_data[4] ? mi.dato[i].ejercicio_data[4][0] : 0;
+								mi.tot[4][1] += mi.dato[i].ejercicio_data[4] ? mi.dato[i].ejercicio_data[4][12] : 0;
+								mi.tot[4][2] += mi.dato[i].ejercicio_data[4] ? mi.dato[i].ejercicio_data[4][24] : 0;
+							}
 						}
 						mi.grafia_data=[];
 						for(var i=0; i<3; i++)
@@ -116,15 +117,11 @@ angular.module('deudaController',[]).controller('deudaController',['$rootScope',
 			mi.grafica_data.push([row.ejercicio_data[0][24]/1000000,row.ejercicio_data[1][24]/1000000, row.ejercicio_data[2][24]/1000000, row.ejercicio_data[3][24]/1000000, row.ejercicio_data[4][24]/1000000]);
 		}
 		else{
-			mi.grafica_titulo = "Presupuesto de Deuda Pública";
+			mi.grafica_titulo = "Presupuesto de Deuda Pública - Detalle";
 			for(var i=0; i<3; i++)
 				mi.grafica_data.push([mi.tot[0][i]/1000000,mi.tot[1][i]/1000000, mi.tot[2][i]/1000000, mi.tot[3][i]/1000000, mi.tot[4][i]/1000000]);
 		}
 		
-	}
-	
-	mi.goSegundoNivel = function(){
-		$window.location.href="/main.jsp#!deuda_detalle";
 	}
 	
 }]);

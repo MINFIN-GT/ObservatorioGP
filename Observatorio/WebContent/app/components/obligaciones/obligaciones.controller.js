@@ -98,10 +98,17 @@ angular.module('obligacionesController',[]).controller('obligacionesController',
 			});
 	
 	mi.getGraficaEntidad =  function(row){
-		mi.grafica_titulo = row.entidad_nombre;
-		var serie = [row.d2014/1000000,row.d2015/1000000,row.d2016/1000000,row.d2017/1000000];
 		mi.grafica_data = [];
-		mi.grafica_data.push(serie);
+		if(row.isSelected){
+			mi.grafica_titulo = row.entidad_nombre;
+			var serie = [row.d2014/1000000,row.d2015/1000000,row.d2016/1000000,row.d2017/1000000];
+			mi.grafica_data.push(serie);
+		}
+		else{
+			var serie = [mi.tot_dano1/1000000, mi.tot_dano2/1000000, mi.tot_dano3/1000000, mi.tot_dano4/1000000];
+			mi.grafica_data.push(serie);
+			mi.grafica_titulo = "Todas la entidades";
+		}
 	}
 	
 }]);

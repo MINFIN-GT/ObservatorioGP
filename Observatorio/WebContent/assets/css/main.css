@@ -41,9 +41,36 @@ body {
     background: #ccffff !important;
 }
 
+.smart_table_withclick{
+	cursor: pointer;
+}
+
 .titulo_grafica{
 	font-size: 14px;
 	font-weight: bold;
 	text-align: center;
+}
+
+.deuda_tab_1{
+	font-weight: bold;
+}
+
+.deuda_tab_2{
+	padding-left: 10px;
+	font-weight: bold;
+}
+
+.deuda_tab_3{
+	padding-left: 20px;
+	font-weight: bold;
+}
+
+.deuda_tab_4{
+	padding-left: 30px;
+	font-weight: bold;
+}
+
+.deuda_tab_5{
+	padding-left: 40px;
 }
 

@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-	<div ng-controller="deudaController as ctrl">
-			<h3>Presupuesto de Deuda Pública</h3>
+	<div ng-controller="deudadetalleController as ctrl">
+			<h3>Presupuesto de Deuda Pública - Detalle</h3>
 			<br/>
-			<div align="center" class="row" style="width: 80%; margin: 0 auto;">
+			<div align="center" class="row" style="width: 95%; margin: 0 auto;">
 					<table st-table="ctrl.displayedCollection" st-safe-src="ctrl.rowCollection" class="table table-striped" st-filtered-collection>
 						<thead>
 							<tr>
@@ -34,54 +34,54 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr st-select-row="row" st-select-mode="single" ng-repeat="row in ctrl.displayedCollection" ng-click="ctrl.getGraficaEntidad(row);" ng-dblclick="ctrl.goSegundoNivel()" class="smart_table_withclick">
+							<tr st-select-row="row" st-select-mode="single" ng-repeat="row in ctrl.displayedCollection" ng-click="ctrl.getGraficaEntidad(row);" class="smart_table_withclick">
 								<td align="left" style="white-space: nowrap;">
-									<span ng-class="{{ 'deuda_tab_'+row.nivel }}">{{row.entidad_nombre }}</span>
+									<span class="{{ 'deuda_tab_'+row.nivel }}">{{row.entidad_nombre }}</span>
 								</td>
 								<td align="right" style="white-space: nowrap;">
 									{{ row.ejercicio_data[0][0] | formatoMillones : true }} 
 								</td>
 								<td align="right" style="white-space: nowrap;">
-									{{ row.ejercicio_data[0][12] | formatoMillones : true }} 
+									{{ row.ejercicio_data[0][24] | formatoMillones : true }} 
 								</td>
 								<td align="right" style="white-space: nowrap;">
-									{{ row.ejercicio_data[0][24] | formatoMillones : true }} 
+									{{ row.ejercicio_data[0][12] | formatoMillones : true }} 
 								</td>
 								<td align="right" style="white-space: nowrap;">
 									{{ row.ejercicio_data[1][0] | formatoMillones : true }} 
 								</td>
 								<td align="right" style="white-space: nowrap;">
-									{{ row.ejercicio_data[1][12] | formatoMillones : true }} 
+									{{ row.ejercicio_data[1][24] | formatoMillones : true }} 
 								</td>
 								<td align="right" style="white-space: nowrap;">
-									{{ row.ejercicio_data[1][24] | formatoMillones : true }} 
+									{{ row.ejercicio_data[1][12] | formatoMillones : true }} 
 								</td>
 								<td align="right" style="white-space: nowrap;">
 									{{ row.ejercicio_data[2][0] | formatoMillones : true }} 
 								</td>
 								<td align="right" style="white-space: nowrap;">
-									{{ row.ejercicio_data[2][12] | formatoMillones : true }} 
+									{{ row.ejercicio_data[2][24] | formatoMillones : true }} 
 								</td>
 								<td align="right" style="white-space: nowrap;">
-									{{ row.ejercicio_data[2][24] | formatoMillones : true }} 
+									{{ row.ejercicio_data[2][12] | formatoMillones : true }} 
 								</td>
 								<td align="right" style="white-space: nowrap;">
 									{{ row.ejercicio_data[3][0] | formatoMillones : true }} 
 								</td>
 								<td align="right" style="white-space: nowrap;">
-									{{ row.ejercicio_data[3][12] | formatoMillones : true }} 
+									{{ row.ejercicio_data[3][24] | formatoMillones : true }} 
 								</td>
 								<td align="right" style="white-space: nowrap;">
-									{{ row.ejercicio_data[3][24] | formatoMillones : true }} 
+									{{ row.ejercicio_data[3][12] | formatoMillones : true }} 
 								</td>
 								<td align="right" style="white-space: nowrap;">
 									{{ row.ejercicio_data[4][0] | formatoMillones : true }} 
 								</td>
 								<td align="right" style="white-space: nowrap;">
-									{{ row.ejercicio_data[4][12] | formatoMillones : true }} 
+									{{ row.ejercicio_data[4][24] | formatoMillones : true }} 
 								</td>
 								<td align="right" style="white-space: nowrap;">
-									{{ row.ejercicio_data[4][24] | formatoMillones : true }} 
+									{{ row.ejercicio_data[4][12] | formatoMillones : true }} 
 								</td>
 							</tr>
 						</tbody>
@@ -92,46 +92,46 @@
 									<div>{{ctrl.tot[0][0] | formatoMillones : true}}</div>
 								</th>
 								<th style="text-align: right; white-space: nowrap;" >
-									<div>{{ctrl.tot[0][1] | formatoMillones : true}}</div>
+									<div>{{ctrl.tot[0][2] | formatoMillones : true}}</div>
 								</th>
 								<th style="text-align: right; white-space: nowrap;">
-									<div>{{ctrl.tot[0][2] | formatoMillones : true}}</div>
+									<div>{{ctrl.tot[0][1] | formatoMillones : true}}</div>
 								</th>
 								<th style="text-align: right; white-space: nowrap;">
 									<div>{{ctrl.tot[1][0] | formatoMillones : true}}</div>
 								</th>
 								<th style="text-align: right; white-space: nowrap;">
-									<div>{{ctrl.tot[1][1] | formatoMillones : true}}</div>
+									<div>{{ctrl.tot[1][2] | formatoMillones : true}}</div>
 								</th>
 								<th style="text-align: right; white-space: nowrap;">
-									<div>{{ctrl.tot[1][2] | formatoMillones : true}}</div>
+									<div>{{ctrl.tot[1][1] | formatoMillones : true}}</div>
 								</th>
 								<th style="text-align: right; white-space: nowrap;">
 									<div>{{ctrl.tot[2][0] | formatoMillones : true}}</div>
 								</th>
 								<th style="text-align: right; white-space: nowrap;">
-									<div>{{ctrl.tot[2][1] | formatoMillones : true}}</div>
+									<div>{{ctrl.tot[2][2] | formatoMillones : true}}</div>
 								</th>
 								<th style="text-align: right; white-space: nowrap;">
-									<div>{{ctrl.tot[2][2] | formatoMillones : true}}</div>
+									<div>{{ctrl.tot[2][1] | formatoMillones : true}}</div>
 								</th>
 								<th style="text-align: right; white-space: nowrap;">
 									<div>{{ctrl.tot[3][0] | formatoMillones : true}}</div>
 								</th>
 								<th style="text-align: right; white-space: nowrap;">
-									<div>{{ctrl.tot[3][1] | formatoMillones : true}}</div>
+									<div>{{ctrl.tot[3][2] | formatoMillones : true}}</div>
 								</th>
 								<th style="text-align: right; white-space: nowrap;">
-									<div>{{ctrl.tot[3][2] | formatoMillones : true}}</div>
+									<div>{{ctrl.tot[3][1] | formatoMillones : true}}</div>
 								</th>
 								<th style="text-align: right; white-space: nowrap;">
 									<div>{{ctrl.tot[4][0] | formatoMillones : true}}</div>
 								</th>
 								<th style="text-align: right; white-space: nowrap;">
-									<div>{{ctrl.tot[4][1] | formatoMillones : true}}</div>
+									<div>{{ctrl.tot[4][2] | formatoMillones : true}}</div>
 								</th>
 								<th style="text-align: right; white-space: nowrap;">
-									<div>{{ctrl.tot[4][2] | formatoMillones : true}}</div>
+									<div>{{ctrl.tot[4][1] | formatoMillones : true}}</div>
 								</th>
 							</tr>
 						</tfoot>
