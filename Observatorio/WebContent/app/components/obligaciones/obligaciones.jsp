@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 	<div ng-controller="obligacionesController as ctrl">
-			<div align="center" class="row" style="width: 90%; margin: 0 auto;">
+			<div align="center" class="row" style="width: 90%; margin: 0 auto; font-size: 11px;">
 					<table st-table="ctrl.displayedCollection" st-safe-src="ctrl.rowCollection" class="table table-striped" st-filtered-collection>
 						<thead>
 							<tr>

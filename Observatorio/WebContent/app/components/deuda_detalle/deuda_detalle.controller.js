@@ -12,6 +12,8 @@ angular.module('deudadetalleController',[]).controller('deudadetalleController',
 	mi.grafica_labels = [mi.ano-4, mi.ano-3, mi.ano-2, mi.ano-1, mi.ano];
 	mi.grafica_titulo = "Presupuesto de Deuda Pública";
 	
+	$rootScope.page_title = 'Presupuesto de Deuda Pública [Detalle]'
+	
 	mi.grafica_opciones = {
 			elements: {
 		        line: {
