@@ -52,13 +52,13 @@
 							</tr>
 						</tfoot>
 					</table>
-					<div style="text-align: center;">Fuente de información SICOIN. Cifras en millones.</div>
+					<div style="text-align: center; font-size: 11px;">Fuente de información SICOIN. Cifras en millones.</div>
 				</div>
 				<br/>
 				<br/>
 				<br/>
 				<br/>
-				<div align="center" class="row" style="width: 90%; margin: 0 auto;">
+				<div align="center" class="row" style="width: 90%; margin: 0 auto; font-size: 11px;">
 					<div class="titulo_grafica">{{ ctrl.grafica_titulo }}</div>
 					<br/>
 					<div align="center">
@@ -68,6 +68,6 @@
 						</canvas>
 					</div>
 				</div>
-				<div style="text-align: center;">Fuente de información SICOIN. Cifras en millones.</div>
+				<div style="text-align: center; font-size: 11px;">Fuente de información SICOIN. Cifras en millones.</div>
 				<br/>
 </div>

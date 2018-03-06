@@ -2,7 +2,7 @@ angular.module('productoController', []).controller('productoController',['$root
 	function($rootScope,$scope,$http,$routeParams){
 	var mi = this;
 	
-	$rootScope.page_title = 'Productos';
+	$rootScope.page_title = 'Presupuesto por Resultados [Productos]';
 		
 	var fecha = new Date();
 	mi.anio = fecha.getFullYear();

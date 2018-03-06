@@ -27,7 +27,7 @@
 		
 		<ul>
 			<li class='current'>
-		    	<a href="#" data-description="Acá iniciamos">Inicio</a>
+		    	<a href="main-botones.jsp" data-description="Acá iniciamos">Inicio</a>
 				<ul>
 					<li><a href="#">¿Quiénes somos?</a></li>
 					<li><a href="#">¿Cómo funciona el OGP?</a></li>

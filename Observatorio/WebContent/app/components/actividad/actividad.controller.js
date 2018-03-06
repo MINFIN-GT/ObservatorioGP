@@ -10,6 +10,9 @@ angular.module('actividadController',[]).controller('actividadController', ['$ro
 	mi.decimales = false;
 	mi.linealColors = ['#8ecf4c', '#88b4df'];
 	
+	$rootScope.page_title = 'Presupuesto por Resultados [Actividad]';
+	
+	
 	mi.tot_p_ejecucion_4 = 0;
 	mi.tot_p_ejecucion_3 = 0;
 	mi.tot_p_ejecucion_2 = 0;
