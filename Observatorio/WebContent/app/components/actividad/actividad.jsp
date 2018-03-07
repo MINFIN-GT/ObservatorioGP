@@ -140,79 +140,79 @@
 					<tr>
 						<th style="text-align: right;">Totales:</th>
 						<th style="text-align: right;">
-							<div>{{ctrl.tot_asignado_4 | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{ctrl.tot_asignado_4 | formatoMillones : ctrl.decimales}}</div>
 						</th>
 						<th style="text-align: right;">
-							<div>{{ctrl.tot_vigente_4 | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{ctrl.tot_vigente_4 | formatoMillones : ctrl.decimales}}</div>
 						</th>
 						<th style="text-align: right;">
-							<div>{{ctrl.tot_ejecutado_4 | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{ctrl.tot_ejecutado_4 | formatoMillones : ctrl.decimales}}</div>
 						</th>
 						<th style="text-align: right;">
-							<div>{{ctrl.tot_p_ejecucion_4 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{ctrl.tot_p_ejecucion_4 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
 						</th>
 						<th style="text-align: right;">
-							<div>{{ctrl.tot_p_avance_4 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{ctrl.tot_p_avance_4 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
 						</th>
 						<th style="text-align: right;">
-							<div>{{ctrl.tot_asignado_3 | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{ctrl.tot_asignado_3 | formatoMillones : ctrl.decimales}}</div>
 						</th>
 						<th style="text-align: right;">
-							<div>{{ctrl.tot_vigente_3 | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{ctrl.tot_vigente_3 | formatoMillones : ctrl.decimales}}</div>
 						</th>
 						<th style="text-align: right;">
-							<div>{{ctrl.tot_ejecutado_3 | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{ctrl.tot_ejecutado_3 | formatoMillones : ctrl.decimales}}</div>
 						</th>
 						<th style="text-align: right;">
-							<div>{{ctrl.tot_p_ejecucion_3 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{ctrl.tot_p_ejecucion_3 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
 						</th>
 						<th style="text-align: right;">
-							<div>{{ctrl.tot_p_avance_3 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{ctrl.tot_p_avance_3 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
 						</th>
 						<th style="text-align: right;">
-							<div>{{ctrl.tot_asignado_2 | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{ctrl.tot_asignado_2 | formatoMillones : ctrl.decimales}}</div>
 						</th>
 						<th style="text-align: right;">
-							<div>{{ctrl.tot_vigente_2 | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{ctrl.tot_vigente_2 | formatoMillones : ctrl.decimales}}</div>
 						</th>
 						<th style="text-align: right;">
-							<div>{{ctrl.tot_ejecutado_2 | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{ctrl.tot_ejecutado_2 | formatoMillones : ctrl.decimales}}</div>
 						</th>
 						<th style="text-align: right;">
-							<div>{{ctrl.tot_p_ejecucion_2 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{ctrl.tot_p_ejecucion_2 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
 						</th>
 						<th style="text-align: right;">
-							<div>{{ctrl.tot_p_avance_2 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{ctrl.tot_p_avance_2 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
 						</th>
 						<th style="text-align: right;">
-							<div>{{ctrl.tot_asignado_1 | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{ctrl.tot_asignado_1 | formatoMillones : ctrl.decimales}}</div>
 						</th>
 						<th style="text-align: right;">
-							<div>{{ctrl.tot_vigente_1 | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{ctrl.tot_vigente_1 | formatoMillones : ctrl.decimales}}</div>
 						</th>
 						<th style="text-align: right;">
-							<div>{{ctrl.tot_ejecutado_1 | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{ctrl.tot_ejecutado_1 | formatoMillones : ctrl.decimales}}</div>
 						</th>
 						<th style="text-align: right;">
-							<div>{{ctrl.tot_p_ejecucion_1 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{ctrl.tot_p_ejecucion_1 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
 						</th>
 						<th style="text-align: right;">
-							<div>{{ctrl.tot_p_avance_1 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{ctrl.tot_p_avance_1 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
 						</th>
 						<th style="text-align: right;">
-							<div>{{ctrl.tot_asignado | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{ctrl.tot_asignado | formatoMillones : ctrl.decimales}}</div>
 						</th>
 						<th style="text-align: right;">
-							<div>{{ctrl.tot_vigente | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{ctrl.tot_vigente | formatoMillones : ctrl.decimales}}</div>
 						</th>
 						<th style="text-align: right;">
-							<div>{{ctrl.tot_ejecutado | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{ctrl.tot_ejecutado | formatoMillones : ctrl.decimales}}</div>
 						</th>
 						<th style="text-align: right;">
-							<div>{{ctrl.tot_p_ejecucion | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{ctrl.tot_p_ejecucion | formatoMillonesSinTipo : ctrl.decimales}}%</div>
 						</th>
 						<th style="text-align: right;">
-							<div>{{ctrl.tot_p_avance | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{ctrl.tot_p_avance | formatoMillonesSinTipo : ctrl.decimales}}%</div>
 						</th>
 					</tr>
 				</tfoot>
