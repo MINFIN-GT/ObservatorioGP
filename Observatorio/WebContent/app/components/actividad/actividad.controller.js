@@ -92,122 +92,124 @@ angular.module('actividadController',[]).controller('actividadController', ['$ro
 		mi.anualPFinanciero = [];
 		mi.anualPFisico = [];
 		
-		for(var i=0; i<datos.length; i++){//row
-			for(var j=0; j<datos[i].ejercicios.length; j++){//años
-				var pos = datos[i].ejercicios[j] - mi.anio + 4;
-				for(var h=0; h<datos[i].ejercicio_data[pos].length; h++){
-					if(h==0){
-						if(pos==0)
-							mi.tot_asignado_4 += datos[i].ejercicio_data[pos][0];
-						if(pos==1)
-							mi.tot_asignado_3 += datos[i].ejercicio_data[pos][0];
-						if(pos==2)
-							mi.tot_asignado_2 += datos[i].ejercicio_data[pos][0];
-						if(pos==3)
-							mi.tot_asignado_1 += datos[i].ejercicio_data[pos][0];
-						if(pos==4)
-							mi.tot_asignado += datos[i].ejercicio_data[pos][0];
-					}else if((h>=13) && (h<=24)){ //vigente
-						if(pos==0 && h==24)
-							mi.tot_vigente_4 += datos[i].ejercicio_data[pos][24];
-						if(pos==1 && h==24)
-							mi.tot_vigente_3 += datos[i].ejercicio_data[pos][24];
-						if(pos==2 && h==24)
-							mi.tot_vigente_2 += datos[i].ejercicio_data[pos][24];
-						if(pos==3 && h==24)
-							mi.tot_vigente_1 += datos[i].ejercicio_data[pos][24];
-						if(pos==4 && h==24)
-							mi.tot_vigente += datos[i].ejercicio_data[pos][24];
-						
-						mi.mensualVigente.push(datos[i].ejercicio_data[pos][h]);
-						
-						if(h==24)
-							mi.anualVigente.push(datos[i].ejercicio_data[pos][h]);
-						
-					}else if((h>=1) && (h<=12)){ //ejecutado
-						if(pos==0 && h==12)
-							mi.tot_ejecutado_4 += datos[i].ejercicio_data[pos][12];
-						if(pos==1 && h==12)
-							mi.tot_ejecutado_3 += datos[i].ejercicio_data[pos][12];
-						if(pos==2 && h==12)
-							mi.tot_ejecutado_2 += datos[i].ejercicio_data[pos][12];
-						if(pos==3 && h==12)
-							mi.tot_ejecutado_1 += datos[i].ejercicio_data[pos][12];
-						if(pos==4 && h==12)
-							mi.tot_ejecutado += datos[i].ejercicio_data[pos][12];
-						
-						mi.mensualEjecutado.push(datos[i].ejercicio_data[pos][h]);
-						
-						if(h==12)
-							mi.anualEjecutado.push(datos[i].ejercicio_data[pos][h]);
-						
-					}else if((h>=25) && (h<=36)){ //porcentaje financiero presupuestario
-						if(pos==0 && h==36)
-							mi.tot_p_ejecucion_4 += datos[i].ejercicio_data[pos][36];
-						if(pos==1 && h==36)
-							mi.tot_p_ejecucion_3 += datos[i].ejercicio_data[pos][36];
-						if(pos==2 && h==36)
-							mi.tot_p_ejecucion_2 += datos[i].ejercicio_data[pos][36];
-						if(pos==3 && h==36)
-							mi.tot_p_ejecucion_1 += datos[i].ejercicio_data[pos][36];
-						if(pos==4 && h==36)
-							mi.tot_p_ejecucion += datos[i].ejercicio_data[pos][36];
-						
-						mi.mensualPFinanciero.push(datos[i].ejercicio_data[pos][h] * 100);
-						
-						if(h==36)
-							mi.anualPFinanciero.push(datos[i].ejercicio_data[pos][h] * 100);
+		if(datos.length > 0){
+			for(var i=0; i<datos.length; i++){//row
+				for(var j=0; j<datos[i].ejercicios.length; j++){//años
+					var pos = datos[i].ejercicios[j] - mi.anio + 4;
+					for(var h=0; h<datos[i].ejercicio_data[pos].length; h++){
+						if(h==0){
+							if(pos==0)
+								mi.tot_asignado_4 += datos[i].ejercicio_data[pos][0];
+							if(pos==1)
+								mi.tot_asignado_3 += datos[i].ejercicio_data[pos][0];
+							if(pos==2)
+								mi.tot_asignado_2 += datos[i].ejercicio_data[pos][0];
+							if(pos==3)
+								mi.tot_asignado_1 += datos[i].ejercicio_data[pos][0];
+							if(pos==4)
+								mi.tot_asignado += datos[i].ejercicio_data[pos][0];
+						}else if((h>=13) && (h<=24)){ //vigente
+							if(pos==0 && h==24)
+								mi.tot_vigente_4 += datos[i].ejercicio_data[pos][24];
+							if(pos==1 && h==24)
+								mi.tot_vigente_3 += datos[i].ejercicio_data[pos][24];
+							if(pos==2 && h==24)
+								mi.tot_vigente_2 += datos[i].ejercicio_data[pos][24];
+							if(pos==3 && h==24)
+								mi.tot_vigente_1 += datos[i].ejercicio_data[pos][24];
+							if(pos==4 && h==24)
+								mi.tot_vigente += datos[i].ejercicio_data[pos][24];
+							
+							mi.mensualVigente.push(datos[i].ejercicio_data[pos][h]);
+							
+							if(h==24)
+								mi.anualVigente.push(datos[i].ejercicio_data[pos][h]);
+							
+						}else if((h>=1) && (h<=12)){ //ejecutado
+							if(pos==0 && h==12)
+								mi.tot_ejecutado_4 += datos[i].ejercicio_data[pos][12];
+							if(pos==1 && h==12)
+								mi.tot_ejecutado_3 += datos[i].ejercicio_data[pos][12];
+							if(pos==2 && h==12)
+								mi.tot_ejecutado_2 += datos[i].ejercicio_data[pos][12];
+							if(pos==3 && h==12)
+								mi.tot_ejecutado_1 += datos[i].ejercicio_data[pos][12];
+							if(pos==4 && h==12)
+								mi.tot_ejecutado += datos[i].ejercicio_data[pos][12];
+							
+							mi.mensualEjecutado.push(datos[i].ejercicio_data[pos][h]);
+							
+							if(h==12)
+								mi.anualEjecutado.push(datos[i].ejercicio_data[pos][h]);
+							
+						}else if((h>=25) && (h<=36)){ //porcentaje financiero presupuestario
+							if(pos==0 && h==36)
+								mi.tot_p_ejecucion_4 += datos[i].ejercicio_data[pos][36];
+							if(pos==1 && h==36)
+								mi.tot_p_ejecucion_3 += datos[i].ejercicio_data[pos][36];
+							if(pos==2 && h==36)
+								mi.tot_p_ejecucion_2 += datos[i].ejercicio_data[pos][36];
+							if(pos==3 && h==36)
+								mi.tot_p_ejecucion_1 += datos[i].ejercicio_data[pos][36];
+							if(pos==4 && h==36)
+								mi.tot_p_ejecucion += datos[i].ejercicio_data[pos][36];
+							
+							mi.mensualPFinanciero.push(datos[i].ejercicio_data[pos][h] * 100);
+							
+							if(h==36)
+								mi.anualPFinanciero.push(datos[i].ejercicio_data[pos][h] * 100);
 
-					}else if((h>=37) && (h<=48)){ //porcentaje fisico
-						if(pos==0 && h==48)
-							mi.tot_p_avance_4 += datos[i].ejercicio_data[pos][48];
-						if(pos==1 && h==48)
-							mi.tot_p_avance_3 += datos[i].ejercicio_data[pos][48];
-						if(pos==2 && h==48)
-							mi.tot_p_avance_2 += datos[i].ejercicio_data[pos][48];
-						if(pos==3 && h==48)
-							mi.tot_p_avance_1 += datos[i].ejercicio_data[pos][48];
-						if(pos==4 && h==48)
-							mi.tot_p_avance += datos[i].ejercicio_data[pos][48];
-						
-						mi.mensualPFisico.push(datos[i].ejercicio_data[pos][h] * 100);
-						
-						if(h==48)
-							mi.anualPFisico.push(datos[i].ejercicio_data[pos][h] * 100);
+						}else if((h>=37) && (h<=48)){ //porcentaje fisico
+							if(pos==0 && h==48)
+								mi.tot_p_avance_4 += datos[i].ejercicio_data[pos][48];
+							if(pos==1 && h==48)
+								mi.tot_p_avance_3 += datos[i].ejercicio_data[pos][48];
+							if(pos==2 && h==48)
+								mi.tot_p_avance_2 += datos[i].ejercicio_data[pos][48];
+							if(pos==3 && h==48)
+								mi.tot_p_avance_1 += datos[i].ejercicio_data[pos][48];
+							if(pos==4 && h==48)
+								mi.tot_p_avance += datos[i].ejercicio_data[pos][48];
+							
+							mi.mensualPFisico.push(datos[i].ejercicio_data[pos][h] * 100);
+							
+							if(h==48)
+								mi.anualPFisico.push(datos[i].ejercicio_data[pos][h] * 100);
+						}
 					}
 				}
 			}
-		}
-		
-		mi.tot_p_ejecucion_4 = (mi.tot_p_ejecucion_4 / mi.dato.length) * 100;
-		mi.tot_p_ejecucion_3 = (mi.tot_p_ejecucion_3 / mi.dato.length) * 100;
-		mi.tot_p_ejecucion_2 = (mi.tot_p_ejecucion_2 / mi.dato.length) * 100;
-		mi.tot_p_ejecucion_1 = (mi.tot_p_ejecucion_1 / mi.dato.length) * 100;
-		mi.tot_p_ejecucion = (mi.tot_p_ejecucion / mi.dato.length) * 100;
-		
-		mi.tot_p_avance_4 = (mi.tot_p_avance_4 / mi.dato.length) * 100;
-		mi.tot_p_avance_3 = (mi.tot_p_avance_3 / mi.dato.length) * 100;
-		mi.tot_p_avance_2 = (mi.tot_p_avance_2 / mi.dato.length) * 100;
-		mi.tot_p_avance_1 = (mi.tot_p_avance_1 / mi.dato.length) * 100;
-		mi.tot_p_avance = (mi.tot_p_avance / mi.dato.length) * 100;
-		
-		for(var i=0; i<1; i++){
-			for(var h=0; h<mi.dato[i].ejercicios.length;h++){
-				for(var j=0; j<12; j++){
-					if(mi.dato[i].ejercicios[h] == mi.anio && j==mi.mes)
-						break;
-					mi.labels.push(mi.meses[j] + mi.dato[i].ejercicios[h]);
-					mi.labels2.push(mi.meses[j] + mi.dato[i].ejercicios[h]);
+			
+			mi.tot_p_ejecucion_4 = (mi.tot_p_ejecucion_4 / mi.dato.length) * 100;
+			mi.tot_p_ejecucion_3 = (mi.tot_p_ejecucion_3 / mi.dato.length) * 100;
+			mi.tot_p_ejecucion_2 = (mi.tot_p_ejecucion_2 / mi.dato.length) * 100;
+			mi.tot_p_ejecucion_1 = (mi.tot_p_ejecucion_1 / mi.dato.length) * 100;
+			mi.tot_p_ejecucion = (mi.tot_p_ejecucion / mi.dato.length) * 100;
+			
+			mi.tot_p_avance_4 = (mi.tot_p_avance_4 / mi.dato.length) * 100;
+			mi.tot_p_avance_3 = (mi.tot_p_avance_3 / mi.dato.length) * 100;
+			mi.tot_p_avance_2 = (mi.tot_p_avance_2 / mi.dato.length) * 100;
+			mi.tot_p_avance_1 = (mi.tot_p_avance_1 / mi.dato.length) * 100;
+			mi.tot_p_avance = (mi.tot_p_avance / mi.dato.length) * 100;
+			
+			for(var i=0; i<1; i++){
+				for(var h=0; h<mi.dato[i].ejercicios.length;h++){
+					for(var j=0; j<12; j++){
+						if(mi.dato[i].ejercicios[h] == mi.anio && j==mi.mes)
+							break;
+						mi.labels.push(mi.meses[j] + mi.dato[i].ejercicios[h]);
+						mi.labels2.push(mi.meses[j] + mi.dato[i].ejercicios[h]);
+					}
 				}
 			}
+			
+			mi.tipoDatos = 1;
+			mi.data.push(mi.mensualVigente, mi.mensualEjecutado);
+			mi.data2.push(mi.mensualPFinanciero, mi.mensualPFisico);
+			
+			mi.options.scales.xAxes["0"].scaleLabel.labelString = "Meses";
+			mi.options2.scales.xAxes["0"].scaleLabel.labelString = "Meses";
 		}
-		
-		mi.tipoDatos = 1;
-		mi.data.push(mi.mensualVigente, mi.mensualEjecutado);
-		mi.data2.push(mi.mensualPFinanciero, mi.mensualPFisico);
-		
-		mi.options.scales.xAxes["0"].scaleLabel.labelString = "Meses";
-		mi.options2.scales.xAxes["0"].scaleLabel.labelString = "Meses";
 	}
 	
 	mi.getGraficaIndividual = function(row){
