@@ -12,7 +12,7 @@
 		}
     </style>
     <div ng-controller="actividadController as ctrl">
-	    <div align="center" class="row" style="width: 90%; margin: 0 auto; font-size: 11px;" ng-if="ctrl.mostrar">
+	    <div align="center" class="row" style="width: 90%; margin: 0 auto; font-size: 11px;">
 	    	<h3>Actividades</h3>
 			<br>
 	    	<table st-table="ctrl.displayedCollection" st-safe-src="ctrl.rowCollection" class="table table-striped cuerpotabla">
@@ -222,7 +222,7 @@
 	    <br>
 		<br>
 		<br>
-		<div ng-if="ctrl.mostrar">
+		<div>
 			<div class="titulo_grafica">{{ ctrl.tituloGrafica }}</div>
 			<div align="right" style="width: 80%;margin: 0 auto;">
 				<div class="btn-group btn-group-xs">
@@ -255,8 +255,5 @@
 			</div>
 			<div style="text-align: center;">Fuente de información SICOIN. Cifras en porcentajes.</div>
 			<br>
-		</div>
-		<div ng-if="!ctrl.mostrar" style="text-align: center;">
-			<h3>No existe información</h3>
 		</div>
     </div>
