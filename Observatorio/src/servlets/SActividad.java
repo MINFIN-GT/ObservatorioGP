@@ -20,8 +20,6 @@ import com.google.gson.reflect.TypeToken;
 
 import dao.ActividadDAO;
 import dao.ActividadDAO.Actividad;
-import dao.ActividadDAO.VectorValoresFinancieros;
-import dao.ActividadDAO.VectorValoresFisicos;
 import utilities.Utils;
 
 @WebServlet("/SActividad")
@@ -54,21 +52,12 @@ public class SActividad extends HttpServlet {
 		Integer unidadEjecutora = Utils.String2Int(map.get("unidadEjecutora"));
 		Integer programa = Utils.String2Int(map.get("programa"));
 		Integer subPrograma = Utils.String2Int(map.get("subPrograma"));
-		Integer actividad = Utils.String2Int(map.get("actividad")) != 0 ? Utils.String2Int(map.get("actividad")) : null;
 		String tipo_resultado = Utils.String2Int(map.get("tipo_resultado")) == 1 ? "Estrátegico" : (Utils.String2Int(map.get("tipo_resultado")) == 2 ? "Institucional" : "Otros");
 		
 		if(accion.equals("getActividades")){
 			ArrayList<Actividad> lstactividades = ActividadDAO.getActividades(entidad, unidadEjecutora, programa, subPrograma, tipo_resultado);
 			String actividades = new GsonBuilder().serializeNulls().create().toJson(lstactividades);
 			response_text = String.join(" ", "\"actividades\": ", actividades);
-			response_text = String.join(" ","{\"success\": true,", response_text, "}");
-		}else if(accion.equals("getInfoMensual")){
-			ArrayList<VectorValoresFisicos> lstejecucionfisica= ActividadDAO.getEjecucionFisicaMensual(entidad, unidadEjecutora, programa, subPrograma, actividad);
-			ArrayList<VectorValoresFinancieros> lstejecucionfinanciera= ActividadDAO.getEjecucionFinancieraMensual(entidad, unidadEjecutora, programa, subPrograma, actividad);
-			String informacionFisicaMensual = new GsonBuilder().serializeNulls().create().toJson(lstejecucionfisica);
-			String informacionFinancieraMensual =  new GsonBuilder().serializeNulls().create().toJson(lstejecucionfinanciera);
-			response_text = String.join(" ", "\"informacionFisicaMensual\": ", informacionFisicaMensual);
-			response_text = String.join(" ", "\"informacionFinancieraMensual\" :", informacionFinancieraMensual, "," +response_text);
 			response_text = String.join(" ","{\"success\": true,", response_text, "}");
 		}
 		
