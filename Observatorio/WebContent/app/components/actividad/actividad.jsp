@@ -55,7 +55,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr st-select-row="row" st-select-mode="single" ng-repeat="row in ctrl.displayedCollection" ng-click="ctrl.getGraficaActividad(row);" ng-dblclick="ctrl.irProducto(row.id)">
+					<tr st-select-row="row" st-select-mode="single" ng-repeat="row in ctrl.displayedCollection" ng-click="ctrl.getGraficaIndividual(row);" ng-dblclick="ctrl.irProducto(row.id)">
 						<td align="left" style="white-space: nowrap;">
 							{{row.nombre_actividad}}
 						</td>
@@ -69,12 +69,12 @@
 							<div style="white-space: nowrap;">{{row.ejercicio_data[0][12] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{(row.ejercicio_data[0][12] / (row.ejercicio_data[0][24] > 0 ? row.ejercicio_data[0][24] : 1)) *100  | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{(row.ejercicio_data[0][36])*100  | formatoMillonesSinTipo : ctrl.decimales}}%</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{(row.ejercicio_data[0][37] / ((row.ejercicio_data[0][25] + row.ejercicio_data[0][49]) > 0 ? row.ejercicio_data[0][25] + row.ejercicio_data[0][49] : 1)) *100 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{(row.ejercicio_data[0][48])*100 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
 						</td>
-						<td align="right">
+												<td align="right">
 							<div style="white-space: nowrap;">{{row.ejercicio_data[1][0] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
@@ -84,10 +84,10 @@
 							<div style="white-space: nowrap;">{{row.ejercicio_data[1][12] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{(row.ejercicio_data[1][12] / (row.ejercicio_data[1][24] > 0 ? row.ejercicio_data[1][24] : 1)) *100  | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{(row.ejercicio_data[1][36])*100  | formatoMillonesSinTipo : ctrl.decimales}}%</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{(row.ejercicio_data[1][37] / ((row.ejercicio_data[1][25] + row.ejercicio_data[1][49]) > 0 ? row.ejercicio_data[1][25] + row.ejercicio_data[1][49] : 1)) *100 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{(row.ejercicio_data[1][48])*100 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
 						</td>
 						<td align="right">
 							<div style="white-space: nowrap;">{{row.ejercicio_data[2][0] | formatoMillones : ctrl.decimales}}</div>
@@ -99,10 +99,10 @@
 							<div style="white-space: nowrap;">{{row.ejercicio_data[2][12] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{(row.ejercicio_data[2][12] / (row.ejercicio_data[2][24] > 0 ? row.ejercicio_data[2][24] : 1)) *100  | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{(row.ejercicio_data[2][36])*100  | formatoMillonesSinTipo : ctrl.decimales}}%</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{(row.ejercicio_data[2][37] / ((row.ejercicio_data[2][25] + row.ejercicio_data[2][49]) > 0 ? row.ejercicio_data[2][25] + row.ejercicio_data[2][49] : 1)) *100 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{(row.ejercicio_data[2][48])*100 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
 						</td>
 						<td align="right">
 							<div style="white-space: nowrap;">{{row.ejercicio_data[3][0] | formatoMillones : ctrl.decimales}}</div>
@@ -114,10 +114,10 @@
 							<div style="white-space: nowrap;">{{row.ejercicio_data[3][12] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{(row.ejercicio_data[3][12] / (row.ejercicio_data[3][24] > 0 ? row.ejercicio_data[3][24] : 1)) *100  | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{(row.ejercicio_data[3][36])*100  | formatoMillonesSinTipo : ctrl.decimales}}%</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{(row.ejercicio_data[3][37] / ((row.ejercicio_data[3][25] + row.ejercicio_data[3][49]) > 0 ? row.ejercicio_data[3][25] + row.ejercicio_data[3][49] : 1)) *100 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{(row.ejercicio_data[3][48])*100 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
 						</td>
 						<td align="right">
 							<div style="white-space: nowrap;">{{row.ejercicio_data[4][0] | formatoMillones : ctrl.decimales}}</div>
@@ -129,10 +129,10 @@
 							<div style="white-space: nowrap;">{{row.ejercicio_data[4][12] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{(row.ejercicio_data[4][12] / (row.ejercicio_data[4][24] > 0 ? row.ejercicio_data[4][24] : 1)) *100  | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{(row.ejercicio_data[4][36])*100  | formatoMillonesSinTipo : ctrl.decimales}}%</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{(row.ejercicio_data[4][37] / ((row.ejercicio_data[4][25] + row.ejercicio_data[4][49]) > 0 ? row.ejercicio_data[4][25] + row.ejercicio_data[4][49] : 1)) *100 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{(row.ejercicio_data[4][48])*100 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
 						</td>
 					</tr>
 				</tbody>
@@ -225,14 +225,29 @@
 		<div class="titulo_grafica">{{ ctrl.tituloGrafica }}</div>
 		<div align="right" style="width: 80%;margin: 0 auto;">
 			<div class="btn-group btn-group-xs">
-				<label class="btn btn-default" ng-click="ctrl.cambioAcumuladoMensual();"><span>Mensual</span></label>
-				<label class="btn btn-default" ng-click="ctrl.cambioAcumuladoAnual();"><span>Anual</span></label>
+				<label class="btn btn-default" ng-click="ctrl.cambioMensual();"><span>Mensual</span></label>
+				<label class="btn btn-default" ng-click="ctrl.cambioAnual();"><span>Anual</span></label>
 			</div>
 		</div>
 		<div align="center" class="row" style="width: 80%;margin: 0 auto;">
 			<div align="center">
 				<canvas id="line" class="chart chart-line" chart-data="ctrl.data"
 					chart-labels="ctrl.labels" chart-series="ctrl.series" chart-options="ctrl.options"
+					chart-colors="ctrl.linealColors" chart-legend="true">
+				</canvas>
+			</div>
+		</div>
+		<br>
+		<div align="right" style="width: 80%;margin: 0 auto;">
+			<div class="btn-group btn-group-xs">
+				<label class="btn btn-default" ng-click="ctrl.cambioMensualP();"><span>Mensual</span></label>
+				<label class="btn btn-default" ng-click="ctrl.cambioAnualP();"><span>Anual</span></label>
+			</div>
+		</div>
+		<div align="center" class="row" style="width: 80%;margin: 0 auto;">
+			<div align="center">
+				<canvas id="line" class="chart chart-line" chart-data="ctrl.data2"
+					chart-labels="ctrl.labels2" chart-series="ctrl.series2" chart-options="ctrl.options2"
 					chart-colors="ctrl.linealColors" chart-legend="true">
 				</canvas>
 			</div>
