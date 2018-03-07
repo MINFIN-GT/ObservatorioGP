@@ -82,10 +82,10 @@ angular.module('actividadController',[]).controller('actividadController', ['$ro
 		mi.labels = [];
 		mi.lables2 = [];
 		
-		mi.mensualVigente = [];
-		mi.mensualEjecutado = [];
-		mi.mensualPFinanciero = [];
-		mi.mensualPFisico = [];
+		mi.mensualVigente = new Array(60).fill(0);
+		mi.mensualEjecutado = new Array(60).fill(0);
+		mi.mensualPFinanciero = new Array(60).fill(0);
+		mi.mensualPFisico = new Array(60).fill(0);
 		
 		mi.anualVigente = [];
 		mi.anualEjecutado = [];
@@ -120,7 +120,8 @@ angular.module('actividadController',[]).controller('actividadController', ['$ro
 							if(pos==4 && h==24)
 								mi.tot_vigente += datos[i].ejercicio_data[pos][24];
 							
-							mi.mensualVigente.push(datos[i].ejercicio_data[pos][h]);
+							var posarr = pos==0 ? (h-13+0) : pos==1 ? (h-13+12) : pos==2 ? (h-13+24) : pos==3 ? (h-13+36) : pos==4 ? (h-13+48) : 0;
+							mi.mensualVigente[posarr] += datos[i].ejercicio_data[pos][h];
 							
 							if(h==24)
 								mi.anualVigente.push(datos[i].ejercicio_data[pos][h]);
@@ -137,7 +138,8 @@ angular.module('actividadController',[]).controller('actividadController', ['$ro
 							if(pos==4 && h==12)
 								mi.tot_ejecutado += datos[i].ejercicio_data[pos][12];
 							
-							mi.mensualEjecutado.push(datos[i].ejercicio_data[pos][h]);
+							var posarr = pos==0 ? (h-1+0) : pos==1 ? (h-1+12) : pos==2 ? (h-1+24) : pos==3 ? (h-1+36) : pos==4 ? (h-1+48) : 0;
+							mi.mensualEjecutado[posarr] += datos[i].ejercicio_data[pos][h];
 							
 							if(h==12)
 								mi.anualEjecutado.push(datos[i].ejercicio_data[pos][h]);
@@ -154,7 +156,8 @@ angular.module('actividadController',[]).controller('actividadController', ['$ro
 							if(pos==4 && h==36)
 								mi.tot_p_ejecucion += datos[i].ejercicio_data[pos][36];
 							
-							mi.mensualPFinanciero.push(datos[i].ejercicio_data[pos][h] * 100);
+							var posarr = pos==0 ? (h-25+0) : pos==1 ? (h-25+12) : pos==2 ? (h-25+24) : pos==3 ? (h-25+36) : pos==4 ? (h-25+48) : 0;
+							mi.mensualPFinanciero[posarr] += datos[i].ejercicio_data[pos][h] * 100;
 							
 							if(h==36)
 								mi.anualPFinanciero.push(datos[i].ejercicio_data[pos][h] * 100);
@@ -171,7 +174,8 @@ angular.module('actividadController',[]).controller('actividadController', ['$ro
 							if(pos==4 && h==48)
 								mi.tot_p_avance += datos[i].ejercicio_data[pos][48];
 							
-							mi.mensualPFisico.push(datos[i].ejercicio_data[pos][h] * 100);
+							var posarr = pos==0 ? (h-37+0) : pos==1 ? (h-37+12) : pos==2 ? (h-37+24) : pos==3 ? (h-37+36) : pos==4 ? (h-37+48) : 0;
+							mi.mensualPFisico[posarr] += datos[i].ejercicio_data[pos][h] * 100;
 							
 							if(h==48)
 								mi.anualPFisico.push(datos[i].ejercicio_data[pos][h] * 100);
