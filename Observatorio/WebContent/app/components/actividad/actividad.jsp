@@ -12,7 +12,7 @@
 		}
     </style>
     <div ng-controller="actividadController as ctrl">
-	    <div align="center" class="row" style="width: 80%; margin: 0 auto;">
+	    <div align="center" class="row" style="width: 90%; margin: 0 auto; font-size: 11px;">
 	    	<h3>Actividades</h3>
 			<br>
 	    	<table st-table="ctrl.displayedCollection" st-safe-src="ctrl.rowCollection" class="table table-striped cuerpotabla">

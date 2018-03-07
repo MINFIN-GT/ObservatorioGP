@@ -12,7 +12,7 @@
 		}
     </style>
     <div ng-controller="programaController as ctrl">
-    	<div align="center" class="row" style="width: 80%; margin: 0 auto;">
+    	<div align="center" class="row" style="width: 80%; margin: 0 auto; font-size: 11px;">
 	    	<h3>Programa</h3>
 	    	<br>
 	    	<table st-table="ctrl.displayedCollection" st-safe-src="ctrl.rowCollection" class="table table-striped cuerpotabla">
@@ -217,19 +217,19 @@
 					</tr>
 				</tfoot>
 			</table>
-			<div style="text-align: center;">Fuente de información SICOIN. Cifras en millones de Quetzales y porcentajes.</div>
+			<div style="text-align: center; font-size: 11px;">Fuente de información SICOIN. Cifras en millones de Quetzales y porcentajes.</div>
 	    </div>
 	    <br>
 	    <br>
 	    <br>
 	    <div class="titulo_grafica">{{ ctrl.tituloGrafica }}</div>
-	    <div align="right" style="width: 80%;margin: 0 auto;">
+	    <div align="right" style="width: 80%;margin: 0 auto; font-size: 11px;">
 			<div class="btn-group btn-group-xs">
 				<label class="btn btn-default" ng-click="ctrl.cambioAcumuladoMensual();"><span>Mensual</span></label>
 				<label class="btn btn-default" ng-click="ctrl.cambioAcumuladoAnual();"><span>Anual</span></label>
 			</div>
 		</div>
-		<div align="center" class="row" style="width: 80%;margin: 0 auto;">
+		<div align="center" class="row" style="width: 80%;margin: 0 auto; font-size: 11px;">
 			<div align="center">
 				<canvas id="line" class="chart chart-line" chart-data="ctrl.data"
 					chart-labels="ctrl.labels" chart-series="ctrl.series" chart-options="ctrl.options"
@@ -238,13 +238,13 @@
 			</div>
 		</div>
 		<br>
-		<div align="right" style="width: 80%;margin: 0 auto;">
+		<div align="right" style="width: 80%;margin: 0 auto; font-size: 11px;">
 			<div class="btn-group btn-group-xs">
 				<label class="btn btn-default" ng-click="ctrl.cambioAcumuladoMensualP();"><span>Mensual</span></label>
 				<label class="btn btn-default" ng-click="ctrl.cambioAcumuladoAnualP();"><span>Anual</span></label>
 			</div>
 		</div>
-		<div align="center" class="row" style="width: 80%;margin: 0 auto;">
+		<div align="center" class="row" style="width: 80%;margin: 0 auto; font-size: 11px;">
 			<div align="center">
 				<canvas id="line" class="chart chart-line" chart-data="ctrl.data2"
 					chart-labels="ctrl.labels2" chart-series="ctrl.series2" chart-options="ctrl.options2"

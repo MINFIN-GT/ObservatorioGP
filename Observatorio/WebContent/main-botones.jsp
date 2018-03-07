@@ -37,7 +37,7 @@ background-color: #222222;
 		
 		<ul>
 			<li class='current'>
-		    	<a href="#" data-description="Acá iniciamos">Inicio</a>
+		    	<a href="main-botones.jsp" data-description="Acá iniciamos">Inicio</a>
 				<ul>
 					<li><a href="#">¿Quiénes somos?</a></li>
 					<li><a href="#">¿Cómo funciona el OGP?</a></li>
@@ -136,8 +136,8 @@ background-color: #222222;
 <center>
 <img name="links" src="/assets/img/presupuesto/links.png" width="942" height="400" id="links" usemap="#m_links" alt="" />
 <map name="m_links" id="m_links">
-<area shape="poly" coords="58,220,191,220,191,361,58,361,58,220" href="main.jsp#!/re" alt="" />
-<area shape="poly" coords="233,220,366,220,366,361,233,361,233,220" href="main.jsp#!/ri" alt="" />
+<area shape="poly" coords="58,220,191,220,191,361,58,361,58,220" href="main.jsp#!/actividad/1/11130009/219/15/0" alt="" />
+<area shape="poly" coords="233,220,366,220,366,361,233,361,233,220" href="main.jsp#!/producto/1/11130009/219/15/0/3" alt="" />
 <area shape="poly" coords="410,221,543,221,543,362,410,362,410,221" href="main.jsp#!/obligaciones" alt="" />
 <area shape="poly" coords="582,220,715,220,715,361,582,361,582,220" href="main.jsp#!/deuda" alt="" />
 <area shape="poly" coords="759,220,892,220,892,361,759,361,759,220" href="main.jsp#!/ot" alt="" />

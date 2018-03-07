@@ -13,6 +13,9 @@ angular.module('programaController',[]).controller('programaController', ['$root
 	mi.decimales = false;
 	mi.linealColors = ['#8ecf4c', '#88b4df', '#d92a27'];
 	
+	$rootScope.page_title = 'Presupuesto por Resultados [Programa]';
+	
+	
 	mi.entidad = $routeParams.entidad;
 	mi.unidadEjecutora = $routeParams.unidadejecutora;
 	mi.programa = $routeParams.programa;
