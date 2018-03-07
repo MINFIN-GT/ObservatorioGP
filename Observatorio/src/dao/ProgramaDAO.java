@@ -127,7 +127,7 @@ public class ProgramaDAO {
 						"  group by entidad, unidad_ejecutora, programa, subprograma, proyecto, actividad,ejercicio", 
 						"  order by entidad, unidad_ejecutora, programa, subprograma, proyecto, actividad,ejercicio", 
 						") t1", 
-						"group by ejercicio, entidad, unidad_ejecutora, programa;");
+						"group by ejercicio, entidad, unidad_ejecutora, programa, programa_nombre;");
 				
 				PreparedStatement pstmt = CMemsql.getConnection().prepareStatement(query);
 				pstmt.setInt(1, entidad);

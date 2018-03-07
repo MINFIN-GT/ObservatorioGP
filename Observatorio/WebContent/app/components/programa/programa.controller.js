@@ -157,7 +157,7 @@ angular.module('programaController',[]).controller('programaController', ['$root
 								mi.tot_p_ejecucion += datos[i].ejercicio_data[pos][h];
 							
 							var posarr = pos==0 ? (h-25+0) : pos==1 ? (h-25+12) : pos==2 ? (h-25+24) : pos==3 ? (h-25+36) : pos==4 ? (h-25+48) : 0;
-							mi.mensualPFinanciero[posarr] += datos[i].ejercicio_data[pos][h] * 100;
+							mi.mensualPFinanciero[posarr] += datos[i].ejercicio_data[pos][h];
 							
 							if(h==36)
 								mi.anualPFinanciero.push(datos[i].ejercicio_data[pos][h] * 100);
@@ -182,7 +182,6 @@ angular.module('programaController',[]).controller('programaController', ['$root
 						}
 					}
 				}
-				sumar = true;
 			}
 			
 			mi.tot_p_ejecucion_4 = (mi.tot_p_ejecucion_4 / mi.dato.length) * 100;
@@ -209,7 +208,7 @@ angular.module('programaController',[]).controller('programaController', ['$root
 			}
 			
 			for(var i=0; i<mi.mensualPFinanciero.length;i++){
-				mi.mensualPFinanciero[i] = mi.mensualPFinanciero[i] / mi.dato.length;
+				mi.mensualPFinanciero[i] = (mi.mensualPFinanciero[i] / mi.dato.length) * 100;
 				mi.mensualPFisico[i] = mi.mensualPFisico[i] / mi.dato.length;
 			}
 			
@@ -432,4 +431,8 @@ angular.module('programaController',[]).controller('programaController', ['$root
 			      ]
 			}
 		};
+	
+	mi.irActividad = function(programa_id){
+		window.location = "main.jsp#!/actividad/" + mi.tipo_resultado + "/" + mi.entidad + "/" + mi.unidadEjecutora + "/" + programa_id + "/0/";
+	}
 }]);
