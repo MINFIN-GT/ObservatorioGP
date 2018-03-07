@@ -64,6 +64,11 @@ angular.module('actividadController',[]).controller('actividadController', ['$ro
 			mi.dato = [];
 			mi.dato = response.data.actividades;
 			
+			if(mi.dato.length > 0)
+				mi.mostrar = true;
+			else
+				mi.mostrar = false;
+			
 			mi.rowCollection = [];
 			mi.rowCollection = mi.dato;
 				
