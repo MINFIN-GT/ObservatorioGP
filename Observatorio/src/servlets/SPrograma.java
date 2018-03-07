@@ -19,8 +19,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import dao.ProgramaDAO;
-import dao.ProgramaDAO.VectorValoresFinancieros;
-import dao.ProgramaDAO.AnioEjecucion;
 import dao.ProgramaDAO.Programa;
 import utilities.Utils;
 
@@ -53,22 +51,13 @@ public class SPrograma extends HttpServlet {
 		Integer entidad = Utils.String2Int(map.get("entidad"));
 		Integer unidadEjecutora = Utils.String2Int(map.get("unidadEjecutora"));
 		Integer programa = Utils.String2Int(map.get("programa"));
+		String tipo_resultado = Utils.String2Int(map.get("tipo_resultado")) == 1 ? "Estrátegico" : (Utils.String2Int(map.get("tipo_resultado")) == 2 ? "Institucional" : "Otros");
 		
 		if(accion.equals("getProgramas")){
-			ArrayList<Programa> lstprogramas = ProgramaDAO.getProgramas(entidad, unidadEjecutora, programa);
+			ArrayList<Programa> lstprogramas = ProgramaDAO.getProgramas(entidad, unidadEjecutora, programa, tipo_resultado);
 			
-			String subprogramas = new GsonBuilder().serializeNulls().create().toJson(lstprogramas);
-			response_text = String.join(" ", "\"subprogramas\": ", subprogramas);
-			response_text = String.join(" ","{\"success\": true,", response_text, "}");
-		}else if(accion.equals("getInfoMensual")){
-			ArrayList<AnioEjecucion> lstejecucionfisicafinanciera= ProgramaDAO.getEjecucionFisicaFinancieraPonderadaMensual(entidad, unidadEjecutora, programa);
-			ArrayList<VectorValoresFinancieros> lstejecucionfinanciera= ProgramaDAO.getEjecucionFinancieraMensual(entidad, unidadEjecutora, programa);
-			
-			String informacionMensual = new GsonBuilder().serializeNulls().create().toJson(lstejecucionfisicafinanciera);
-			String informacionFinancieraMensual =  new GsonBuilder().serializeNulls().create().toJson(lstejecucionfinanciera);
-			
-			//response_text = String.join(" ", "\"informacionFisicaMensual\": ", informacionFisicaMensual);
-			response_text = String.join(" ", "\"informacionFinancieraMensual\" :", informacionFinancieraMensual, "," +response_text);
+			String programas = new GsonBuilder().serializeNulls().create().toJson(lstprogramas);
+			response_text = String.join(" ", "\"programas\": ", programas);
 			response_text = String.join(" ","{\"success\": true,", response_text, "}");
 		}
 		
