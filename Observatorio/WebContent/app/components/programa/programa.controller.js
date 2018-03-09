@@ -175,7 +175,7 @@ angular.module('programaController',[]).controller('programaController', ['$root
 								mi.tot_p_avance += datos[i].ejercicio_data[pos][h];
 							
 							var posarr = pos==0 ? (h-37+0) : pos==1 ? (h-37+12) : pos==2 ? (h-37+24) : pos==3 ? (h-37+36) : pos==4 ? (h-37+48) : 0;
-							mi.mensualPFisico[posarr] += datos[i].ejercicio_data[pos][h] * 100;
+							mi.mensualPFisico[posarr] += datos[i].ejercicio_data[pos][h];
 							
 							if(h==48)
 								mi.anualPFisico.push(datos[i].ejercicio_data[pos][h] * 100);
@@ -209,7 +209,7 @@ angular.module('programaController',[]).controller('programaController', ['$root
 			
 			for(var i=0; i<mi.mensualPFinanciero.length;i++){
 				mi.mensualPFinanciero[i] = (mi.mensualPFinanciero[i] / mi.dato.length) * 100;
-				mi.mensualPFisico[i] = mi.mensualPFisico[i] / mi.dato.length;
+				mi.mensualPFisico[i] = (mi.mensualPFisico[i] / mi.dato.length) * 100;
 			}
 			
 			mi.tipoDatos = 1;
@@ -370,7 +370,7 @@ angular.module('programaController',[]).controller('programaController', ['$root
 		        	     callback: function (value) {
 		        	    	 if (true)
 		        	    		 value = value.toFixed(2);
-		        	    	 return 'Q' + numeral(value).format(' 0.00')
+		        	    	 return 'Q' + numeral(value).format('0,000.00')
 	                   }
 					},
 					scaleLabel: {
@@ -386,7 +386,16 @@ angular.module('programaController',[]).controller('programaController', ['$root
 	                   }
 			      }
 			      ]
-			}
+			},
+			tooltips: {
+		           mode: 'label',
+		           label: 'mylabel',
+		           callbacks: {
+		               label: function(tooltipItem, data) {
+		                   return 'Q ' + numeral(tooltipItem.yLabel).format('0,000.00'); 
+		               } 
+		           }
+		        }
 		};
 	
 	mi.options2 = {
@@ -429,7 +438,16 @@ angular.module('programaController',[]).controller('programaController', ['$root
 	                   }
 			      }
 			      ]
-			}
+			},
+			tooltips: {
+		           mode: 'label',
+		           label: 'mylabel',
+		           callbacks: {
+		               label: function(tooltipItem, data) {
+		            	   return numeral(tooltipItem.yLabel).format(' 0.00')+'%';
+		               } 
+		           }
+		        }
 		};
 	
 	mi.irActividad = function(programa_id){

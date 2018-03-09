@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <style>
-    	.bordeIzquierda{
-		    border-left: 1px double #ccc!important;
-		}
 		.cuerpotabla{
 			overflow-y: hidden;
 			overflow-x: scroll;

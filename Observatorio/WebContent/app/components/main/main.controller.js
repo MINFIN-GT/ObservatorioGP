@@ -22,7 +22,7 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
          .when('/deuda_detalle',{
          	template: '<div load-on-demand="\'deudadetalleController\'" class="all_page"></div>'
          })
-         .when('/producto/:tipo_resultado/:entidad/:unidadejecutora/:programa/:subprograma/:actividad',{
+         .when('/producto/:entidad/:unidadejecutora/:programa/:subprograma/:actividad',{
          	template: '<div load-on-demand="\'productoController\'" class="all_page"></div>'
          })
          .when('/actividad/:tipo_resultado/:entidad/:unidadejecutora/:programa/:subprograma',{
@@ -30,6 +30,9 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
          })
          .when('/programa/:tipo_resultado/:entidad/:unidadejecutora',{
          	template: '<div load-on-demand="\'programaController\'" class="all_page"></div>'
+         })
+         .when('/entidad/:tipo_resultado',{
+         	template: '<div load-on-demand="\'entidadController\'" class="all_page"></div>'
          })
          .when("/:redireccion?",{
             	controller:"MainController"
@@ -82,6 +85,11 @@ app.config(['$loadOnDemandProvider', function ($loadOnDemandProvider) {
 	    	   name: 'programaController',
 	    	   script: '/app/components/programa/programa.controller.js',
 	    	   template: '/app/components/programa/programa.jsp'
+	       },
+	       {
+	    	   name: 'entidadController',
+	    	   script: '/app/components/entidad/entidad.controller.js',
+	    	   template: '/app/components/entidad/entidad.jsp'
 	       }
 	   ];
 	   $loadOnDemandProvider.config(modules);

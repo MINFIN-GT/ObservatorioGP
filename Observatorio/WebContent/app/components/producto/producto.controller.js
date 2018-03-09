@@ -32,7 +32,7 @@ angular.module('productoController', []).controller('productoController',['$root
 			entidad: mi.entidad,
 			unidadEjecutora: mi.unidadEjecutora,
 			programa: mi.programa,
-			subProbrama: mi.subPrograma,
+			subPrograma: mi.subPrograma,
 			actividad: mi.actividad,
 			tipo_resultado: mi.tipo_resultado,
 			t: new Date().getTime()

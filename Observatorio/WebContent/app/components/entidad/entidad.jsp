@@ -8,10 +8,10 @@
 		    font-size: 13px;
 		}
     </style>
-    <div ng-controller="actividadController as ctrl">
-	    <div align="center" class="row" style="width: 90%; margin: 0 auto; font-size: 11px;">
-	    	<h3>Actividades</h3>
-			<br>
+    <div ng-controller="entidadController as ctrl">
+    	<div align="center" class="row" style="width: 80%; margin: 0 auto; font-size: 11px;">
+	    	<h3>Entidad</h3>
+	    	<br>
 	    	<table st-table="ctrl.displayedCollection" st-safe-src="ctrl.rowCollection" class="table table-striped cuerpotabla">
 				<thead>
 					<tr>
@@ -52,18 +52,18 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr st-select-row="row" st-select-mode="single" ng-repeat="row in ctrl.displayedCollection" ng-click="ctrl.getGraficaIndividual(row);" ng-dblclick="ctrl.irProducto(row.id)">
+					<tr st-select-row="row" st-select-mode="single" ng-repeat="row in ctrl.displayedCollection" ng-click="ctrl.getGraficaIndividual(row);" ng-dblclick="ctrl.irPrograma(row.id)">
 						<td align="left" style="white-space: nowrap;">
-							{{row.nombre_actividad}}
+							{{row.nombre_entidad}}
 						</td>
 						<td align="right">
 							<div style="white-space: nowrap;">{{row.ejercicio_data[0][0] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.ejercicio_data[0][24] | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{row.ejercicio_data[0][12] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.ejercicio_data[0][12] | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{row.ejercicio_data[0][24] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
 							<div style="white-space: nowrap;">{{(row.ejercicio_data[0][36])*100  | formatoMillonesSinTipo : ctrl.decimales}}%</div>
@@ -71,14 +71,14 @@
 						<td align="right">
 							<div style="white-space: nowrap;">{{(row.ejercicio_data[0][48])*100 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
 						</td>
-												<td align="right">
+						<td align="right">
 							<div style="white-space: nowrap;">{{row.ejercicio_data[1][0] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.ejercicio_data[1][24] | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{row.ejercicio_data[1][12] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.ejercicio_data[1][12] | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{row.ejercicio_data[1][24] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
 							<div style="white-space: nowrap;">{{(row.ejercicio_data[1][36])*100  | formatoMillonesSinTipo : ctrl.decimales}}%</div>
@@ -90,10 +90,10 @@
 							<div style="white-space: nowrap;">{{row.ejercicio_data[2][0] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.ejercicio_data[2][24] | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{row.ejercicio_data[2][12] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.ejercicio_data[2][12] | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{row.ejercicio_data[2][24] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
 							<div style="white-space: nowrap;">{{(row.ejercicio_data[2][36])*100  | formatoMillonesSinTipo : ctrl.decimales}}%</div>
@@ -105,10 +105,10 @@
 							<div style="white-space: nowrap;">{{row.ejercicio_data[3][0] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.ejercicio_data[3][24] | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{row.ejercicio_data[3][12] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.ejercicio_data[3][12] | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{row.ejercicio_data[3][24] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
 							<div style="white-space: nowrap;">{{(row.ejercicio_data[3][36])*100  | formatoMillonesSinTipo : ctrl.decimales}}%</div>
@@ -120,10 +120,10 @@
 							<div style="white-space: nowrap;">{{row.ejercicio_data[4][0] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.ejercicio_data[4][24] | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{row.ejercicio_data[4][12] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.ejercicio_data[4][12] | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{row.ejercicio_data[4][24] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
 							<div style="white-space: nowrap;">{{(row.ejercicio_data[4][36])*100  | formatoMillonesSinTipo : ctrl.decimales}}%</div>
@@ -214,12 +214,12 @@
 					</tr>
 				</tfoot>
 			</table>
-			<div style="text-align: center;">Fuente de información SICOIN. Cifras en porcentajes.</div>
+			<div style="text-align: center; font-size: 11px;">Fuente de información SICOIN. Cifras en millones de Quetzales y porcentajes.</div>
 	    </div>
 	    <br>
-		<br>
-		<br>
-		<div>
+	    <br>
+	    <br>
+	    <div>
 			<div class="titulo_grafica">{{ ctrl.tituloGrafica }}</div>
 			<div align="right" style="width: 80%;margin: 0 auto;">
 				<div class="btn-group btn-group-xs">
