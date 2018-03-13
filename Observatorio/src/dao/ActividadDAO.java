@@ -17,7 +17,7 @@ public class ActividadDAO {
 		ArrayList<Double[]> ejercicio_data;
  	}
 	
-	public static ArrayList<Actividad> getActividades(Integer entidad, Integer unidadEjecutora, Integer programa, Integer subPrograma, String tipo_resultaldo){
+	public static ArrayList<Actividad> getActividades(Integer entidad, Integer unidadEjecutora, Integer programa, String tipo_resultaldo){
 		ArrayList<Actividad> ret = new ArrayList<Actividad>();
 		String query = "";
 		try{
@@ -60,29 +60,28 @@ public class ActividadDAO {
 						"avg(financiero_ejecutado_m10)/ifnull(avg(if(financiero_vigente_m10>0,financiero_vigente_m10,1)),1) p_financiero_m10,",
 						"avg(financiero_ejecutado_m11)/ifnull(avg(if(financiero_vigente_m11>0,financiero_vigente_m11,1)),1) p_financiero_m11,",
 						"avg(financiero_ejecutado_m12)/ifnull(avg(if(financiero_vigente_m12>0,financiero_vigente_m12,1)),1) p_financiero_m12,",
-						"avg(fisico_ejecutado_m1/ifnull(if(fisico_asignado+fisico_modificacion_m1>0,fisico_asignado+fisico_modificacion_m1,1),1)) p_fisico_m1,",
-						"avg(fisico_ejecutado_m2/ifnull(if(fisico_asignado+fisico_modificacion_m2>0,fisico_asignado+fisico_modificacion_m2,1),1)) p_fisico_m2,",
-						"avg(fisico_ejecutado_m3/ifnull(if(fisico_asignado+fisico_modificacion_m3>0,fisico_asignado+fisico_modificacion_m3,1),1)) p_fisico_m3,",
-						"avg(fisico_ejecutado_m4/ifnull(if(fisico_asignado+fisico_modificacion_m4>0,fisico_asignado+fisico_modificacion_m4,1),1)) p_fisico_m4,",
-						"avg(fisico_ejecutado_m5/ifnull(if(fisico_asignado+fisico_modificacion_m5>0,fisico_asignado+fisico_modificacion_m5,1),1)) p_fisico_m5,",
-						"avg(fisico_ejecutado_m6/ifnull(if(fisico_asignado+fisico_modificacion_m6>0,fisico_asignado+fisico_modificacion_m6,1),1)) p_fisico_m6,",
-						"avg(fisico_ejecutado_m7/ifnull(if(fisico_asignado+fisico_modificacion_m7>0,fisico_asignado+fisico_modificacion_m7,1),1)) p_fisico_m7,",
-						"avg(fisico_ejecutado_m8/ifnull(if(fisico_asignado+fisico_modificacion_m8>0,fisico_asignado+fisico_modificacion_m8,1),1)) p_fisico_m8,",
-						"avg(fisico_ejecutado_m9/ifnull(if(fisico_asignado+fisico_modificacion_m9>0,fisico_asignado+fisico_modificacion_m9,1),1)) p_fisico_m9,",
-						"avg(fisico_ejecutado_m10/ifnull(if(fisico_asignado+fisico_modificacion_m10>0,fisico_asignado+fisico_modificacion_m10,1),1)) p_fisico_m10,",
-						"avg(fisico_ejecutado_m11/ifnull(if(fisico_asignado+fisico_modificacion_m11>0,fisico_asignado+fisico_modificacion_m11,1),1)) p_fisico_m11,",
-						"avg(fisico_ejecutado_m12/ifnull(if(fisico_asignado+fisico_modificacion_m12>0,fisico_asignado+fisico_modificacion_m12,1),1)) p_fisico_m12", 
+						"avg(fisico_ejecutado_m1/ifnull(if(fisico_asignado+ifnull(fisico_modificacion_m1,0)>0,fisico_asignado+ifnull(fisico_modificacion_m1,0),1),1)) p_fisico_m1,",
+						"avg(fisico_ejecutado_m2/ifnull(if(fisico_asignado+ifnull(fisico_modificacion_m2,0)>0,fisico_asignado+ifnull(fisico_modificacion_m2,0),1),1)) p_fisico_m2,",
+						"avg(fisico_ejecutado_m3/ifnull(if(fisico_asignado+ifnull(fisico_modificacion_m3,0)>0,fisico_asignado+ifnull(fisico_modificacion_m3,0),1),1)) p_fisico_m3,",
+						"avg(fisico_ejecutado_m4/ifnull(if(fisico_asignado+ifnull(fisico_modificacion_m4,0)>0,fisico_asignado+ifnull(fisico_modificacion_m4,0),1),1)) p_fisico_m4,",
+						"avg(fisico_ejecutado_m5/ifnull(if(fisico_asignado+ifnull(fisico_modificacion_m5,0)>0,fisico_asignado+ifnull(fisico_modificacion_m5,0),1),1)) p_fisico_m5,",
+						"avg(fisico_ejecutado_m6/ifnull(if(fisico_asignado+ifnull(fisico_modificacion_m6,0)>0,fisico_asignado+ifnull(fisico_modificacion_m6,0),1),1)) p_fisico_m6,",
+						"avg(fisico_ejecutado_m7/ifnull(if(fisico_asignado+ifnull(fisico_modificacion_m7,0)>0,fisico_asignado+ifnull(fisico_modificacion_m7,0),1),1)) p_fisico_m7,",
+						"avg(fisico_ejecutado_m8/ifnull(if(fisico_asignado+ifnull(fisico_modificacion_m8,0)>0,fisico_asignado+ifnull(fisico_modificacion_m8,0),1),1)) p_fisico_m8,",
+						"avg(fisico_ejecutado_m9/ifnull(if(fisico_asignado+ifnull(fisico_modificacion_m9,0)>0,fisico_asignado+ifnull(fisico_modificacion_m9,0),1),1)) p_fisico_m9,",
+						"avg(fisico_ejecutado_m10/ifnull(if(fisico_asignado+ifnull(fisico_modificacion_m10,0)>0,fisico_asignado+ifnull(fisico_modificacion_m10,0),1),1)) p_fisico_m10,",
+						"avg(fisico_ejecutado_m11/ifnull(if(fisico_asignado+ifnull(fisico_modificacion_m11,0)>0,fisico_asignado+ifnull(fisico_modificacion_m11,0),1),1)) p_fisico_m11,",
+						"avg(fisico_ejecutado_m12/ifnull(if(fisico_asignado+ifnull(fisico_modificacion_m12,0)>0,fisico_asignado+ifnull(fisico_modificacion_m12,0),1),1)) p_fisico_m12", 
 						"from mv_financiera_fisica ", 
-						"where entidad=? and unidad_ejecutora=? and programa=? and subprograma=? and proyecto=0 and tipo_resultado=?", 
-						"group by entidad, unidad_ejecutora, programa, subprograma, proyecto, actividad, ejercicio", 
-						"order by entidad, unidad_ejecutora, programa, subprograma, proyecto, actividad, ejercicio;");
+						"where entidad=? and unidad_ejecutora=? and programa=? and proyecto=0 and tipo_resultado=?", 
+						"group by entidad, unidad_ejecutora, programa, proyecto, actividad, ejercicio", 
+						"order by entidad, unidad_ejecutora, programa, proyecto, actividad, ejercicio;");
 				
 				PreparedStatement pstmt = CMemsql.getConnection().prepareStatement(query);
 				pstmt.setInt(1, entidad);
 				pstmt.setInt(2, unidadEjecutora);
 				pstmt.setInt(3, programa);
-				pstmt.setInt(4, subPrograma);
-				pstmt.setString(5, tipo_resultaldo);
+				pstmt.setString(4, tipo_resultaldo);
 				
 				ResultSet rs = CMemsql.runPreparedStatement(pstmt);
 				

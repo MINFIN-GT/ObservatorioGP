@@ -48,7 +48,6 @@ angular.module('actividadController',[]).controller('actividadController', ['$ro
 	mi.entidad = $routeParams.entidad;
 	mi.unidadEjecutora = $routeParams.unidadejecutora;
 	mi.programa = $routeParams.programa;
-	mi.subPrograma = $routeParams.subprograma;
 	mi.tipo_resultado = $routeParams.tipo_resultado;
 	
 	$http.post('/SActividad',{
@@ -56,7 +55,6 @@ angular.module('actividadController',[]).controller('actividadController', ['$ro
 		entidad: mi.entidad,
 		unidadEjecutora: mi.unidadEjecutora,
 		programa: mi.programa,
-		subPrograma: mi.subPrograma,
 		tipo_resultado: mi.tipo_resultado,
 		t: new Date().getTime()
 	}).then(function(response){

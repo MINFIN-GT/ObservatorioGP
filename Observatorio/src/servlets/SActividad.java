@@ -51,11 +51,10 @@ public class SActividad extends HttpServlet {
 		Integer entidad = Utils.String2Int(map.get("entidad"));
 		Integer unidadEjecutora = Utils.String2Int(map.get("unidadEjecutora"));
 		Integer programa = Utils.String2Int(map.get("programa"));
-		Integer subPrograma = Utils.String2Int(map.get("subPrograma"));
 		String tipo_resultado = Utils.String2Int(map.get("tipo_resultado")) == 1 ? "Estrátegico" : (Utils.String2Int(map.get("tipo_resultado")) == 2 ? "Institucional" : "Otros");
 		
 		if(accion.equals("getActividades")){
-			ArrayList<Actividad> lstactividades = ActividadDAO.getActividades(entidad, unidadEjecutora, programa, subPrograma, tipo_resultado);
+			ArrayList<Actividad> lstactividades = ActividadDAO.getActividades(entidad, unidadEjecutora, programa, tipo_resultado);
 			String actividades = new GsonBuilder().serializeNulls().create().toJson(lstactividades);
 			response_text = String.join(" ", "\"actividades\": ", actividades);
 			response_text = String.join(" ","{\"success\": true,", response_text, "}");
