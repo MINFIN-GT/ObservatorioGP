@@ -451,6 +451,6 @@ angular.module('programaController',[]).controller('programaController', ['$root
 		};
 	
 	mi.irActividad = function(programa_id){
-		window.location = "main.jsp#!/actividad/" + mi.tipo_resultado + "/" + mi.entidad + "/" + mi.unidadEjecutora + "/" + programa_id + "/0/";
+		window.location = "main.jsp#!/actividad/" + mi.tipo_resultado + "/" + mi.entidad + "/" + mi.unidadEjecutora + "/" + programa_id;
 	}
 }]);

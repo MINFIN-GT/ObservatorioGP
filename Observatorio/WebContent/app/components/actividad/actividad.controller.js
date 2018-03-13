@@ -453,6 +453,6 @@ angular.module('actividadController',[]).controller('actividadController', ['$ro
 		};
 	
 		mi.irProducto = function(actividad_id){
-			window.location = "main.jsp#!/producto/" + mi.tipo_resultado + "/" + mi.entidad + "/" + mi.unidadEjecutora + "/" + mi.programa + "/" + mi.subPrograma + "/" +  actividad_id;
+			window.location = "main.jsp#!/producto/" + mi.entidad + "/" + mi.unidadEjecutora + "/" + mi.programa + "/" + actividad_id;
 		}
 }]);
