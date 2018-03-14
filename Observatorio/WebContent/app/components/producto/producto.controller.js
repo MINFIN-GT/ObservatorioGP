@@ -20,7 +20,6 @@ angular.module('productoController', []).controller('productoController',['$root
 	mi.meses = ['Ene-','Feb-','Mar-','Abr-','May-','Jun-','Jul-','Ago-','Sep-','Oct-','Nov-','Dic-'];
 	
 	mi.entidad = $routeParams.entidad;
-	mi.unidadEjecutora = $routeParams.unidadejecutora;
 	mi.programa = $routeParams.programa;
 	mi.subPrograma = $routeParams.subprograma;
 	mi.actividad = $routeParams.actividad;

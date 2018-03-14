@@ -29,7 +29,7 @@ public class ProductoDAO {
 		BigDecimal cantidad;
 	}
 	
-	public static ArrayList<EjecucionFisica> getEjecucionFisica(Integer entidad, Integer unidadEjecutora, Integer programa, Integer actividad){
+	public static ArrayList<EjecucionFisica> getEjecucionFisica(Integer entidad, Integer programa, Integer subprograma, Integer actividad){
 		String query = "";
 		ArrayList<EjecucionFisica> ret = new ArrayList<EjecucionFisica>();
 		
@@ -44,26 +44,26 @@ public class ProductoDAO {
 						"FROM mv_ejecucion_fisica mef, (",
 						"select codigo_meta,descripcion", 
 						"  from sf_meta", 
-						"  where entidad=? and unidad_ejecutora=? and programa=? ", 
+						"  where entidad=? and programa=? and subprograma=?", 
 						"  and proyecto=0 and actividad=? and obra=0 and (ejercicio between YEAR(CURRENT_TIMESTAMP)-4 AND YEAR(CURRENT_TIMESTAMP))", 
 						"  group by codigo_meta", 
 						"  having ejercicio = max(ejercicio)", 
 						"  order by ejercicio",
 						") ds", 
-						"WHERE mef.entidad=? and mef.unidad_ejecutora=? and", 
-						"		mef.programa=? and mef.proyecto=0 and mef.actividad=? and mef.obra=0", 
+						"WHERE mef.entidad=? and", 
+						"		mef.programa=? and mef.subprograma=? and mef.proyecto=0 and mef.actividad=? and mef.obra=0", 
 						"		and mef.codigo_meta = ds.codigo_meta", 
 						"		GROUP BY mef.codigo_meta, mef.unidad_nombre");
 				
 				PreparedStatement pstmt = CMemsql.getConnection().prepareStatement(query);
 				pstmt.setInt(1, entidad);
-				pstmt.setInt(2, unidadEjecutora);
-				pstmt.setInt(3, programa);
+				pstmt.setInt(2, programa);
+				pstmt.setInt(3, subprograma);
 				pstmt.setInt(4, actividad);
 
 				pstmt.setInt(5, entidad);
-				pstmt.setInt(6, unidadEjecutora);
-				pstmt.setInt(7, programa);
+				pstmt.setInt(6, programa);
+				pstmt.setInt(7, subprograma);
 				pstmt.setInt(8, actividad);
 				
 				ResultSet rs = CMemsql.runPreparedStatement(pstmt);
@@ -82,14 +82,17 @@ public class ProductoDAO {
 				}
 				
 			}
+			
+			CMemsql.close();
 			return ret;
 		}catch(Exception e){
 			CLogger.write("1", ProductoDAO.class, e);
+			CMemsql.close();
 			return ret;
 		}
 	}
 	
-	public static ArrayList<VectorValores> getVectorValores(Integer entidad, Integer unidad_ejecutora, Integer programa, Integer actividad, Integer codigo_meta){
+	public static ArrayList<VectorValores> getVectorValores(Integer entidad, Integer programa, Integer subprograma, Integer actividad, Integer codigo_meta){
 		ArrayList<VectorValores> ret = new ArrayList<VectorValores>();
 		String query = "";
 		
@@ -98,15 +101,15 @@ public class ProductoDAO {
 				query = String.join(" ", "SELECT mef.ejercicio, mef.mes, sum(cantidad) cantidad,",
 					"sum(ejecucion) ejecucion, sum(modificacion) modificacion",
 					"FROM mv_ejecucion_fisica mef",
-					"WHERE mef.proyecto=0 and mef.entidad=? and mef.unidad_ejecutora=? and", 
-					"mef.programa=? and mef.actividad=? and mef.obra=0",
+					"WHERE mef.proyecto=0 and mef.entidad=? and", 
+					"mef.programa=? and mef.subprograma=? and mef.actividad=? and mef.obra=0",
 					codigo_meta != null ? "and mef.codigo_meta=?" : "", 
 					"GROUP BY mef.ejercicio, mef.mes");
 				
 				PreparedStatement pstmt = CMemsql.getConnection().prepareStatement(query);
 				pstmt.setInt(1, entidad);
-				pstmt.setInt(2, unidad_ejecutora);
-				pstmt.setInt(3, programa);
+				pstmt.setInt(2, programa);
+				pstmt.setInt(3, subprograma);
 				pstmt.setInt(4, actividad);
 				if(codigo_meta != null)
 					pstmt.setInt(5, codigo_meta);
