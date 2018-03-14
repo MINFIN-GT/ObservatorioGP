@@ -104,7 +104,7 @@ public class ProductoDAO {
 					"WHERE mef.proyecto=0 and mef.entidad=? and", 
 					"mef.programa=? and mef.subprograma=? and mef.actividad=? and mef.obra=0",
 					codigo_meta != null ? "and mef.codigo_meta=?" : "", 
-					"GROUP BY mef.ejercicio, mef.mes");
+					"GROUP BY mef.ejercicio, mef.mes ORDER BY mef.ejercicio, mef.mes");
 				
 				PreparedStatement pstmt = CMemsql.getConnection().prepareStatement(query);
 				pstmt.setInt(1, entidad);

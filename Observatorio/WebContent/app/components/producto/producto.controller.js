@@ -61,14 +61,16 @@ angular.module('productoController', []).controller('productoController',['$root
 					mi.tot_p_ejecucion_1 = ((mi.tot_p_ejecucion_1 / mi.dato.length)).toFixed(2);
 					mi.tot_p_ejecucion = ((mi.tot_p_ejecucion / mi.dato.length)).toFixed(2);
 					
-					mi.getGraficaProducto({metaDescripcion:'Todos los productos y sub productos', entidad: mi.entidad, unidadEjecutora: mi.unidadEjecutora, programa: mi.programa, subPrograma: mi.subPrograma, actividad: mi.actividad});
+					mi.getGraficaProducto({metaDescripcion:'Todos los productos y sub productos', entidad: mi.entidad, programa: mi.programa, subPrograma: mi.subPrograma, actividad: mi.actividad, isSelected: true});
 				}
 			}
 		});
 	
 	mi.getGraficaProducto = function(row){
-		mi.tituloGrafica = row.metaDescripcion;
-		mi.getInfoGraficas(row);
+		if(row.isSelected){
+			mi.tituloGrafica = row.metaDescripcion;
+			mi.getInfoGraficas(row);	
+		}		
 	}
 	
 	mi.getInfoGraficas = function(row){
