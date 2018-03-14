@@ -120,7 +120,7 @@ app.controller('MainController',['$scope','$document','$rootScope','$location','
 			t: new Date().getTime()
 		}).then(function(response){
 			if(response.data.success){
-				
+				var tipoResultado = response.data.tiporesultado;
 			}
 		})
 		
@@ -130,7 +130,7 @@ app.controller('MainController',['$scope','$document','$rootScope','$location','
 			t: new Date().getTime()
 		}).then(function(response){
 			if(response.data.success){
-				
+				var tipoResultado = response.data.tiporesultado;
 			}
 		})
 		
@@ -140,7 +140,7 @@ app.controller('MainController',['$scope','$document','$rootScope','$location','
 			t: new Date().getTime()
 		}).then(function(response){
 			if(response.data.success){
-				
+				var tipoResultado = response.data.tiporesultado;
 			}
 		})
 	}]);
