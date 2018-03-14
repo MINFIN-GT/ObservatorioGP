@@ -113,34 +113,4 @@ app.controller('MainController',['$scope','$document','$rootScope','$location','
 	    		$window.ga('send', 'pageview', $location.path());
 			}
 	    });
-		
-		$http.post('/STipoResultado',{
-			accion: 'getTipoResultado',
-			tipo_resultado: 1,
-			t: new Date().getTime()
-		}).then(function(response){
-			if(response.data.success){
-				var tipoResultado = response.data.tiporesultado;
-			}
-		})
-		
-		$http.post('/STipoResultado',{
-			accion: 'getTipoResultado',
-			tipo_resultado: 2,
-			t: new Date().getTime()
-		}).then(function(response){
-			if(response.data.success){
-				var tipoResultado = response.data.tiporesultado;
-			}
-		})
-		
-		$http.post('/STipoResultado',{
-			accion: 'getTipoResultado',
-			tipo_resultado: 3,
-			t: new Date().getTime()
-		}).then(function(response){
-			if(response.data.success){
-				var tipoResultado = response.data.tiporesultado;
-			}
-		})
 	}]);

@@ -74,7 +74,33 @@ body {
 	padding-left: 40px;
 }
 
+
+
 /*Aqui main page*/
+
+.button_front{
+	font-size: 50px;
+	font-weight: bold;
+}
+
+
+.button_front_money{
+	font-size: 12px;
+	white-space: nowrap;
+	font-weight: normal;
+}
+
+.button_front_main{
+	width: 220px;
+	cursor: pointer;
+	color: #ccc;
+}
+
+.button_front_main:hover{
+	width: 220px;
+	cursor: pointer;
+	color: black;
+}
 
 .carousel-control.left {
 	background-image: url("");

@@ -48,6 +48,12 @@ var app = angular.module('entidadController',[]).controller('entidadController',
 	
 	mi.tipo_resultado = $routeParams.tipo_resultado;
 	
+	switch(mi.tipo_resultado){
+		case '1': $rootScope.page_title = 'Resultados institucionales'; break;
+		case '2': $rootScope.page_title = 'Resultados estratégicos'; break;
+		case '3': $rootScope.page_title = 'Sin resultado'; break;
+	}
+	
 	$http.post('/SEntidad',{
 		accion: 'getEntidades',
 		tipo_resultado: mi.tipo_resultado,

@@ -4,20 +4,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import pojo.TipoInfo;
 import utilities.CLogger;
 import utilities.CMemsql;
 
-public class TipoResultadoDAO {
+public class InfoDAO {
 	
-	public class TipoResultado{
-		double p_fisico;
-		double p_presupuestario;
-		double vigente;
-		double ejecutado;
-		int cantidad;
-	}
-	public static ArrayList<TipoResultado> getTipoResultado(String tipo_resultado){
-		ArrayList<TipoResultado> ret = new ArrayList<TipoResultado>();
+	public static ArrayList<TipoInfo> getTipoResultado(String tipo_resultado){
+		ArrayList<TipoInfo> ret = new ArrayList<TipoInfo>();
 		String query = "";
 		try{
 			if(CMemsql.connect()){
@@ -132,8 +126,8 @@ public class TipoResultadoDAO {
 						"	(AVG(IFNULL(fisico_ejecutado_m12, IF (fisico_asignado + IFNULL(fisico_modificacion_m12,0) > 0, 0, NULL)) / IF (fisico_asignado + IFNULL(fisico_modificacion_m12,0) > 0,fisico_asignado + IFNULL(fisico_modificacion_m12,0),1))) p_fisico_m12  ", 
 						"	  from mv_financiera_fisica   ", 
 						"	  where tipo_resultado=? and ejercicio=year(current_timestamp()) ", 
+						(tipo_resultado.equals("Otros") ? " AND entidad not in (11130018,11130019) " : ""),
 						"	  group by entidad, unidad_ejecutora, programa, subprograma, proyecto, actividad,ejercicio  ", 
-						"	  order by entidad, unidad_ejecutora, programa, subprograma, proyecto, actividad,ejercicio  ", 
 						"	) t1  ", 
 						"	group by ejercicio, tipo_resultado;");
 				
@@ -143,7 +137,7 @@ public class TipoResultadoDAO {
 				ResultSet rs = CMemsql.runPreparedStatement(pstmt);
 				
 				while(rs.next()){
-					TipoResultado temp = (new TipoResultadoDAO()).new TipoResultado();
+					TipoInfo temp = new TipoInfo();
 					temp.ejecutado = rs.getDouble("ejecutado");
 					temp.vigente = rs.getDouble("vigente");
 					temp.p_presupuestario = rs.getDouble("p_financiero");
@@ -151,12 +145,139 @@ public class TipoResultadoDAO {
 					temp.cantidad = rs.getInt("cantidad_resultados");
 					ret.add(temp);
 				}
+				CMemsql.close();
 			}
 			
 			return ret;
 		}catch(Exception e){
-			CLogger.write("1", TipoResultadoDAO.class, e);
+			CLogger.write("1", InfoDAO.class, e);
 			return ret;
 		}
+	}
+	
+	public static TipoInfo getDeuda(){
+		TipoInfo ret = null;
+		String query = "";
+		try{
+			if(CMemsql.connect()){
+				query = "select sum(ejecutado) ejecutado, sum(vigente) vigente " + 
+						"from ( " + 
+						"select avg(case month(current_timestamp) " + 
+						"		when 1 then financiero_ejecutado_m1 " + 
+						"		when 2 then financiero_ejecutado_m2 " + 
+						"		when 3 then financiero_ejecutado_m3 " + 
+						"		when 4 then financiero_ejecutado_m4 " + 
+						"		when 5 then financiero_ejecutado_m5 " + 
+						"		when 6 then financiero_ejecutado_m6 " + 
+						"		when 7 then financiero_ejecutado_m7 " + 
+						"		when 8 then financiero_ejecutado_m8 " + 
+						"		when 9 then financiero_ejecutado_m9 " + 
+						"		when 10 then financiero_ejecutado_m10 " + 
+						"		when 11 then financiero_ejecutado_m11 " + 
+						"		when 12 then financiero_ejecutado_m12 " + 
+						"		end ) ejecutado, " + 
+						"		avg(case month(current_timestamp)  " + 
+						"			when 1 then financiero_vigente_m1 " + 
+						"			when 2 then financiero_vigente_m2 " + 
+						"			when 3 then financiero_vigente_m3 " + 
+						"			when 4 then financiero_vigente_m4 " + 
+						"			when 5 then financiero_vigente_m5 " + 
+						"			when 6 then financiero_vigente_m6 " + 
+						"			when 7 then financiero_vigente_m7 " + 
+						"			when 8 then financiero_vigente_m8 " + 
+						"			when 9 then financiero_vigente_m9 " + 
+						"			when 10 then financiero_vigente_m10 " + 
+						"			when 11 then financiero_vigente_m11 " + 
+						"			when 12 then financiero_vigente_m12 " + 
+						"			end " + 
+						"		) vigente " + 
+						"from mv_financiera_fisica " + 
+						"where ejercicio = year(current_timestamp) " + 
+						"and entidad = 11130019 " + 
+						"group by entidad, unidad_ejecutora, programa, subprograma, proyecto, actividad, obra " + 
+						") t1";
+				PreparedStatement pstmt = CMemsql.getConnection().prepareStatement(query);
+				
+				ResultSet rs = CMemsql.runPreparedStatement(pstmt);
+				
+				if(rs.next()){
+					ret = new TipoInfo();
+					ret.ejecutado = rs.getDouble("ejecutado");
+					ret.vigente = rs.getDouble("vigente");
+					ret.p_presupuestario = ret.ejecutado/ret.vigente;
+					ret.p_fisico = 0.0d;
+					ret.cantidad = 0;
+					
+				}
+			}
+		}
+		catch(Exception e){
+			CLogger.write("2", InfoDAO.class, e);
+			return ret;
+		}
+		return ret;
+	}
+	
+	public static TipoInfo getObligaciones(){
+		TipoInfo ret = null;
+		String query = "";
+		try{
+			if(CMemsql.connect()){
+				query = "select sum(ejecutado) ejecutado, sum(vigente) vigente " + 
+						"from ( " + 
+						"select avg(case month(current_timestamp) " + 
+						"		when 1 then financiero_ejecutado_m1 " + 
+						"		when 2 then financiero_ejecutado_m2 " + 
+						"		when 3 then financiero_ejecutado_m3 " + 
+						"		when 4 then financiero_ejecutado_m4 " + 
+						"		when 5 then financiero_ejecutado_m5 " + 
+						"		when 6 then financiero_ejecutado_m6 " + 
+						"		when 7 then financiero_ejecutado_m7 " + 
+						"		when 8 then financiero_ejecutado_m8 " + 
+						"		when 9 then financiero_ejecutado_m9 " + 
+						"		when 10 then financiero_ejecutado_m10 " + 
+						"		when 11 then financiero_ejecutado_m11 " + 
+						"		when 12 then financiero_ejecutado_m12 " + 
+						"		end ) ejecutado, " + 
+						"		avg(case month(current_timestamp)  " + 
+						"			when 1 then financiero_vigente_m1 " + 
+						"			when 2 then financiero_vigente_m2 " + 
+						"			when 3 then financiero_vigente_m3 " + 
+						"			when 4 then financiero_vigente_m4 " + 
+						"			when 5 then financiero_vigente_m5 " + 
+						"			when 6 then financiero_vigente_m6 " + 
+						"			when 7 then financiero_vigente_m7 " + 
+						"			when 8 then financiero_vigente_m8 " + 
+						"			when 9 then financiero_vigente_m9 " + 
+						"			when 10 then financiero_vigente_m10 " + 
+						"			when 11 then financiero_vigente_m11 " + 
+						"			when 12 then financiero_vigente_m12 " + 
+						"			end " + 
+						"		) vigente " + 
+						"from mv_financiera_fisica " + 
+						"where ejercicio = year(current_timestamp) " + 
+						"and entidad = 11130018 " + 
+						"group by entidad, unidad_ejecutora, programa, subprograma, proyecto, actividad, obra " + 
+						") t1";
+				PreparedStatement pstmt = CMemsql.getConnection().prepareStatement(query);
+				
+				ResultSet rs = CMemsql.runPreparedStatement(pstmt);
+				
+				if(rs.next()){
+					ret = new TipoInfo();
+					ret.ejecutado = rs.getDouble("ejecutado");
+					ret.vigente = rs.getDouble("vigente");
+					ret.p_presupuestario = ret.ejecutado/ret.vigente;
+					ret.p_fisico = 0.0d;
+					ret.cantidad = 0;
+					
+				}
+			}
+		}
+		catch(Exception e){
+			CLogger.write("3", InfoDAO.class, e);
+			return ret;
+		}
+		return ret;
 	}
 }

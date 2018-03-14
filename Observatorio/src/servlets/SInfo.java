@@ -18,16 +18,16 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import dao.TipoResultadoDAO;
-import dao.TipoResultadoDAO.TipoResultado;
+import dao.InfoDAO;
+import pojo.TipoInfo;
 import utilities.CLogger;
 import utilities.Utils;
 
-@WebServlet("/STipoResultado")
-public class STipoResultado extends HttpServlet {
+@WebServlet("/SInfo")
+public class SInfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public STipoResultado() {
+    public SInfo() {
         super();
     }
 
@@ -53,12 +53,32 @@ public class STipoResultado extends HttpServlet {
 		
 		if (accion.equals("getTipoResultado")){
 			try{
-				ArrayList<TipoResultado> lsttiporesultado = TipoResultadoDAO.getTipoResultado(tipo_resultado);
+				ArrayList<TipoInfo> lsttiporesultado = InfoDAO.getTipoResultado(tipo_resultado);
 				String tipoResultado = new GsonBuilder().serializeNulls().create().toJson(lsttiporesultado);
 				response_text = String.join(" ", "\"tiporesultado\": ", tipoResultado);
 				response_text = String.join(" ","{\"success\": true,", response_text, "}");
 			}catch(Exception e){
-				CLogger.write("1", STipoResultado.class, e);
+				CLogger.write("1", SInfo.class, e);
+			}
+		}
+		else if(accion.equals("getDeuda")){
+			try{
+				TipoInfo deuda = InfoDAO.getDeuda();
+				String sdeuda = new GsonBuilder().serializeNulls().create().toJson(deuda);
+				response_text = String.join(" ", "\"tiporesultado\": ", sdeuda);
+				response_text = String.join(" ","{\"success\": true,", response_text, "}");
+			}catch(Exception e){
+				CLogger.write("2", SInfo.class, e);
+			}
+		}
+		else if(accion.equals("getObligaciones")){
+			try{
+				TipoInfo obligaciones = InfoDAO.getObligaciones();
+				String sobligaciones = new GsonBuilder().serializeNulls().create().toJson(obligaciones);
+				response_text = String.join(" ", "\"tiporesultado\": ", sobligaciones);
+				response_text = String.join(" ","{\"success\": true,", response_text, "}");
+			}catch(Exception e){
+				CLogger.write("3", SInfo.class, e);
 			}
 		}
 		

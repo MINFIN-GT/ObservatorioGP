@@ -9,18 +9,13 @@
 <script type="text/javascript" src="app/components/main/main.controller-botones.js"></script>
 
 <style>
-
-#foot {
-background-color: #222222;
-height: 80px;
-}
-#head {
-background-color: #222222;
+.row{
+	margin: 0px;
 }
 </style>
 <title>Observatorio del Gasto Público</title>
 </head>
-<body ng-app="main" ng-controller="mainController as ctrl">
+<body ng-app="observatorio" ng-controller="mainController as ctrl">
 <div class="row">
 			<div class="col-sm-1">
 			</div>
@@ -129,32 +124,85 @@ background-color: #222222;
 	<div class="col-sm-1">
 	</div>
 	</div>
-	
 	<div class="row">
-	<div class="col-sm-1"></div>
-	<div class="col-sm-10">
-<center>
-<img name="links" src="/assets/img/presupuesto/links.png" width="942" height="400" id="links" usemap="#m_links" alt="" />
-<map name="m_links" id="m_links">
-<area shape="poly" coords="58,220,191,220,191,361,58,361,58,220" href="main.jsp#!/actividad/1/11130009/219/15/0" alt="" />
-<area shape="poly" coords="233,220,366,220,366,361,233,361,233,220" href="main.jsp#!/producto/1/11130009/219/15/0/3" alt="" />
-<area shape="poly" coords="410,221,543,221,543,362,410,362,410,221" href="main.jsp#!/obligaciones" alt="" />
-<area shape="poly" coords="582,220,715,220,715,361,582,361,582,220" href="main.jsp#!/deuda" alt="" />
-<area shape="poly" coords="759,220,892,220,892,361,759,361,759,220" href="main.jsp#!/ot" alt="" />
-<area shape="rect" coords="616,12,853,155" href="main.jsp#!/in" alt="" />
-</map>
-</center>
+		<div class="col-sm-1"></div>
+		<div class="col-sm-2 text-center">Resultados Institucionales</div>
+		<div class="col-sm-2 text-center">Resultados Estratégicos</div>
+		<div class="col-sm-2 text-center">Sin Resultado</div>
+		<div class="col-sm-2 text-center">Deuda</div>
+		<div class="col-sm-2 text-center">Obligaciones</div>
+		<div class="col-sm-1"></div>
 	</div>
-	<div class="col-sm-1"></div>
+	<div class="row">
+		<div class="col-sm-1"></div>
+		<div class="col-sm-2">
+			<div class="panel panel-default button_front_main" ng-click="ctrl.go(1)">
+				<ul class="list-group" ng-click="ctrl.go(1)">
+				  <li class="list-group-item text-center button_front" ng-click="ctrl.go(1)"><div style="margin-bottom: 5px;" ng-click="ctrl.go(1)">{{ (ctrl.resultados_institucionales.p_fisico*100).toFixed(0) }}%</div>
+				  	<div class="button_front_money" ng-click="ctrl.go(1)">{{ ctrl.resultados_institucionales.num_resultados }} resultados</div>
+				  </li>
+				  <li class="list-group-item text-center button_front" ng-click="ctrl.go(1)"><div style="margin-bottom: 5px;" ng-click="ctrl.go(1)">{{ (ctrl.resultados_institucionales.p_presupuestario*100).toFixed(0) }}%</div>
+				  			<div class="button_front_money"><div class="row"><div class="col-sm-3" ng-click="ctrl.go(1)">Vigente</div><div class="col-sm-9 text-right" ng-click="ctrl.go(1)">{{ ctrl.resultados_institucionales.vigente | formatoMillones : true }}</div></div></div>
+				  			<div class="button_front_money"><div class="row"><div class="col-sm-3" ng-click="ctrl.go(1)">Ejecutado</div><div class="col-sm-9 text-right" ng-click="ctrl.go(1)">{{ ctrl.resultados_institucionales.ejecutado | formatoMillones : true }}</div></div></div>
+				  </li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-sm-2">
+			<div class="panel panel-default button_front_main" ng-click="ctrl.go(2)">
+				<ul class="list-group" ng-click="ctrl.go(2)">
+				  <li class="list-group-item text-center button_front" ng-click="ctrl.go(2)"><div style="margin-bottom: 5px;" ng-click="ctrl.go(2)">{{ (ctrl.resultados_estrategicos.p_fisico*100).toFixed(0) }}%</div>
+				  	<div class="button_front_money" ng-click="ctrl.go(2)">{{ ctrl.resultados_estrategicos.num_resultados }} resultados</div>
+				  </li>
+				  <li class="list-group-item text-center button_front" ng-click="ctrl.go(2)"><div style="margin-bottom: 5px;" ng-click="ctrl.go(2)">{{ (ctrl.resultados_estrategicos.p_presupuestario*100).toFixed(0) }}%</div>
+				  			<div class="button_front_money" ng-click="ctrl.go(2)"><div class="row"><div class="col-sm-3" ng-click="ctrl.go(2)">Vigente</div><div class="col-sm-9 text-right" ng-click="ctrl.go(2)">{{ ctrl.resultados_estrategicos.vigente | formatoMillones : true }}</div></div></div>
+				  			<div class="button_front_money" ng-click="ctrl.go(2)"><div class="row"><div class="col-sm-3" ng-click="ctrl.go(2)">Ejecutado</div><div class="col-sm-9 text-right" ng-click="ctrl.go(2)">{{ ctrl.resultados_estrategicos.ejecutado | formatoMillones : true }}</div></div></div>
+				  </li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-sm-2">
+			<div class="panel panel-default button_front_main" ng-click="ctrl.go(3)">
+				<ul class="list-group">
+				  <li class="list-group-item text-center button_front" ng-click="ctrl.go(3)"><div style="margin-bottom: 5px;" ng-click="ctrl.go(3)">{{ (ctrl.resultados_otros.p_fisico*100).toFixed(0) }}%</div>
+				  	<div class="button_front_money" ng-click="ctrl.go(3)">{{ ctrl.resultados_otros.num_resultados }} resultados</div>
+				  </li>
+				  <li class="list-group-item text-center button_front" ng-click="ctrl.go(3)"><div style="margin-bottom: 5px;" ng-click="ctrl.go(3)">{{ (ctrl.resultados_otros.p_presupuestario*100).toFixed(0) }}%</div>
+				  			<div class="button_front_money" ng-click="ctrl.go(3)"><div class="row"><div class="col-sm-3" ng-click="ctrl.go(3)">Vigente</div><div class="col-sm-9 text-right" ng-click="ctrl.go(3)">{{ ctrl.resultados_otros.vigente | formatoMillones : true }}</div></div></div>
+				  			<div class="button_front_money" ng-click="ctrl.go(3)"><div class="row"><div class="col-sm-3" ng-click="ctrl.go(3)">Ejecutado</div><div class="col-sm-9 text-right" ng-click="ctrl.go(3)">{{ ctrl.resultados_otros.ejecutado | formatoMillones : true }}</div></div></div>
+				  </li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-sm-2">
+			<div class="panel panel-default button_front_main" ng-click="ctrl.go(4)">
+				<ul class="list-group">
+				  <li class="list-group-item text-center button_front"  ng-click="ctrl.go(4)"><div style="margin-bottom: 5px;"  ng-click="ctrl.go(4)">{{ (ctrl.deuda.p_presupuestario*100).toFixed(0) }}%</div>
+				  			<div class="button_front_money"  ng-click="ctrl.go(4)"><div class="row"><div class="col-sm-3"  ng-click="ctrl.go(4)">Vigente</div><div class="col-sm-9 text-right"  ng-click="ctrl.go(4)">{{ ctrl.deuda.vigente | formatoMillones : true }}</div></div></div>
+				  			<div class="button_front_money"  ng-click="ctrl.go(4)"><div class="row"><div class="col-sm-3"  ng-click="ctrl.go(4)">Ejecutado</div><div class="col-sm-9 text-right"  ng-click="ctrl.go(4)">{{ ctrl.deuda.ejecutado | formatoMillones : true }}</div></div></div>
+				  </li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-sm-2">
+			<div class="panel panel-default button_front_main"  ng-click="ctrl.go(5)">
+				<ul class="list-group">
+				  <li class="list-group-item text-center button_front"  ng-click="ctrl.go(5)"><div style="margin-bottom: 5px;"  ng-click="ctrl.go(5)">{{ (ctrl.obligaciones.p_presupuestario*100).toFixed(0) }}%</div>
+				  			<div class="button_front_money"  ng-click="ctrl.go(5)"><div class="row"><div class="col-sm-3" ng-click="ctrl.go(5)">Vigente</div><div class="col-sm-9 text-right" ng-click="ctrl.go(5)">{{ ctrl.obligaciones.vigente | formatoMillones : true }}</div></div></div>
+				  			<div class="button_front_money"  ng-click="ctrl.go(5)"><div class="row"><div class="col-sm-3" ng-click="ctrl.go(5)">Ejecutado</div><div class="col-sm-9 text-right" ng-click="ctrl.go(5)">{{ ctrl.obligaciones.ejecutado | formatoMillones : true }}</div></div></div>
+				  </li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-sm-1"></div>
 	</div>
-
 
 	<div class="row">
 		<div class="col-sm-1">
 		</div>
-		<div class="col-sm-10">
+		<div class="col-sm-10 text-center">
 			<br />
-			<iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;src=observatorio.calidad.gasto%40gmail.com&amp;color=%23B1440E&amp;ctz=America%2FGuatemala" style="border-width:0" width="100%" height="500px" frameborder="0" scrolling="no"></iframe>	
+			<iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;src=observatorio.calidad.gasto%40gmail.com&amp;color=%23B1440E&amp;ctz=America%2FGuatemala" style="border-width:0" width="90%" height="300px" frameborder="0" scrolling="no"></iframe>	
 		</div>
 		<div class="col-sm-1">
 		</div>

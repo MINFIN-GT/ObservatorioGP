@@ -10,8 +10,6 @@
     </style>
     <div ng-controller="entidadController as ctrl">
     	<div align="center" class="row" style="width: 80%; margin: 0 auto; font-size: 11px;">
-	    	<h3>Entidad</h3>
-	    	<br>
 	    	<table st-table="ctrl.displayedCollection" st-safe-src="ctrl.rowCollection" class="table table-striped cuerpotabla">
 				<thead>
 					<tr>
@@ -23,7 +21,7 @@
 						<th style="text-align: center;" colspan="5">{{ctrl.anio}}</th>
 					</tr>
 					<tr>
-						<th st-sort="metaDescripcion">Nombre</th>
+						<th st-sort="metaDescripcion">Entidad</th>
 						<th style="text-align: center; min-width: 50px; max-width: 50px;">Asig.</th>
 						<th style="text-align: center; min-width: 50px; max-width: 50px;">Vig.</th>
 						<th style="text-align: center; min-width: 50px; max-width: 50px;">Ejec.</th>

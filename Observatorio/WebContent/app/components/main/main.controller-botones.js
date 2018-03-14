@@ -1,12 +1,124 @@
-var app = angular.module('main', ['chart.js','smart-table','ui.bootstrap','ngCookies',
+var app = angular.module('observatorio', ['chart.js','smart-table','ui.bootstrap','ngCookies',
     'ngMessages',
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch']);
+    'ngTouch',
+    'ngUtilidades']);
 app.controller('mainController',['$rootScope','$scope','$http', function($rootScope,$scope,$http){
 	var mi = this;
 	mi.etiqueta = 'Bienvenido';
+	
+	mi.resultados_institucionales={
+		p_fisico: 0,
+		p_presupuestario: 0,
+		num_resultados: 0,
+		ejecutado: 0,
+		vigente: 0
+	};
+	
+	mi.resultados_estrategicos={
+			p_fisico: 0,
+			p_presupuestario: 0,
+			num_resultados: 0,
+			ejecutado: 0,
+			vigente: 0
+		};
+	
+	mi.resultados_otros={
+			p_fisico: 0,
+			p_presupuestario: 0,
+			num_resultados: 0,
+			ejecutado: 0,
+			vigente: 0
+		};
+	
+	mi.deuda={
+		ejecutado: 0,
+		vigente: 0,
+		p_presupuestario: 0
+	};
+	
+	mi.obligaciones={
+			ejecutado: 0,
+			vigente: 0,
+			p_presupuestario: 0
+		};
+	
+	
+	$http.post('/SInfo',{
+		accion: 'getTipoResultado',
+		tipo_resultado: 1,
+		t: new Date().getTime()
+	}).then(function(response){
+		if(response.data.success){
+			mi.resultados_institucionales.p_fisico = response.data.tiporesultado[0].p_fisico;
+			mi.resultados_institucionales.p_presupuestario = response.data.tiporesultado[0].p_presupuestario;
+			mi.resultados_institucionales.num_resultados = response.data.tiporesultado[0].cantidad;
+			mi.resultados_institucionales.ejecutado = response.data.tiporesultado[0].ejecutado;
+			mi.resultados_institucionales.vigente = response.data.tiporesultado[0].vigente;
+		}
+	});
+	
+	$http.post('/SInfo',{
+		accion: 'getTipoResultado',
+		tipo_resultado: 2,
+		t: new Date().getTime()
+	}).then(function(response){
+		if(response.data.success){
+			mi.resultados_estrategicos.p_fisico = response.data.tiporesultado[0].p_fisico;
+			mi.resultados_estrategicos.p_presupuestario = response.data.tiporesultado[0].p_presupuestario;
+			mi.resultados_estrategicos.num_resultados = response.data.tiporesultado[0].cantidad;
+			mi.resultados_estrategicos.ejecutado = response.data.tiporesultado[0].ejecutado;
+			mi.resultados_estrategicos.vigente = response.data.tiporesultado[0].vigente;
+		}
+	});
+	
+	$http.post('/SInfo',{
+		accion: 'getTipoResultado',
+		tipo_resultado: 3,
+		t: new Date().getTime()
+	}).then(function(response){
+		if(response.data.success){
+			mi.resultados_otros.p_fisico = response.data.tiporesultado[0].p_fisico;
+			mi.resultados_otros.p_presupuestario = response.data.tiporesultado[0].p_presupuestario;
+			mi.resultados_otros.num_resultados = response.data.tiporesultado[0].cantidad;
+			mi.resultados_otros.ejecutado = response.data.tiporesultado[0].ejecutado;
+			mi.resultados_otros.vigente = response.data.tiporesultado[0].vigente;
+		}
+	});
+	
+	$http.post('/SInfo',{
+		accion: 'getDeuda',
+		t: new Date().getTime()
+	}).then(function(response){
+		if(response.data.success){
+			mi.deuda.ejecutado=response.data.tiporesultado.ejecutado;
+			mi.deuda.vigente=response.data.tiporesultado.vigente;
+			mi.deuda.p_presupuestario=response.data.tiporesultado.ejecutado/response.data.tiporesultado.vigente;
+		}
+	});
+	
+	$http.post('/SInfo',{
+		accion: 'getObligaciones',
+		t: new Date().getTime()
+	}).then(function(response){
+		if(response.data.success){
+			mi.obligaciones.ejecutado=response.data.tiporesultado.ejecutado;
+			mi.obligaciones.vigente=response.data.tiporesultado.vigente;
+			mi.obligaciones.p_presupuestario=response.data.tiporesultado.ejecutado/response.data.tiporesultado.vigente;
+		}
+	});
+	
+	mi.go = function(level){
+		switch(level){
+			case 1: window.location.href = '/main.jsp#!/entidad/1'; break;
+			case 2: window.location.href = '/main.jsp#!/entidad/2'; break;
+			case 3: window.location.href = '/main.jsp#!/entidad/3'; break;
+			case 4: window.location.href = '/main.jsp#!/deuda'; break;
+			case 5: window.location.href = '/main.jsp#!/obligaciones'; break;
+		}
+	}
 	
 	
 	/*-----------------------CAROUSEL-----------------------------------*/
