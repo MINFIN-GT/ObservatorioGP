@@ -22,13 +22,16 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
          .when('/deuda_detalle',{
          	template: '<div load-on-demand="\'deudadetalleController\'" class="all_page"></div>'
          })
-         .when('/producto/:entidad/:unidadejecutora/:programa/:actividad',{
+         .when('/producto/:entidad/:programa/:subprograma/:actividad',{
          	template: '<div load-on-demand="\'productoController\'" class="all_page"></div>'
          })
-         .when('/actividad/:tipo_resultado/:entidad/:unidadejecutora/:programa',{
+         .when('/actividad/:tipo_resultado/:entidad/:programa/:subprograma',{
          	template: '<div load-on-demand="\'actividadController\'" class="all_page"></div>'
          })
-         .when('/programa/:tipo_resultado/:entidad/:unidadejecutora',{
+         .when('/subprograma/:tipo_resultado/:entidad/:programa',{
+         	template: '<div load-on-demand="\'subprogramaController\'" class="all_page"></div>'
+         })
+         .when('/programa/:tipo_resultado/:entidad',{
          	template: '<div load-on-demand="\'programaController\'" class="all_page"></div>'
          })
          .when('/entidad/:tipo_resultado',{
@@ -85,6 +88,11 @@ app.config(['$loadOnDemandProvider', function ($loadOnDemandProvider) {
 	    	   name: 'programaController',
 	    	   script: '/app/components/programa/programa.controller.js',
 	    	   template: '/app/components/programa/programa.jsp'
+	       },
+	       {
+	    	   name: 'subprogramaController',
+	    	   script: '/app/components/subprograma/subprograma.controller.js',
+	    	   template: '/app/components/subprograma/subprograma.jsp'
 	       },
 	       {
 	    	   name: 'entidadController',

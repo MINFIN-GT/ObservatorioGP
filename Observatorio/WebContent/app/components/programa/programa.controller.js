@@ -49,13 +49,11 @@ angular.module('programaController',[]).controller('programaController', ['$root
 	mi.meses = ['Ene-','Feb-','Mar-','Abr-','May-','Jun-','Jul-','Ago-','Sep-','Oct-','Nov-','Dic-'];
 	
 	mi.entidad = $routeParams.entidad;
-	mi.unidadEjecutora = $routeParams.unidadejecutora;
 	mi.tipo_resultado = $routeParams.tipo_resultado;
 	
 	$http.post('/SPrograma',{
 		accion: 'getProgramas',
-		entidad: mi.entidad,
-		unidadEjecutora: mi.unidadEjecutora,
+		entidad: mi.entidad,		
 		tipo_resultado: mi.tipo_resultado,
 		t: new Date().getTime()
 	}).then(function(response){
@@ -450,7 +448,7 @@ angular.module('programaController',[]).controller('programaController', ['$root
 		        }
 		};
 	
-	mi.irActividad = function(programa_id){
-		window.location = "main.jsp#!/actividad/" + mi.tipo_resultado + "/" + mi.entidad + "/" + mi.unidadEjecutora + "/" + programa_id;
+	mi.irSubprograma = function(programa_id){
+		window.location = "main.jsp#!/subprograma/" + mi.tipo_resultado + "/" + mi.entidad + "/" + programa_id;
 	}
 }]);

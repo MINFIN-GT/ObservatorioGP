@@ -12,17 +12,18 @@ import utilities.CMemsql;
 public class ActividadDAO {
 	public class Actividad{
 		Integer id;
+		Integer id_obra;
 		String nombre_actividad;
 		ArrayList<Integer> ejercicios;
 		ArrayList<Double[]> ejercicio_data;
  	}
 	
-	public static ArrayList<Actividad> getActividades(Integer entidad, Integer unidadEjecutora, Integer programa, String tipo_resultaldo){
+	public static ArrayList<Actividad> getActividades(Integer entidad, Integer programa, Integer subprograma, String tipo_resultaldo){
 		ArrayList<Actividad> ret = new ArrayList<Actividad>();
 		String query = "";
 		try{
 			if(CMemsql.connect()){
-				query = String.join(" ", "select ejercicio, entidad, unidad_ejecutora, programa, subprograma, proyecto, obra, actividad, actividad_obra_nombre,", 
+				query = String.join(" ", "select ejercicio, entidad, programa, subprograma, proyecto, obra, actividad, actividad_obra_nombre,", 
 						"avg(financiero_asignado) financiero_asignado,", 
 						"avg(financiero_ejecutado_m1) financiero_ejecutado_m1,", 
 						"avg(financiero_ejecutado_m2) financiero_ejecutado_m2,", 
@@ -73,13 +74,13 @@ public class ActividadDAO {
 						"AVG(IFNULL(fisico_ejecutado_m11, IF (fisico_asignado + ifnull (fisico_modificacion_m11,0) > 0, 0, NULL)) / IF (fisico_asignado + ifnull (fisico_modificacion_m11,0) > 0,fisico_asignado + ifnull (fisico_modificacion_m11,0),1)) p_fisico_m11,", 
 						"AVG(IFNULL(fisico_ejecutado_m12, IF (fisico_asignado + ifnull (fisico_modificacion_m12,0) > 0, 0, NULL)) / IF (fisico_asignado + ifnull (fisico_modificacion_m12,0) > 0,fisico_asignado + ifnull (fisico_modificacion_m12,0),1)) p_fisico_m12", 
 						"from mv_financiera_fisica ", 
-						"where entidad=? and unidad_ejecutora=? and programa=? and proyecto=0 and tipo_resultado=?", 
-						"group by entidad, unidad_ejecutora, programa, proyecto, actividad, ejercicio");
+						"where entidad=? and programa=? and subprograma=? and proyecto=0 and tipo_resultado=?", 
+						"group by entidad, programa, subprograma, proyecto, actividad, obra, ejercicio");
 				
 				PreparedStatement pstmt = CMemsql.getConnection().prepareStatement(query);
 				pstmt.setInt(1, entidad);
-				pstmt.setInt(2, unidadEjecutora);
-				pstmt.setInt(3, programa);
+				pstmt.setInt(2, programa);
+				pstmt.setInt(3, subprograma);
 				pstmt.setString(4, tipo_resultaldo);
 				
 				ResultSet rs = CMemsql.runPreparedStatement(pstmt);
@@ -92,6 +93,7 @@ public class ActividadDAO {
 							ret.add(temp);
 						temp = (new ActividadDAO()).new Actividad();
 						temp.id = rs.getInt("actividad");
+						temp.id_obra = rs.getInt("obra");
 						temp.nombre_actividad = rs.getString("actividad_obra_nombre");
 						int year = DateTime.now().getYear();
 						temp.ejercicios = new ArrayList<Integer>();
@@ -107,7 +109,7 @@ public class ActividadDAO {
 					
 					Double[] datos = new Double[49];
 					for(int i=0; i<49;i++){
-						datos[i] = rs.getDouble(i+10);
+						datos[i] = rs.getDouble(i+9);
 					}
 					temp.ejercicio_data.set(rs.getInt("ejercicio")-DateTime.now().getYear()+4,datos);
 					temp.nombre_actividad = rs.getString("actividad_obra_nombre");
@@ -116,9 +118,11 @@ public class ActividadDAO {
 					ret.add(temp);
 			}	
 			
+			CMemsql.close();
 			return ret;
 		}catch(Exception e){
 			CLogger.write("1", ActividadDAO.class, e);
+			CMemsql.close();
 			return null;
 		}
 	}

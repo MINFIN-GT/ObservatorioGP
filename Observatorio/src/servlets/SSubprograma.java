@@ -18,17 +18,15 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import dao.ProductoDAO;
-import dao.ProductoDAO.EjecucionFisica;
-import dao.ProductoDAO.VectorValores;
-import utilities.CLogger;
+import dao.SubprogramaDAO;
+import dao.SubprogramaDAO.Subprograma;
 import utilities.Utils;
 
-@WebServlet("/SProducto")
-public class SProducto extends HttpServlet {
+@WebServlet("/SSubprograma")
+public class SSubprograma extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-      
-	public SProducto() {
+       
+    public SSubprograma() {
         super();
     }
 
@@ -50,33 +48,16 @@ public class SProducto extends HttpServlet {
 		String accion = map.get("accion");
 		String response_text="";
 		
-		Integer entidad = Utils.String2Int(map.get("entidad"));		
+		Integer entidad = Utils.String2Int(map.get("entidad"));
 		Integer programa = Utils.String2Int(map.get("programa"));
-		Integer subprograma = Utils.String2Int(map.get("subprograma"));
-		Integer actividad = Utils.String2Int(map.get("actividad"));
-		Integer codigo_meta = Utils.String2Int(map.get("codigo_meta")) != 0 ? Utils.String2Int(map.get("codigo_meta")) : null;
+		String tipo_resultado = Utils.String2Int(map.get("tipo_resultado")) == 1 ? "Estrátegico" : (Utils.String2Int(map.get("tipo_resultado")) == 2 ? "Institucional" : "Otros");
 		
-		if(accion.equals("getEjecucionFisica")){
-			try{
-				
-				ArrayList<EjecucionFisica> lstejecucionfisica = ProductoDAO.getEjecucionFisica(entidad,programa,subprograma,actividad);
-				
-				String ejecucion_fisica = new GsonBuilder().serializeNulls().create().toJson(lstejecucionfisica);
-				response_text = String.join(" ", "\"ejecucionFisica\": ", ejecucion_fisica);
-				response_text = String.join(" ","{\"success\": true,", response_text, "}");
-			}catch(Exception e){
-				CLogger.write("1", SProducto.class, e);
-			}
-		}else if(accion.equals("getVectoresValores")){
-			try{
-				ArrayList<VectorValores> lstvectorvalores = ProductoDAO.getVectorValores(entidad,programa,subprograma,actividad, codigo_meta);
-				
-				String ejecucion_fisica = new GsonBuilder().serializeNulls().create().toJson(lstvectorvalores);
-				response_text = String.join(" ", "\"vectorValores\": ", ejecucion_fisica);
-				response_text = String.join(" ","{\"success\": true,", response_text, "}");
-			}catch(Exception e){
-				CLogger.write("3", SProducto.class, e);
-			}
+		if(accion.equals("getSubprogramas")){
+			ArrayList<Subprograma> lstsubprogramas = SubprogramaDAO.getSubprogramas(entidad, programa, tipo_resultado);
+			
+			String subprogramas = new GsonBuilder().serializeNulls().create().toJson(lstsubprogramas);
+			response_text = String.join(" ", "\"subprogramas\": ", subprogramas);
+			response_text = String.join(" ","{\"success\": true,", response_text, "}");
 		}
 		
 		response.setHeader("Content-Encoding", "gzip");
@@ -87,5 +68,7 @@ public class SProducto extends HttpServlet {
         gz.write(response_text.getBytes("UTF-8"));
         gz.close();
         output.close();
+
 	}
+
 }

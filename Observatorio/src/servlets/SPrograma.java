@@ -49,12 +49,11 @@ public class SPrograma extends HttpServlet {
 		String response_text="";
 		
 		Integer entidad = Utils.String2Int(map.get("entidad"));
-		Integer unidadEjecutora = Utils.String2Int(map.get("unidadEjecutora"));
 		Integer programa = Utils.String2Int(map.get("programa"));
 		String tipo_resultado = Utils.String2Int(map.get("tipo_resultado")) == 1 ? "Estrátegico" : (Utils.String2Int(map.get("tipo_resultado")) == 2 ? "Institucional" : "Otros");
 		
 		if(accion.equals("getProgramas")){
-			ArrayList<Programa> lstprogramas = ProgramaDAO.getProgramas(entidad, unidadEjecutora, programa, tipo_resultado);
+			ArrayList<Programa> lstprogramas = ProgramaDAO.getProgramas(entidad, programa, tipo_resultado);
 			
 			String programas = new GsonBuilder().serializeNulls().create().toJson(lstprogramas);
 			response_text = String.join(" ", "\"programas\": ", programas);
