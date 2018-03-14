@@ -14,9 +14,9 @@ public class TipoResultadoDAO {
 		double p_presupuestario;
 		double vigente;
 		double ejecutado;
-		int tipo;
+		int cantidad;
 	}
-	public static ArrayList<TipoResultado> getTipoResultado(Integer ejercicio, String tipo_resultado){
+	public static ArrayList<TipoResultado> getTipoResultado(String tipo_resultado){
 		ArrayList<TipoResultado> ret = new ArrayList<TipoResultado>();
 		String query = "";
 		try{
@@ -77,7 +77,8 @@ public class TipoResultadoDAO {
 						"    when 10 then sum(p_fisico_m10 * financiero_vigente_m10) / sum(financiero_vigente_m10)", 
 						"    when 11 then sum(p_fisico_m11 * financiero_vigente_m11) / sum(financiero_vigente_m11)", 
 						"    when 12 then sum(p_fisico_m12 * financiero_vigente_m12) / sum(financiero_vigente_m12)", 
-						"  end pp_fisico", 
+						"  end pp_fisico,",
+						"  count(tipo_resultado) cantidad_resultados",
 						"	from (  ", 
 						"	  select ejercicio, entidad, entidad_nombre, unidad_ejecutora, unidad_ejecutora_nombre, programa, programa_nombre, subprograma, proyecto, obra, actividad, actividad_obra_nombre, tipo_resultado, ", 
 						"	  avg(financiero_asignado) financiero_asignado,  ", 
@@ -130,7 +131,7 @@ public class TipoResultadoDAO {
 						"	(AVG(IFNULL(fisico_ejecutado_m11, IF (fisico_asignado + IFNULL(fisico_modificacion_m11,0) > 0, 0, NULL)) / IF (fisico_asignado + IFNULL(fisico_modificacion_m11,0) > 0,fisico_asignado + IFNULL(fisico_modificacion_m11,0),1))) p_fisico_m11,  ", 
 						"	(AVG(IFNULL(fisico_ejecutado_m12, IF (fisico_asignado + IFNULL(fisico_modificacion_m12,0) > 0, 0, NULL)) / IF (fisico_asignado + IFNULL(fisico_modificacion_m12,0) > 0,fisico_asignado + IFNULL(fisico_modificacion_m12,0),1))) p_fisico_m12  ", 
 						"	  from mv_financiera_fisica   ", 
-						"	  where tipo_resultado=? and ejercicio=? ", 
+						"	  where tipo_resultado=? and ejercicio=year(current_timestamp()) ", 
 						"	  group by entidad, unidad_ejecutora, programa, subprograma, proyecto, actividad,ejercicio  ", 
 						"	  order by entidad, unidad_ejecutora, programa, subprograma, proyecto, actividad,ejercicio  ", 
 						"	) t1  ", 
@@ -138,7 +139,6 @@ public class TipoResultadoDAO {
 				
 				PreparedStatement pstmt = CMemsql.getConnection().prepareStatement(query);
 				pstmt.setString(1, tipo_resultado);
-				pstmt.setInt(2, ejercicio);
 				
 				ResultSet rs = CMemsql.runPreparedStatement(pstmt);
 				
@@ -148,6 +148,7 @@ public class TipoResultadoDAO {
 					temp.vigente = rs.getDouble("vigente");
 					temp.p_presupuestario = rs.getDouble("p_financiero");
 					temp.p_fisico = rs.getDouble("pp_fisico");
+					temp.cantidad = rs.getInt("cantidad_resultados");
 					ret.add(temp);
 				}
 			}

@@ -104,8 +104,8 @@ app.config(['uiGmapGoogleMapApiProvider',function(uiGmapGoogleMapApiProvider) {
 }]);
 
 
-app.controller('MainController',['$scope','$document','$rootScope','$location','$window',
-	   function($scope,$document,$rootScope,$location,$window){
+app.controller('MainController',['$scope','$document','$rootScope','$location','$window','$http',
+	   function($scope,$document,$rootScope,$location,$window, $http){
 		
 		$rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
 			if (location.hostname !== "localhost" || location.hostname !== "127.0.0.1"){
@@ -114,8 +114,33 @@ app.controller('MainController',['$scope','$document','$rootScope','$location','
 			}
 	    });
 		
-		/////Aquí
+		$http.post('/STipoResultado',{
+			accion: 'getTipoResultado',
+			tipo_resultado: 1,
+			t: new Date().getTime()
+		}).then(function(response){
+			if(response.data.success){
+				
+			}
+		})
 		
+		$http.post('/STipoResultado',{
+			accion: 'getTipoResultado',
+			tipo_resultado: 2,
+			t: new Date().getTime()
+		}).then(function(response){
+			if(response.data.success){
+				
+			}
+		})
 		
-		/// Hasta aquí
+		$http.post('/STipoResultado',{
+			accion: 'getTipoResultado',
+			tipo_resultado: 3,
+			t: new Date().getTime()
+		}).then(function(response){
+			if(response.data.success){
+				
+			}
+		})
 	}]);

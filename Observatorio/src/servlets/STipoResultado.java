@@ -49,12 +49,11 @@ public class STipoResultado extends HttpServlet {
 		String accion = map.get("accion");
 		String response_text="";
 		
-		Integer ejercicio = Utils.String2Int(map.get("ejercicio"));
 		String tipo_resultado = Utils.String2Int(map.get("tipo_resultado")) == 1 ? "Estrátegico" : (Utils.String2Int(map.get("tipo_resultado")) == 2 ? "Institucional" : "Otros");
 		
 		if (accion.equals("getTipoResultado")){
 			try{
-				ArrayList<TipoResultado> lsttiporesultado = TipoResultadoDAO.getTipoResultado(ejercicio, tipo_resultado);
+				ArrayList<TipoResultado> lsttiporesultado = TipoResultadoDAO.getTipoResultado(tipo_resultado);
 				String tipoResultado = new GsonBuilder().serializeNulls().create().toJson(lsttiporesultado);
 				response_text = String.join(" ", "\"tiporesultado\": ", tipoResultado);
 				response_text = String.join(" ","{\"success\": true,", response_text, "}");
