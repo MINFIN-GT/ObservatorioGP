@@ -16,14 +16,13 @@ public class ProgramaDAO {
 		ArrayList<Double[]> ejercicio_data;
 	}
 	
-	public static ArrayList<Programa> getProgramas(Integer entidad, Integer unidadEjecutora, Integer programa, String tipo_resultaldo){
+	public static ArrayList<Programa> getProgramas(Integer entidad, Integer programa, String tipo_resultaldo){
 		ArrayList<Programa> ret = new ArrayList<Programa>();
 		String query = "";
 		try{
 			if(CMemsql.connect()){
 				query = String.join(" ", "SELECT ejercicio,", 
-						"       entidad, ", 
-						"       unidad_ejecutora, programa, programa_nombre,", 
+						"       entidad, programa, programa_nombre,", 
 						"       SUM(financiero_asignado) financiero_asignado,", 
 						"       SUM(financiero_vigente_m1) financiero_vigente_m1,", 
 						"       SUM(financiero_vigente_m2) financiero_vigente_m2,", 
@@ -125,17 +124,16 @@ public class ProgramaDAO {
 						"             (AVG(IFNULL(fisico_ejecutado_m11, IF (fisico_asignado + IFNULL(fisico_modificacion_m11,0) > 0, 0, NULL)) / IF (fisico_asignado + IFNULL(fisico_modificacion_m11,0) > 0,fisico_asignado + IFNULL(fisico_modificacion_m11,0),1))) p_fisico_m11,", 
 						"             (AVG(IFNULL(fisico_ejecutado_m12, IF (fisico_asignado + IFNULL(fisico_modificacion_m12,0) > 0, 0, NULL)) / IF (fisico_asignado + IFNULL(fisico_modificacion_m12,0) > 0,fisico_asignado + IFNULL(fisico_modificacion_m12,0),1))) p_fisico_m12", 
 						"      FROM mv_financiera_fisica", 
-						"      WHERE entidad = ? AND unidad_ejecutora=?", 
+						"      WHERE entidad = ?", 
 						"      AND   tipo_resultado = ?", 
 						"      AND   proyecto = 0", 
 						"      GROUP BY entidad, unidad_ejecutora, programa, subprograma, proyecto, actividad, ejercicio", 
 						"      ORDER BY entidad, unidad_ejecutora, programa, subprograma, proyecto, actividad, ejercicio) t1", 
-						"GROUP BY ejercicio, entidad, unidad_ejecutora, programa, programa_nombre");
+						"GROUP BY ejercicio, entidad, programa, programa_nombre");
 				
 				PreparedStatement pstmt = CMemsql.getConnection().prepareStatement(query);
 				pstmt.setInt(1, entidad);
-				pstmt.setInt(2, unidadEjecutora);
-				pstmt.setString(3, tipo_resultaldo);
+				pstmt.setString(2, tipo_resultaldo);
 				
 				ResultSet rs = CMemsql.runPreparedStatement(pstmt);
 				
@@ -162,7 +160,7 @@ public class ProgramaDAO {
 					
 					Double[] datos = new Double[49];
 					for(int i=0; i<49;i++){
-						datos[i] = rs.getDouble(i+6);
+						datos[i] = rs.getDouble(i+5);
 					}
 					temp.ejercicio_data.set(rs.getInt("ejercicio")-DateTime.now().getYear()+4,datos);
 					temp.nombre_programa = rs.getString("programa_nombre");
@@ -171,9 +169,12 @@ public class ProgramaDAO {
 				if(temp != null)
 					ret.add(temp);
 			}
+			
+			CMemsql.close();
 			return ret;
 		}catch(Exception e){
 			CLogger.write("1", Programa.class, e);
+			CMemsql.close();
 			return ret;
 		}
 	}
