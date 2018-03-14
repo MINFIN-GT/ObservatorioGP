@@ -445,6 +445,6 @@ var app = angular.module('entidadController',[]).controller('entidadController',
 		};
 	
 	mi.irPrograma = function(entidad_id){
-		window.location = "main.jsp#!/programa/" + mi.tipo_resultado + "/" + entidad_id + "/0";
+		window.location = "main.jsp#!/programa/" + mi.tipo_resultado + "/" + entidad_id;
 	}
 }])
