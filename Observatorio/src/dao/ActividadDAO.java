@@ -74,7 +74,7 @@ public class ActividadDAO {
 						"AVG(IFNULL(fisico_ejecutado_m11, IF (fisico_asignado + ifnull (fisico_modificacion_m11,0) > 0, 0, NULL)) / IF (fisico_asignado + ifnull (fisico_modificacion_m11,0) > 0,fisico_asignado + ifnull (fisico_modificacion_m11,0),1)) p_fisico_m11,", 
 						"AVG(IFNULL(fisico_ejecutado_m12, IF (fisico_asignado + ifnull (fisico_modificacion_m12,0) > 0, 0, NULL)) / IF (fisico_asignado + ifnull (fisico_modificacion_m12,0) > 0,fisico_asignado + ifnull (fisico_modificacion_m12,0),1)) p_fisico_m12", 
 						"from mv_financiera_fisica ", 
-						"where entidad=? and programa=? and subprograma=? and proyecto=0 and tipo_resultado=?", 
+						"where entidad=? and programa=? and subprograma=? and tipo_resultado=?", 
 						"group by entidad, programa, subprograma, proyecto, actividad, obra, ejercicio");
 				
 				PreparedStatement pstmt = CMemsql.getConnection().prepareStatement(query);

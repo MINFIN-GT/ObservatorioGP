@@ -125,8 +125,7 @@ public class ProgramaDAO {
 						"             (AVG(IFNULL(fisico_ejecutado_m12, IF (fisico_asignado + IFNULL(fisico_modificacion_m12,0) > 0, 0, NULL)) / IF (fisico_asignado + IFNULL(fisico_modificacion_m12,0) > 0,fisico_asignado + IFNULL(fisico_modificacion_m12,0),1))) p_fisico_m12", 
 						"      FROM mv_financiera_fisica", 
 						"      WHERE entidad = ?", 
-						"      AND   tipo_resultado = ?", 
-						"      AND   proyecto = 0", 
+						"      AND   tipo_resultado = ?",  
 						"      GROUP BY entidad, unidad_ejecutora, programa, subprograma, proyecto, actividad, ejercicio", 
 						"      ORDER BY entidad, unidad_ejecutora, programa, subprograma, proyecto, actividad, ejercicio) t1", 
 						"GROUP BY ejercicio, entidad, programa, programa_nombre");
