@@ -52,7 +52,7 @@ public class SProducto extends HttpServlet {
 		
 		Integer entidad = Utils.String2Int(map.get("entidad"));		
 		Integer programa = Utils.String2Int(map.get("programa"));
-		Integer subprograma = Utils.String2Int(map.get("subprograma"));
+		Integer subprograma = Utils.String2Int(map.get("subPrograma"));
 		Integer actividad = Utils.String2Int(map.get("actividad"));
 		Integer codigo_meta = Utils.String2Int(map.get("codigo_meta")) != 0 ? Utils.String2Int(map.get("codigo_meta")) : null;
 		

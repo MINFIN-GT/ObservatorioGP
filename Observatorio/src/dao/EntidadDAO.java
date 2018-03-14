@@ -125,7 +125,7 @@ public class EntidadDAO {
 						"	(AVG(IFNULL(fisico_ejecutado_m11, IF (fisico_asignado + IFNULL(fisico_modificacion_m11,0) > 0, 0, NULL)) / IF (fisico_asignado + IFNULL(fisico_modificacion_m11,0) > 0,fisico_asignado + IFNULL(fisico_modificacion_m11,0),1))) p_fisico_m11, ", 
 						"	(AVG(IFNULL(fisico_ejecutado_m12, IF (fisico_asignado + IFNULL(fisico_modificacion_m12,0) > 0, 0, NULL)) / IF (fisico_asignado + IFNULL(fisico_modificacion_m12,0) > 0,fisico_asignado + IFNULL(fisico_modificacion_m12,0),1))) p_fisico_m12 ", 
 						"    from mv_financiera_fisica  ", 
-						"    where tipo_resultado=? and proyecto=0", 
+						"    where tipo_resultado=? and proyecto=0 and entidad not in (11130018,11130019)", 
 						"    group by entidad, unidad_ejecutora, programa, subprograma, proyecto, actividad,ejercicio ", 
 						"    order by entidad, unidad_ejecutora, programa, subprograma, proyecto, actividad,ejercicio ", 
 						"  ) t1 ", 

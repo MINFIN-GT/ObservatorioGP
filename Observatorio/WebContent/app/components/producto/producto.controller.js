@@ -79,7 +79,7 @@ angular.module('productoController', []).controller('productoController',['$root
 				entidad: mi.entidad,
 				unidadEjecutora: mi.unidadEjecutora,
 				programa: mi.programa,
-				subProbrama: mi.subPrograma,
+				subPrograma: mi.subPrograma,
 				actividad: mi.actividad,
 				codigo_meta: row.codigo_meta,
 				tipo_resultado: mi.tipo_resultado,
