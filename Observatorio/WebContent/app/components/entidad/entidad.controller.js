@@ -321,7 +321,9 @@ var app = angular.module('entidadController',[]).controller('entidadController',
 		        }
 		};
 	
-	mi.irPrograma = function(entidad_id){
-		window.location = "main.jsp#!/programa/" + mi.tipo_resultado + "/" + entidad_id;
+	mi.irPrograma = function(entidad_id, entidad_nombre){
+		var time = new Date().getTime();
+		$window.localStorage.setItem("\"" + time + "\"", JSON.stringify([entidad_nombre,"","","",""]));
+		window.location = "main.jsp#!/programa/" + mi.tipo_resultado + "/" + entidad_id + "?t=" + time;
 	}
 }])

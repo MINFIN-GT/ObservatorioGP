@@ -1,5 +1,5 @@
-angular.module('programaController',[]).controller('programaController', ['$rootScope','$scope','$http','$routeParams', 
-	function($rootScope,$scope,$http,$routeParams){
+angular.module('programaController',[]).controller('programaController', ['$rootScope','$scope','$http','$routeParams', '$window', 
+	function($rootScope,$scope,$http,$routeParams, $window){
 	var mi = this;
 	
 	var fecha = new Date();
@@ -13,6 +13,9 @@ angular.module('programaController',[]).controller('programaController', ['$root
 	mi.tipoDatos = 0;
 	
 	$rootScope.page_title = 'Presupuesto por Resultados [Programa]';
+	
+	mi.arregloSubtitulo = JSON.parse($window.localStorage.getItem("\"" + $routeParams.t + "\""));
+	mi.subtitulo = mi.arregloSubtitulo[0];
 	
 	mi.tot_asignado_4 = 0;
 	mi.tot_vigente_4 = 0;
@@ -324,7 +327,9 @@ angular.module('programaController',[]).controller('programaController', ['$root
 		        }
 		};
 	
-	mi.irSubprograma = function(programa_id){
-		window.location = "main.jsp#!/subprograma/" + mi.tipo_resultado + "/" + mi.entidad + "/" + programa_id;
+	mi.irSubprograma = function(programa_id, programa_nombre){
+		mi.arregloSubtitulo[1] = programa_nombre;
+		$window.localStorage.setItem("\"" + $routeParams.t + "\"", JSON.stringify(mi.arregloSubtitulo));
+		window.location = "main.jsp#!/subprograma/" + mi.tipo_resultado + "/" + mi.entidad + "/" + programa_id + "?t=" + $routeParams.t;
 	}
 }]);

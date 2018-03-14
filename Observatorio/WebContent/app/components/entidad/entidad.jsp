@@ -1,15 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <style>
-		.cuerpotabla{
-			overflow-y: hidden;
-			overflow-x: scroll;
-		    display: inline-block;
-		    font-size: 13px;
-		}
-    </style>
     <div ng-controller="entidadController as ctrl">
-    	<div align="center" class="row" style="width: 80%; margin: 0 auto; font-size: 11px;">
+    	<div align="center" class="row" style="width: 90%; margin: 0 auto; font-size: 11px;">
 	    	<table st-table="ctrl.displayedCollection" st-safe-src="ctrl.rowCollection" class="table table-striped cuerpotabla">
 				<thead>
 					<tr>
@@ -50,7 +42,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr st-select-row="row" st-select-mode="single" ng-repeat="row in ctrl.displayedCollection" ng-click="ctrl.getGraficaIndividual(row);" ng-dblclick="ctrl.irPrograma(row.id)">
+					<tr st-select-row="row" st-select-mode="single" ng-repeat="row in ctrl.displayedCollection" ng-click="ctrl.getGraficaIndividual(row);" ng-dblclick="ctrl.irPrograma(row.id, row.nombre_entidad)">
 						<td align="left" style="white-space: nowrap;">
 							{{row.nombre_entidad}}
 						</td>
@@ -219,7 +211,7 @@
 	    <br>
 	    <div>
 			<div class="titulo_grafica">{{ ctrl.tituloGrafica }}</div>
-			<div align="right" style="width: 80%;margin: 0 auto;">
+			<div align="right" style="width: 90%;margin: 0 auto;">
 				<div class="btn-group btn-group-xs">
 					<label class="btn btn-default" ng-click="ctrl.cambioMensualP();"><span>Mensual</span></label>
 					<label class="btn btn-default" ng-click="ctrl.cambioAnualP();"><span>Anual</span></label>
@@ -233,7 +225,7 @@
 					</canvas>
 				</div>
 			</div>
-			<div style="text-align: center;">Fuente de información SICOIN. Cifras en porcentajes.</div>
+			<div class="graphics_footnote">Fuente de información SICOIN. Cifras en porcentajes.</div>
 			<br>
 		</div>
     </div>

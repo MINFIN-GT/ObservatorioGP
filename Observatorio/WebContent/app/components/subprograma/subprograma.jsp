@@ -9,8 +9,8 @@
 		}
     </style>
     <div ng-controller="subprogramaController as ctrl">
-    	<div align="center" class="row" style="width: 80%; margin: 0 auto; font-size: 11px;">
-	    	<h3>Subprograma</h3>
+    	<div align="center" class="row" style="width: 90%; margin: 0 auto; font-size: 11px;">
+	    	<h6 align="left">{{ctrl.subtitulo}}</h6>
 	    	<br>
 	    	<table st-table="ctrl.displayedCollection" st-safe-src="ctrl.rowCollection" class="table table-striped cuerpotabla">
 				<thead>
@@ -52,7 +52,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr st-select-row="row" st-select-mode="single" ng-repeat="row in ctrl.displayedCollection" ng-click="ctrl.getGraficaIndividual(row);" ng-dblclick="ctrl.irActividad(row.id)">
+					<tr st-select-row="row" st-select-mode="single" ng-repeat="row in ctrl.displayedCollection" ng-click="ctrl.getGraficaIndividual(row);" ng-dblclick="ctrl.irActividad(row.id, row.nombre_subprograma)">
 						<td align="left" style="white-space: nowrap;">
 							{{row.nombre_subprograma}}
 						</td>
@@ -221,7 +221,7 @@
 	    <br>
 	    <div>
 			<div class="titulo_grafica">{{ ctrl.tituloGrafica }}</div>
-			<div align="right" style="width: 80%;margin: 0 auto;">
+			<div align="right" style="width: 90%;margin: 0 auto;">
 				<div class="btn-group btn-group-xs">
 					<label class="btn btn-default" ng-click="ctrl.cambioMensualP();"><span>Mensual</span></label>
 					<label class="btn btn-default" ng-click="ctrl.cambioAnualP();"><span>Anual</span></label>

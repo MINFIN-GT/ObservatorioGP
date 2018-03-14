@@ -10,6 +10,9 @@ angular.module('actividadController',[]).controller('actividadController', ['$ro
 	mi.decimales = false;
 	mi.linealColors = ['#8ecf4c', '#88b4df', '#d92a27'];
 	mi.tipoDatos = 0;
+	
+	mi.arregloSubtitulo = JSON.parse($window.localStorage.getItem("\"" + $routeParams.t + "\""));
+	mi.subtitulo = mi.arregloSubtitulo[0] + " | " + mi.arregloSubtitulo[1] + " | " + mi.arregloSubtitulo[2];
 
 	mi.tot_asignado_4 = 0;
 	mi.tot_vigente_4 = 0;
@@ -323,7 +326,9 @@ angular.module('actividadController',[]).controller('actividadController', ['$ro
 		        }
 		};
 	
-		mi.irProducto = function(actividad_id){
-			window.location = "main.jsp#!/producto/" + mi.entidad + "/" + mi.programa + "/" + mi.subprograma + "/" +actividad_id;
+		mi.irProducto = function(actividad_id, actividad_nombre){
+			mi.arregloSubtitulo[3] = actividad_nombre;
+			$window.localStorage.setItem("\"" + $routeParams.t + "\"", JSON.stringify(mi.arregloSubtitulo));
+			window.location = "main.jsp#!/producto/" + mi.entidad + "/" + mi.programa + "/" + mi.subprograma + "/" +actividad_id + "?t=" + $routeParams.t;
 		}
 }]);
