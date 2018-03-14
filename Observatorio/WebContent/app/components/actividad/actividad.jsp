@@ -16,6 +16,7 @@
 				<thead>
 					<tr>
 						<th style="width: 50%"></th>
+						<th></th>
 						<th style="text-align: center; width: 400px;" colspan="5">{{ctrl.anio - 4}}</th>
 						<th style="text-align: center;" colspan="5">{{ctrl.anio - 3}}</th>
 						<th style="text-align: center;" colspan="5">{{ctrl.anio - 2}}</th>
@@ -24,6 +25,7 @@
 					</tr>
 					<tr>
 						<th st-sort="metaDescripcion">Nombre</th>
+						<th st-sort="metaDescripcion">Tipo</th>
 						<th style="text-align: center; min-width: 50px; max-width: 50px;">Asig.</th>
 						<th style="text-align: center; min-width: 50px; max-width: 50px;">Vig.</th>
 						<th style="text-align: center; min-width: 50px; max-width: 50px;">Ejec.</th>
@@ -55,6 +57,9 @@
 					<tr st-select-row="row" st-select-mode="single" ng-repeat="row in ctrl.displayedCollection" ng-click="ctrl.getGraficaIndividual(row);" ng-dblclick="ctrl.irProducto(row.id)">
 						<td align="left" style="white-space: nowrap;">
 							{{row.nombre_actividad}}
+						</td>
+						<td align="left" style="white-space: nowrap;">
+							{{row.id == 0 ? "Obra" : "Actividad"}}
 						</td>
 						<td align="right">
 							<div style="white-space: nowrap;">{{row.ejercicio_data[0][0] | formatoMillones : ctrl.decimales}}</div>
@@ -135,6 +140,7 @@
 				</tbody>
 				<tfoot>
 					<tr>
+						<th style="text-align: right;"></th>
 						<th style="text-align: right;">Totales:</th>
 						<th style="text-align: right;">
 							<div style="white-space: nowrap;">{{ctrl.tot_asignado_4 | formatoMillones : ctrl.decimales}}</div>

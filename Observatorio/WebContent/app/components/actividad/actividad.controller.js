@@ -46,15 +46,15 @@ angular.module('actividadController',[]).controller('actividadController', ['$ro
 	mi.meses = ['Ene-','Feb-','Mar-','Abr-','May-','Jun-','Jul-','Ago-','Sep-','Oct-','Nov-','Dic-'];
 	
 	mi.entidad = $routeParams.entidad;
-	mi.unidadEjecutora = $routeParams.unidadejecutora;
 	mi.programa = $routeParams.programa;
+	mi.subprograma = $routeParams.subprograma,
 	mi.tipo_resultado = $routeParams.tipo_resultado;
 	
 	$http.post('/SActividad',{
 		accion: 'getActividades',
-		entidad: mi.entidad,
-		unidadEjecutora: mi.unidadEjecutora,
+		entidad: mi.entidad,		
 		programa: mi.programa,
+		subprograma: mi.subprograma,
 		tipo_resultado: mi.tipo_resultado,
 		t: new Date().getTime()
 	}).then(function(response){
@@ -453,6 +453,6 @@ angular.module('actividadController',[]).controller('actividadController', ['$ro
 		};
 	
 		mi.irProducto = function(actividad_id){
-			window.location = "main.jsp#!/producto/" + mi.entidad + "/" + mi.unidadEjecutora + "/" + mi.programa + "/" + actividad_id;
+			window.location = "main.jsp#!/producto/" + mi.entidad + "/" + mi.programa + "/" + mi.subprograma + "/" +actividad_id;
 		}
 }]);
