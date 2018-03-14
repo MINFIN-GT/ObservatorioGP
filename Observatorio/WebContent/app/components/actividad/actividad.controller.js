@@ -12,7 +12,7 @@ angular.module('actividadController',[]).controller('actividadController', ['$ro
 	mi.tipoDatos = 0;
 	
 	mi.arregloSubtitulo = JSON.parse($window.localStorage.getItem("\"" + $routeParams.t + "\""));
-	mi.subtitulo = mi.arregloSubtitulo[0] + " | " + mi.arregloSubtitulo[1] + " | " + mi.arregloSubtitulo[2];
+	mi.subtitulo = mi.arregloSubtitulo[0] + " / " + mi.arregloSubtitulo[1] + " / " + mi.arregloSubtitulo[2];
 
 	mi.tot_asignado_4 = 0;
 	mi.tot_vigente_4 = 0;

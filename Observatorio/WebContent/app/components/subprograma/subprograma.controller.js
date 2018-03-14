@@ -16,7 +16,7 @@ var app = angular.module('subprogramaController',[]).controller('subprogramaCont
 	$rootScope.page_title = 'Presupuesto por Resultados [Subprograma]';
 	
 	mi.arregloSubtitulo = JSON.parse($window.localStorage.getItem("\"" + $routeParams.t + "\""));
-	mi.subtitulo = mi.arregloSubtitulo[0] + " | " + mi.arregloSubtitulo[1];
+	mi.subtitulo = mi.arregloSubtitulo[0] + " / " + mi.arregloSubtitulo[1];
 	
 	mi.tot_asignado_4 = 0;
 	mi.tot_vigente_4 = 0;
