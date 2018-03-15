@@ -8,6 +8,7 @@ body {
 	height: 100%;
 	background-color: transparent;
 	line-height: unset;
+	border-top: 6px solid #3a3a3a;
 }
 
 #mainview{
@@ -153,20 +154,20 @@ body {
 					#main-nav a:hover, #main-nav .hover > a, #main-nav .current > a { background: #f8f8f8; }
 
 					.not-ie #main-nav .current:after {
-						background: #f15a23;
-						bottom: -2.5px;
-						content: '';
-						left: 50%;
-						display: block;
-						height: 5px;
-						margin: 0 0 0 -2.5px;
-						-webkit-transform: rotate(45deg);
-						   -moz-transform: rotate(45deg);
-							-ms-transform: rotate(45deg);
-							 -o-transform: rotate(45deg);
-								transform: rotate(45deg);
-						position: absolute;
-						width: 5px;
+					    background: #f15a23;
+					    bottom: -2.5px;
+					    content: '';
+					    left: 50%;
+					    display: block;
+					    height: 5px;
+					    margin: 0 0 0 -2.5px;
+					    -webkit-transform: rotate(45deg);
+					    -moz-transform: rotate(45deg);
+					    -ms-transform: rotate(45deg);
+					    -o-transform: rotate(45deg);
+					    transform: rotate(45deg);
+					    position: absolute;
+					    width: 5px;
 					}
 
 				/* Dropdown */
