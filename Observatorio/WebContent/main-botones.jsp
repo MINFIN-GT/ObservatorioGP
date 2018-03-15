@@ -111,20 +111,44 @@
 	
 	<div class="col-sm-10">
 	
-  	<div style="height: 405px">
-    		<div uib-carousel active="ctrl.active" interval="ctrl.interval" no-wrap="ctrl.wrap">
+  	<div style="height: 380px">
+    		<div uib-carousel active="active" interval="ctrl.interval" no-wrap="ctrl.wrap">
       			<div uib-slide ng-repeat="slide in ctrl.slides track by slide.id" index="slide.id">
         			<img ng-src="{{slide.image}}" style="margin:auto;">
         			
      	 		</div>
     		</div>
   	</div>
+  			<div class="buttons-container">
+  				<div ng-class="ctrl.slide_button[0]" style="width: 25%;">
+					<span class="dropcap">1</span>
+					<h5>SALUD</h5>
+					<span class="description">MSPAS</span>
+				</div>
+				<div ng-class="ctrl.slide_button[1]" style="width: 25%;">		
+					<span class="dropcap">2</span>
+					<h5>EDUCACIÓN</h5>
+					<span class="description">MINEDUC</span>
+				</div>
+				<div ng-class="ctrl.slide_button[2]" style="width: 25%;">
+					<span class="dropcap">3</span>
+					<h5>SEGURIDAD</h5>
+					<span class="description">MINGOB</span>
+				</div>
+				<div ng-class="ctrl.slide_button[3]" style="width: 25%;">
+					<span class="dropcap">4</span>
+					<h5>INFRAESTRUCTURA</h5>
+					<span class="description">MICIVI</span>
+				</div>
+			</div>
 	
 	</div>
 	<div class="col-sm-1">
 	</div>
 	</div>
+	<br/>
 	<div class="row">
+		<div class="text-center">Presupuesto Público</div>
 		<div class="total_budget">{{ ctrl.presupuesto_total | formatoMillones : true}}</div>
 	</div>
 	<br/>
@@ -143,7 +167,7 @@
 			<div class="panel panel-default button_front_main" ng-click="ctrl.go(1)">
 				<ul class="list-group" ng-click="ctrl.go(1)">
 				  <li class="list-group-item text-center button_front button_front_fisico" ng-click="ctrl.go(1)"><div style="margin-bottom: 5px;" ng-click="ctrl.go(1)">{{ (ctrl.resultados_institucionales.p_fisico*100).toFixed(0) }}%</div>
-				  	<div class="button_front_money button_front_fisico" ng-click="ctrl.go(1)">{{ ctrl.resultados_institucionales.num_resultados }} resultados</div>
+				  	<div class="button_front_money button_front_fisico" ng-click="ctrl.go(1)">{{ ctrl.resultados_institucionales.num_resultados }} metas</div>
 				  </li>
 				  <li class="list-group-item text-center button_front button_front_presupuestario" ng-click="ctrl.go(1)"><div style="margin-bottom: 5px;" ng-click="ctrl.go(1)">{{ (ctrl.resultados_institucionales.p_presupuestario*100).toFixed(0) }}%</div>
 				  			<div class="button_front_money button_front_presupuestario"><div class="row" ><div class="col-sm-3" ng-click="ctrl.go(1)">Vigente</div><div class="col-sm-9 text-right" ng-click="ctrl.go(1)">{{ ctrl.resultados_institucionales.vigente | formatoMillones : true }}</div></div></div>
@@ -156,7 +180,7 @@
 			<div class="panel panel-default button_front_main" ng-click="ctrl.go(2)">
 				<ul class="list-group" ng-click="ctrl.go(2)">
 				  <li class="list-group-item text-center button_front button_front_fisico" ng-click="ctrl.go(2)"><div style="margin-bottom: 5px;" ng-click="ctrl.go(2)">{{ (ctrl.resultados_estrategicos.p_fisico*100).toFixed(0) }}%</div>
-				  	<div class="button_front_money button_front_fisico" ng-click="ctrl.go(2)">{{ ctrl.resultados_estrategicos.num_resultados }} resultados</div>
+				  	<div class="button_front_money button_front_fisico" ng-click="ctrl.go(2)">{{ ctrl.resultados_estrategicos.num_resultados }} metas</div>
 				  </li>
 				  <li class="list-group-item text-center button_front button_front_presupuestario" ng-click="ctrl.go(2)"><div style="margin-bottom: 5px;" ng-click="ctrl.go(2)">{{ (ctrl.resultados_estrategicos.p_presupuestario*100).toFixed(0) }}%</div>
 				  			<div class="button_front_money button_front_presupuestario" ng-click="ctrl.go(2)"><div class="row"><div class="col-sm-3" ng-click="ctrl.go(2)">Vigente</div><div class="col-sm-9 text-right" ng-click="ctrl.go(2)">{{ ctrl.resultados_estrategicos.vigente | formatoMillones : true }}</div></div></div>
@@ -169,7 +193,7 @@
 			<div class="panel panel-default button_front_main" ng-click="ctrl.go(3)">
 				<ul class="list-group">
 				  <li class="list-group-item text-center button_front button_front_fisico" ng-click="ctrl.go(3)"><div style="margin-bottom: 5px;" ng-click="ctrl.go(3)">{{ (ctrl.resultados_otros.p_fisico*100).toFixed(0) }}%</div>
-				  	<div class="button_front_money button_front_fisico" ng-click="ctrl.go(3)">{{ ctrl.resultados_otros.num_resultados }} resultados</div>
+				  	<div class="button_front_money button_front_fisico" ng-click="ctrl.go(3)">{{ ctrl.resultados_otros.num_resultados }} metas</div>
 				  </li>
 				  <li class="list-group-item text-center button_front button_front_presupuestario" ng-click="ctrl.go(3)"><div style="margin-bottom: 5px;" ng-click="ctrl.go(3)">{{ (ctrl.resultados_otros.p_presupuestario*100).toFixed(0) }}%</div>
 				  			<div class="button_front_money button_front_presupuestario" ng-click="ctrl.go(3)"><div class="row"><div class="col-sm-3" ng-click="ctrl.go(3)">Vigente</div><div class="col-sm-9 text-right" ng-click="ctrl.go(3)">{{ ctrl.resultados_otros.vigente | formatoMillones : true }}</div></div></div>
