@@ -126,8 +126,7 @@ public class ProgramaDAO {
 						"      FROM mv_financiera_fisica", 
 						"      WHERE entidad = ?", 
 						"      AND   tipo_resultado = ?",  
-						"      GROUP BY entidad, unidad_ejecutora, programa, subprograma, proyecto, actividad, ejercicio", 
-						"      ORDER BY entidad, unidad_ejecutora, programa, subprograma, proyecto, actividad, ejercicio) t1", 
+						"      GROUP BY entidad, unidad_ejecutora, programa, subprograma, proyecto, actividad, obra, ejercicio) t1", 
 						"GROUP BY ejercicio, entidad, programa, programa_nombre");
 				
 				PreparedStatement pstmt = CMemsql.getConnection().prepareStatement(query);
