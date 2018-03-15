@@ -10,7 +10,7 @@
     </style>
     <div ng-controller="actividadController as ctrl">
 	    <div align="center" class="row" style="width: 90%; margin: 0 auto; font-size: 11px;">
-	    	<h3>Actividades</h3>
+	    	<h6 align="left">{{ctrl.subtitulo}}</h6>
 			<br>
 	    	<table st-table="ctrl.displayedCollection" st-safe-src="ctrl.rowCollection" class="table table-striped cuerpotabla">
 				<thead>
@@ -54,7 +54,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr st-select-row="row" st-select-mode="single" ng-repeat="row in ctrl.displayedCollection" ng-click="ctrl.getGraficaIndividual(row);" ng-dblclick="ctrl.irProducto(row.id)">
+					<tr st-select-row="row" st-select-mode="single" ng-repeat="row in ctrl.displayedCollection" ng-click="ctrl.getGraficaIndividual(row);" ng-dblclick="ctrl.irProducto(row.id, row.nombre_actividad)">
 						<td align="left" style="white-space: nowrap;">
 							{{row.nombre_actividad}}
 						</td>

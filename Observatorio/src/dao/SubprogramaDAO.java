@@ -128,7 +128,6 @@ public class SubprogramaDAO {
 						"      WHERE entidad = ?", 
 						"	   AND	 programa = ?",
 						"      AND   tipo_resultado = ?", 
-						"      AND   proyecto = 0", 
 						"      GROUP BY entidad, unidad_ejecutora, programa, subprograma, proyecto, actividad, ejercicio", 
 						"      ORDER BY entidad, unidad_ejecutora, programa, subprograma, proyecto, actividad, ejercicio) t1", 
 						"GROUP BY ejercicio, entidad, programa, subprograma, subprograma_nombre");

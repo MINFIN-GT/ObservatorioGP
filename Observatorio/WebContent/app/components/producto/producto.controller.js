@@ -1,8 +1,11 @@
-angular.module('productoController', []).controller('productoController',['$rootScope','$scope','$http','$routeParams', 
-	function($rootScope,$scope,$http,$routeParams){
+angular.module('productoController', []).controller('productoController',['$rootScope','$scope','$http','$routeParams', '$window',
+	function($rootScope,$scope,$http,$routeParams, $window){
 	var mi = this;
 	
 	$rootScope.page_title = 'Presupuesto por Resultados [Productos]';
+	
+	mi.arregloSubtitulo = JSON.parse($window.localStorage.getItem("\"" + $routeParams.t + "\""));
+	mi.subtitulo = mi.arregloSubtitulo[0] + " / " + mi.arregloSubtitulo[1] + " / " + mi.arregloSubtitulo[2] + " / " + mi.arregloSubtitulo[3];
 		
 	var fecha = new Date();
 	mi.anio = fecha.getFullYear();
