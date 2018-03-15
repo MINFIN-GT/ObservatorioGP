@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.zip.GZIPOutputStream;
 
@@ -53,7 +52,7 @@ public class SInfo extends HttpServlet {
 		
 		if (accion.equals("getTipoResultado")){
 			try{
-				ArrayList<TipoInfo> lsttiporesultado = InfoDAO.getTipoResultado(tipo_resultado);
+				TipoInfo lsttiporesultado = InfoDAO.getTipoResultado(tipo_resultado);
 				String tipoResultado = new GsonBuilder().serializeNulls().create().toJson(lsttiporesultado);
 				response_text = String.join(" ", "\"tiporesultado\": ", tipoResultado);
 				response_text = String.join(" ","{\"success\": true,", response_text, "}");
@@ -79,6 +78,29 @@ public class SInfo extends HttpServlet {
 				response_text = String.join(" ","{\"success\": true,", response_text, "}");
 			}catch(Exception e){
 				CLogger.write("3", SInfo.class, e);
+			}
+		}
+		else if(accion.equals("getAll")){
+			try{
+				TipoInfo estrategico = InfoDAO.getTipoResultado("Estrátegico");
+				String tipoResultado = new GsonBuilder().serializeNulls().create().toJson(estrategico);
+				response_text = String.join(" ", "\"resultados_estrategicos\": ", tipoResultado);
+				TipoInfo institucional = InfoDAO.getTipoResultado("Institucional");
+				tipoResultado = new GsonBuilder().serializeNulls().create().toJson(institucional);
+				response_text = String.join(" ", response_text,", \"resultados_institucionales\": ", tipoResultado);
+				TipoInfo otros = InfoDAO.getTipoResultado("Otros");
+				tipoResultado = new GsonBuilder().serializeNulls().create().toJson(otros);
+				response_text = String.join(" ", response_text,", \"resultados_otros\": ", tipoResultado);
+				TipoInfo deuda = InfoDAO.getDeuda();
+				String sdeuda = new GsonBuilder().serializeNulls().create().toJson(deuda);
+				response_text = String.join(" ",response_text, ", \"deuda\": ", sdeuda);
+				TipoInfo obligaciones = InfoDAO.getObligaciones();
+				String sobligaciones = new GsonBuilder().serializeNulls().create().toJson(obligaciones);
+				response_text = String.join(" ", response_text, ", \"obligaciones\": ", sobligaciones);
+				response_text = String.join(" ","{\"success\": true,", response_text, "}");
+			}
+			catch(Exception e){
+				CLogger.write("4", SInfo.class, e);
 			}
 		}
 		

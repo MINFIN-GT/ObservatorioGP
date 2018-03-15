@@ -93,13 +93,22 @@ body {
 .button_front_main{
 	width: 220px;
 	cursor: pointer;
-	color: #ccc;
+	color: black;
+	opacity: 0.5;
 }
 
 .button_front_main:hover{
 	width: 220px;
 	cursor: pointer;
-	color: black;
+	opacity: 1;
+}
+
+.button_front_fisico{
+	color: #38669a;
+}
+
+.button_front_presupuestario{
+	color: #228B22;
 }
 
 .graphics_footnote{
@@ -113,6 +122,25 @@ body {
 		    display: inline-block;
 		    font-size: 11px;
 		}
+		
+.total_budget{
+	text-align: center;
+	font-size: 50px;
+	font-weight: bold;
+}
+
+.chart-legend, .line-legend{
+    list-style-type: none;
+    margin-top: 5px;
+    text-align: center;
+    -webkit-padding-start: 0;
+    -moz-padding-start: 0;
+    padding-left: 0;
+}
+
+.img-rounded {
+    border-radius: 3px;
+}
 
 .carousel-control.left {
 	background-image: url("");

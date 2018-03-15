@@ -9,6 +9,8 @@ app.controller('mainController',['$rootScope','$scope','$http', function($rootSc
 	var mi = this;
 	mi.etiqueta = 'Bienvenido';
 	
+	mi.presupuesto_total=0.0;
+	
 	mi.resultados_institucionales={
 		p_fisico: 0,
 		p_presupuestario: 0,
@@ -47,66 +49,51 @@ app.controller('mainController',['$rootScope','$scope','$http', function($rootSc
 	
 	
 	$http.post('/SInfo',{
-		accion: 'getTipoResultado',
-		tipo_resultado: 1,
+		accion: 'getAll',
 		t: new Date().getTime()
 	}).then(function(response){
 		if(response.data.success){
-			mi.resultados_institucionales.p_fisico = response.data.tiporesultado[0].p_fisico;
-			mi.resultados_institucionales.p_presupuestario = response.data.tiporesultado[0].p_presupuestario;
-			mi.resultados_institucionales.num_resultados = response.data.tiporesultado[0].cantidad;
-			mi.resultados_institucionales.ejecutado = response.data.tiporesultado[0].ejecutado;
-			mi.resultados_institucionales.vigente = response.data.tiporesultado[0].vigente;
+			mi.resultados_institucionales.p_fisico = response.data.resultados_institucionales.p_fisico;
+			mi.resultados_institucionales.p_presupuestario = response.data.resultados_institucionales.p_presupuestario;
+			mi.resultados_institucionales.num_resultados = response.data.resultados_institucionales.cantidad;
+			mi.resultados_institucionales.ejecutado = response.data.resultados_institucionales.ejecutado;
+			mi.resultados_institucionales.vigente = response.data.resultados_institucionales.vigente;
+			
+			mi.presupuesto_total+=mi.resultados_institucionales.vigente;
+			
+			mi.resultados_estrategicos.p_fisico = response.data.resultados_estrategicos.p_fisico;
+			mi.resultados_estrategicos.p_presupuestario = response.data.resultados_estrategicos.p_presupuestario;
+			mi.resultados_estrategicos.num_resultados = response.data.resultados_estrategicos.cantidad;
+			mi.resultados_estrategicos.ejecutado = response.data.resultados_estrategicos.ejecutado;
+			mi.resultados_estrategicos.vigente = response.data.resultados_estrategicos.vigente;
+			
+			mi.presupuesto_total += response.data.resultados_estrategicos.vigente;
+			
+			mi.resultados_otros.p_fisico = response.data.resultados_otros.p_fisico;
+			mi.resultados_otros.p_presupuestario = response.data.resultados_otros.p_presupuestario;
+			mi.resultados_otros.num_resultados = response.data.resultados_otros.cantidad;
+			mi.resultados_otros.ejecutado = response.data.resultados_otros.ejecutado;
+			mi.resultados_otros.vigente = response.data.resultados_otros.vigente;
+			
+			mi.presupuesto_total += response.data.resultados_otros.vigente;
+			
+			mi.obligaciones.ejecutado=response.data.obligaciones.ejecutado;
+			mi.obligaciones.vigente=response.data.obligaciones.vigente;
+			mi.obligaciones.p_presupuestario=response.data.obligaciones.ejecutado/response.data.obligaciones.vigente;
+			
+			mi.presupuesto_total += response.data.obligaciones.vigente;
+			
+			mi.deuda.ejecutado=response.data.deuda.ejecutado;
+			mi.deuda.vigente=response.data.deuda.vigente;
+			mi.deuda.p_presupuestario=response.data.deuda.ejecutado/response.data.deuda.vigente;
+			
+			mi.presupuesto_total += response.data.deuda.vigente;
 		}
 	});
 	
-	$http.post('/SInfo',{
-		accion: 'getTipoResultado',
-		tipo_resultado: 2,
-		t: new Date().getTime()
-	}).then(function(response){
-		if(response.data.success){
-			mi.resultados_estrategicos.p_fisico = response.data.tiporesultado[0].p_fisico;
-			mi.resultados_estrategicos.p_presupuestario = response.data.tiporesultado[0].p_presupuestario;
-			mi.resultados_estrategicos.num_resultados = response.data.tiporesultado[0].cantidad;
-			mi.resultados_estrategicos.ejecutado = response.data.tiporesultado[0].ejecutado;
-			mi.resultados_estrategicos.vigente = response.data.tiporesultado[0].vigente;
-		}
-	});
-	
-	$http.post('/SInfo',{
-		accion: 'getTipoResultado',
-		tipo_resultado: 3,
-		t: new Date().getTime()
-	}).then(function(response){
-		if(response.data.success){
-			mi.resultados_otros.p_fisico = response.data.tiporesultado[0].p_fisico;
-			mi.resultados_otros.p_presupuestario = response.data.tiporesultado[0].p_presupuestario;
-			mi.resultados_otros.num_resultados = response.data.tiporesultado[0].cantidad;
-			mi.resultados_otros.ejecutado = response.data.tiporesultado[0].ejecutado;
-			mi.resultados_otros.vigente = response.data.tiporesultado[0].vigente;
-		}
-	});
-	
-	$http.post('/SInfo',{
-		accion: 'getDeuda',
-		t: new Date().getTime()
-	}).then(function(response){
-		if(response.data.success){
-			mi.deuda.ejecutado=response.data.tiporesultado.ejecutado;
-			mi.deuda.vigente=response.data.tiporesultado.vigente;
-			mi.deuda.p_presupuestario=response.data.tiporesultado.ejecutado/response.data.tiporesultado.vigente;
-		}
-	});
-	
-	$http.post('/SInfo',{
-		accion: 'getObligaciones',
-		t: new Date().getTime()
-	}).then(function(response){
-		if(response.data.success){
-			mi.obligaciones.ejecutado=response.data.tiporesultado.ejecutado;
-			mi.obligaciones.vigente=response.data.tiporesultado.vigente;
-			mi.obligaciones.p_presupuestario=response.data.tiporesultado.ejecutado/response.data.tiporesultado.vigente;
+	$http.post('/SLastupdate', { dashboard: 'ejecucionpresupuestaria', t: new Date().getTime() }).then(function(response){
+	    if(response.data.success){
+	    	mi.lastupdate = response.data.lastupdate;
 		}
 	});
 	

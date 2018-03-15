@@ -2,7 +2,6 @@ package dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
 
 import pojo.TipoInfo;
 import utilities.CLogger;
@@ -10,8 +9,8 @@ import utilities.CMemsql;
 
 public class InfoDAO {
 	
-	public static ArrayList<TipoInfo> getTipoResultado(String tipo_resultado){
-		ArrayList<TipoInfo> ret = new ArrayList<TipoInfo>();
+	public static TipoInfo getTipoResultado(String tipo_resultado){
+		TipoInfo ret = null;
 		String query = "";
 		try{
 			if(CMemsql.connect()){
@@ -134,25 +133,23 @@ public class InfoDAO {
 				PreparedStatement pstmt = CMemsql.getConnection().prepareStatement(query);
 				pstmt.setString(1, tipo_resultado);
 				
-				ResultSet rs = CMemsql.runPreparedStatement(pstmt);
+				ResultSet rs = pstmt.executeQuery();
 				
-				while(rs.next()){
-					TipoInfo temp = new TipoInfo();
-					temp.ejecutado = rs.getDouble("ejecutado");
-					temp.vigente = rs.getDouble("vigente");
-					temp.p_presupuestario = rs.getDouble("p_financiero");
-					temp.p_fisico = rs.getDouble("pp_fisico");
-					temp.cantidad = rs.getInt("cantidad_resultados");
-					ret.add(temp);
+				if(rs.next()){
+					ret = new TipoInfo();
+					ret.ejecutado = rs.getDouble("ejecutado");
+					ret.vigente = rs.getDouble("vigente");
+					ret.p_presupuestario = rs.getDouble("p_financiero");
+					ret.p_fisico = rs.getDouble("pp_fisico");
+					ret.cantidad = rs.getInt("cantidad_resultados");
 				}
 				CMemsql.close();
 			}
 			
-			return ret;
 		}catch(Exception e){
 			CLogger.write("1", InfoDAO.class, e);
-			return ret;
 		}
+		return ret;
 	}
 	
 	public static TipoInfo getDeuda(){
@@ -209,6 +206,8 @@ public class InfoDAO {
 					ret.cantidad = 0;
 					
 				}
+				
+				CMemsql.close();
 			}
 		}
 		catch(Exception e){
@@ -261,7 +260,7 @@ public class InfoDAO {
 						") t1";
 				PreparedStatement pstmt = CMemsql.getConnection().prepareStatement(query);
 				
-				ResultSet rs = CMemsql.runPreparedStatement(pstmt);
+				ResultSet rs = pstmt.executeQuery();
 				
 				if(rs.next()){
 					ret = new TipoInfo();
@@ -272,6 +271,8 @@ public class InfoDAO {
 					ret.cantidad = 0;
 					
 				}
+				
+				CMemsql.close();
 			}
 		}
 		catch(Exception e){
