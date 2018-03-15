@@ -45,15 +45,15 @@ public class ProductoDAO {
 						"select codigo_meta,descripcion", 
 						"  from sf_meta", 
 						"  where entidad=? and programa=? and subprograma=?", 
-						"  and proyecto=0 and actividad=? and obra=0 and (ejercicio between YEAR(CURRENT_TIMESTAMP)-4 AND YEAR(CURRENT_TIMESTAMP))", 
+						"  and actividad=? and (ejercicio between YEAR(CURRENT_TIMESTAMP)-4 AND YEAR(CURRENT_TIMESTAMP))", 
 						"  group by codigo_meta", 
 						"  having ejercicio = max(ejercicio)", 
 						"  order by ejercicio",
 						") ds", 
 						"WHERE mef.entidad=? and", 
-						"		mef.programa=? and mef.subprograma=? and mef.proyecto=0 and mef.actividad=? and mef.obra=0", 
-						"		and mef.codigo_meta = ds.codigo_meta", 
-						"		GROUP BY mef.codigo_meta, mef.unidad_nombre");
+						"mef.programa=? and mef.subprograma=? and mef.proyecto=0 and mef.actividad=?", 
+						"and mef.codigo_meta = ds.codigo_meta", 
+						"GROUP BY mef.codigo_meta, mef.unidad_nombre");
 				
 				PreparedStatement pstmt = CMemsql.getConnection().prepareStatement(query);
 				pstmt.setInt(1, entidad);
@@ -101,8 +101,8 @@ public class ProductoDAO {
 				query = String.join(" ", "SELECT mef.ejercicio, mef.mes, sum(cantidad) cantidad,",
 					"sum(ejecucion) ejecucion, sum(modificacion) modificacion",
 					"FROM mv_ejecucion_fisica mef",
-					"WHERE mef.proyecto=0 and mef.entidad=? and", 
-					"mef.programa=? and mef.subprograma=? and mef.actividad=? and mef.obra=0",
+					"WHERE mef.entidad=? and", 
+					"mef.programa=? and mef.subprograma=? and mef.actividad=?",
 					codigo_meta != null ? "and mef.codigo_meta=?" : "", 
 					"GROUP BY mef.ejercicio, mef.mes ORDER BY mef.ejercicio, mef.mes");
 				
