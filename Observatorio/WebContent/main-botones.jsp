@@ -126,8 +126,8 @@
 	</div>
 	<div class="row">
 		<div class="col-sm-1"></div>
-		<div class="col-sm-2 text-center">Resultados Institucionales</div>
 		<div class="col-sm-2 text-center">Resultados Estratégicos</div>
+		<div class="col-sm-2 text-center">Resultados Institucionales</div>
 		<div class="col-sm-2 text-center">Sin Resultado</div>
 		<div class="col-sm-2 text-center">Deuda</div>
 		<div class="col-sm-2 text-center">Obligaciones</div>
@@ -196,7 +196,9 @@
 		</div>
 		<div class="col-sm-1"></div>
 	</div>
-
+	<div class="row">
+		<div class="graphics_footnote">Cifras en millones de Quetzales</div>
+	</div>
 	<div class="row">
 		<div class="col-sm-1">
 		</div>

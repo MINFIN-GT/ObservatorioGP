@@ -127,7 +127,7 @@ public class InfoDAO {
 						"	  from mv_financiera_fisica   ", 
 						"	  where tipo_resultado=? and ejercicio=year(current_timestamp()) ", 
 						(tipo_resultado.equals("Otros") ? " AND entidad not in (11130018,11130019) " : ""),
-						"	  group by entidad, unidad_ejecutora, programa, subprograma, proyecto, actividad,ejercicio  ", 
+						"	  group by entidad, unidad_ejecutora, programa, subprograma, proyecto, actividad, obra,ejercicio  ", 
 						"	) t1  ", 
 						"	group by ejercicio, tipo_resultado;");
 				

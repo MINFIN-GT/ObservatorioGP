@@ -102,6 +102,18 @@ body {
 	color: black;
 }
 
+.graphics_footnote{
+	text-align: center;
+	font-size: 11px;
+}
+
+.cuerpotabla{
+			overflow-y: hidden;
+			overflow-x: scroll;
+		    display: inline-block;
+		    font-size: 11px;
+		}
+
 .carousel-control.left {
 	background-image: url("");
 }
