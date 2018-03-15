@@ -11,6 +11,8 @@ angular.module('actividadController',[]).controller('actividadController', ['$ro
 	mi.linealColors = ['#8ecf4c', '#88b4df', '#d92a27'];
 	mi.tipoDatos = 0;
 	
+	$rootScope.page_title = 'Presupuesto por Resultados [Productos]';
+	
 	mi.arregloSubtitulo = JSON.parse($window.localStorage.getItem("\"" + $routeParams.t + "\""));
 	mi.subtitulo = mi.arregloSubtitulo[0] + " / " + mi.arregloSubtitulo[1] + " / " + mi.arregloSubtitulo[2];
 
