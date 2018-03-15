@@ -5,22 +5,21 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import org.joda.time.DateTime;
+
 import utilities.CLogger;
 import utilities.CMemsql;
 
 public class ProductoDAO {
 	
-	public class EjecucionFisica{
-		Integer codigo_meta;
-		String metaDescripcion;
-		String unidad_medida;
-		BigDecimal p_ejecucion_4;
-		BigDecimal p_ejecucion_3;
-		BigDecimal p_ejecucion_2;
-		BigDecimal p_ejecucion_1;
-		BigDecimal p_ejecucion;
-	}
-	
+	public class Producto{
+		Integer id;
+		Integer id_obra;
+		String nombre_producto;
+		ArrayList<Integer> ejercicios;
+		ArrayList<Double[]> ejercicio_data;
+ 	}
+		
 	public class VectorValores{
 		Integer ejercicio;
 		Integer mes;
@@ -29,31 +28,78 @@ public class ProductoDAO {
 		BigDecimal cantidad;
 	}
 	
-	public static ArrayList<EjecucionFisica> getEjecucionFisica(Integer entidad, Integer programa, Integer subprograma, Integer actividad){
+	public static ArrayList<Producto> getEjecucionFisica(Integer entidad, Integer programa, Integer subprograma, Integer actividad, String tipo_resultado){
 		String query = "";
-		ArrayList<EjecucionFisica> ret = new ArrayList<EjecucionFisica>();
+		ArrayList<Producto> ret = new ArrayList<Producto>();
 		
 		try{
 			if(CMemsql.connect()){
-				query = String.join(" ", "SELECT mef.codigo_meta, mef.unidad_nombre, ds.descripcion,", 
-						"sum(case when mef.ejercicio = YEAR(CURDATE()) -4 then ifnull(mef.ejecucion,0) else 0 end) / (IFNULL(NULLIF(avg(case when mef.ejercicio = YEAR(CURDATE()) -4 then mef.cantidad else null end) + sum(case when mef.ejercicio = YEAR(CURDATE()) -4 then ifnull(mef.modificacion,0) else 0 end),0),1)) p_ejecucion_4,", 
-						"sum(case when mef.ejercicio = YEAR(CURDATE()) -3 then ifnull(mef.ejecucion,0) else 0 end) / (IFNULL(NULLIF(avg(case when mef.ejercicio = YEAR(CURDATE()) -3 then mef.cantidad else null end) + sum(case when mef.ejercicio = YEAR(CURDATE()) -3 then ifnull(mef.modificacion,0) else 0 end),0),1)) p_ejecucion_3,", 
-						"sum(case when mef.ejercicio = YEAR(CURDATE()) -2 then ifnull(mef.ejecucion,0) else 0 end) / (IFNULL(NULLIF(avg(case when mef.ejercicio = YEAR(CURDATE()) -2 then mef.cantidad else null end) + sum(case when mef.ejercicio = YEAR(CURDATE()) -2 then ifnull(mef.modificacion,0) else 0 end),0),1)) p_ejecucion_2,", 
-						"sum(case when mef.ejercicio = YEAR(CURDATE()) -1 then ifnull(mef.ejecucion,0) else 0 end) / (IFNULL(NULLIF(avg(case when mef.ejercicio = YEAR(CURDATE()) -1 then mef.cantidad else null end) + sum(case when mef.ejercicio = YEAR(CURDATE()) -1 then ifnull(mef.modificacion,0) else 0 end),0),1)) p_ejecucion_1,", 
-						"sum(case when mef.ejercicio = YEAR(CURDATE()) then ifnull(mef.ejecucion,0) else 0 end) / (IFNULL(NULLIF(avg(case when mef.ejercicio = YEAR(CURDATE()) then mef.cantidad else null end) + sum(case when mef.ejercicio = YEAR(CURDATE()) then ifnull(mef.modificacion,0) else 0 end),0),1)) p_ejecucion", 
-						"FROM mv_ejecucion_fisica mef, (",
-						"select codigo_meta,descripcion", 
-						"  from sf_meta", 
-						"  where entidad=? and programa=? and subprograma=?", 
-						"  and actividad=? and (ejercicio between YEAR(CURRENT_TIMESTAMP)-4 AND YEAR(CURRENT_TIMESTAMP))", 
-						"  group by codigo_meta", 
-						"  having ejercicio = max(ejercicio)", 
-						"  order by ejercicio",
-						") ds", 
-						"WHERE mef.entidad=? and", 
-						"mef.programa=? and mef.subprograma=? and mef.proyecto=0 and mef.actividad=?", 
-						"and mef.codigo_meta = ds.codigo_meta", 
-						"GROUP BY mef.codigo_meta, mef.unidad_nombre");
+				query = String.join(" ", "SELECT mff.ejercicio,", 
+						"       mff.entidad,", 
+						"       mff.programa,", 
+						"       mff.subprograma,", 
+						"       mff.proyecto,", 
+						"       mff.obra,", 
+						"       mff.actividad,", 
+						"       mff.codigo_meta,", 
+						"       ds.descripcion,", 
+						"       AVG(IFNULL (mff.fisico_ejecutado_m1,IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m1,0) > 0,0,NULL)) / IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m1,0) > 0,mff.fisico_asignado + ifnull (mff.fisico_modificacion_m1,0),1)) p_fisico_m1,", 
+						"       AVG(IFNULL (mff.fisico_ejecutado_m2,IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m2,0) > 0,0,NULL)) / IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m2,0) > 0,mff.fisico_asignado + ifnull (mff.fisico_modificacion_m2,0),1)) p_fisico_m2,", 
+						"       AVG(IFNULL (mff.fisico_ejecutado_m3,IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m3,0) > 0,0,NULL)) / IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m3,0) > 0,mff.fisico_asignado + ifnull (mff.fisico_modificacion_m3,0),1)) p_fisico_m3,", 
+						"       AVG(IFNULL (mff.fisico_ejecutado_m4,IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m4,0) > 0,0,NULL)) / IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m4,0) > 0,mff.fisico_asignado + ifnull (mff.fisico_modificacion_m4,0),1)) p_fisico_m4,", 
+						"       AVG(IFNULL (mff.fisico_ejecutado_m5,IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m5,0) > 0,0,NULL)) / IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m5,0) > 0,mff.fisico_asignado + ifnull (mff.fisico_modificacion_m5,0),1)) p_fisico_m5,", 
+						"       AVG(IFNULL (mff.fisico_ejecutado_m6,IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m6,0) > 0,0,NULL)) / IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m6,0) > 0,mff.fisico_asignado + ifnull (mff.fisico_modificacion_m6,0),1)) p_fisico_m6,", 
+						"       AVG(IFNULL (mff.fisico_ejecutado_m7,IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m7,0) > 0,0,NULL)) / IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m7,0) > 0,mff.fisico_asignado + ifnull (mff.fisico_modificacion_m7,0),1)) p_fisico_m7,", 
+						"       AVG(IFNULL (mff.fisico_ejecutado_m8,IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m8,0) > 0,0,NULL)) / IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m8,0) > 0,mff.fisico_asignado + ifnull (mff.fisico_modificacion_m8,0),1)) p_fisico_m8,", 
+						"       AVG(IFNULL (mff.fisico_ejecutado_m9,IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m9,0) > 0,0,NULL)) / IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m9,0) > 0,mff.fisico_asignado + ifnull (mff.fisico_modificacion_m9,0),1)) p_fisico_m9,", 
+						"       AVG(IFNULL (mff.fisico_ejecutado_m10,IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m10,0) > 0,0,NULL)) / IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m10,0) > 0,mff.fisico_asignado + ifnull (mff.fisico_modificacion_m10,0),1)) p_fisico_m10,", 
+						"       AVG(IFNULL (mff.fisico_ejecutado_m11,IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m11,0) > 0,0,NULL)) / IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m11,0) > 0,mff.fisico_asignado + ifnull (mff.fisico_modificacion_m11,0),1)) p_fisico_m11,", 
+						"       AVG(IFNULL (mff.fisico_ejecutado_m12,IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m12,0) > 0,0,NULL)) / IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m12,0) > 0,mff.fisico_asignado + ifnull (mff.fisico_modificacion_m12,0),1)) p_fisico_m12,",
+						"       AVG(mff.fisico_asignado) fisico_asignado,", 
+						"       AVG(mff.fisico_ejecutado_m1) fisico_ejecutado_m1,", 
+						"       AVG(mff.fisico_ejecutado_m2) fisico_ejecutado_m2,", 
+						"       AVG(mff.fisico_ejecutado_m3) fisico_ejecutado_m3,", 
+						"       AVG(mff.fisico_ejecutado_m4) fisico_ejecutado_m4,", 
+						"       AVG(mff.fisico_ejecutado_m5) fisico_ejecutado_m5,", 
+						"       AVG(mff.fisico_ejecutado_m6) fisico_ejecutado_m6,", 
+						"       AVG(mff.fisico_ejecutado_m7) fisico_ejecutado_m7,", 
+						"       AVG(mff.fisico_ejecutado_m8) fisico_ejecutado_m8,", 
+						"       AVG(mff.fisico_ejecutado_m9) fisico_ejecutado_m9,", 
+						"       AVG(mff.fisico_ejecutado_m10) fisico_ejecutado_m10,", 
+						"       AVG(mff.fisico_ejecutado_m11) fisico_ejecutado_m11,", 
+						"       AVG(mff.fisico_ejecutado_m12) fisico_ejecutado_m12,", 
+						"       AVG(ifnull (mff.fisico_modificacion_m1,0)) fisico_modificacion_m1,", 
+						"       AVG(ifnull (mff.fisico_modificacion_m2,0)) fisico_modificacion_m2,", 
+						"       AVG(ifnull (mff.fisico_modificacion_m3,0)) fisico_modificacion_m3,", 
+						"       AVG(ifnull (mff.fisico_modificacion_m4,0)) fisico_modificacion_m4,", 
+						"       AVG(ifnull (mff.fisico_modificacion_m5,0)) fisico_modificacion_m5,", 
+						"       AVG(ifnull (mff.fisico_modificacion_m6,0)) fisico_modificacion_m6,", 
+						"       AVG(ifnull (mff.fisico_modificacion_m7,0)) fisico_modificacion_m7,", 
+						"       AVG(ifnull (mff.fisico_modificacion_m8,0)) fisico_modificacion_m8,", 
+						"       AVG(ifnull (mff.fisico_modificacion_m9,0)) fisico_modificacion_m9,", 
+						"       AVG(ifnull (mff.fisico_modificacion_m10,0)) fisico_modificacion_m10,", 
+						"       AVG(ifnull (mff.fisico_modificacion_m11,0)) fisico_modificacion_m11,", 
+						"       AVG(ifnull (mff.fisico_modificacion_m12,0)) fisico_modificacion_m12",
+						"FROM mv_financiera_fisica mff,", 
+						"(SELECT codigo_meta,", 
+						"             descripcion", 
+						"      FROM sf_meta", 
+						"      WHERE entidad = ?", 
+						"      AND   programa = ?", 
+						"      AND   subprograma = ?", 
+						"      AND   actividad = ?", 
+						"      AND   (ejercicio BETWEEN YEAR(CURRENT_TIMESTAMP) -4 AND YEAR(CURRENT_TIMESTAMP))", 
+						"      GROUP BY codigo_meta", 
+						"      HAVING ejercicio = MAX(ejercicio)", 
+						"      ORDER BY ejercicio) ds", 
+						"WHERE mff.entidad = ?", 
+						"AND   mff.programa = ?", 
+						"AND   mff.subprograma = ?",
+						"AND   mff.actividad = ?",
+						"AND   mff.tipo_resultado = ?", 
+						"AND   ds.codigo_meta=mff.codigo_meta", 
+						"GROUP BY mff.entidad, mff.programa, mff.subprograma, mff.proyecto, mff.actividad, mff.obra, mff.codigo_meta, mff.ejercicio", 
+						"");
 				
 				PreparedStatement pstmt = CMemsql.getConnection().prepareStatement(query);
 				pstmt.setInt(1, entidad);
@@ -65,24 +111,43 @@ public class ProductoDAO {
 				pstmt.setInt(6, programa);
 				pstmt.setInt(7, subprograma);
 				pstmt.setInt(8, actividad);
+				pstmt.setString(9, tipo_resultado);
 				
-				ResultSet rs = CMemsql.runPreparedStatement(pstmt);
-				
+				ResultSet rs = CMemsql.runPreparedStatement(pstmt);				
+
+				int producto_actual = -1;
+				Producto temp = null;
 				while(rs.next()){
-					EjecucionFisica temp = (new ProductoDAO()).new EjecucionFisica();
-					temp.codigo_meta = rs.getInt("codigo_meta");
-					temp.p_ejecucion_4 = rs.getBigDecimal("p_ejecucion_4").multiply(new BigDecimal(100));
-					temp.p_ejecucion_3 = rs.getBigDecimal("p_ejecucion_3").multiply(new BigDecimal(100));
-					temp.p_ejecucion_2 = rs.getBigDecimal("p_ejecucion_2").multiply(new BigDecimal(100));
-					temp.p_ejecucion_1 = rs.getBigDecimal("p_ejecucion_1").multiply(new BigDecimal(100));
-					temp.p_ejecucion = rs.getBigDecimal("p_ejecucion").multiply(new BigDecimal(100));
-					temp.metaDescripcion = rs.getString("descripcion");
-					temp.unidad_medida = rs.getString("unidad_nombre");
-					ret.add(temp);
+					if(producto_actual != rs.getInt("codigo_meta")){
+						if(temp != null)
+							ret.add(temp);
+						temp = (new ProductoDAO()).new Producto();
+						temp.id = rs.getInt("codigo_meta");
+						temp.id_obra = rs.getInt("obra");
+						temp.nombre_producto = rs.getString("descripcion");
+						int year = DateTime.now().getYear();
+						temp.ejercicios = new ArrayList<Integer>();
+						temp.ejercicio_data = new ArrayList<Double[]>();
+						for(int i=0;i<5;i++){
+							temp.ejercicios.add(i+(year-4));
+							temp.ejercicio_data.add(new Double[37]);
+							for(int z=0;z<37;z++)
+								temp.ejercicio_data.get(temp.ejercicio_data.size()-1)[z]=0.0d;
+						}
+						producto_actual = temp.id;						
+					}
+					
+					Double[] datos = new Double[37];
+					for(int i=0; i<37;i++){
+						datos[i] = rs.getDouble(i+10);
+					}
+					temp.ejercicio_data.set(rs.getInt("ejercicio")-DateTime.now().getYear()+4,datos);
+					temp.nombre_producto = rs.getString("descripcion");
 				}
-				
+				if(temp != null)
+					ret.add(temp);
 			}
-			
+				
 			CMemsql.close();
 			return ret;
 		}catch(Exception e){

@@ -19,7 +19,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import dao.ProductoDAO;
-import dao.ProductoDAO.EjecucionFisica;
+import dao.ProductoDAO.Producto;
 import dao.ProductoDAO.VectorValores;
 import utilities.CLogger;
 import utilities.Utils;
@@ -54,15 +54,16 @@ public class SProducto extends HttpServlet {
 		Integer programa = Utils.String2Int(map.get("programa"));
 		Integer subprograma = Utils.String2Int(map.get("subPrograma"));
 		Integer actividad = Utils.String2Int(map.get("actividad"));
+		String tipo_resultado = Utils.String2Int(map.get("tipo_resultado")) == 1 ? "Estrátegico" : (Utils.String2Int(map.get("tipo_resultado")) == 2 ? "Institucional" : "Otros"); 
 		Integer codigo_meta = Utils.String2Int(map.get("codigo_meta")) != 0 ? Utils.String2Int(map.get("codigo_meta")) : null;
 		
 		if(accion.equals("getEjecucionFisica")){
 			try{
 				
-				ArrayList<EjecucionFisica> lstejecucionfisica = ProductoDAO.getEjecucionFisica(entidad,programa,subprograma,actividad);
+				ArrayList<Producto> lstejecucionfisica = ProductoDAO.getEjecucionFisica(entidad,programa,subprograma,actividad, tipo_resultado);
 				
 				String ejecucion_fisica = new GsonBuilder().serializeNulls().create().toJson(lstejecucionfisica);
-				response_text = String.join(" ", "\"ejecucionFisica\": ", ejecucion_fisica);
+				response_text = String.join(" ", "\"productos\": ", ejecucion_fisica);
 				response_text = String.join(" ","{\"success\": true,", response_text, "}");
 			}catch(Exception e){
 				CLogger.write("1", SProducto.class, e);
