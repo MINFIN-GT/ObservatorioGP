@@ -50,17 +50,16 @@ public class SProducto extends HttpServlet {
 		String accion = map.get("accion");
 		String response_text="";
 		
-		Integer entidad = Utils.String2Int(map.get("entidad"));
-		Integer unidadEjecutora = Utils.String2Int(map.get("unidadEjecutora"));
+		Integer entidad = Utils.String2Int(map.get("entidad"));		
 		Integer programa = Utils.String2Int(map.get("programa"));
-		Integer subPrograma = Utils.String2Int(map.get("subPrograma"));
+		Integer subprograma = Utils.String2Int(map.get("subPrograma"));
 		Integer actividad = Utils.String2Int(map.get("actividad"));
 		Integer codigo_meta = Utils.String2Int(map.get("codigo_meta")) != 0 ? Utils.String2Int(map.get("codigo_meta")) : null;
 		
 		if(accion.equals("getEjecucionFisica")){
 			try{
 				
-				ArrayList<EjecucionFisica> lstejecucionfisica = ProductoDAO.getEjecucionFisica(entidad,unidadEjecutora,programa,subPrograma,actividad);
+				ArrayList<EjecucionFisica> lstejecucionfisica = ProductoDAO.getEjecucionFisica(entidad,programa,subprograma,actividad);
 				
 				String ejecucion_fisica = new GsonBuilder().serializeNulls().create().toJson(lstejecucionfisica);
 				response_text = String.join(" ", "\"ejecucionFisica\": ", ejecucion_fisica);
@@ -70,7 +69,7 @@ public class SProducto extends HttpServlet {
 			}
 		}else if(accion.equals("getVectoresValores")){
 			try{
-				ArrayList<VectorValores> lstvectorvalores = ProductoDAO.getVectorValores(entidad,unidadEjecutora,programa,subPrograma,actividad, codigo_meta);
+				ArrayList<VectorValores> lstvectorvalores = ProductoDAO.getVectorValores(entidad,programa,subprograma,actividad, codigo_meta);
 				
 				String ejecucion_fisica = new GsonBuilder().serializeNulls().create().toJson(lstvectorvalores);
 				response_text = String.join(" ", "\"vectorValores\": ", ejecucion_fisica);

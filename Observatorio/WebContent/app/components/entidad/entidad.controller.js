@@ -1,21 +1,16 @@
-angular.module('programaController',[]).controller('programaController', ['$rootScope','$scope','$http','$routeParams', '$window', 
+var app = angular.module('entidadController',[]).controller('entidadController', ['$rootScope','$scope','$http','$routeParams', '$window',
 	function($rootScope,$scope,$http,$routeParams, $window){
 	var mi = this;
-	
 	var fecha = new Date();
 	mi.anio = fecha.getFullYear();
 	mi.mes = fecha.getMonth();
+	
 	mi.etiquetaX = "";
 	mi.labels2 = [];
 	mi.data2 = [];
 	mi.decimales = false;
 	mi.linealColors = ['#8ecf4c', '#88b4df', '#d92a27'];
 	mi.tipoDatos = 0;
-	
-	$rootScope.page_title = 'Presupuesto por Resultados [Programa]';
-	
-	mi.arregloSubtitulo = JSON.parse($window.localStorage.getItem("\"" + $routeParams.t + "\""));
-	mi.subtitulo = mi.arregloSubtitulo[0];
 	
 	mi.tot_asignado_4 = 0;
 	mi.tot_vigente_4 = 0;
@@ -49,18 +44,22 @@ angular.module('programaController',[]).controller('programaController', ['$root
 	
 	mi.meses = ['Ene-','Feb-','Mar-','Abr-','May-','Jun-','Jul-','Ago-','Sep-','Oct-','Nov-','Dic-'];
 	
-	mi.entidad = $routeParams.entidad;
 	mi.tipo_resultado = $routeParams.tipo_resultado;
 	
-	$http.post('/SPrograma',{
-		accion: 'getProgramas',
-		entidad: mi.entidad,		
+	switch(mi.tipo_resultado){
+		case '1': $rootScope.page_title = 'Resultados institucionales'; break;
+		case '2': $rootScope.page_title = 'Resultados estratégicos'; break;
+		case '3': $rootScope.page_title = 'Sin resultado'; break;
+	}
+	
+	$http.post('/SEntidad',{
+		accion: 'getEntidades',
 		tipo_resultado: mi.tipo_resultado,
 		t: new Date().getTime()
 	}).then(function(response){
 		if(response.data.success){
 			mi.dato = [];
-			mi.dato = response.data.programas;
+			mi.dato = response.data.entidades;
 			
 			mi.rowCollection = [];
 			mi.rowCollection = mi.dato;
@@ -70,7 +69,7 @@ angular.module('programaController',[]).controller('programaController', ['$root
 			mi.tipoDatos = 1;
 			mi.getGraficaGeneral(mi.dato);
 		}
-	})
+	});
 	
 	mi.getGraficaGeneral = function(datos){
 		mi.series2 = ['% Financiero' , '% Físico']
@@ -78,15 +77,12 @@ angular.module('programaController',[]).controller('programaController', ['$root
 		
 		mi.lables2 = [];
 		
-		mi.mensualVigente = new Array(60).fill(0);
-		mi.mensualEjecutado = new Array(60).fill(0);
 		mi.mensualPFinanciero = new Array(60).fill(0);
 		mi.mensualPFisico = new Array(60).fill(0);
 		
 		mi.anualPFinanciero = [];
 		mi.anualPFisico = [];
 		
-		var sumar = false;
 		if(datos.length > 0){
 			for(var i=0; i<datos.length; i++){//row
 				for(var j=0; j<datos[i].ejercicios.length; j++){//años
@@ -114,7 +110,6 @@ angular.module('programaController',[]).controller('programaController', ['$root
 								mi.tot_vigente_1 += datos[i].ejercicio_data[pos][h];
 							if(pos==4 && h==12)
 								mi.tot_vigente += datos[i].ejercicio_data[pos][h];
-							
 						}else if((h>=13) && (h<=24)){ //ejecutado
 							if(pos==0 && h==24)
 								mi.tot_ejecutado_4 += datos[i].ejercicio_data[pos][h];
@@ -126,7 +121,6 @@ angular.module('programaController',[]).controller('programaController', ['$root
 								mi.tot_ejecutado_1 += datos[i].ejercicio_data[pos][h];
 							if(pos==4 && h==24)
 								mi.tot_ejecutado += datos[i].ejercicio_data[pos][h];
-							
 						}else if((h>=25) && (h<=36)){ //porcentaje financiero presupuestario
 							if(pos==0 && h==36)
 								mi.tot_p_ejecucion_4 += datos[i].ejercicio_data[pos][h];
@@ -242,7 +236,7 @@ angular.module('programaController',[]).controller('programaController', ['$root
 		mi.tipoDatos = 2;
 		mi.data2.push(mi.mensualPFinanciero, mi.mensualPFisico);
 	}
-	
+		
 	mi.cambioMensualP = function(){
 		mi.labels2 = [];
 		mi.data2 = [];
@@ -327,9 +321,9 @@ angular.module('programaController',[]).controller('programaController', ['$root
 		        }
 		};
 	
-	mi.irSubprograma = function(programa_id, programa_nombre){
-		mi.arregloSubtitulo[1] = programa_nombre;
-		$window.localStorage.setItem("\"" + $routeParams.t + "\"", JSON.stringify(mi.arregloSubtitulo));
-		window.location = "main.jsp#!/subprograma/" + mi.tipo_resultado + "/" + mi.entidad + "/" + programa_id + "?t=" + $routeParams.t;
+	mi.irPrograma = function(entidad_id, entidad_nombre){
+		var time = new Date().getTime();
+		$window.localStorage.setItem("\"" + time + "\"", JSON.stringify([entidad_nombre,"","","",""]));
+		window.location = "main.jsp#!/programa/" + mi.tipo_resultado + "/" + entidad_id + "?t=" + time;
 	}
-}]);
+}])

@@ -52,7 +52,7 @@
 							</tr>
 						</tfoot>
 					</table>
-					<div style="text-align: center; font-size: 11px;">Fuente de información SICOIN. Cifras en millones.</div>
+					<div class="graphics_footnote">Fuente de información SICOIN. Cifras en millones.</div>
 				</div>
 				<br/>
 				<br/>
@@ -68,6 +68,6 @@
 						</canvas>
 					</div>
 				</div>
-				<div style="text-align: center; font-size: 11px;">Fuente de información SICOIN. Cifras en millones.</div>
+				<div class="graphics_footnote">Fuente de información SICOIN. Cifras en millones.</div>
 				<br/>
 </div>

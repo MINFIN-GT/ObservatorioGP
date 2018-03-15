@@ -75,7 +75,73 @@ body {
 	padding-left: 40px;
 }
 
+
+
 /*Aqui main page*/
+
+.button_front{
+	font-size: 50px;
+	font-weight: bold;
+}
+
+
+.button_front_money{
+	font-size: 12px;
+	white-space: nowrap;
+	font-weight: normal;
+}
+
+.button_front_main{
+	width: 220px;
+	cursor: pointer;
+	color: black;
+	opacity: 0.5;
+}
+
+.button_front_main:hover{
+	width: 220px;
+	cursor: pointer;
+	opacity: 1;
+}
+
+.button_front_fisico{
+	color: #38669a;
+}
+
+.button_front_presupuestario{
+	color: #228B22;
+}
+
+.graphics_footnote{
+	text-align: center;
+	font-size: 11px;
+}
+
+.cuerpotabla{
+			overflow-y: hidden;
+			overflow-x: scroll;
+		    display: inline-block;
+		    font-size: 11px;
+		}
+		
+.total_budget{
+	text-align: center;
+	font-size: 50px;
+	font-weight: bold;
+}
+
+.chart-legend, .line-legend{
+    list-style-type: none;
+    margin-top: 5px;
+    text-align: center;
+    -webkit-padding-start: 0;
+    -moz-padding-start: 0;
+    padding-left: 0;
+}
+
+.img-rounded {
+    border-radius: 3px;
+}
 
 .carousel-control.left {
 	background-image: url("");
@@ -100,6 +166,85 @@ body {
 	font-weight: bold;
 }
 
+.buttons-container {
+			background: #fff;
+			overflow: hidden;
+			width: 80%;
+			margin: 0 auto;
+}
+
+.slide-button, .slide-button:hover {
+				background: #f8f8f8;
+				border-bottom: 1px solid #e9e9e9;
+				border-top: 4px solid #dfdfdf;
+				-webkit-box-shadow: 1px 0 0 #fff inset, 0 1px 0 0 #fff inset;
+				   -moz-box-shadow: 1px 0 0 #fff inset, 0 1px 0 0 #fff inset;
+						box-shadow: 1px 0 0 #fff inset, 0 1px 0 0 #fff inset;
+				color: #3a3a3a;
+				cursor: pointer;
+				display: block;
+				float: left;
+				font-size: 20px;
+				overflow: hidden;
+				padding: 20px;
+				text-align: left;
+				text-decoration: none;
+				-webkit-transition: background-color .2s ease, border .2s ease, color .2s ease, opacity .2s ease-in-out;
+				   -moz-transition: background-color .2s ease, border .2s ease, color .2s ease, opacity .2s ease-in-out;
+					-ms-transition: background-color .2s ease, border .2s ease, color .2s ease, opacity .2s ease-in-out;
+					 -o-transition: background-color .2s ease, border .2s ease, color .2s ease, opacity .2s ease-in-out;
+						transition: background-color .2s ease, border .2s ease, color .2s ease, opacity .2s ease-in-out;
+				width: 100%;
+			}
+
+.slide-button.active {
+					background: #f0f0f0;
+					color: #f15a23;
+					border-top: 4px solid #f15a23;
+				}
+
+.slide-button .dropcap {
+					background: #3a3a3a;
+					-webkit-border-radius: 19px;
+					   -moz-border-radius: 19px;
+							border-radius: 19px;
+					color: #fff;
+					font-weight: 700;
+					height: 38px;
+					width: 38px;
+				}
+
+.slide-button .description {
+    color: #959393;
+    display: block;
+    font-size: 11px;
+    line-height: 12px;
+}
+
+.slide-button div{
+	background:transparent;
+	border:0;
+	font-size:100%;
+	margin:0;
+	outline:0;
+	padding:0;
+	vertical-align:baseline
+}
+
+.dropcap {
+    background: #eaeaea;
+    color: #777;
+    display: inline-block;
+    float: left;
+    font-family: 'Open Sans', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
+    font-size: 23px;
+    font-weight: 600;
+    height: 36px;
+    line-height: 36px;
+    margin: 0 7px 0 0;
+    text-align: center;
+    width: 36px;
+}
 
 	/* Estilo del menú */
 

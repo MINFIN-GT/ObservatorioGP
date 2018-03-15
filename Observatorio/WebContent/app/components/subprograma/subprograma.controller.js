@@ -1,10 +1,11 @@
-angular.module('programaController',[]).controller('programaController', ['$rootScope','$scope','$http','$routeParams', '$window', 
+var app = angular.module('subprogramaController',[]).controller('subprogramaController',['$rootScope','$scope','$http','$routeParams', '$window',
 	function($rootScope,$scope,$http,$routeParams, $window){
-	var mi = this;
+	mi = this;
 	
 	var fecha = new Date();
 	mi.anio = fecha.getFullYear();
 	mi.mes = fecha.getMonth();
+	
 	mi.etiquetaX = "";
 	mi.labels2 = [];
 	mi.data2 = [];
@@ -12,10 +13,10 @@ angular.module('programaController',[]).controller('programaController', ['$root
 	mi.linealColors = ['#8ecf4c', '#88b4df', '#d92a27'];
 	mi.tipoDatos = 0;
 	
-	$rootScope.page_title = 'Presupuesto por Resultados [Programa]';
+	$rootScope.page_title = 'Presupuesto por Resultados [Subprograma]';
 	
 	mi.arregloSubtitulo = JSON.parse($window.localStorage.getItem("\"" + $routeParams.t + "\""));
-	mi.subtitulo = mi.arregloSubtitulo[0];
+	mi.subtitulo = mi.arregloSubtitulo[0] + " / " + mi.arregloSubtitulo[1];
 	
 	mi.tot_asignado_4 = 0;
 	mi.tot_vigente_4 = 0;
@@ -51,16 +52,18 @@ angular.module('programaController',[]).controller('programaController', ['$root
 	
 	mi.entidad = $routeParams.entidad;
 	mi.tipo_resultado = $routeParams.tipo_resultado;
+	mi.programa = $routeParams.programa;
 	
-	$http.post('/SPrograma',{
-		accion: 'getProgramas',
+	$http.post('/SSubprograma',{
+		accion: 'getSubprogramas',
 		entidad: mi.entidad,		
 		tipo_resultado: mi.tipo_resultado,
+		programa: mi.programa,
 		t: new Date().getTime()
 	}).then(function(response){
 		if(response.data.success){
 			mi.dato = [];
-			mi.dato = response.data.programas;
+			mi.dato = response.data.subprogramas;
 			
 			mi.rowCollection = [];
 			mi.rowCollection = mi.dato;
@@ -78,8 +81,6 @@ angular.module('programaController',[]).controller('programaController', ['$root
 		
 		mi.lables2 = [];
 		
-		mi.mensualVigente = new Array(60).fill(0);
-		mi.mensualEjecutado = new Array(60).fill(0);
 		mi.mensualPFinanciero = new Array(60).fill(0);
 		mi.mensualPFisico = new Array(60).fill(0);
 		
@@ -327,9 +328,9 @@ angular.module('programaController',[]).controller('programaController', ['$root
 		        }
 		};
 	
-	mi.irSubprograma = function(programa_id, programa_nombre){
-		mi.arregloSubtitulo[1] = programa_nombre;
+	mi.irActividad = function(subprograma_id, subprograma_nombre){
+		mi.arregloSubtitulo[2] = subprograma_nombre;
 		$window.localStorage.setItem("\"" + $routeParams.t + "\"", JSON.stringify(mi.arregloSubtitulo));
-		window.location = "main.jsp#!/subprograma/" + mi.tipo_resultado + "/" + mi.entidad + "/" + programa_id + "?t=" + $routeParams.t;
+		window.location = "main.jsp#!/actividad/" + mi.tipo_resultado + "/" + mi.entidad + "/" + mi.programa + "/" + subprograma_id + "?t=" + $routeParams.t;
 	}
-}]);
+}])

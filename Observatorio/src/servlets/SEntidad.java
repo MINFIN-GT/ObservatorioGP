@@ -18,15 +18,15 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import dao.ActividadDAO;
-import dao.ActividadDAO.Actividad;
+import dao.EntidadDAO;
+import dao.EntidadDAO.Entidad;
 import utilities.Utils;
 
-@WebServlet("/SActividad")
-public class SActividad extends HttpServlet {
+@WebServlet("/SEntidad")
+public class SEntidad extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public SActividad() {
+    public SEntidad() {
         super();
     }
 
@@ -48,15 +48,13 @@ public class SActividad extends HttpServlet {
 		String accion = map.get("accion");
 		String response_text="";
 		
-		Integer entidad = Utils.String2Int(map.get("entidad"));
-		Integer programa = Utils.String2Int(map.get("programa"));
-		Integer subprograma = Utils.String2Int(map.get("subprograma"));
 		String tipo_resultado = Utils.String2Int(map.get("tipo_resultado")) == 1 ? "Estrátegico" : (Utils.String2Int(map.get("tipo_resultado")) == 2 ? "Institucional" : "Otros");
 		
-		if(accion.equals("getActividades")){
-			ArrayList<Actividad> lstactividades = ActividadDAO.getActividades(entidad, programa, subprograma, tipo_resultado);
-			String actividades = new GsonBuilder().serializeNulls().create().toJson(lstactividades);
-			response_text = String.join(" ", "\"actividades\": ", actividades);
+		if(accion.equals("getEntidades")){
+			ArrayList<Entidad> lstentidades = EntidadDAO.getEntidades(tipo_resultado);
+			
+			String entidades = new GsonBuilder().serializeNulls().create().toJson(lstentidades);
+			response_text = String.join(" ", "\"entidades\": ", entidades);
 			response_text = String.join(" ","{\"success\": true,", response_text, "}");
 		}
 		

@@ -1,20 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <style>
-    	.bordeIzquierda{
-		    border-left: 1px double #ccc!important;
-		}
-		.cuerpotabla{
-			overflow-y: hidden;
-			overflow-x: scroll;
-		    display: inline-block;
-		    font-size: 13px;
-		}
-    </style>
     <div ng-controller="programaController as ctrl">
-    	<div align="center" class="row" style="width: 80%; margin: 0 auto; font-size: 11px;">
-	    	<h3>Programa</h3>
-	    	<br>
+    	<div align="center" class="row" style="width: 90%; margin: 0 auto; font-size: 11px;">
+    		<h6 align="left">{{ctrl.subtitulo}}</h6>
+    		<br>
 	    	<table st-table="ctrl.displayedCollection" st-safe-src="ctrl.rowCollection" class="table table-striped cuerpotabla">
 				<thead>
 					<tr>
@@ -55,7 +44,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr st-select-row="row" st-select-mode="single" ng-repeat="row in ctrl.displayedCollection" ng-click="ctrl.getGraficaIndividual(row);" ng-dblclick="ctrl.irProducto(row.id)">
+					<tr st-select-row="row" st-select-mode="single" ng-repeat="row in ctrl.displayedCollection" ng-click="ctrl.getGraficaIndividual(row);" ng-dblclick="ctrl.irSubprograma(row.id, row.nombre_programa)">
 						<td align="left" style="white-space: nowrap;">
 							{{row.nombre_programa}}
 						</td>
@@ -224,22 +213,7 @@
 	    <br>
 	    <div>
 			<div class="titulo_grafica">{{ ctrl.tituloGrafica }}</div>
-			<div align="right" style="width: 80%;margin: 0 auto;">
-				<div class="btn-group btn-group-xs">
-					<label class="btn btn-default" ng-click="ctrl.cambioMensual();"><span>Mensual</span></label>
-					<label class="btn btn-default" ng-click="ctrl.cambioAnual();"><span>Anual</span></label>
-				</div>
-			</div>
-			<div align="center" class="row" style="width: 80%;margin: 0 auto;">
-				<div align="center">
-					<canvas id="line" class="chart chart-line" chart-data="ctrl.data"
-						chart-labels="ctrl.labels" chart-series="ctrl.series" chart-options="ctrl.options"
-						chart-colors="ctrl.linealColors" chart-legend="true">
-					</canvas>
-				</div>
-			</div>
-			<br>
-			<div align="right" style="width: 80%;margin: 0 auto;">
+			<div align="right" style="width: 90%;margin: 0 auto;">
 				<div class="btn-group btn-group-xs">
 					<label class="btn btn-default" ng-click="ctrl.cambioMensualP();"><span>Mensual</span></label>
 					<label class="btn btn-default" ng-click="ctrl.cambioAnualP();"><span>Anual</span></label>

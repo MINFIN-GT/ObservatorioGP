@@ -1,10 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 	<div ng-controller="deudadetalleController as ctrl">
-		
 			<br/>
-			<div align="center" class="row" style="width: 95%; margin: 0 auto; font-size: 11px;">
-					<table st-table="ctrl.displayedCollection" st-safe-src="ctrl.rowCollection" class="table table-striped" st-filtered-collection>
+			<div align="center" class="row" style="width: 90%; margin: 0 auto; font-size: 11px;">
+					<table st-table="ctrl.displayedCollection" st-safe-src="ctrl.rowCollection" class="table table-striped cuerpotabla" st-filtered-collection>
 						<thead>
 							<tr>
 								<th st-sort="entidad_nombre"></th>
@@ -136,7 +135,7 @@
 							</tr>
 						</tfoot>
 					</table>
-					<div style="text-align: center; font-size: 11px;">Fuente de información SICOIN. Cifras en millones.</div>
+					<div class="graphics_footnote">Fuente de información SICOIN. Cifras en millones.</div>
 				</div>
 				<br/>
 				<br/>
@@ -152,5 +151,5 @@
 						</canvas>
 					</div>
 				</div>
-				
+				<div class="graphics_footnote">Fuente de información SICOIN. Cifras en millones</div>
 </div>

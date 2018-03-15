@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 	<div ng-controller="productoController as ctrl">
 		<div align="center" class="row" style="width: 80%; margin: 0 auto; font-size: 11px;">
+			<h6 align="left">{{ctrl.subtitulo}}</h6>
+			<br>
 			<table st-table="ctrl.displayedCollection" st-safe-src="ctrl.rowCollection" class="table table-striped">
 				<thead>
 					<tr>

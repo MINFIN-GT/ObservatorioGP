@@ -1,8 +1,11 @@
-angular.module('productoController', []).controller('productoController',['$rootScope','$scope','$http','$routeParams', 
-	function($rootScope,$scope,$http,$routeParams){
+angular.module('productoController', []).controller('productoController',['$rootScope','$scope','$http','$routeParams', '$window',
+	function($rootScope,$scope,$http,$routeParams, $window){
 	var mi = this;
 	
-	$rootScope.page_title = 'Presupuesto por Resultados [Productos]';
+	$rootScope.page_title = 'Presupuesto por Resultados [Metas]';
+	
+	mi.arregloSubtitulo = JSON.parse($window.localStorage.getItem("\"" + $routeParams.t + "\""));
+	mi.subtitulo = mi.arregloSubtitulo[0] + " / " + mi.arregloSubtitulo[1] + " / " + mi.arregloSubtitulo[2] + " / " + mi.arregloSubtitulo[3];
 		
 	var fecha = new Date();
 	mi.anio = fecha.getFullYear();
@@ -20,7 +23,6 @@ angular.module('productoController', []).controller('productoController',['$root
 	mi.meses = ['Ene-','Feb-','Mar-','Abr-','May-','Jun-','Jul-','Ago-','Sep-','Oct-','Nov-','Dic-'];
 	
 	mi.entidad = $routeParams.entidad;
-	mi.unidadEjecutora = $routeParams.unidadejecutora;
 	mi.programa = $routeParams.programa;
 	mi.subPrograma = $routeParams.subprograma;
 	mi.actividad = $routeParams.actividad;
@@ -32,7 +34,7 @@ angular.module('productoController', []).controller('productoController',['$root
 			entidad: mi.entidad,
 			unidadEjecutora: mi.unidadEjecutora,
 			programa: mi.programa,
-			subProbrama: mi.subPrograma,
+			subPrograma: mi.subPrograma,
 			actividad: mi.actividad,
 			tipo_resultado: mi.tipo_resultado,
 			t: new Date().getTime()
@@ -62,14 +64,16 @@ angular.module('productoController', []).controller('productoController',['$root
 					mi.tot_p_ejecucion_1 = ((mi.tot_p_ejecucion_1 / mi.dato.length)).toFixed(2);
 					mi.tot_p_ejecucion = ((mi.tot_p_ejecucion / mi.dato.length)).toFixed(2);
 					
-					mi.getGraficaProducto({metaDescripcion:'Todos los productos y sub productos', entidad: mi.entidad, unidadEjecutora: mi.unidadEjecutora, programa: mi.programa, subPrograma: mi.subPrograma, actividad: mi.actividad});
+					mi.getGraficaProducto({metaDescripcion:'Todos los productos y sub productos', entidad: mi.entidad, programa: mi.programa, subPrograma: mi.subPrograma, actividad: mi.actividad, isSelected: true});
 				}
 			}
 		});
 	
 	mi.getGraficaProducto = function(row){
-		mi.tituloGrafica = row.metaDescripcion;
-		mi.getInfoGraficas(row);
+		if(row.isSelected){
+			mi.tituloGrafica = row.metaDescripcion;
+			mi.getInfoGraficas(row);	
+		}		
 	}
 	
 	mi.getInfoGraficas = function(row){
@@ -80,7 +84,7 @@ angular.module('productoController', []).controller('productoController',['$root
 				entidad: mi.entidad,
 				unidadEjecutora: mi.unidadEjecutora,
 				programa: mi.programa,
-				subProbrama: mi.subPrograma,
+				subPrograma: mi.subPrograma,
 				actividad: mi.actividad,
 				codigo_meta: row.codigo_meta,
 				tipo_resultado: mi.tipo_resultado,

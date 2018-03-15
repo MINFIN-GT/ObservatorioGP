@@ -18,15 +18,15 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import dao.ActividadDAO;
-import dao.ActividadDAO.Actividad;
+import dao.SubprogramaDAO;
+import dao.SubprogramaDAO.Subprograma;
 import utilities.Utils;
 
-@WebServlet("/SActividad")
-public class SActividad extends HttpServlet {
+@WebServlet("/SSubprograma")
+public class SSubprograma extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public SActividad() {
+    public SSubprograma() {
         super();
     }
 
@@ -50,13 +50,13 @@ public class SActividad extends HttpServlet {
 		
 		Integer entidad = Utils.String2Int(map.get("entidad"));
 		Integer programa = Utils.String2Int(map.get("programa"));
-		Integer subprograma = Utils.String2Int(map.get("subprograma"));
 		String tipo_resultado = Utils.String2Int(map.get("tipo_resultado")) == 1 ? "Estrátegico" : (Utils.String2Int(map.get("tipo_resultado")) == 2 ? "Institucional" : "Otros");
 		
-		if(accion.equals("getActividades")){
-			ArrayList<Actividad> lstactividades = ActividadDAO.getActividades(entidad, programa, subprograma, tipo_resultado);
-			String actividades = new GsonBuilder().serializeNulls().create().toJson(lstactividades);
-			response_text = String.join(" ", "\"actividades\": ", actividades);
+		if(accion.equals("getSubprogramas")){
+			ArrayList<Subprograma> lstsubprogramas = SubprogramaDAO.getSubprogramas(entidad, programa, tipo_resultado);
+			
+			String subprogramas = new GsonBuilder().serializeNulls().create().toJson(lstsubprogramas);
+			response_text = String.join(" ", "\"subprogramas\": ", subprogramas);
 			response_text = String.join(" ","{\"success\": true,", response_text, "}");
 		}
 		
@@ -68,6 +68,7 @@ public class SActividad extends HttpServlet {
         gz.write(response_text.getBytes("UTF-8"));
         gz.close();
         output.close();
+
 	}
 
 }
