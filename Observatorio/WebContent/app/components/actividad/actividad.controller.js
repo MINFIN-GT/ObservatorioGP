@@ -331,6 +331,6 @@ angular.module('actividadController',[]).controller('actividadController', ['$ro
 		mi.irProducto = function(actividad_id, actividad_nombre){
 			mi.arregloSubtitulo[3] = actividad_nombre;
 			$window.localStorage.setItem("\"" + $routeParams.t + "\"", JSON.stringify(mi.arregloSubtitulo));
-			window.location = "main.jsp#!/producto/" + mi.entidad + "/" + mi.programa + "/" + mi.subprograma + "/" +actividad_id + "?t=" + $routeParams.t;
+			window.location = "main.jsp#!/producto/" + mi.tipo_resultado + "/" + mi.entidad + "/" + mi.programa + "/" + mi.subprograma + "/" +actividad_id + "?t=" + $routeParams.t;
 		}
 }]);

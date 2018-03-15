@@ -167,6 +167,7 @@ public class EntidadDAO {
 				if(temp != null)
 					ret.add(temp);
 			}
+			CMemsql.close();
 			return ret;
 		}catch(Exception e){
 			CLogger.write("1", EntidadDAO.class, e);
