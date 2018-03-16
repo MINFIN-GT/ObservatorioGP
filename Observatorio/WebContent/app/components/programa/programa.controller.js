@@ -335,8 +335,8 @@ angular.module('programaController',[]).controller('programaController', ['$root
 		};
 	
 	mi.irSubprograma = function(programa_id, programa_nombre){
-		mi.arregloSubtitulo[1] = programa_nombre;
+		mi.arregloSubtitulo[2] = programa_nombre;
 		$window.localStorage.setItem("\"" + $routeParams.t + "\"", JSON.stringify(mi.arregloSubtitulo));
-		window.location = "main.jsp#!/subprograma/" + mi.tipo_resultado + "/" + mi.entidad + "/" + mi.unidad_ejecutora +"/" + programa_id + "?t=" + $routeParams.t;
+		window.location = "main.jsp#!/subprograma/" + mi.tipo_resultado + "/" + mi.entidad + "/" + mi.unidad_ejecutora +"/" + programa_id + "/" + $routeParams.t;
 	}
 }]);
