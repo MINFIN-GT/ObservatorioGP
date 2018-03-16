@@ -17,6 +17,7 @@ angular.module('productoController', []).controller('productoController',['$root
 	mi.subprograma = $routeParams.subprograma;
 	mi.proyecto = $routeParams.proyecto;
 	mi.actividad = $routeParams.actividad;
+	mi.obra = $routeParams.obra;
 	
 	switch(mi.tipo_resultado){
 		case '0': $rootScope.page_title = 'Institucional [Metas]'; break;
@@ -39,11 +40,12 @@ angular.module('productoController', []).controller('productoController',['$root
 		{
 			accion: 'getEjecucionFisica',
 			entidad: mi.entidad,
-			unidadEjecutora: mi.unidadEjecutora,
+			unidad_ejecutora: mi.unidad_ejecutora,
 			programa: mi.programa,
 			subPrograma: mi.subPrograma,
 			proyecto: mi.proyecto,
 			actividad: mi.actividad,
+			obra: mi.obra,
 			tipo_resultado: mi.tipo_resultado,
 			t: new Date().getTime()
 		}).then(			

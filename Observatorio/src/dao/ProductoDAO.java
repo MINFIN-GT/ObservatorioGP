@@ -19,7 +19,7 @@ public class ProductoDAO {
 		ArrayList<Double[]> ejercicio_data;
  	}
 	
-	public static ArrayList<Producto> getEjecucionFisica(Integer entidad, Integer unidad_ejecutora, Integer programa, Integer subprograma, Integer proyecto, Integer actividad, String tipo_resultado){
+	public static ArrayList<Producto> getEjecucionFisica(Integer entidad, Integer unidad_ejecutora, Integer programa, Integer subprograma, Integer proyecto, Integer actividad, Integer obra, String tipo_resultado){
 		String query = "";
 		ArrayList<Producto> ret = new ArrayList<Producto>();
 		
@@ -78,7 +78,8 @@ public class ProductoDAO {
 						"      WHERE entidad = ?", 
 						"      AND   programa = ?", 
 						"      AND   subprograma = ?", 
-						"      AND   actividad = ?", 
+						"      AND   actividad = ?",
+						"      AND  obra = ? ",
 						(tipo_resultado.length() == 0 ? "AND unidad_ejecutora = ? AND proyecto = ? " : ""),
 						"      AND   (ejercicio BETWEEN YEAR(CURRENT_TIMESTAMP) -4 AND YEAR(CURRENT_TIMESTAMP))", 
 						"      GROUP BY codigo_meta", 
@@ -87,7 +88,8 @@ public class ProductoDAO {
 						"WHERE mff.entidad = ?", 
 						"AND   mff.programa = ?", 
 						"AND   mff.subprograma = ?",
-						"AND   mff.actividad = ?",
+						"AND   actividad = ?",
+						"AND  obra=?",
 						tipo_resultado.length() > 0 ? "AND   mff.tipo_resultado = ?" : "AND  mff.unidad_ejecutora = ? AND mff.proyecto = ?", 
 						"AND   ds.codigo_meta=mff.codigo_meta", 
 						"GROUP BY mff.entidad," + (tipo_resultado.length() == 0 ? "mff.unidad_ejecutora,": "") + "mff.programa, mff.subprograma," + (tipo_resultado.length() == 0 ? "mff.proyecto," : "") + "mff.actividad, mff.obra, mff.codigo_meta, mff.ejercicio");
@@ -99,6 +101,7 @@ public class ProductoDAO {
 				pstmt.setInt(a++, programa);
 				pstmt.setInt(a++, subprograma);
 				pstmt.setInt(a++, actividad);
+				pstmt.setInt(a++, obra);
 				if(tipo_resultado.length() == 0){
 					pstmt.setInt(a++, unidad_ejecutora);	
 					pstmt.setInt(a++, proyecto);
@@ -108,6 +111,7 @@ public class ProductoDAO {
 				pstmt.setInt(a++, programa);
 				pstmt.setInt(a++, subprograma);
 				pstmt.setInt(a++, actividad);
+				pstmt.setInt(a++, obra);
 				
 				if(tipo_resultado.length() > 0)
 					pstmt.setString(a++, tipo_resultado);

@@ -55,6 +55,7 @@ public class SProducto extends HttpServlet {
 		Integer subprograma = Utils.String2Int(map.get("subPrograma"));
 		Integer proyecto = Utils.String2Int(map.get("proyecto"));
 		Integer actividad = Utils.String2Int(map.get("actividad"));
+		Integer obra = Utils.String2Int(map.get("obra"));
 		
 		String tipo_resultado = "";
 		switch(Utils.String2Int(map.get("tipo_resultado"))){
@@ -67,7 +68,7 @@ public class SProducto extends HttpServlet {
 		if(accion.equals("getEjecucionFisica")){
 			try{
 				
-				ArrayList<Producto> lstejecucionfisica = ProductoDAO.getEjecucionFisica(entidad, unidad_ejecutora, programa, subprograma, proyecto, actividad, tipo_resultado);
+				ArrayList<Producto> lstejecucionfisica = ProductoDAO.getEjecucionFisica(entidad, unidad_ejecutora, programa, subprograma, proyecto, actividad, obra, tipo_resultado);
 				
 				String ejecucion_fisica = new GsonBuilder().serializeNulls().create().toJson(lstejecucionfisica);
 				response_text = String.join(" ", "\"productos\": ", ejecucion_fisica);

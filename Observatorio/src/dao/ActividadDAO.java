@@ -75,7 +75,8 @@ public class ActividadDAO {
 						"AVG(IFNULL(fisico_ejecutado_m12, IF (fisico_asignado + ifnull (fisico_modificacion_m12,0) > 0, 0, NULL)) / IF (fisico_asignado + ifnull (fisico_modificacion_m12,0) > 0,fisico_asignado + ifnull (fisico_modificacion_m12,0),1)) p_fisico_m12", 
 						"from mv_financiera_fisica ", 
 						"where entidad=? and programa=? and subprograma=?" + (tipo_resultado.length() > 0 ? " and tipo_resultado=?" : " and unidad_ejecutora=? and proyecto=?"), 
-						"group by entidad," + (tipo_resultado.length() == 0 ? "unidad_ejecutora," : "") + "programa, subprograma," + (tipo_resultado.length() == 0 ? "proyecto," : "") + "actividad, obra, ejercicio");
+						"group by entidad," + (tipo_resultado.length() == 0 ? "unidad_ejecutora," : "") +
+						"programa, subprograma," + (tipo_resultado.length() == 0 ? "proyecto," : "") + "actividad, obra, ejercicio");
 				
 				PreparedStatement pstmt = CMemsql.getConnection().prepareStatement(query);
 				pstmt.setInt(1, entidad);
@@ -93,7 +94,7 @@ public class ActividadDAO {
 				int actividad_actual = -1;
 				Actividad temp = null;
 				while(rs.next()){
-					if(actividad_actual != rs.getInt("actividad")){
+					if(tipo_resultado.length() > 0 ? actividad_actual != rs.getInt("actividad") : actividad_actual != rs.getInt("obra")){
 						if(temp != null)
 							ret.add(temp);
 						temp = (new ActividadDAO()).new Actividad();
@@ -109,7 +110,7 @@ public class ActividadDAO {
 							for(int z=0;z<49;z++)
 								temp.ejercicio_data.get(temp.ejercicio_data.size()-1)[z]=0.0d;
 						}
-						actividad_actual = temp.id;						
+						actividad_actual = tipo_resultado.length() > 0 ? temp.id : temp.id_obra;						
 					}
 					
 					Double[] datos = new Double[49];

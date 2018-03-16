@@ -337,9 +337,9 @@ angular.module('actividadController',[]).controller('actividadController', ['$ro
 		        }
 		};
 	
-		mi.irProducto = function(actividad_id, actividad_nombre){
+		mi.irProducto = function(actividad_id, actividad_nombre, obra_id){
 			mi.arregloSubtitulo[5] = actividad_nombre;
 			$window.localStorage.setItem("\"" + $routeParams.t + "\"", JSON.stringify(mi.arregloSubtitulo));
-			window.location = "main.jsp#!/producto/" + mi.tipo_resultado + "/" + mi.entidad + "/" + mi.unidad_ejecutora + "/" + mi.programa + "/" + mi.subprograma + "/" + mi.proyecto + "/" + actividad_id + "/" + $routeParams.t;
+			window.location = "main.jsp#!/producto/" + mi.tipo_resultado + "/" + mi.entidad + "/" + mi.unidad_ejecutora + "/" + mi.programa + "/" + mi.subprograma + "/" + mi.proyecto + "/" + actividad_id + "/" + obra_id + "/" + $routeParams.t;
 		}
 }]);

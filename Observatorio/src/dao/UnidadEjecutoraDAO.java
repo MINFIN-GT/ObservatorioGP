@@ -125,13 +125,13 @@ public class UnidadEjecutoraDAO {
 						"             (AVG(IFNULL(fisico_ejecutado_m12, IF (fisico_asignado + IFNULL(fisico_modificacion_m12,0) > 0, 0, NULL)) / IF (fisico_asignado + IFNULL(fisico_modificacion_m12,0) > 0,fisico_asignado + IFNULL(fisico_modificacion_m12,0),1))) p_fisico_m12", 
 						"      FROM mv_financiera_fisica", 
 						"      WHERE entidad = ?", 
-						"      AND   tipo_resultado = ?",  
+						//"      AND   tipo_resultado = ?",  
 						"      GROUP BY entidad, unidad_ejecutora, programa, subprograma, proyecto, actividad, obra, ejercicio) t1", 
 						"GROUP BY ejercicio, entidad, unidad_ejecutora, unidad_ejecutora_nombre");
 				
 				PreparedStatement pstmt = CMemsql.getConnection().prepareStatement(query);
 				pstmt.setInt(1, entidad);
-				pstmt.setString(2, tipo_resultaldo);
+				//pstmt.setString(2, tipo_resultaldo);
 				
 				ResultSet rs = CMemsql.runPreparedStatement(pstmt);
 				

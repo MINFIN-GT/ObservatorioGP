@@ -22,7 +22,7 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
          .when('/deuda_detalle',{
          	template: '<div load-on-demand="\'deudadetalleController\'" class="all_page"></div>'
          })
-         .when('/producto/:tipo_resultado/:entidad/:unidad_ejecutora/:programa/:subprograma/:proyecto/:actividad/:t',{
+         .when('/producto/:tipo_resultado/:entidad/:unidad_ejecutora/:programa/:subprograma/:proyecto/:actividad/:obra/:t',{
          	template: '<div load-on-demand="\'productoController\'" class="all_page"></div>'
          })
          .when('/actividad/:tipo_resultado/:entidad/:unidad_ejecutora/:programa/:subprograma/:proyecto/:t',{
