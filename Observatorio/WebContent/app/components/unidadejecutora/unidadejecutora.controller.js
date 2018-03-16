@@ -5,6 +5,19 @@ var app = angular.module('unidadEjecutoraController',[]).controller('unidadEjecu
 	mi.anio = fecha.getFullYear();
 	mi.mes = fecha.getMonth();
 	
+	mi.entidad = $routeParams.entidad;
+	mi.tipo_resultado = $routeParams.tipo_resultado;
+	mi.val_resultado = $routeParams.val_resultado;
+	
+	switch(mi.tipo_resultado){
+		case '1': $rootScope.page_title = 'Resultados estratégicos'; break;
+		case '2': $rootScope.page_title = 'Resultados institucionales'; break;
+		case '3': $rootScope.page_title = 'Sin resultado'; break;
+	}
+	
+	mi.arregloSubtitulo = JSON.parse($window.localStorage.getItem("\"" + $routeParams.t + "\""));
+	mi.subtitulo = mi.arregloSubtitulo[0];
+	
 	mi.etiquetaX = "";
 	mi.labels2 = [];
 	mi.data2 = [];
@@ -12,9 +25,6 @@ var app = angular.module('unidadEjecutoraController',[]).controller('unidadEjecu
 	mi.linealColors = ['#8ecf4c', '#88b4df', '#d92a27'];
 	mi.tipoDatos = 0;
 	
-	mi.arregloSubtitulo = JSON.parse($window.localStorage.getItem("\"" + $routeParams.t + "\""));
-	mi.subtitulo = mi.arregloSubtitulo[0];
-
 	mi.tot_asignado_4 = 0;
 	mi.tot_vigente_4 = 0;
 	mi.tot_ejecutado_4 = 0;
@@ -47,17 +57,11 @@ var app = angular.module('unidadEjecutoraController',[]).controller('unidadEjecu
 	
 	mi.meses = ['Ene-','Feb-','Mar-','Abr-','May-','Jun-','Jul-','Ago-','Sep-','Oct-','Nov-','Dic-'];
 	
-	mi.entidad = $routeParams.entidad;
-	mi.programa = $routeParams.programa;
-	mi.subprograma = $routeParams.subprograma,
-	mi.tipo_resultado = $routeParams.tipo_resultado;
-	
 	$http.post('/SUnidadEjecutora',{
 		accion: 'getUnidadesEjecutoras',
 		entidad: mi.entidad,		
-		programa: mi.programa,
-		subprograma: mi.subprograma,
 		tipo_resultado: mi.tipo_resultado,
+		val_resultado: mi.val_resultado,
 		t: new Date().getTime()
 	}).then(function(response){
 		if(response.data.success){
@@ -75,7 +79,6 @@ var app = angular.module('unidadEjecutoraController',[]).controller('unidadEjecu
 	});
 	
 	mi.getGraficaGeneral = function(datos){
-		mi.series = ['Vigente', 'Ejecutado'];
 		mi.series2 = ['% Financiero' , '% Físico']
 		mi.tot_asignado = 0;
 		
@@ -327,9 +330,9 @@ var app = angular.module('unidadEjecutoraController',[]).controller('unidadEjecu
 		        }
 		};
 	
-		mi.irPrograma = function(unidadEjecutora_id, unidadEjecutora_nombre){
-			mi.arregloSubtitulo[3] = unidadEjecutora_nombre;
+		mi.irSiguienteNivel = function(unidadEjecutora_id, unidadEjecutora_nombre){
+			mi.arregloSubtitulo[1] = unidadEjecutora_nombre;
 			$window.localStorage.setItem("\"" + $routeParams.t + "\"", JSON.stringify(mi.arregloSubtitulo));
-			window.location = "main.jsp#!/programa/" + mi.entidad + "/" + unidadEjecutora_id + "?t=" + $routeParams.t;
+			window.location = "main.jsp#!/programa/" + mi.val_resultado + "/" + mi.tipo_resultado + "/" + mi.entidad + "/" + unidadEjecutora_id + "?t=" + $routeParams.t;
 		}
 }])

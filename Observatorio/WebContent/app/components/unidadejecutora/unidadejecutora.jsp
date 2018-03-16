@@ -44,9 +44,9 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr st-select-row="row" st-select-mode="single" ng-repeat="row in ctrl.displayedCollection" ng-click="ctrl.getGraficaIndividual(row);" ng-dblclick="ctrl.irSubprograma(row.id, row.nombre_programa)">
+					<tr st-select-row="row" st-select-mode="single" ng-repeat="row in ctrl.displayedCollection" ng-click="ctrl.getGraficaIndividual(row);" ng-dblclick="ctrl.irSiguienteNivel(row.id, row.nombre_unidad_ejecutora)">
 						<td align="left" style="white-space: nowrap;">
-							{{row.nombre_programa}}
+							{{row.nombre_unidad_ejecutora}}
 						</td>
 						<td align="right">
 							<div style="white-space: nowrap;">{{row.ejercicio_data[0][0] | formatoMillones : ctrl.decimales}}</div>
