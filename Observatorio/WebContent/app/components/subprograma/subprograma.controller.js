@@ -13,10 +13,20 @@ var app = angular.module('subprogramaController',[]).controller('subprogramaCont
 	mi.linealColors = ['#8ecf4c', '#88b4df', '#d92a27'];
 	mi.tipoDatos = 0;
 	
-	$rootScope.page_title = 'Presupuesto por Resultados [Subprograma]';
+	mi.tipo_resultado = $routeParams.tipo_resultado;
+	mi.entidad = $routeParams.entidad;
+	mi.unidad_ejecutora = $routeParams.unidad_ejecutora;
+	mi.programa = $routeParams.programa;
+	
+	switch(mi.tipo_resultado){
+		case '0': $rootScope.page_title = 'Institucional [Programas]'; break;
+		case '1': $rootScope.page_title = 'Resultados estratégicos [Programas]'; break;
+		case '2': $rootScope.page_title = 'Resultados institucionales [Programas]'; break;
+		case '3': $rootScope.page_title = 'Sin resultado [Programas]'; break;
+	}
 	
 	mi.arregloSubtitulo = JSON.parse($window.localStorage.getItem("\"" + $routeParams.t + "\""));
-	mi.subtitulo = mi.arregloSubtitulo[0] + " / " + mi.arregloSubtitulo[1];
+	mi.subtitulo = mi.arregloSubtitulo[0] + (mi.tipo_resultado=='0' ? ' \\ ' + mi.arregloSubtitulo[1] : '' ) + ' \\ ' + mi.arregloSubtitulo[2];
 	
 	mi.tot_asignado_4 = 0;
 	mi.tot_vigente_4 = 0;
@@ -50,14 +60,11 @@ var app = angular.module('subprogramaController',[]).controller('subprogramaCont
 	
 	mi.meses = ['Ene-','Feb-','Mar-','Abr-','May-','Jun-','Jul-','Ago-','Sep-','Oct-','Nov-','Dic-'];
 	
-	mi.entidad = $routeParams.entidad;
-	mi.tipo_resultado = $routeParams.tipo_resultado;
-	mi.programa = $routeParams.programa;
-	
 	$http.post('/SSubprograma',{
 		accion: 'getSubprogramas',
-		entidad: mi.entidad,		
 		tipo_resultado: mi.tipo_resultado,
+		entidad: mi.entidad,
+		unidad_ejecutora: mi.unidad_ejecutora,
 		programa: mi.programa,
 		t: new Date().getTime()
 	}).then(function(response){
@@ -329,8 +336,12 @@ var app = angular.module('subprogramaController',[]).controller('subprogramaCont
 		};
 	
 	mi.irActividad = function(subprograma_id, subprograma_nombre){
-		mi.arregloSubtitulo[2] = subprograma_nombre;
+		mi.arregloSubtitulo[3] = subprograma_nombre;
 		$window.localStorage.setItem("\"" + $routeParams.t + "\"", JSON.stringify(mi.arregloSubtitulo));
-		window.location = "main.jsp#!/actividad/" + mi.tipo_resultado + "/" + mi.entidad + "/" + mi.programa + "/" + subprograma_id + "?t=" + $routeParams.t;
+		
+		if(mi.tipo_resultado=='0')
+			window.location = "main.jsp#!/proyecto/" + mi.tipo_resultado + "/" + mi.entidad + "/" + mi.unidad_ejecutora + "/" + mi.programa + "/" + subprograma_id + "/" + $routeParams.t;
+		else
+			window.location = "main.jsp#!/actividad/" + mi.tipo_resultado + "/" + mi.entidad + "/" + mi.unidad_ejecutora + "/" + mi.programa + "/" + subprograma_id + "/0/" + $routeParams.t;
 	}
 }])

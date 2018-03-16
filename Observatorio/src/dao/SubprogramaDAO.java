@@ -17,7 +17,7 @@ public class SubprogramaDAO {
 		ArrayList<Double[]> ejercicio_data;
 	}
 	
-	public static ArrayList<Subprograma> getSubprogramas(Integer entidad, Integer programa, String tipo_resultaldo){
+	public static ArrayList<Subprograma> getSubprogramas(Integer entidad, Integer unidad_ejecutora, Integer programa, String tipo_resultado){
 		ArrayList<Subprograma> ret = new ArrayList<Subprograma>();
 		String query = "";
 		try{
@@ -127,14 +127,18 @@ public class SubprogramaDAO {
 						"      FROM mv_financiera_fisica", 
 						"      WHERE entidad = ?", 
 						"	   AND	 programa = ?",
-						"      AND   tipo_resultado = ?", 
+						tipo_resultado.length() > 0 ? "AND tipo_resultado = ?" : " AND unidad_ejecutora=?",
 						"      GROUP BY entidad, unidad_ejecutora, programa, subprograma, proyecto, actividad, obra, ejercicio) t1", 
-						"GROUP BY ejercicio, entidad, programa, subprograma, subprograma_nombre");
+						"GROUP BY ejercicio, entidad," + (tipo_resultado.length() == 0 ? "unidad_ejecutora, " : "")+  "programa, subprograma, subprograma_nombre");
 				
 				PreparedStatement pstmt = CMemsql.getConnection().prepareStatement(query);
 				pstmt.setInt(1, entidad);
 				pstmt.setInt(2, programa);
-				pstmt.setString(3, tipo_resultaldo);
+
+				if(tipo_resultado.length() > 0)
+					pstmt.setString(3, tipo_resultado);
+				else
+					pstmt.setInt(3, unidad_ejecutora);
 				
 				ResultSet rs = CMemsql.runPreparedStatement(pstmt);
 				
