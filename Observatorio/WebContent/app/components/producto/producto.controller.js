@@ -1,13 +1,6 @@
 angular.module('productoController', []).controller('productoController',['$rootScope','$scope','$http','$routeParams', '$window',
 	function($rootScope,$scope,$http,$routeParams, $window){
 	var mi = this;
-	
-	$rootScope.page_title = 'Presupuesto por Resultados [Metas]';
-	
-	mi.arregloSubtitulo = JSON.parse($window.localStorage.getItem("\"" + $routeParams.t + "\""));
-	if(mi.arregloSubtitulo != null)
-		mi.subtitulo = mi.arregloSubtitulo[0] + " / " + mi.arregloSubtitulo[1] + " / " + mi.arregloSubtitulo[2] + " / " + mi.arregloSubtitulo[3];
-		
 	var fecha = new Date();
 	mi.anio = fecha.getFullYear();
 	mi.mes = fecha.getMonth() + 1;
@@ -16,18 +9,31 @@ angular.module('productoController', []).controller('productoController',['$root
 	mi.data = [];
 	mi.decimales = false;
 	
+	
+	mi.tipo_resultado = $routeParams.tipo_resultado;
+	mi.entidad = $routeParams.entidad;
+	mi.unidad_ejecutora = $routeParams.unidad_ejecutora;
+	mi.programa = $routeParams.programa;
+	mi.subprograma = $routeParams.subprograma;
+	mi.proyecto = $routeParams.proyecto;
+	mi.actividad = $routeParams.actividad;
+	
+	switch(mi.tipo_resultado){
+		case '0': $rootScope.page_title = 'Institucional [Metas]'; break;
+		case '1': $rootScope.page_title = 'Resultados estratégicos [Metas]'; break;
+		case '2': $rootScope.page_title = 'Resultados institucionales [Metas]'; break;
+		case '3': $rootScope.page_title = 'Sin resultado [Metas]'; break;
+	}
+	
+	mi.arregloSubtitulo = JSON.parse($window.localStorage.getItem("\"" + $routeParams.t + "\""));
+	mi.subtitulo = mi.arregloSubtitulo[0] + (mi.tipo_resultado=='0' ? ' \\ ' + mi.arregloSubtitulo[1] : '' ) + ' \\ ' + mi.arregloSubtitulo[2] + ' \\ ' + mi.arregloSubtitulo[3] + (mi.tipo_resultado=='0' ? ' \\ ' + mi.arregloSubtitulo[4] : '' ) + ' \\ ' +  mi.arregloSubtitulo[5];
+	
 	mi.tot_p_avance_4 = 0;
 	mi.tot_p_avance_3 = 0;
 	mi.tot_p_avance_2 = 0;
 	mi.tot_p_avance_1 = 0;
 	mi.tot_p_avance = 0;
 	mi.meses = ['Ene-','Feb-','Mar-','Abr-','May-','Jun-','Jul-','Ago-','Sep-','Oct-','Nov-','Dic-'];
-	
-	mi.entidad = $routeParams.entidad;
-	mi.programa = $routeParams.programa;
-	mi.subPrograma = $routeParams.subprograma;
-	mi.actividad = $routeParams.actividad;
-	mi.tipo_resultado = $routeParams.tipo_resultado;
 	
 	$http.post('/SProducto',
 		{
@@ -36,6 +42,7 @@ angular.module('productoController', []).controller('productoController',['$root
 			unidadEjecutora: mi.unidadEjecutora,
 			programa: mi.programa,
 			subPrograma: mi.subPrograma,
+			proyecto: mi.proyecto,
 			actividad: mi.actividad,
 			tipo_resultado: mi.tipo_resultado,
 			t: new Date().getTime()
@@ -219,97 +226,6 @@ angular.module('productoController', []).controller('productoController',['$root
 		
 		mi.options.scales.xAxes["0"].scaleLabel.labelString = "Años";
 		mi.data.push(mi.anualPFisico);
-	}
-	
-	
-	
-	
-	
-	
-	mi.getGraficaProducto = function(row){
-		if(row.isSelected){
-			mi.tituloGrafica = row.metaDescripcion;
-			mi.getInfoGraficas(row);	
-		}		
-	}
-	
-	mi.getInfoGraficas = function(row){
-		mi.limpiarData();
-	
-		$http.post('/SProducto',{
-				accion: 'getVectoresValores', 
-				entidad: mi.entidad,
-				unidadEjecutora: mi.unidadEjecutora,
-				programa: mi.programa,
-				subPrograma: mi.subPrograma,
-				actividad: mi.actividad,
-				codigo_meta: row.codigo_meta,
-				tipo_resultado: mi.tipo_resultado,
-				t: new Date().getTime()
-			}).then(
-			function(response){
-				if (response.data.success){
-					var datoMensual = [];
-					datoMensual = response.data.vectorValores;
-					
-					mi.datosAcumulado = [];
-					var acumuladoCant = 0;
-					var acumuladoEje = 0;
-					var acumuladoMod = 0;
-					
-					/*---------------------------------------------------------------------*/
-					mi.series = ['% Ejecucion'];
-					mi.options.scales.xAxes["0"].scaleLabel.labelString = "Meses";
-					
-					var cantidades = [];
-					mi.datoAcumuladoMensual = [];
-					mi.datoAcumuladoAnual = [];
-					
-					var acumulado = 0;
-					
-					for(var i=0; i < datoMensual.length; i++){
-						if(mi.mes == datoMensual[i].mes && mi.anio == datoMensual[i].ejercicio)
-							break;
-						
-						acumuladoEje = mi.datoAcumuladoMensual.length != 0 ? mi.datoAcumuladoMensual[i-1].ejecucion + datoMensual[i].ejecucion: datoMensual[i].ejecucion;	
-						acumuladoMod = mi.datoAcumuladoMensual.length != 0 ? mi.datoAcumuladoMensual[i-1].modificacion + datoMensual[i].modificacion : datoMensual[i].modificacion;	
-						
-						if(datoMensual[i].mes == 1){
-							acumuladoCant = datoMensual[i].cantidad + acumuladoCant
-							acumuladoEje = 0;
-						}
-						
-						var p_ejecucion = acumuladoEje / (acumuladoMod + datoMensual[i].cantidad);
-						mi.datoAcumuladoMensual.push({mes: datoMensual[i].mes, ejercicio: datoMensual[i].ejercicio, p_ejecucion: p_ejecucion * 100, ejecucion: acumuladoEje, modificacion: acumuladoMod});
-						
-						if(datoMensual[i].mes == 12)
-							mi.datoAcumuladoAnual.push({ejercicio: datoMensual[i].ejercicio, p_ejecucion: p_ejecucion * 100});
-					}
-					
-					for(var i=0; i<mi.datoAcumuladoMensual.length; i++){
-						mi.labels.push(mi.meses[mi.datoAcumuladoMensual[i].mes - 1] + mi.datoAcumuladoMensual[i].ejercicio);
-						cantidades.push(Number(mi.datoAcumuladoMensual[i].p_ejecucion).toFixed(2));
-					}
-					
-					mi.data.push(cantidades);
-					
-					/*---------------------------------------------------------------------*/
-					for(var i=0; i < datoMensual.length; i++){
-						if(mi.mes == datoMensual[i].mes && mi.anio == datoMensual[i].ejercicio)
-							break;
-						
-						acumuladoEje = mi.datosAcumulado.length != 0 ? mi.datosAcumulado[i-1].ejecucion + datoMensual[i].ejecucion: datoMensual[i].ejecucion;	
-						acumuladoMod = mi.datosAcumulado.length != 0 ? mi.datosAcumulado[i-1].modificacion + datoMensual[i].modificacion : datoMensual[i].modificacion;	
-						
-						if(datoMensual[i].mes == 1){
-							acumuladoCant = datoMensual[i].cantidad + acumuladoCant; 
-						}
-						
-						var p_ejecucion = acumuladoEje / (acumuladoMod + acumuladoCant);
-						mi.datosAcumulado.push({mes: datoMensual[i].mes, ejercicio: datoMensual[i].ejercicio, p_ejecucion: p_ejecucion * 100, ejecucion: acumuladoEje, modificacion: acumuladoMod});	
-					}
-				}
-			});
 	}
 	
 	mi.cambioAcumuladoMensualContinua = function(){

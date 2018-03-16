@@ -1,6 +1,5 @@
 package dao;
 
-import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -19,16 +18,8 @@ public class ProductoDAO {
 		ArrayList<Integer> ejercicios;
 		ArrayList<Double[]> ejercicio_data;
  	}
-		
-	public class VectorValores{
-		Integer ejercicio;
-		Integer mes;
-		BigDecimal ejecucion;
-		BigDecimal modificacion;
-		BigDecimal cantidad;
-	}
 	
-	public static ArrayList<Producto> getEjecucionFisica(Integer entidad, Integer programa, Integer subprograma, Integer actividad, String tipo_resultado){
+	public static ArrayList<Producto> getEjecucionFisica(Integer entidad, Integer unidad_ejecutora, Integer programa, Integer subprograma, Integer proyecto, Integer actividad, String tipo_resultado){
 		String query = "";
 		ArrayList<Producto> ret = new ArrayList<Producto>();
 		
@@ -88,6 +79,7 @@ public class ProductoDAO {
 						"      AND   programa = ?", 
 						"      AND   subprograma = ?", 
 						"      AND   actividad = ?", 
+						(tipo_resultado.length() == 0 ? "AND unidad_ejecutora = ? AND proyecto = ? " : ""),
 						"      AND   (ejercicio BETWEEN YEAR(CURRENT_TIMESTAMP) -4 AND YEAR(CURRENT_TIMESTAMP))", 
 						"      GROUP BY codigo_meta", 
 						"      HAVING ejercicio = MAX(ejercicio)", 
@@ -96,22 +88,33 @@ public class ProductoDAO {
 						"AND   mff.programa = ?", 
 						"AND   mff.subprograma = ?",
 						"AND   mff.actividad = ?",
-						"AND   mff.tipo_resultado = ?", 
+						tipo_resultado.length() > 0 ? "AND   mff.tipo_resultado = ?" : "AND  mff.unidad_ejecutora = ? AND mff.proyecto = ?", 
 						"AND   ds.codigo_meta=mff.codigo_meta", 
-						"GROUP BY mff.entidad, mff.programa, mff.subprograma, mff.proyecto, mff.actividad, mff.obra, mff.codigo_meta, mff.ejercicio", 
-						"");
+						"GROUP BY mff.entidad," + (tipo_resultado.length() == 0 ? "mff.unidad_ejecutora,": "") + "mff.programa, mff.subprograma," + (tipo_resultado.length() == 0 ? "mff.proyecto," : "") + "mff.actividad, mff.obra, mff.codigo_meta, mff.ejercicio");
 				
 				PreparedStatement pstmt = CMemsql.getConnection().prepareStatement(query);
-				pstmt.setInt(1, entidad);
-				pstmt.setInt(2, programa);
-				pstmt.setInt(3, subprograma);
-				pstmt.setInt(4, actividad);
+				
+				int a=1;
+				pstmt.setInt(a++, entidad);
+				pstmt.setInt(a++, programa);
+				pstmt.setInt(a++, subprograma);
+				pstmt.setInt(a++, actividad);
+				if(tipo_resultado.length() == 0){
+					pstmt.setInt(a++, unidad_ejecutora);	
+					pstmt.setInt(a++, proyecto);
+				}
 
-				pstmt.setInt(5, entidad);
-				pstmt.setInt(6, programa);
-				pstmt.setInt(7, subprograma);
-				pstmt.setInt(8, actividad);
-				pstmt.setString(9, tipo_resultado);
+				pstmt.setInt(a++, entidad);
+				pstmt.setInt(a++, programa);
+				pstmt.setInt(a++, subprograma);
+				pstmt.setInt(a++, actividad);
+				
+				if(tipo_resultado.length() > 0)
+					pstmt.setString(a++, tipo_resultado);
+				else{
+					pstmt.setInt(a++, unidad_ejecutora);	
+					pstmt.setInt(a++, proyecto);
+				}
 				
 				ResultSet rs = CMemsql.runPreparedStatement(pstmt);				
 
@@ -153,47 +156,6 @@ public class ProductoDAO {
 		}catch(Exception e){
 			CLogger.write("1", ProductoDAO.class, e);
 			CMemsql.close();
-			return ret;
-		}
-	}
-	
-	public static ArrayList<VectorValores> getVectorValores(Integer entidad, Integer programa, Integer subprograma, Integer actividad, Integer codigo_meta){
-		ArrayList<VectorValores> ret = new ArrayList<VectorValores>();
-		String query = "";
-		
-		try{
-			if(CMemsql.connect()){
-				query = String.join(" ", "SELECT mef.ejercicio, mef.mes, sum(cantidad) cantidad,",
-					"sum(ejecucion) ejecucion, sum(modificacion) modificacion",
-					"FROM mv_ejecucion_fisica mef",
-					"WHERE mef.entidad=? and", 
-					"mef.programa=? and mef.subprograma=? and mef.actividad=?",
-					codigo_meta != null ? "and mef.codigo_meta=?" : "", 
-					"GROUP BY mef.ejercicio, mef.mes ORDER BY mef.ejercicio, mef.mes");
-				
-				PreparedStatement pstmt = CMemsql.getConnection().prepareStatement(query);
-				pstmt.setInt(1, entidad);
-				pstmt.setInt(2, programa);
-				pstmt.setInt(3, subprograma);
-				pstmt.setInt(4, actividad);
-				if(codigo_meta != null)
-					pstmt.setInt(5, codigo_meta);
-				
-				ResultSet rs = CMemsql.runPreparedStatement(pstmt);
-				while(rs.next()){
-					VectorValores temp = (new ProductoDAO()).new VectorValores();
-					temp.ejercicio = rs.getInt("ejercicio");
-					temp.mes = rs.getInt("mes");
-					temp.ejecucion = rs.getBigDecimal("ejecucion");
-					temp.modificacion = rs.getBigDecimal("modificacion");
-					temp.cantidad = rs.getBigDecimal("cantidad");
-					ret.add(temp);
-				}
-			}
-			
-			return ret;
-		}catch(Exception e){
-			CLogger.write("3", ProductoDAO.class, e);
 			return ret;
 		}
 	}

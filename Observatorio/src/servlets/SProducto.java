@@ -20,7 +20,6 @@ import com.google.gson.reflect.TypeToken;
 
 import dao.ProductoDAO;
 import dao.ProductoDAO.Producto;
-import dao.ProductoDAO.VectorValores;
 import utilities.CLogger;
 import utilities.Utils;
 
@@ -50,33 +49,31 @@ public class SProducto extends HttpServlet {
 		String accion = map.get("accion");
 		String response_text="";
 		
-		Integer entidad = Utils.String2Int(map.get("entidad"));		
+		Integer entidad = Utils.String2Int(map.get("entidad"));	
+		Integer unidad_ejecutora = Utils.String2Int(map.get("unidad_ejecutora"));
 		Integer programa = Utils.String2Int(map.get("programa"));
 		Integer subprograma = Utils.String2Int(map.get("subPrograma"));
+		Integer proyecto = Utils.String2Int(map.get("proyecto"));
 		Integer actividad = Utils.String2Int(map.get("actividad"));
-		String tipo_resultado = Utils.String2Int(map.get("tipo_resultado")) == 1 ? "Estrátegico" : (Utils.String2Int(map.get("tipo_resultado")) == 2 ? "Institucional" : "Otros"); 
-		Integer codigo_meta = Utils.String2Int(map.get("codigo_meta")) != 0 ? Utils.String2Int(map.get("codigo_meta")) : null;
+		
+		String tipo_resultado = "";
+		switch(Utils.String2Int(map.get("tipo_resultado"))){
+			case 0: tipo_resultado = ""; break;
+			case 1: tipo_resultado = "Estrátegico"; break;
+			case 2: tipo_resultado = "Institucional"; break;
+			case 3: tipo_resultado = "Otros"; break;
+		}
 		
 		if(accion.equals("getEjecucionFisica")){
 			try{
 				
-				ArrayList<Producto> lstejecucionfisica = ProductoDAO.getEjecucionFisica(entidad,programa,subprograma,actividad, tipo_resultado);
+				ArrayList<Producto> lstejecucionfisica = ProductoDAO.getEjecucionFisica(entidad, unidad_ejecutora, programa, subprograma, proyecto, actividad, tipo_resultado);
 				
 				String ejecucion_fisica = new GsonBuilder().serializeNulls().create().toJson(lstejecucionfisica);
 				response_text = String.join(" ", "\"productos\": ", ejecucion_fisica);
 				response_text = String.join(" ","{\"success\": true,", response_text, "}");
 			}catch(Exception e){
 				CLogger.write("1", SProducto.class, e);
-			}
-		}else if(accion.equals("getVectoresValores")){
-			try{
-				ArrayList<VectorValores> lstvectorvalores = ProductoDAO.getVectorValores(entidad,programa,subprograma,actividad, codigo_meta);
-				
-				String ejecucion_fisica = new GsonBuilder().serializeNulls().create().toJson(lstvectorvalores);
-				response_text = String.join(" ", "\"vectorValores\": ", ejecucion_fisica);
-				response_text = String.join(" ","{\"success\": true,", response_text, "}");
-			}catch(Exception e){
-				CLogger.write("3", SProducto.class, e);
 			}
 		}
 		
