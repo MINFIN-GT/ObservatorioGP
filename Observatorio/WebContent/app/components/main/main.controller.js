@@ -28,13 +28,13 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
          .when('/actividad/:tipo_resultado/:entidad/:programa/:subprograma',{
          	template: '<div load-on-demand="\'actividadController\'" class="all_page"></div>'
          })
-         .when('/subprograma/:tipo_resultado/:entidad/:programa',{
+         .when('/subprograma/:tipo_resultado/:entidad/:unidad_ejecutora/:programa',{
          	template: '<div load-on-demand="\'subprogramaController\'" class="all_page"></div>'
          })
-         .when('/programa/:tipo_resultado/:entidad',{
+         .when('/programa/:tipo_resultado/:entidad/:unidad_ejecutora/:t',{
          	template: '<div load-on-demand="\'programaController\'" class="all_page"></div>'
          })
-         .when('/unidadejecutora/:tipo_resultado/:entidad/:unidadejecutora',{
+         .when('/unidadejecutora/:tipo_resultado/:entidad/:t',{
          	template: '<div load-on-demand="\'unidadEjecutoraController\'" class="all_page"></div>'
          })
          .when('/entidad/:tipo_resultado',{

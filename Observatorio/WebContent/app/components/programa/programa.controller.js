@@ -12,10 +12,19 @@ angular.module('programaController',[]).controller('programaController', ['$root
 	mi.linealColors = ['#8ecf4c', '#88b4df', '#d92a27'];
 	mi.tipoDatos = 0;
 	
-	$rootScope.page_title = 'Presupuesto por Resultados [Programa]';
+	mi.entidad = $routeParams.entidad;
+	mi.tipo_resultado = $routeParams.tipo_resultado;
+	mi.unidad_ejecutora = $routeParams.unidad_ejecutora;
+	
+	switch(mi.tipo_resultado){
+		case '0': $rootScope.page_title = 'Institucional [Programas]'; break;
+		case '1': $rootScope.page_title = 'Resultados estratégicos [Programas]'; break;
+		case '2': $rootScope.page_title = 'Resultados institucionales [Programas]'; break;
+		case '3': $rootScope.page_title = 'Sin resultado [Programas]'; break;
+	}
 	
 	mi.arregloSubtitulo = JSON.parse($window.localStorage.getItem("\"" + $routeParams.t + "\""));
-	mi.subtitulo = mi.arregloSubtitulo[0];
+	mi.subtitulo = mi.arregloSubtitulo[0] + (mi.tipo_resultado=='0' ? ' \\ ' + mi.arregloSubtitulo[1] : '' );
 	
 	mi.tot_asignado_4 = 0;
 	mi.tot_vigente_4 = 0;
@@ -49,12 +58,10 @@ angular.module('programaController',[]).controller('programaController', ['$root
 	
 	mi.meses = ['Ene-','Feb-','Mar-','Abr-','May-','Jun-','Jul-','Ago-','Sep-','Oct-','Nov-','Dic-'];
 	
-	mi.entidad = $routeParams.entidad;
-	mi.tipo_resultado = $routeParams.tipo_resultado;
-	
 	$http.post('/SPrograma',{
 		accion: 'getProgramas',
-		entidad: mi.entidad,		
+		entidad: mi.entidad,
+		unidad_ejecutora: mi.unidad_ejecutora,
 		tipo_resultado: mi.tipo_resultado,
 		t: new Date().getTime()
 	}).then(function(response){
@@ -330,6 +337,6 @@ angular.module('programaController',[]).controller('programaController', ['$root
 	mi.irSubprograma = function(programa_id, programa_nombre){
 		mi.arregloSubtitulo[1] = programa_nombre;
 		$window.localStorage.setItem("\"" + $routeParams.t + "\"", JSON.stringify(mi.arregloSubtitulo));
-		window.location = "main.jsp#!/subprograma/" + mi.tipo_resultado + "/" + mi.entidad + "/" + programa_id + "?t=" + $routeParams.t;
+		window.location = "main.jsp#!/subprograma/" + mi.tipo_resultado + "/" + mi.entidad + "/" + mi.unidad_ejecutora +"/" + programa_id + "?t=" + $routeParams.t;
 	}
 }]);

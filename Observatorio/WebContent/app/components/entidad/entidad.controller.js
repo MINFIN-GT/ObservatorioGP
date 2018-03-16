@@ -47,6 +47,7 @@ var app = angular.module('entidadController',[]).controller('entidadController',
 	mi.tipo_resultado = $routeParams.tipo_resultado;
 	
 	switch(mi.tipo_resultado){
+		case '0': $rootScope.page_title = 'Institucional'; break;
 		case '1': $rootScope.page_title = 'Resultados institucionales'; break;
 		case '2': $rootScope.page_title = 'Resultados estratégicos'; break;
 		case '3': $rootScope.page_title = 'Sin resultado'; break;
@@ -323,7 +324,10 @@ var app = angular.module('entidadController',[]).controller('entidadController',
 	
 	mi.irPrograma = function(entidad_id, entidad_nombre){
 		var time = new Date().getTime();
-		$window.localStorage.setItem("\"" + time + "\"", JSON.stringify([entidad_nombre,"","","","",""]));
-		window.location = "main.jsp#!/programa/" + mi.tipo_resultado + "/" + entidad_id + "?t=" + time;
+		$window.localStorage.setItem("\"" + time + "\"", JSON.stringify([entidad_nombre,"","","","","",""]));
+		if(mi.tipo_resultado=='0')
+			window.location = "main.jsp#!/unidadejecutora/" + mi.tipo_resultado + "/" + entidad_id + "/" + time;
+		else
+			window.location = "main.jsp#!/programa/" + mi.tipo_resultado + "/" + entidad_id + "/0/" + time;
 	}
 }])

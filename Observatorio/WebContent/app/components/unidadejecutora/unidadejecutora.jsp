@@ -15,7 +15,7 @@
 						<th style="text-align: center;" colspan="5">{{ctrl.anio}}</th>
 					</tr>
 					<tr>
-						<th st-sort="metaDescripcion">Nombre</th>
+						<th st-sort="nombre_unidad_ejecutora">Nombre</th>
 						<th style="text-align: center; min-width: 50px; max-width: 50px;">Asig.</th>
 						<th style="text-align: center; min-width: 50px; max-width: 50px;">Vig.</th>
 						<th style="text-align: center; min-width: 50px; max-width: 50px;">Ejec.</th>

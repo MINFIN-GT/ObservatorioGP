@@ -10,9 +10,10 @@ var app = angular.module('unidadEjecutoraController',[]).controller('unidadEjecu
 	mi.val_resultado = $routeParams.val_resultado;
 	
 	switch(mi.tipo_resultado){
-		case '1': $rootScope.page_title = 'Resultados estratégicos'; break;
-		case '2': $rootScope.page_title = 'Resultados institucionales'; break;
-		case '3': $rootScope.page_title = 'Sin resultado'; break;
+		case '0': $rootScope.page_title = 'Institucional [Unidades Ejecutoras]'; break;
+		case '1': $rootScope.page_title = 'Resultados estratégicos [Unidades Ejeuctoras]'; break;
+		case '2': $rootScope.page_title = 'Resultados institucionales [Unidades Ejecutoras]'; break;
+		case '3': $rootScope.page_title = 'Sin resultado [Unidades Ejecutoras]'; break;
 	}
 	
 	mi.arregloSubtitulo = JSON.parse($window.localStorage.getItem("\"" + $routeParams.t + "\""));
@@ -333,6 +334,6 @@ var app = angular.module('unidadEjecutoraController',[]).controller('unidadEjecu
 		mi.irSiguienteNivel = function(unidadEjecutora_id, unidadEjecutora_nombre){
 			mi.arregloSubtitulo[1] = unidadEjecutora_nombre;
 			$window.localStorage.setItem("\"" + $routeParams.t + "\"", JSON.stringify(mi.arregloSubtitulo));
-			window.location = "main.jsp#!/programa/" + mi.val_resultado + "/" + mi.tipo_resultado + "/" + mi.entidad + "/" + unidadEjecutora_id + "?t=" + $routeParams.t;
+			window.location = "main.jsp#!/programa/" + mi.tipo_resultado + "/" + mi.entidad + "/" + unidadEjecutora_id + "/" + $routeParams.t;
 		}
 }])
