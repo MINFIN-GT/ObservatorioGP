@@ -149,7 +149,7 @@
 	<br/>
 	<div class="row">
 		<div class="text-center">Presupuesto Público</div>
-		<div class="total_budget">{{ ctrl.presupuesto_total | formatoMillones : true}}</div>
+		<div class="total_budget" style="cursor: pointer;" ng-click="ctrl.go(0)">{{ ctrl.presupuesto_total | formatoMillones : true}}</div>
 	</div>
 	<br/>
 	<div class="row">
