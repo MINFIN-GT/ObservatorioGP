@@ -76,6 +76,8 @@ angular.module('productoController', []).controller('productoController',['$root
 		
 		if(datos.length > 0){
 			for(var i=0; i<datos.length; i++){//row
+				acumuladoEje = 0;
+				acumuladoMod = 0;
 				for(var j=0; j<datos[i].ejercicios.length; j++){//años
 					var pos = datos[i].ejercicios[j] - mi.anio + 4;
 					for(var h=0; h<datos[i].ejercicio_data[pos].length; h++){
@@ -101,17 +103,18 @@ angular.module('productoController', []).controller('productoController',['$root
 						}else if((h>=13) && (h<=24)){
 							var posarr = pos==0 ? (h-13) : pos==1 ? (h-13+12) : pos==2 ? (h-13+24) : pos==3 ? (h-13+36) : pos==4 ? (h-13+48) : 0;
 							
-							acumuladoEje = h > 13 ? datos[i].ejercicio_data[pos][h] + mAEjecu[posarr-1] : datos[i].ejercicio_data[pos][h];
-							acumuladoMod = h > 13 ? datos[i].ejercicio_data[pos][h+12] + mAMod[posarr-1] : datos[i].ejercicio_data[pos][h+12];
+							acumuladoEje += datos[i].ejercicio_data[pos][h];
+							acumuladoMod += datos[i].ejercicio_data[pos][h+12];
 							
 							if(h==13){
-								acumuladoCant = datos[i].ejercicio_data[pos][12] + acumuladoCant;
+								acumuladoCant += datos[i].ejercicio_data[pos][12];
+								if(pos>0){
+									acumuladoEje += datos[i].ejercicio_data[pos-1][24];
+									acumuladoMod += datos[i].ejercicio_data[pos-1][36];
+								}
 							}
 							
-							mAEjecu[posarr] += acumuladoEje;
-							mAMod[posarr] += acumuladoMod;
-							
-							var p_ejecucion = acumuladoEje > 0 ? (acumuladoEje / (acumuladoMod + acumuladoCant) > 0 ? acumuladoMod + acumuladoCant : 1) : 0;
+							var p_ejecucion = acumuladoEje > 0 ? (acumuladoEje / ((acumuladoMod + acumuladoCant) > 0 ? acumuladoMod + acumuladoCant : 1)) : 0;
 							mi.mensualPFisicoAcum[posarr] += p_ejecucion;
 						}
 					}
