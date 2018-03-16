@@ -22,13 +22,16 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
          .when('/deuda_detalle',{
          	template: '<div load-on-demand="\'deudadetalleController\'" class="all_page"></div>'
          })
-         .when('/producto/:tipo_resultado/:entidad/:programa/:subprograma/:actividad',{
+         .when('/producto/:tipo_resultado/:entidad/:unidad_ejecutora/:programa/:subprograma/:proyecto/:actividad/:t',{
          	template: '<div load-on-demand="\'productoController\'" class="all_page"></div>'
          })
-         .when('/actividad/:tipo_resultado/:entidad/:programa/:subprograma',{
+         .when('/actividad/:tipo_resultado/:entidad/:unidad_ejecutora/:programa/:subprograma/:proyecto/:t',{
          	template: '<div load-on-demand="\'actividadController\'" class="all_page"></div>'
          })
-         .when('/subprograma/:tipo_resultado/:entidad/:unidad_ejecutora/:programa',{
+         .when('/proyecto/:tipo_resultado/:entidad/:unidad_ejecutora/:programa/:subprograma/:t',{
+         	template: '<div load-on-demand="\'proyectoController\'" class="all_page"></div>'
+         })
+         .when('/subprograma/:tipo_resultado/:entidad/:unidad_ejecutora/:programa/:t',{
          	template: '<div load-on-demand="\'subprogramaController\'" class="all_page"></div>'
          })
          .when('/programa/:tipo_resultado/:entidad/:unidad_ejecutora/:t',{
@@ -106,6 +109,11 @@ app.config(['$loadOnDemandProvider', function ($loadOnDemandProvider) {
 	    	   name: 'entidadController',
 	    	   script: '/app/components/entidad/entidad.controller.js',
 	    	   template: '/app/components/entidad/entidad.jsp'
+	       },
+	       {
+	    	   name: 'proyectoController',
+	    	   script: '/app/components/proyecto/proyecto.controller.js',
+	    	   template: '/app/components/proyecto/proyecto.jsp'
 	       }
 	   ];
 	   $loadOnDemandProvider.config(modules);
