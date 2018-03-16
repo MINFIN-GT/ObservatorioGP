@@ -18,7 +18,7 @@ public class ActividadDAO {
 		ArrayList<Double[]> ejercicio_data;
  	}
 	
-	public static ArrayList<Actividad> getActividades(Integer entidad, Integer programa, Integer subprograma, String tipo_resultaldo){
+	public static ArrayList<Actividad> getActividades(Integer entidad, Integer unidad_ejecutora, Integer programa, Integer subprograma, Integer proyecto, String tipo_resultado){
 		ArrayList<Actividad> ret = new ArrayList<Actividad>();
 		String query = "";
 		try{
@@ -74,15 +74,20 @@ public class ActividadDAO {
 						"AVG(IFNULL(fisico_ejecutado_m11, IF (fisico_asignado + ifnull (fisico_modificacion_m11,0) > 0, 0, NULL)) / IF (fisico_asignado + ifnull (fisico_modificacion_m11,0) > 0,fisico_asignado + ifnull (fisico_modificacion_m11,0),1)) p_fisico_m11,", 
 						"AVG(IFNULL(fisico_ejecutado_m12, IF (fisico_asignado + ifnull (fisico_modificacion_m12,0) > 0, 0, NULL)) / IF (fisico_asignado + ifnull (fisico_modificacion_m12,0) > 0,fisico_asignado + ifnull (fisico_modificacion_m12,0),1)) p_fisico_m12", 
 						"from mv_financiera_fisica ", 
-						"where entidad=? and programa=? and subprograma=? and tipo_resultado=?", 
-						"group by entidad, programa, subprograma, proyecto, actividad, obra, ejercicio");
+						"where entidad=? and programa=? and subprograma=?" + (tipo_resultado.length() > 0 ? " and tipo_resultado=?" : " and unidad_ejecutora=? and proyecto=?"), 
+						"group by entidad," + (tipo_resultado.length() == 0 ? "unidad_ejecutora," : "") + "programa, subprograma," + (tipo_resultado.length() == 0 ? "proyecto," : "") + "actividad, obra, ejercicio");
 				
 				PreparedStatement pstmt = CMemsql.getConnection().prepareStatement(query);
 				pstmt.setInt(1, entidad);
 				pstmt.setInt(2, programa);
 				pstmt.setInt(3, subprograma);
-				pstmt.setString(4, tipo_resultaldo);
-				
+				if(tipo_resultado.length() > 0)
+					pstmt.setString(4, tipo_resultado);
+				else{
+					pstmt.setInt(4, unidad_ejecutora);
+					pstmt.setInt(5, proyecto);
+				}
+					
 				ResultSet rs = CMemsql.runPreparedStatement(pstmt);
 				
 				int actividad_actual = -1;

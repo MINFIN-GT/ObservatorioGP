@@ -49,12 +49,21 @@ public class SActividad extends HttpServlet {
 		String response_text="";
 		
 		Integer entidad = Utils.String2Int(map.get("entidad"));
+		Integer unidad_ejecutora = Utils.String2Int(map.get("unidad_ejecutora"));
 		Integer programa = Utils.String2Int(map.get("programa"));
 		Integer subprograma = Utils.String2Int(map.get("subprograma"));
-		String tipo_resultado = Utils.String2Int(map.get("tipo_resultado")) == 1 ? "Estrátegico" : (Utils.String2Int(map.get("tipo_resultado")) == 2 ? "Institucional" : "Otros");
+		Integer proyecto = Utils.String2Int(map.get("proyecto"));
+
+		String tipo_resultado = "";
+		switch(Utils.String2Int(map.get("tipo_resultado"))){
+			case 0: tipo_resultado = ""; break;
+			case 1: tipo_resultado = "Estrátegico"; break;
+			case 2: tipo_resultado = "Institucional"; break;
+			case 3: tipo_resultado = "Otros"; break;
+		}
 		
 		if(accion.equals("getActividades")){
-			ArrayList<Actividad> lstactividades = ActividadDAO.getActividades(entidad, programa, subprograma, tipo_resultado);
+			ArrayList<Actividad> lstactividades = ActividadDAO.getActividades(entidad, unidad_ejecutora, programa, subprograma, proyecto, tipo_resultado);
 			String actividades = new GsonBuilder().serializeNulls().create().toJson(lstactividades);
 			response_text = String.join(" ", "\"actividades\": ", actividades);
 			response_text = String.join(" ","{\"success\": true,", response_text, "}");

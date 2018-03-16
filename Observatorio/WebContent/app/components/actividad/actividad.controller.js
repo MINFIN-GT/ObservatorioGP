@@ -11,10 +11,22 @@ angular.module('actividadController',[]).controller('actividadController', ['$ro
 	mi.linealColors = ['#8ecf4c', '#88b4df', '#d92a27'];
 	mi.tipoDatos = 0;
 	
-	$rootScope.page_title = 'Presupuesto por Resultados [Productos]';
+	mi.tipo_resultado = $routeParams.tipo_resultado;
+	mi.entidad = $routeParams.entidad;
+	mi.unidad_ejecutora = $routeParams.unidad_ejecutora;
+	mi.programa = $routeParams.programa;
+	mi.subprograma = $routeParams.subprograma;
+	mi.proyecto = $routeParams.proyecto;
+	
+	switch(mi.tipo_resultado){
+		case '0': $rootScope.page_title = 'Institucional [Actividad]'; break;
+		case '1': $rootScope.page_title = 'Resultados estratégicos [Actividad]'; break;
+		case '2': $rootScope.page_title = 'Resultados institucionales [Actividad]'; break;
+		case '3': $rootScope.page_title = 'Sin resultado [Actividad]'; break;
+	}
 	
 	mi.arregloSubtitulo = JSON.parse($window.localStorage.getItem("\"" + $routeParams.t + "\""));
-	mi.subtitulo = mi.arregloSubtitulo[0] + " / " + mi.arregloSubtitulo[1] + " / " + mi.arregloSubtitulo[2];
+	mi.subtitulo = mi.arregloSubtitulo[0] + (mi.tipo_resultado=='0' ? ' \\ ' + mi.arregloSubtitulo[1] : '' ) + ' \\ ' + mi.arregloSubtitulo[2] + ' \\ ' + mi.arregloSubtitulo[3] + (mi.tipo_resultado=='0' ? ' \\ ' + mi.arregloSubtitulo[4] : '' );
 
 	mi.tot_asignado_4 = 0;
 	mi.tot_vigente_4 = 0;
@@ -48,17 +60,14 @@ angular.module('actividadController',[]).controller('actividadController', ['$ro
 	
 	mi.meses = ['Ene-','Feb-','Mar-','Abr-','May-','Jun-','Jul-','Ago-','Sep-','Oct-','Nov-','Dic-'];
 	
-	mi.entidad = $routeParams.entidad;
-	mi.programa = $routeParams.programa;
-	mi.subprograma = $routeParams.subprograma,
-	mi.tipo_resultado = $routeParams.tipo_resultado;
-	
 	$http.post('/SActividad',{
 		accion: 'getActividades',
-		entidad: mi.entidad,		
+		entidad: mi.entidad,
+		unidad_ejecutora: mi.unidad_ejecutora,
 		programa: mi.programa,
 		subprograma: mi.subprograma,
 		tipo_resultado: mi.tipo_resultado,
+		proyecto: mi.proyecto,
 		t: new Date().getTime()
 	}).then(function(response){
 		if(response.data.actividades){
@@ -329,8 +338,8 @@ angular.module('actividadController',[]).controller('actividadController', ['$ro
 		};
 	
 		mi.irProducto = function(actividad_id, actividad_nombre){
-			mi.arregloSubtitulo[3] = actividad_nombre;
+			mi.arregloSubtitulo[5] = actividad_nombre;
 			$window.localStorage.setItem("\"" + $routeParams.t + "\"", JSON.stringify(mi.arregloSubtitulo));
-			window.location = "main.jsp#!/producto/" + mi.tipo_resultado + "/" + mi.entidad + "/" + mi.programa + "/" + mi.subprograma + "/" +actividad_id + "?t=" + $routeParams.t;
+			window.location = "main.jsp#!/producto/" + mi.tipo_resultado + "/" + mi.entidad + "/" + mi.unidad_ejecutora + "/" + mi.programa + "/" + mi.subprograma + "/" + mi.proyecto + "/" + actividad_id + "/" + $routeParams.t;
 		}
 }]);
