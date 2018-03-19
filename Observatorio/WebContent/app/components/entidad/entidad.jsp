@@ -40,6 +40,9 @@
 						<th style="text-align: center; min-width: 50px; max-width: 50px;">% EP</th>
 						<th style="text-align: center; min-width: 50px; max-width: 50px;">% EF</th>
 					</tr>
+					<tr>
+						<th colspan="1"><input st-search="nombre_entidad" class="form-control" placeholder="Entidad..." type="text"/></th>
+					</tr>
 				</thead>
 				<tbody>
 					<tr st-select-row="row" st-select-mode="single" ng-repeat="row in ctrl.displayedCollection" ng-click="ctrl.getGraficaIndividual(row);" ng-dblclick="ctrl.irPrograma(row.id, row.nombre_entidad)">

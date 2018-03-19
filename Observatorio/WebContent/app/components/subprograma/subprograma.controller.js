@@ -19,10 +19,10 @@ var app = angular.module('subprogramaController',[]).controller('subprogramaCont
 	mi.programa = $routeParams.programa;
 	
 	switch(mi.tipo_resultado){
-		case '0': $rootScope.page_title = 'Institucional [Programas]'; break;
-		case '1': $rootScope.page_title = 'Resultados estratégicos [Programas]'; break;
-		case '2': $rootScope.page_title = 'Resultados institucionales [Programas]'; break;
-		case '3': $rootScope.page_title = 'Sin resultado [Programas]'; break;
+		case '0': $rootScope.page_title = 'Institucional [Subprogramas]'; break;
+		case '1': $rootScope.page_title = 'Resultados estratégicos [Subprogramas]'; break;
+		case '2': $rootScope.page_title = 'Resultados institucionales [Subprogramas]'; break;
+		case '3': $rootScope.page_title = 'Sin resultado [Subprogramas]'; break;
 	}
 	
 	mi.arregloSubtitulo = JSON.parse($window.localStorage.getItem("\"" + $routeParams.t + "\""));

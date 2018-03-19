@@ -15,6 +15,9 @@
 						<th style="text-align: right; width: 10%">{{ctrl.anio - 1}}</th>
 						<th style="text-align: right; width: 10%">{{ctrl.anio}}</th>
 					</tr>
+					<tr>
+						<th colspan="1"><input st-search="nombre_producto" class="form-control" placeholder="Producto..." type="text"/></th>
+					</tr>	
 				</thead>
 				<tbody>
 					<tr st-select-row="row" st-select-mode="single" ng-repeat="row in ctrl.displayedCollection" ng-click="ctrl.getGraficaIndividual(row);">
