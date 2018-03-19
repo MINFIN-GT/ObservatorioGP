@@ -25,7 +25,7 @@ var app = angular.module('hospitalesController',[]).controller('hospitalesContro
 	mi.tot_vigente = 0;
 	mi.tot_ejecutado = 0;
 	
-	$http.post('/SHospitales',{
+	$http.post('/SSalud',{
 		accion: 'getHospitales',
 		t: new Date().getTime()
 	}).then(function(response){
@@ -33,7 +33,6 @@ var app = angular.module('hospitalesController',[]).controller('hospitalesContro
 			mi.datos = response.data.hospitales;
 			mi.rowCollection = [];
 			mi.rowCollection = mi.datos;
-			 
 			mi.displayedCollection = [].concat(mi.rowCollection);
 		}
 	})
