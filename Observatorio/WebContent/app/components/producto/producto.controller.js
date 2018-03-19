@@ -42,7 +42,7 @@ angular.module('productoController', []).controller('productoController',['$root
 			entidad: mi.entidad,
 			unidad_ejecutora: mi.unidad_ejecutora,
 			programa: mi.programa,
-			subPrograma: mi.subPrograma,
+			subprograma: mi.subprograma,
 			proyecto: mi.proyecto,
 			actividad: mi.actividad,
 			obra: mi.obra,

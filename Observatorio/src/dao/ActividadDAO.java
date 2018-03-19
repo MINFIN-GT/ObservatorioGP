@@ -89,7 +89,7 @@ public class ActividadDAO {
 					pstmt.setInt(5, proyecto);
 				}
 					
-				ResultSet rs = CMemsql.runPreparedStatement(pstmt);
+				ResultSet rs = pstmt.executeQuery();
 				
 				int actividad_actual = -1;
 				Actividad temp = null;

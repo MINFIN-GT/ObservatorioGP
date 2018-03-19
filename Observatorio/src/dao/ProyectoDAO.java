@@ -138,7 +138,7 @@ public class ProyectoDAO {
 				pstmt.setInt(3, unidad_ejecutora);
 				pstmt.setInt(4, subprograma);
 				
-				ResultSet rs = CMemsql.runPreparedStatement(pstmt);
+				ResultSet rs = pstmt.executeQuery();
 				
 				int proyecto_actual = -1;
 				Proyecto temp = null;

@@ -33,19 +33,19 @@ public class ProductoDAO {
 						"       mff.obra,", 
 						"       mff.actividad,", 
 						"       mff.codigo_meta,", 
-						"       ds.descripcion,", 
-						"       AVG(IFNULL (mff.fisico_ejecutado_m1,IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m1,0) > 0,0,NULL)) / IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m1,0) > 0,mff.fisico_asignado + ifnull (mff.fisico_modificacion_m1,0),1)) p_fisico_m1,", 
-						"       AVG(IFNULL (mff.fisico_ejecutado_m2,IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m2,0) > 0,0,NULL)) / IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m2,0) > 0,mff.fisico_asignado + ifnull (mff.fisico_modificacion_m2,0),1)) p_fisico_m2,", 
-						"       AVG(IFNULL (mff.fisico_ejecutado_m3,IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m3,0) > 0,0,NULL)) / IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m3,0) > 0,mff.fisico_asignado + ifnull (mff.fisico_modificacion_m3,0),1)) p_fisico_m3,", 
-						"       AVG(IFNULL (mff.fisico_ejecutado_m4,IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m4,0) > 0,0,NULL)) / IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m4,0) > 0,mff.fisico_asignado + ifnull (mff.fisico_modificacion_m4,0),1)) p_fisico_m4,", 
-						"       AVG(IFNULL (mff.fisico_ejecutado_m5,IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m5,0) > 0,0,NULL)) / IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m5,0) > 0,mff.fisico_asignado + ifnull (mff.fisico_modificacion_m5,0),1)) p_fisico_m5,", 
-						"       AVG(IFNULL (mff.fisico_ejecutado_m6,IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m6,0) > 0,0,NULL)) / IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m6,0) > 0,mff.fisico_asignado + ifnull (mff.fisico_modificacion_m6,0),1)) p_fisico_m6,", 
-						"       AVG(IFNULL (mff.fisico_ejecutado_m7,IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m7,0) > 0,0,NULL)) / IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m7,0) > 0,mff.fisico_asignado + ifnull (mff.fisico_modificacion_m7,0),1)) p_fisico_m7,", 
-						"       AVG(IFNULL (mff.fisico_ejecutado_m8,IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m8,0) > 0,0,NULL)) / IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m8,0) > 0,mff.fisico_asignado + ifnull (mff.fisico_modificacion_m8,0),1)) p_fisico_m8,", 
-						"       AVG(IFNULL (mff.fisico_ejecutado_m9,IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m9,0) > 0,0,NULL)) / IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m9,0) > 0,mff.fisico_asignado + ifnull (mff.fisico_modificacion_m9,0),1)) p_fisico_m9,", 
-						"       AVG(IFNULL (mff.fisico_ejecutado_m10,IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m10,0) > 0,0,NULL)) / IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m10,0) > 0,mff.fisico_asignado + ifnull (mff.fisico_modificacion_m10,0),1)) p_fisico_m10,", 
-						"       AVG(IFNULL (mff.fisico_ejecutado_m11,IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m11,0) > 0,0,NULL)) / IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m11,0) > 0,mff.fisico_asignado + ifnull (mff.fisico_modificacion_m11,0),1)) p_fisico_m11,", 
-						"       AVG(IFNULL (mff.fisico_ejecutado_m12,IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m12,0) > 0,0,NULL)) / IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m12,0) > 0,mff.fisico_asignado + ifnull (mff.fisico_modificacion_m12,0),1)) p_fisico_m12,",
+						"       m.descripcion,", 
+						"       AVG(IFNULL (IF((mff.fisico_asignado + ifnull (mff.fisico_modificacion_m1,0)) > 0,mff.fisico_ejecutado_m1,0),IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m1,0) <> 0,0,NULL)) / IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m1,0) <> 0,mff.fisico_asignado + ifnull (mff.fisico_modificacion_m1,0),1)) p_fisico_m1,", 
+						"       AVG(IFNULL (IF((mff.fisico_asignado + ifnull (mff.fisico_modificacion_m2,0)) > 0,mff.fisico_ejecutado_m2,0),IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m2,0) <> 0,0,NULL)) / IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m2,0) <> 0,mff.fisico_asignado + ifnull (mff.fisico_modificacion_m2,0),1)) p_fisico_m2,", 
+						"       AVG(IFNULL (IF((mff.fisico_asignado + ifnull (mff.fisico_modificacion_m3,0)) > 0,mff.fisico_ejecutado_m3,0),IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m3,0) <> 0,0,NULL)) / IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m3,0) <> 0,mff.fisico_asignado + ifnull (mff.fisico_modificacion_m3,0),1)) p_fisico_m3,", 
+						"       AVG(IFNULL (IF((mff.fisico_asignado + ifnull (mff.fisico_modificacion_m4,0)) > 0,mff.fisico_ejecutado_m4,0),IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m4,0) <> 0,0,NULL)) / IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m4,0) <> 0,mff.fisico_asignado + ifnull (mff.fisico_modificacion_m4,0),1)) p_fisico_m4,", 
+						"       AVG(IFNULL (IF((mff.fisico_asignado + ifnull (mff.fisico_modificacion_m5,0)) > 0,mff.fisico_ejecutado_m5,0),IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m5,0) <> 0,0,NULL)) / IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m5,0) <> 0,mff.fisico_asignado + ifnull (mff.fisico_modificacion_m5,0),1)) p_fisico_m5,", 
+						"       AVG(IFNULL (IF((mff.fisico_asignado + ifnull (mff.fisico_modificacion_m6,0)) > 0,mff.fisico_ejecutado_m6,0),IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m6,0) <> 0,0,NULL)) / IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m6,0) <> 0,mff.fisico_asignado + ifnull (mff.fisico_modificacion_m6,0),1)) p_fisico_m6,", 
+						"       AVG(IFNULL (IF((mff.fisico_asignado + ifnull (mff.fisico_modificacion_m7,0)) > 0,mff.fisico_ejecutado_m7,0),IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m7,0) <> 0,0,NULL)) / IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m7,0) <> 0,mff.fisico_asignado + ifnull (mff.fisico_modificacion_m7,0),1)) p_fisico_m7,", 
+						"       AVG(IFNULL (IF((mff.fisico_asignado + ifnull (mff.fisico_modificacion_m8,0)) > 0,mff.fisico_ejecutado_m8,0),IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m8,0) <> 0,0,NULL)) / IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m8,0) <> 0,mff.fisico_asignado + ifnull (mff.fisico_modificacion_m8,0),1)) p_fisico_m8,", 
+						"       AVG(IFNULL (IF((mff.fisico_asignado + ifnull (mff.fisico_modificacion_m9,0)) > 0,mff.fisico_ejecutado_m9,0),IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m9,0) <> 0,0,NULL)) / IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m9,0) <> 0,mff.fisico_asignado + ifnull (mff.fisico_modificacion_m9,0),1)) p_fisico_m9,", 
+						"       AVG(IFNULL (IF((mff.fisico_asignado + ifnull (mff.fisico_modificacion_m10,0)) > 0,mff.fisico_ejecutado_m10,0),IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m10,0) <> 0,0,NULL)) / IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m10,0) <> 0,mff.fisico_asignado + ifnull (mff.fisico_modificacion_m10,0),1)) p_fisico_m10,", 
+						"       AVG(IFNULL (IF((mff.fisico_asignado + ifnull (mff.fisico_modificacion_m11,0)) > 0,mff.fisico_ejecutado_m11,0),IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m11,0) <> 0,0,NULL)) / IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m11,0) <> 0,mff.fisico_asignado + ifnull (mff.fisico_modificacion_m11,0),1)) p_fisico_m11,", 
+						"       AVG(IFNULL (IF((mff.fisico_asignado + ifnull (mff.fisico_modificacion_m12,0)) > 0,mff.fisico_ejecutado_m12,0),IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m12,0) <> 0,0,NULL)) / IF (mff.fisico_asignado + ifnull (mff.fisico_modificacion_m12,0) <> 0,mff.fisico_asignado + ifnull (mff.fisico_modificacion_m12,0),1)) p_fisico_m12,",
 						"       AVG(mff.fisico_asignado) fisico_asignado,", 
 						"       AVG(mff.fisico_ejecutado_m1) fisico_ejecutado_m1,", 
 						"       AVG(mff.fisico_ejecutado_m2) fisico_ejecutado_m2,", 
@@ -71,41 +71,27 @@ public class ProductoDAO {
 						"       AVG(ifnull (mff.fisico_modificacion_m10,0)) fisico_modificacion_m10,", 
 						"       AVG(ifnull (mff.fisico_modificacion_m11,0)) fisico_modificacion_m11,", 
 						"       AVG(ifnull (mff.fisico_modificacion_m12,0)) fisico_modificacion_m12",
-						"FROM mv_financiera_fisica mff,", 
-						"(SELECT codigo_meta,", 
-						"             descripcion", 
-						"      FROM sf_meta", 
-						"      WHERE entidad = ?", 
-						"      AND   programa = ?", 
-						"      AND   subprograma = ?", 
-						"      AND   actividad = ?",
-						"      AND  obra = ? ",
-						(tipo_resultado.length() == 0 ? "AND unidad_ejecutora = ? AND proyecto = ? " : ""),
-						"      AND   (ejercicio BETWEEN YEAR(CURRENT_TIMESTAMP) -4 AND YEAR(CURRENT_TIMESTAMP))", 
-						"      GROUP BY codigo_meta", 
-						"      HAVING ejercicio = MAX(ejercicio)", 
-						"      ORDER BY ejercicio) ds", 
+						"FROM mv_financiera_fisica mff, sf_meta m", 
 						"WHERE mff.entidad = ?", 
 						"AND   mff.programa = ?", 
 						"AND   mff.subprograma = ?",
-						"AND   actividad = ?",
-						"AND  obra=?",
+						"AND   mff.actividad = ?",
+						"AND  mff.obra=?",
+						"AND m.ejercicio = mff.ejercicio ",
+						"AND m.entidad = mff.entidad",
+						"AND m.unidad_ejecutora = mff.unidad_ejecutora ",
+						"AND m.programa = mff.programa",
+						"AND m.subprograma = mff.subprograma",
+						"AND m.proyecto = mff.proyecto ",
+						"AND m.actividad = mff.actividad",
+						"AND m.obra = mff.obra",
 						tipo_resultado.length() > 0 ? "AND   mff.tipo_resultado = ?" : "AND  mff.unidad_ejecutora = ? AND mff.proyecto = ?", 
-						"AND   ds.codigo_meta=mff.codigo_meta", 
-						"GROUP BY mff.entidad," + (tipo_resultado.length() == 0 ? "mff.unidad_ejecutora,": "") + "mff.programa, mff.subprograma," + (tipo_resultado.length() == 0 ? "mff.proyecto," : "") + "mff.actividad, mff.obra, mff.codigo_meta, mff.ejercicio");
+						"AND   m.codigo_meta=mff.codigo_meta", 
+						"GROUP BY mff.entidad," + (tipo_resultado.length() == 0 ? "mff.unidad_ejecutora,": "") + "mff.programa, mff.subprograma, mff.proyecto,mff.actividad, mff.obra, mff.codigo_meta,m.descripcion, mff.ejercicio");
 				
 				PreparedStatement pstmt = CMemsql.getConnection().prepareStatement(query);
 				
 				int a=1;
-				pstmt.setInt(a++, entidad);
-				pstmt.setInt(a++, programa);
-				pstmt.setInt(a++, subprograma);
-				pstmt.setInt(a++, actividad);
-				pstmt.setInt(a++, obra);
-				if(tipo_resultado.length() == 0){
-					pstmt.setInt(a++, unidad_ejecutora);	
-					pstmt.setInt(a++, proyecto);
-				}
 
 				pstmt.setInt(a++, entidad);
 				pstmt.setInt(a++, programa);
@@ -120,7 +106,7 @@ public class ProductoDAO {
 					pstmt.setInt(a++, proyecto);
 				}
 				
-				ResultSet rs = CMemsql.runPreparedStatement(pstmt);				
+				ResultSet rs = pstmt.executeQuery();				
 
 				int producto_actual = -1;
 				Producto temp = null;
