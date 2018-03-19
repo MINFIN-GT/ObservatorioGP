@@ -18,14 +18,14 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import dao.HospitalesDAO;
-import dao.HospitalesDAO.Hospital;
+import dao.SaludDAO;
+import dao.SaludDAO.Hospital;
 
-@WebServlet("/SHospitales")
-public class SHospitales extends HttpServlet {
+@WebServlet("/SSalud")
+public class SSalud extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public SHospitales() {
+    public SSalud() {
         super();
     }
 
@@ -48,7 +48,7 @@ public class SHospitales extends HttpServlet {
 		String response_text="";
 		
 		if(accion.equals("getHospitales")){
-			ArrayList<Hospital> lsthospitales = HospitalesDAO.getInfoHospitales();
+			ArrayList<Hospital> lsthospitales = SaludDAO.getInfoHospitales();
 			String hospitales = new GsonBuilder().serializeNulls().create().toJson(lsthospitales);
 			response_text = String.join(" ", "\"hospitales\": ", hospitales);
 			response_text = String.join(" ","{\"success\": true,", response_text, "}");
