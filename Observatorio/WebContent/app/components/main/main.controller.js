@@ -43,6 +43,9 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
          .when('/entidad/:tipo_resultado',{
          	template: '<div load-on-demand="\'entidadController\'" class="all_page"></div>'
          })
+         .when('/hospitales',{
+         	template: '<div load-on-demand="\'hospitalesController\'" class="all_page"></div>'
+         })
          .when("/:redireccion?",{
             	controller:"MainController"
             })
@@ -114,6 +117,11 @@ app.config(['$loadOnDemandProvider', function ($loadOnDemandProvider) {
 	    	   name: 'proyectoController',
 	    	   script: '/app/components/proyecto/proyecto.controller.js',
 	    	   template: '/app/components/proyecto/proyecto.jsp'
+	       },
+	       {
+	    	   name: 'hospitalesController',
+	    	   script: '/app/components/hospitales/hospitales.controller.js',
+	    	   template: '/app/components/hospitales/hospitales.jsp'
 	       }
 	   ];
 	   $loadOnDemandProvider.config(modules);
