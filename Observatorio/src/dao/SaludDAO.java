@@ -49,11 +49,6 @@ public class SaludDAO {
 						depto.data_ejercicio = new ArrayList<Double[]>();
 						for(int i=0; i<5; i++)
 							depto.data_ejercicio.add(new Double[3]);
-						for(int i=0; i<5; i++){
-							depto.data_ejercicio.get(i)[0] = d_asignado[i];
-							depto.data_ejercicio.get(i)[1] = d_vigente[i];
-							depto.data_ejercicio.get(i)[2] = d_ejecutado[i];
-						}
 						ret.add(depto);
 						for(int i=0; i<5; i++){
 							d_asignado[i]=0.0d;
@@ -66,37 +61,37 @@ public class SaludDAO {
 						if(temp!=null){
 							ret.add(temp);
 							if(ret.size()>1){
-								int pos_hospital_anterior = (ret.get(ret.size()-2).treeLevel>1) ?  ret.size()-2 : (ret.size()>3 ? ret.size()-3 : 0);
-								while(ret.get(pos_hospital_anterior).codigo==hospital_actual || ret.get(pos_hospital_anterior).treeLevel>1)
-									pos_hospital_anterior--;
-								pos_hospital_anterior += (ret.get(pos_hospital_anterior).treeLevel>0) ? 1 : 2;
-								for(int i=0; i<5; i++){
-									for(int j=0; j<3; j++){
-										ret.get(pos_hospital_anterior).data_ejercicio.get(i)[j] = ret.get(pos_hospital_anterior+1).data_ejercicio.get(i)[j];
-										ret.get(pos_hospital_anterior).data_ejercicio.get(i)[j] += ret.get(pos_hospital_anterior+2).data_ejercicio.get(i)[j];
-										ret.get(pos_hospital_anterior).data_ejercicio.get(i)[j] += ret.get(pos_hospital_anterior+3).data_ejercicio.get(i)[j];
+								int pos_hospital_anterior = (ret.get(ret.size()-1).treeLevel==0) ? ret.size() - 12 : ret.size() - 11;
+								if(pos_hospital_anterior>0){
+									for(int i=0; i<5; i++){
+										for(int j=0; j<3; j++){
+											ret.get(pos_hospital_anterior+1).data_ejercicio.get(i)[j] = ret.get(pos_hospital_anterior+1).data_ejercicio.get(i)[j];
+											ret.get(pos_hospital_anterior+1).data_ejercicio.get(i)[j] += ret.get(pos_hospital_anterior+2).data_ejercicio.get(i)[j];
+											ret.get(pos_hospital_anterior+1).data_ejercicio.get(i)[j] += ret.get(pos_hospital_anterior+3).data_ejercicio.get(i)[j];
+										}
 									}
-								}
-								for(int i=0; i<10; i++){
-									for(int j=0; j<5; j++){
-										u_asignado[j]+=ret.get(pos_hospital_anterior+i).data_ejercicio.get(j)[0];
-										u_vigente[j]+=ret.get(pos_hospital_anterior+i).data_ejercicio.get(j)[1];
-										u_ejecutado[j]+=ret.get(pos_hospital_anterior+i).data_ejercicio.get(j)[2];
+									for(int i=1; i<=10; i++){
+										for(int j=0; j<5; j++){
+											u_asignado[j]+=ret.get(pos_hospital_anterior+i).data_ejercicio.get(j)[0];
+											u_vigente[j]+=ret.get(pos_hospital_anterior+i).data_ejercicio.get(j)[1];
+											u_ejecutado[j]+=ret.get(pos_hospital_anterior+i).data_ejercicio.get(j)[2];
+										}
+										i=(i==1) ? 4 : i;
 									}
-									i=(i==1) ? 4 : i;
-								}
-								for(int i=0; i<5; i++){
-									ret.get(pos_hospital_anterior).data_ejercicio.get(i)[0] = u_asignado[i];
-									ret.get(pos_hospital_anterior).data_ejercicio.get(i)[1] = u_vigente[i];
-									ret.get(pos_hospital_anterior).data_ejercicio.get(i)[2] = u_ejecutado[i];
-									d_asignado[i] += u_asignado[i];
-									d_vigente[i] += u_vigente[i];
-									d_ejecutado[i] += u_ejecutado[i];
- 								}
-								for(int i=0; i<5; i++){
-									u_asignado[i]=0.0d;
-									u_vigente[i]=0.0d;
-									u_ejecutado[i]=0.0d;
+									for(int i=0; i<5; i++){
+										ret.get(pos_hospital_anterior).data_ejercicio.get(i)[0] = u_asignado[i];
+										ret.get(pos_hospital_anterior).data_ejercicio.get(i)[1] = u_vigente[i];
+										ret.get(pos_hospital_anterior).data_ejercicio.get(i)[2] = u_ejecutado[i];
+										d_asignado[i] += u_asignado[i];
+										d_vigente[i] += u_vigente[i];
+										d_ejecutado[i] += u_ejecutado[i];
+										ret.get(pos_hospital_anterior).ejercicios[i] = ret.get(pos_hospital_anterior+1).ejercicios[i];
+	 								}
+									for(int i=0; i<5; i++){
+										u_asignado[i]=0.0d;
+										u_vigente[i]=0.0d;
+										u_ejecutado[i]=0.0d;
+									}
 								}
 							}
 						}
