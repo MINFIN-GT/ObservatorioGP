@@ -12,7 +12,7 @@
 	    <div align="center" class="row" style="width: 90%; margin: 0 auto; font-size: 11px;">
 	    	<h6 align="left">{{ctrl.subtitulo}}</h6>
 			<br>
-	    	<table st-table="ctrl.displayedCollection" st-safe-src="ctrl.rowCollection" class="table table-striped cuerpotabla" st-tree-table st-tree-init-open=true>
+	    	<table st-table="ctrl.displayedCollection" st-safe-src="ctrl.rowCollection" st-tree-table st-tree-init-open=true st-selected-row="selectedRow" class="table table-striped cuerpotabla">
 				<thead>
 					<tr>
 						<th style="width: 50%"></th>
@@ -50,52 +50,49 @@
 							<st-tree-caret></st-tree-caret>{{row.nombre}}
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.ejercicio_data[0][0] | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{row.data_ejercicio[0][0] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.ejercicio_data[0][24] | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{row.data_ejercicio[0][1] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.ejercicio_data[0][12] | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{row.data_ejercicio[0][2] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{(row.ejercicio_data[0][36])*100  | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{row.data_ejercicio[1][0] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.ejercicio_data[1][0] | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{row.data_ejercicio[1][1] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.ejercicio_data[1][24] | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{row.data_ejercicio[1][2] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.ejercicio_data[1][12] | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{row.data_ejercicio[2][0] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.ejercicio_data[2][0] | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{row.data_ejercicio[2][1] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.ejercicio_data[2][24] | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{row.data_ejercicio[2][2] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.ejercicio_data[2][12] | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{row.data_ejercicio[3][0] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.ejercicio_data[3][0] | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{row.data_ejercicio[3][1] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.ejercicio_data[3][24] | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{row.data_ejercicio[3][2] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.ejercicio_data[3][12] | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{row.data_ejercicio[4][0] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.ejercicio_data[4][0] | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{row.data_ejercicio[4][1] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{row.ejercicio_data[4][24] | formatoMillones : ctrl.decimales}}</div>
-						</td>
-						<td align="right">
-							<div style="white-space: nowrap;">{{row.ejercicio_data[4][12] | formatoMillones : ctrl.decimales}}</div>
+							<div style="white-space: nowrap;">{{row.data_ejercicio[4][2] | formatoMillones : ctrl.decimales}}</div>
 						</td>						
 					</tr>
 				</tbody>

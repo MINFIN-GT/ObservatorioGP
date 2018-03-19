@@ -3,13 +3,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<link href="/assets/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
 <link href="/assets/css/angular-chart.min.css" rel="stylesheet" type="text/css"/>
 <link href="/assets/css/bootstrap.adds.css" rel="stylesheet" type="text/css"/>
 <link href="/assets/css/angular-bootstrap-toggle.min.css" rel="stylesheet" type="text/css"/>
 <link href="/assets/css/main.css" rel="stylesheet" type="text/css"/>
 <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:400,600,300,800,700,400italic|PT+Serif:400,400italic" />
-
-
+<link href="/assets/css/treestyle.css" rel="stylesheet" type="text/css"/>
 
 <script type="text/javascript" src="/assets/libs/angular/angular.js"></script>
 <script type="text/javascript" src="/assets/libs/Chart.min.js"></script>
@@ -23,7 +23,7 @@
 <script type="text/javascript" src="/assets/libs/angular/angular-sanitize.min.js"></script>
 <script type="text/javascript" src="/assets/libs/ui-bootstrap-tpls-2.5.0.min.js"></script>
 <script type="text/javascript" src="/assets/libs/angular/angular-bootstrap-toggle.min.js"></script>
-<script type="text/javascript" src="/assets/libs/smart-table.min.js"></script>
+<script type="text/javascript" src="/assets/libs/smart-table-tree.js"></script>
 <script type="text/javascript" src="/assets/libs/utilidades.js"></script>
 <script type="text/javascript" src="/assets/libs/numeral.es.js"></script>
 <script type="text/javascript" src="/assets/libs/numeral.min.js"></script>
@@ -32,7 +32,6 @@
 <script type="text/javascript" src="/assets/libs/maps/angular-simple-logger.min.js"></script> 
 <script type="text/javascript" src="/assets/libs/maps/lodash.js"></script> 
 <script type="text/javascript" src="/assets/libs/maps/angular-google-maps.min.js"></script> 
-
 
 <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPq-t4dJ1GV1kdtXoVZfG7PtfEAHrhr00&callback=initMap" type="text/javascript"></script> -->
 <script>

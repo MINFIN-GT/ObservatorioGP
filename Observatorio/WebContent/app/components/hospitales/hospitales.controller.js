@@ -31,6 +31,13 @@ var app = angular.module('hospitalesController',[]).controller('hospitalesContro
 	}).then(function(response){
 		if(response.data.success){
 			mi.datos = response.data.hospitales;
+			
+			for(var i=0; i< mi.datos.length; i++){
+				mi.datos[i].treeLevel = mi.datos[i].treeLevel == 0 ? 3 : mi.datos[i].treeLevel == 1 ? 2 : mi.datos[i].treeLevel == 2 ? 1 : mi.datos[i].treeLevel == 3 ? 0 : 0;
+//				if(mi.datos[i].codigo==7)
+//					mi.datos[i].treeLevel=0;
+			}
+			
 			mi.rowCollection = [];
 			mi.rowCollection = mi.datos;
 			mi.displayedCollection = [].concat(mi.rowCollection);

@@ -1,0 +1,27 @@
+.st-tree-spacer {
+  display: inline-block;
+}
+
+.st-tree-spacer-level-3 {
+  width: 5px;
+}
+
+.st-tree-spacer-level-2 {
+  width: 15px;
+}
+
+.st-tree-spacer-level-1 {
+  width: 25px;
+}
+
+.st-tree-spacer-level-0 {
+  width: 35px;
+}
+
+.st-tree-row-0{
+  background: #cde6f7 !important;
+}
+
+.st-selected {
+  background: #999 !important;
+}
