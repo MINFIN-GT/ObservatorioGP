@@ -54,6 +54,14 @@ var app = angular.module('hospitalesController',[]).controller('hospitalesContro
 					mi.tot_vigente += mi.datos[i].data_ejercicio[4][1];
 					mi.tot_ejecutado += mi.datos[i].data_ejercicio[4][2];
 				}
+				if(mi.datos[i].treeLevel===3 || mi.datos[i].treeLevel===2)
+					mi.datos[i].showToggle = true;
+				if(mi.datos[i].codigo===1 && mi.datos[i].treeLevel===1)
+					mi.datos[i].showToggle = true;
+				if(mi.datos[i].treeLevel===0)
+					mi.datos[i].styleToggle = { 'padding-left': '45px'};
+				else if(mi.datos[i].treeLevel===1 && (mi.datos[i].codigo >= 2 && mi.datos[i].codigo <= 7))
+					mi.datos[i].styleToggle = { 'padding-left': '35px'};
 			}
 			
 			mi.rowCollection = [];
