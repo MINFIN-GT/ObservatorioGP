@@ -714,3 +714,6 @@ body {
 
 		.three-fourth { width: 100%; }
 			
+/*---------smart-tree-table row---------*/
+st-tree-caret,i.fa-caret-right:before {font-size: 15px; content: "+"; font-weight: 600;}
+st-tree-caret,i.fa-caret-down:before {font-size: 15px; content:"-"; font-weight: 600;}

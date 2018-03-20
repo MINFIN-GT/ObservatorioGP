@@ -59,7 +59,7 @@ var app = angular.module('centrosController', []).controller('centrosController'
 				if(mi.datos[i].codigo===1 && mi.datos[i].treeLevel===1)
 					mi.datos[i].showToggle = true;
 				if(mi.datos[i].treeLevel===0)
-					mi.datos[i].styleToggle = { 'padding-left': '45px'};
+					mi.datos[i].styleToggle = { 'padding-left': '55px'};
 				else if(mi.datos[i].treeLevel===1 && (mi.datos[i].codigo >= 2 && mi.datos[i].codigo <= 7))
 					mi.datos[i].styleToggle = { 'padding-left': '35px'};
 			}
