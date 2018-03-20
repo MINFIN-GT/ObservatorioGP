@@ -47,7 +47,7 @@
 				<tbody>
 					<tr st-tree-row st-select-row="row" st-select-mode="single" ng-repeat="row in ctrl.displayedCollection" ng-click="" ng-dblclick="">
 						<td align="left" style="white-space: nowrap; width: 250px;" class="sticky-col">
-							<st-tree-caret></st-tree-caret>{{row.nombre}}
+							<div style="float: left; padding-right: 5px;"><st-tree-caret></st-tree-caret></div>{{row.nombre}}
 						</td>
 						<td align="right">
 							<div style="white-space: nowrap;">{{row.data_ejercicio[0][0] | formatoMillones : ctrl.decimales}}</div>
