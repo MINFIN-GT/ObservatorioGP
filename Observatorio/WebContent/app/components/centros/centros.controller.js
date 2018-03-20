@@ -1,4 +1,4 @@
-var app = angular.module('hospitalesController',[]).controller('hospitalesController',['$rootScope','$scope','$http','$routeParams',  
+var app = angular.module('centrosController', []).controller('centrosController',['$rootScope','$scope','$http','$routeParams', 
 	function($rootScope,$scope,$http,$routeParams){
 	var mi = this;
 	var fecha = new Date();
@@ -26,11 +26,11 @@ var app = angular.module('hospitalesController',[]).controller('hospitalesContro
 	mi.tot_ejecutado = 0;
 	
 	$http.post('/SSalud',{
-		accion: 'getHospitales',
+		accion: 'getCentros',
 		t: new Date().getTime()
 	}).then(function(response){
 		if(response.data.success){
-			mi.datos = response.data.hospitales;
+			mi.datos = response.data.centros;
 			
 			for(var i=0; i<mi.datos.length; i++){
 				if(mi.datos[i].treeLevel==3){
@@ -59,7 +59,7 @@ var app = angular.module('hospitalesController',[]).controller('hospitalesContro
 				if(mi.datos[i].codigo===1 && mi.datos[i].treeLevel===1)
 					mi.datos[i].showToggle = true;
 				if(mi.datos[i].treeLevel===0)
-					mi.datos[i].styleToggle = { 'padding-left': '45px'};
+					mi.datos[i].styleToggle = { 'padding-left': '55px'};
 				else if(mi.datos[i].treeLevel===1 && (mi.datos[i].codigo >= 2 && mi.datos[i].codigo <= 7))
 					mi.datos[i].styleToggle = { 'padding-left': '35px'};
 			}
@@ -69,5 +69,4 @@ var app = angular.module('hospitalesController',[]).controller('hospitalesContro
 			mi.displayedCollection = [].concat(mi.rowCollection);
 		}
 	})
-}]);
-
+}])
