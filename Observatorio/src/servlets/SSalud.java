@@ -19,6 +19,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import dao.SaludDAO;
+import dao.SaludDAO.Centros;
 import dao.SaludDAO.Hospital;
 
 @WebServlet("/SSalud")
@@ -51,6 +52,11 @@ public class SSalud extends HttpServlet {
 			ArrayList<Hospital> lsthospitales = SaludDAO.getInfoHospitales();
 			String hospitales = new GsonBuilder().serializeNulls().create().toJson(lsthospitales);
 			response_text = String.join(" ", "\"hospitales\": ", hospitales);
+			response_text = String.join(" ","{\"success\": true,", response_text, "}");
+		}else if(accion.equals("getCentros")){
+			ArrayList<Centros> lstcentros = SaludDAO.getInfoCentros();
+			String centros = new GsonBuilder().serializeNulls().create().toJson(lstcentros);
+			response_text = String.join(" ", "\"centros\": ", centros);
 			response_text = String.join(" ","{\"success\": true,", response_text, "}");
 		}
 		

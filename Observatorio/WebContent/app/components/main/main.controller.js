@@ -46,6 +46,9 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
          .when('/hospitales',{
          	template: '<div load-on-demand="\'hospitalesController\'" class="all_page"></div>'
          })
+         .when('/centros',{
+         	template: '<div load-on-demand="\'centrosController\'" class="all_page"></div>'
+         })
          .when("/:redireccion?",{
             	controller:"MainController"
             })
@@ -122,6 +125,11 @@ app.config(['$loadOnDemandProvider', function ($loadOnDemandProvider) {
 	    	   name: 'hospitalesController',
 	    	   script: '/app/components/hospitales/hospitales.controller.js',
 	    	   template: '/app/components/hospitales/hospitales.jsp'
+	       },
+	       {
+	    	   name: 'centrosController',
+	    	   script: '/app/components/centros/centros.controller.js',
+	    	   template: '/app/components/centros/centros.jsp'
 	       }
 	   ];
 	   $loadOnDemandProvider.config(modules);

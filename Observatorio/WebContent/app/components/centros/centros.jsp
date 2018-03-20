@@ -8,7 +8,7 @@
 		    font-size: 13px;
 		}
     </style>
-    <div ng-controller="hospitalesController as ctrl">
+    <div ng-controller="centrosController as ctrl">
 	    <div align="center" class="row" style="width: 90%; margin: 0 auto; font-size: 11px;">
 	    	<h6 align="left">{{ctrl.subtitulo}}</h6>
 			<br>
