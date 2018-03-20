@@ -8,7 +8,7 @@
 		    font-size: 13px;
 		}
     </style>
-    <div ng-controller="centrosController as ctrl">
+    <div ng-controller="puestosController as ctrl">
 	    <div align="center" class="row" style="width: 90%; margin: 0 auto; font-size: 11px;">
 	    	<h6 align="left">{{ctrl.subtitulo}}</h6>
 			<br>
@@ -41,7 +41,7 @@
 						<th style="text-align: center; min-width: 50px;">Ejecutado</th>
 					</tr>
 					<tr>
-						<th colspan="1"><input st-search="nombre" class="form-control" placeholder="Centro..." type="text"/></th>
+						<th colspan="1"><input st-search="nombre" class="form-control" placeholder="Puesto..." type="text"/></th>
 					</tr>					
 				</thead>
 				<tbody>
