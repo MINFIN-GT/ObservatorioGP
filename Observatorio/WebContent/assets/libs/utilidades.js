@@ -34,3 +34,12 @@ app.filter('formatoMillones', function() {
     	}
     };
 });
+
+app.filter('formatoPorcentaje', function() {
+    return function(numero) {
+    	if(numero != null){
+	        var res = toFixed(numero,2);
+	        return res.toString()+' %';
+    	}
+    };
+});
