@@ -38,10 +38,6 @@ body {
     content: '\25BC';
 }
 
-.st-selected {
-    background: #ccffff !important;
-}
-
 .smart_table_withclick{
 	cursor: pointer;
 }

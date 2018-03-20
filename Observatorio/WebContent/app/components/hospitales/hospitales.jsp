@@ -43,8 +43,8 @@
 				</thead>
 				<tbody>
 					<tr st-tree-row st-select-row="row" st-select-mode="single" ng-repeat="row in ctrl.displayedCollection" ng-click="" ng-dblclick="">
-						<td align="left" style="white-space: nowrap; width: 250px;" class="sticky-col">
-							<div style="float: left; padding-right: 5px;"><st-tree-caret></st-tree-caret></div>{{row.nombre}}
+						<td align="left" style="white-space: nowrap; width: 250px;" ng-style="{{row.styleToggle}}" class="sticky-col">
+							<div ng-show="row.showToggle" style="float: left; padding-right: 5px;"><st-tree-caret></st-tree-caret></div>{{row.nombre}}
 						</td>
 						<td align="right">
 							<div style="white-space: nowrap;">{{ row.data_ejercicio[0][2] | formatoMillones : ctrl.decimales}}</div>
