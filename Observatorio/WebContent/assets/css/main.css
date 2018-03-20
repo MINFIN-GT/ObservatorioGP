@@ -117,17 +117,21 @@ body {
 	font-size: 11px;
 }
 
+.total_budget{
+	text-align: center;
+	font-size: 50px;
+	font-weight: bold;
+}
+
 .cuerpotabla{
 			overflow-y: hidden;
 			overflow-x: scroll;
 		    display: inline-block;
 		    font-size: 11px;
 		}
-		
-.total_budget{
-	text-align: center;
-	font-size: 50px;
-	font-weight: bold;
+
+.sticky-col{
+	
 }
 
 .chart-legend, .line-legend{

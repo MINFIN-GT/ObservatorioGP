@@ -39,17 +39,27 @@ public class SaludDAO {
 				Double[] u_ejecutado= new Double[]{0.0d, 0.0d,0.0d, 0.0d,0.0d};
 				Double[] d_ejecutado= new Double[]{0.0d, 0.0d,0.0d, 0.0d,0.0d};
 				Hospital temp=null;
+				Hospital depto=null;
 				while(rs.next()){
 					if(rs.getInt("codigo_departamento")!=departamento_actual){
-						Hospital depto = (new SaludDAO()).new Hospital();
-						depto.treeLevel = 0;
+						if(ret.size()>1){
+							int pos_depto_anterior=ret.size()-1;
+							while(ret.get(pos_depto_anterior).treeLevel<3 && pos_depto_anterior>0)
+								pos_depto_anterior--;
+							for(int i=0; i<5; i++){
+								ret.get(pos_depto_anterior).data_ejercicio.get(i)[0] = d_asignado[i];
+								ret.get(pos_depto_anterior).data_ejercicio.get(i)[1] = d_vigente[i];
+								ret.get(pos_depto_anterior).data_ejercicio.get(i)[2] = d_ejecutado[i];
+							}
+						}
+						depto = (new SaludDAO()).new Hospital();
+						depto.treeLevel = 3;
 						depto.codigo = rs.getInt("codigo_departamento");
 						depto.nombre = rs.getString("nombre_departamento");
 						depto.ejercicios = new Integer[5];
 						depto.data_ejercicio = new ArrayList<Double[]>();
 						for(int i=0; i<5; i++)
 							depto.data_ejercicio.add(new Double[3]);
-						ret.add(depto);
 						for(int i=0; i<5; i++){
 							d_asignado[i]=0.0d;
 							d_vigente[i]=0.0d;
@@ -60,31 +70,24 @@ public class SaludDAO {
 					if(rs.getInt("unidad_ejecutora")!=hospital_actual){
 						if(temp!=null){
 							ret.add(temp);
+							if(depto!=null){
+								ret.add(depto);
+								depto=null;
+							}
 							if(ret.size()>1){
-								int pos_hospital_anterior = (ret.get(ret.size()-1).treeLevel==0) ? ret.size() - 12 : ret.size() - 11;
+								int pos_hospital_anterior = (ret.get(ret.size()-1).treeLevel==3) ? ret.size() - 12 : ret.size() - 11;
 								if(pos_hospital_anterior>0){
 									for(int i=0; i<5; i++){
 										for(int j=0; j<3; j++){
-											ret.get(pos_hospital_anterior+1).data_ejercicio.get(i)[j] = ret.get(pos_hospital_anterior+1).data_ejercicio.get(i)[j];
-											ret.get(pos_hospital_anterior+1).data_ejercicio.get(i)[j] += ret.get(pos_hospital_anterior+2).data_ejercicio.get(i)[j];
+											ret.get(pos_hospital_anterior+1).data_ejercicio.get(i)[j] = ret.get(pos_hospital_anterior+2).data_ejercicio.get(i)[j];
 											ret.get(pos_hospital_anterior+1).data_ejercicio.get(i)[j] += ret.get(pos_hospital_anterior+3).data_ejercicio.get(i)[j];
+											ret.get(pos_hospital_anterior+1).data_ejercicio.get(i)[j] += ret.get(pos_hospital_anterior+4).data_ejercicio.get(i)[j];
 										}
-									}
-									for(int i=1; i<=10; i++){
-										for(int j=0; j<5; j++){
-											u_asignado[j]+=ret.get(pos_hospital_anterior+i).data_ejercicio.get(j)[0];
-											u_vigente[j]+=ret.get(pos_hospital_anterior+i).data_ejercicio.get(j)[1];
-											u_ejecutado[j]+=ret.get(pos_hospital_anterior+i).data_ejercicio.get(j)[2];
-										}
-										i=(i==1) ? 4 : i;
 									}
 									for(int i=0; i<5; i++){
 										ret.get(pos_hospital_anterior).data_ejercicio.get(i)[0] = u_asignado[i];
 										ret.get(pos_hospital_anterior).data_ejercicio.get(i)[1] = u_vigente[i];
 										ret.get(pos_hospital_anterior).data_ejercicio.get(i)[2] = u_ejecutado[i];
-										d_asignado[i] += u_asignado[i];
-										d_vigente[i] += u_vigente[i];
-										d_ejecutado[i] += u_ejecutado[i];
 										ret.get(pos_hospital_anterior).ejercicios[i] = ret.get(pos_hospital_anterior+1).ejercicios[i];
 	 								}
 									for(int i=0; i<5; i++){
@@ -95,10 +98,14 @@ public class SaludDAO {
 								}
 							}
 						}
+						else{
+							ret.add(depto);
+							depto = null;
+						}
 						temp = (new SaludDAO()).new Hospital();
 						temp.codigo = rs.getInt("unidad_ejecutora");
 						temp.nombre = rs.getString("nombre");
-						temp.treeLevel = 1;
+						temp.treeLevel = 2;
 						temp.ejercicios = new Integer[5];
 						temp.data_ejercicio = new ArrayList<Double[]>();
 						for(int i=0; i<5; i++)
@@ -111,7 +118,7 @@ public class SaludDAO {
 						temp = (new SaludDAO()).new Hospital();
 						temp.codigo = rs.getInt("rubro");
 						temp.nombre = rs.getString("nombre_rubro");
-						temp.treeLevel = rs.getInt("nivel") + 1;
+						temp.treeLevel = (temp.codigo > 7 ) ? 0 : 1;
 						temp.ejercicios = new Integer[5];
 						temp.data_ejercicio = new ArrayList<Double[]>();
 						for(int i=0; i<5; i++)
@@ -122,11 +129,48 @@ public class SaludDAO {
 					temp.data_ejercicio.get(rs.getInt("ejercicio")-init_year.getYear())[0] = rs.getDouble("asignado");
 					temp.data_ejercicio.get(rs.getInt("ejercicio")-init_year.getYear())[1] = rs.getDouble("vigente");
 					temp.data_ejercicio.get(rs.getInt("ejercicio")-init_year.getYear())[2] = rs.getDouble("ejecucion");
+					u_asignado[rs.getInt("ejercicio")-init_year.getYear()] += rs.getDouble("asignado");
+					u_vigente[rs.getInt("ejercicio")-init_year.getYear()] += rs.getDouble("vigente");
+					u_ejecutado[rs.getInt("ejercicio")-init_year.getYear()] += rs.getDouble("ejecucion");
+					d_asignado[rs.getInt("ejercicio")-init_year.getYear()] += rs.getDouble("asignado");
+					d_vigente[rs.getInt("ejercicio")-init_year.getYear()] += rs.getDouble("vigente");
+					d_ejecutado[rs.getInt("ejercicio")-init_year.getYear()] += rs.getDouble("ejecucion");
 				}
-				if(temp!=null)
+				if(temp!=null){
 					ret.add(temp);
+					if(ret.size()>1){
+						int pos_hospital_anterior = (ret.get(ret.size()-1).treeLevel==3) ? ret.size() - 12 : ret.size() - 11;
+						if(pos_hospital_anterior>0){
+							for(int i=0; i<5; i++){
+								for(int j=0; j<3; j++){
+									ret.get(pos_hospital_anterior+1).data_ejercicio.get(i)[j] = ret.get(pos_hospital_anterior+2).data_ejercicio.get(i)[j];
+									ret.get(pos_hospital_anterior+1).data_ejercicio.get(i)[j] += ret.get(pos_hospital_anterior+3).data_ejercicio.get(i)[j];
+									ret.get(pos_hospital_anterior+1).data_ejercicio.get(i)[j] += ret.get(pos_hospital_anterior+4).data_ejercicio.get(i)[j];
+								}
+							}
+							for(int i=0; i<5; i++){
+								ret.get(pos_hospital_anterior).data_ejercicio.get(i)[0] = u_asignado[i];
+								ret.get(pos_hospital_anterior).data_ejercicio.get(i)[1] = u_vigente[i];
+								ret.get(pos_hospital_anterior).data_ejercicio.get(i)[2] = u_ejecutado[i];
+								ret.get(pos_hospital_anterior).ejercicios[i] = ret.get(pos_hospital_anterior+1).ejercicios[i];
+								}
+							for(int i=0; i<5; i++){
+								u_asignado[i]=0.0d;
+								u_vigente[i]=0.0d;
+								u_ejecutado[i]=0.0d;
+							}
+						}
+						int pos_depto_anterior=ret.size()-1;
+						while(ret.get(pos_depto_anterior).treeLevel<3 && pos_depto_anterior>0)
+							pos_depto_anterior--;
+						for(int i=0; i<5; i++){
+							ret.get(pos_depto_anterior).data_ejercicio.get(i)[0] = d_asignado[i];
+							ret.get(pos_depto_anterior).data_ejercicio.get(i)[1] = d_vigente[i];
+							ret.get(pos_depto_anterior).data_ejercicio.get(i)[2] = d_ejecutado[i];
+						}
+					}
+				}
 			}
-			
 			CMemsql.close();
 			return ret;
 		}catch(Exception e){
