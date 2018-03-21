@@ -514,9 +514,67 @@ public class SaludDAO {
 			CMemsql.close();
 			return ret;
 		}catch(Exception e){
-			CLogger.write("2", SaludDAO.class, e);
+			CLogger.write("3", SaludDAO.class, e);
 			CMemsql.close();
 			return null;
 		}
+	}
+	
+	public static ArrayList<Hospital> getNivelAtencion(int nivel){
+		ArrayList<Hospital> ret = new ArrayList<Hospital>();
+		String query = "";
+		try{
+			if(CMemsql.connect()){
+				String table="";
+				switch(nivel){
+					case 1: table="mv_hospitales"; break;
+					case 2: table="mv_centros_salud"; break;
+					case 3: table="mv_puestos_salud"; break;
+				}
+				query = String.join(" ", "select ejercicio,rubro, nombre_rubro,orden, sum(asignado) asignado, sum(vigente) vigente, sum(ejecucion) ejecucion" + 
+						"from dashboard."+table+" " + 
+						"group by ejercicio,rubro, nombre_rubro,orden " + 
+						"order by rubro, nombre_rubro, orden, ejercicio");
+				
+				PreparedStatement pstmt = CMemsql.getConnection().prepareStatement(query);
+				ResultSet rs = pstmt.executeQuery();
+				DateTime init_year = new DateTime().minusYears(4);
+				int rubro_actual = 0;
+				Double[] t_asignado= new Double[]{0.0d, 0.0d,0.0d, 0.0d,0.0d};
+				Double[] t_vigente= new Double[]{0.0d, 0.0d,0.0d, 0.0d,0.0d};
+				Double[] t_ejecutado= new Double[]{0.0d, 0.0d,0.0d, 0.0d,0.0d};
+				Hospital temp=null;
+				while(rs.next()){
+					if(rubro_actual!=rs.getInt("rubro")){
+						if(temp!=null)
+							ret.add(temp);
+						temp = (new SaludDAO()).new Hospital();
+						temp.codigo = rs.getInt("rubro");
+						temp.nombre = rs.getString("nombre_rubro");
+						temp.treeLevel = (temp.codigo > 7 ) ? 0 : 1;
+						temp.ejercicios = new Integer[5];
+						temp.data_ejercicio = new ArrayList<Double[]>();
+						for(int i=0; i<5; i++)
+							temp.data_ejercicio.add(new Double[3]);
+						rubro_actual=temp.codigo;
+					}
+					temp.ejercicios[rs.getInt("ejercicio")-init_year.getYear()]=rs.getInt("ejercicio");
+					temp.data_ejercicio.get(rs.getInt("ejercicio")-init_year.getYear())[0] = rs.getDouble("asignado");
+					temp.data_ejercicio.get(rs.getInt("ejercicio")-init_year.getYear())[1] = rs.getDouble("vigente");
+					temp.data_ejercicio.get(rs.getInt("ejercicio")-init_year.getYear())[2] = rs.getDouble("ejecucion");
+					t_asignado[rs.getInt("ejercicio")-init_year.getYear()] += rs.getDouble("asignado");
+					t_vigente[rs.getInt("ejercicio")-init_year.getYear()] += rs.getDouble("vigente");
+					t_ejecutado[rs.getInt("ejercicio")-init_year.getYear()] += rs.getDouble("ejecucion");
+				}
+				ret.add(temp);
+			}
+			return ret;
+		}catch(Exception e){
+			CLogger.write("4", SaludDAO.class, e);
+		}
+		finally{
+			CMemsql.close();
+		}
+		return ret;
 	}
 }

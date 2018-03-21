@@ -22,6 +22,7 @@ import dao.SaludDAO;
 import dao.SaludDAO.Centros;
 import dao.SaludDAO.Hospital;
 import dao.SaludDAO.Puestos;
+import utilities.Utils;
 
 @WebServlet("/SSalud")
 public class SSalud extends HttpServlet {
@@ -63,6 +64,13 @@ public class SSalud extends HttpServlet {
 			ArrayList<Puestos> lstpuestos = SaludDAO.getInfoPuestos();
 			String puestos = new GsonBuilder().serializeNulls().create().toJson(lstpuestos);
 			response_text = String.join(" ", "\"puestos\": ", puestos);
+			response_text = String.join(" ","{\"success\": true,", response_text, "}");
+		}
+		else if(accion.equals("getNivel")){
+			int nivel = map.get("nivel")!=null ? Utils.String2Int(map.get("nivel"),0) : 0;
+			ArrayList<Hospital> lstnivel = SaludDAO.getNivelAtencion(nivel);
+			String snivel = new GsonBuilder().serializeNulls().create().toJson(lstnivel);
+			response_text = String.join(" ", "\"nivel\": ", snivel);
 			response_text = String.join(" ","{\"success\": true,", response_text, "}");
 		}
 		

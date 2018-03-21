@@ -108,6 +108,12 @@ app.controller('mainController',['$rootScope','$scope','$http', function($rootSc
 		}
 	}
 	
+	mi.goSector = function(sector){
+		switch(sector){
+			case 'salud' :  window.location.href = '/main.jsp#!/salud/niveles'; break;
+		}
+	}
+	
 	mi.slide_button = ['slide-button','slide-button','slide-button','slide-button'];
 	
 	

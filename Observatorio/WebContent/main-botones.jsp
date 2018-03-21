@@ -121,9 +121,9 @@
   	</div>
   			<div class="buttons-container">
   				<div ng-class="ctrl.slide_button[0]" style="width: 25%;">
-					<span class="dropcap">1</span>
-					<h5>SALUD</h5>
-					<span class="description">MSPAS</span>
+					<span class="dropcap" ng-click="ctrl.goSector('salud')">1</span>
+					<h5 ng-click="ctrl.goSector('salud')">SALUD</h5>
+					<span class="description" ng-click="ctrl.goSector('salud')">MSPAS</span>
 				</div>
 				<div ng-class="ctrl.slide_button[1]" style="width: 25%;">		
 					<span class="dropcap">2</span>

@@ -43,14 +43,17 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
          .when('/entidad/:tipo_resultado',{
          	template: '<div load-on-demand="\'entidadController\'" class="all_page"></div>'
          })
-         .when('/hospitales',{
+         .when('/salud/hospitales',{
          	template: '<div load-on-demand="\'hospitalesController\'" class="all_page"></div>'
          })
-         .when('/centros',{
+         .when('/salud/centros',{
          	template: '<div load-on-demand="\'centrosController\'" class="all_page"></div>'
          })
          .when('/puestos',{
          	template: '<div load-on-demand="\'puestosController\'" class="all_page"></div>'
+         })
+         .when('/salud/niveles',{
+         	template: '<div load-on-demand="\'nivelesController\'" class="all_page"></div>'
          })
          .when("/:redireccion?",{
             	controller:"MainController"
@@ -126,18 +129,23 @@ app.config(['$loadOnDemandProvider', function ($loadOnDemandProvider) {
 	       },
 	       {
 	    	   name: 'hospitalesController',
-	    	   script: '/app/components/hospitales/hospitales.controller.js',
-	    	   template: '/app/components/hospitales/hospitales.jsp'
+	    	   script: '/app/components/salud/hospitales/hospitales.controller.js',
+	    	   template: '/app/components/salud/hospitales/hospitales.jsp'
 	       },
 	       {
 	    	   name: 'centrosController',
-	    	   script: '/app/components/centros/centros.controller.js',
-	    	   template: '/app/components/centros/centros.jsp'
+	    	   script: '/app/components/salud/centros/centros.controller.js',
+	    	   template: '/app/components/salud/centros/centros.jsp'
 	       },
 	       {
 	    	   name: 'puestosController',
-	    	   script: '/app/components/puestos/puestos.controller.js',
-	    	   template: '/app/components/puestos/puestos.jsp'
+	    	   script: '/app/components/salud/puestos/puestos.controller.js',
+	    	   template: '/app/components/salud/puestos/puestos.jsp'
+	       },
+	       {
+	    	   name: 'nivelesController',
+	    	   script: '/app/components/salud/niveles/niveles.controller.js',
+	    	   template: '/app/components/salud/niveles/niveles.jsp'
 	       }
 	   ];
 	   $loadOnDemandProvider.config(modules);
