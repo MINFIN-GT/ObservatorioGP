@@ -1,18 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <style>
-		.cuerpotabla{
-			overflow-y: hidden;
-			overflow-x: scroll;
-		    display: inline-block;
-		    font-size: 13px;
-		}
-    </style>
     <div ng-controller="hospitalesController as ctrl">
 	    <div align="center" class="row" style="width: 90%; margin: 0 auto; font-size: 11px;">
-	    	<h6 align="left">{{ctrl.subtitulo}}</h6>
-			<br>
-	    	<table st-table="ctrl.displayedCollection" st-safe-src="ctrl.rowCollection" st-tree-table st-tree-init-open="false" st-selected-row="selectedRow" class="table table-striped cuerpotabla">
+	    	<table style="width: 90%;" st-table="ctrl.displayedCollection" st-safe-src="ctrl.rowCollection" st-tree-table st-tree-init-open="false" st-selected-row="selectedRow" class="table table-striped cuerpotabla">
 				<thead>
 					<tr>
 						<th style="min-width: 250px;" class="sticky-col"></th>
@@ -126,7 +116,7 @@
 					</tr>
 				</tfoot>
 			</table>
-			<div style="text-align: center;">Fuente de información SICOIN.</div>
+			<div style="text-align: center;">Fuente de información SICOIN. Cifras en millones de Quetzales.</div>
 	    </div>
 	    <br>
 		<br>
@@ -147,7 +137,7 @@
 					</canvas>
 				</div>
 			</div>
-			<div style="text-align: center;">Fuente de información SICOIN.</div>
+			<div style="text-align: center;">Fuente de información SICOIN. Cifras en millones de Quetzales.</div>
 			<br>
 		</div>
     </div>

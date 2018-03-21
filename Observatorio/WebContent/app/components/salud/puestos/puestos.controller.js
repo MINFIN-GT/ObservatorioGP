@@ -2,6 +2,8 @@ var app = angular.module('puestosController', []).controller('puestosController'
 	function($rootScope,$scope,$http,$routeParams){
 	var mi = this;
 	var fecha = new Date();
+	mi.decimales = true;
+	
 	mi.anio = fecha.getFullYear();
 	mi.mes = fecha.getMonth();
 	

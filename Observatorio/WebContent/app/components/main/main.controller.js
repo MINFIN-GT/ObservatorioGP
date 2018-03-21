@@ -1,4 +1,4 @@
-var app = angular.module('observatorio', ['ngRoute','chart.js','smart-table','ngUtilidades','loadOnDemand',
+	var app = angular.module('observatorio', ['ngRoute','chart.js','smart-table','ngUtilidades','loadOnDemand',
 	'uiGmapgoogle-maps']);
 
 app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
@@ -49,7 +49,7 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
          .when('/salud/centros',{
          	template: '<div load-on-demand="\'centrosController\'" class="all_page"></div>'
          })
-         .when('/puestos',{
+         .when('/salud/puestos',{
          	template: '<div load-on-demand="\'puestosController\'" class="all_page"></div>'
          })
          .when('/salud/niveles',{
