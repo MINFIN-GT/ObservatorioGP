@@ -118,4 +118,19 @@
 			</table>
 			<div style="text-align: center;">Fuente de información SICOIN. Cifras en millones de Quetzales.</div>
 	    </div>
+	    <br>
+		<br>
+		<br>
+		<div>
+			<div align="center" class="row" style="width: 80%;margin: 0 auto;">
+				<div align="center">
+					<canvas id="line" class="chart chart-line" chart-data="ctrl.data"
+						chart-labels="ctrl.labels" chart-series="ctrl.series" chart-options="ctrl.options"
+						chart-colors="ctrl.linealColors" chart-legend="true">
+					</canvas>
+				</div>
+			</div>
+			<div style="text-align: center;">Fuente de información SICOIN. Cifras en millones de Quetzales.</div>
+			<br>
+		</div>
     </div>

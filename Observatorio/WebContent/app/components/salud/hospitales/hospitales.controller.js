@@ -3,6 +3,7 @@ var app = angular.module('hospitalesController',[]).controller('hospitalesContro
 	var mi = this;
 	var fecha = new Date();
 	mi.decimales = true;
+	mi.linealColors = ['#8ecf4c', '#88b4df', '#d92a27'];
 	
 	mi.anio = fecha.getFullYear();
 	mi.mes = fecha.getMonth();
@@ -69,7 +70,80 @@ var app = angular.module('hospitalesController',[]).controller('hospitalesContro
 			mi.rowCollection = [];
 			mi.rowCollection = mi.datos;
 			mi.displayedCollection = [].concat(mi.rowCollection);
+			
+			mi.options.scales.xAxes["0"].scaleLabel.labelString = "Años";
+			mi.series = ['Ejecutado' , 'Vigente'];
+			mi.labels = [mi.anio - 4, mi.anio - 3, mi.anio - 2, mi.anio - 1, mi.anio];
+			
+			var ejecucion = [];
+			ejecucion.push(mi.tot_ejecutado_4);
+			ejecucion.push(mi.tot_ejecutado_3);
+			ejecucion.push(mi.tot_ejecutado_2);
+			ejecucion.push(mi.tot_ejecutado_1);
+			ejecucion.push(mi.tot_ejecutado);
+			
+			var vigente = [];
+			vigente.push(mi.tot_vigente_4);
+			vigente.push(mi.tot_vigente_3);
+			vigente.push(mi.tot_vigente_2);
+			vigente.push(mi.tot_vigente_1);
+			vigente.push(mi.tot_vigente);
+			
+			mi.data = [];
+			mi.data.push(ejecucion, vigente);
 		}
 	})
+	
+	mi.options = {
+		elements: {
+	        line: {
+	            tension: 0
+	        },
+	        point:{
+	        	radius: 5
+	        }
+	    },
+		legend: {
+			display: true,
+			position: 'bottom',
+		},
+		scales: {
+			yAxes: [
+			{
+				id: 'y-axis-1',
+				type: 'linear',
+				display: true,
+				position: 'left',
+				ticks: {
+	        	     callback: function (value) {
+	        	    	 if (true)
+	        	    		 value = value.toFixed(2);
+	        	    	 return 'Q ' + numeral(value).format('0,000.00');
+                   }
+				},
+				scaleLabel: {
+                    display: true,
+                    labelString: 'Millones de Quetzales (Q)'
+                }
+			}
+			],
+			xAxes: [{
+		    	  scaleLabel: {
+                     display: true,
+                     labelString: mi.etiquetaX
+                   }
+		      }
+		      ]
+		},
+		tooltips: {
+           mode: 'label',
+           label: 'mylabel',
+           callbacks: {
+               label: function(tooltipItem, data) {
+            	   return 'Q '+ numeral(tooltipItem.yLabel).format('0,000.00');
+               } 
+           }
+        }
+	};
 }]);
 

@@ -122,17 +122,10 @@
 		<br>
 		<br>
 		<div>
-			<div class="titulo_grafica">{{ ctrl.tituloGrafica }}</div>
-			<div align="right" style="width: 80%;margin: 0 auto;">
-				<div class="btn-group btn-group-xs">
-					<label class="btn btn-default" ng-click="ctrl.cambioMensualP();"><span>Mensual</span></label>
-					<label class="btn btn-default" ng-click="ctrl.cambioAnualP();"><span>Anual</span></label>
-				</div>
-			</div>
 			<div align="center" class="row" style="width: 80%;margin: 0 auto;">
 				<div align="center">
-					<canvas id="line" class="chart chart-line" chart-data="ctrl.data2"
-						chart-labels="ctrl.labels2" chart-series="ctrl.series2" chart-options="ctrl.options2"
+					<canvas id="line" class="chart chart-line" chart-data="ctrl.data"
+						chart-labels="ctrl.labels" chart-series="ctrl.series" chart-options="ctrl.options"
 						chart-colors="ctrl.linealColors" chart-legend="true">
 					</canvas>
 				</div>
