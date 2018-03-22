@@ -531,10 +531,10 @@ public class SaludDAO {
 					case 2: table="mv_centros_salud"; break;
 					case 3: table="mv_puestos_salud"; break;
 				}
-				query = String.join(" ", "select ejercicio,rubro, nombre_rubro,orden, sum(asignado) asignado, sum(vigente) vigente, sum(ejecucion) ejecucion" + 
-						"from dashboard."+table+" " + 
+				query = String.join(" ", "select ejercicio,rubro, nombre_rubro,orden, sum(asignado) asignado, sum(vigente) vigente, sum(ejecucion) ejecucion " + 
+						"from "+table+" " + 
 						"group by ejercicio,rubro, nombre_rubro,orden " + 
-						"order by rubro, nombre_rubro, orden, ejercicio");
+						"order by orden, rubro, nombre_rubro, ejercicio");
 				
 				PreparedStatement pstmt = CMemsql.getConnection().prepareStatement(query);
 				ResultSet rs = pstmt.executeQuery();

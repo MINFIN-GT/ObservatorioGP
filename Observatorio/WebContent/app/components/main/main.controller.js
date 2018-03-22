@@ -43,14 +43,14 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
          .when('/entidad/:tipo_resultado',{
          	template: '<div load-on-demand="\'entidadController\'" class="all_page"></div>'
          })
-         .when('/salud/hospitales',{
-         	template: '<div load-on-demand="\'hospitalesController\'" class="all_page"></div>'
+         .when('/salud/nivel3',{
+         	template: '<div load-on-demand="\'nivel3Controller\'" class="all_page"></div>'
          })
-         .when('/salud/centros',{
-         	template: '<div load-on-demand="\'centrosController\'" class="all_page"></div>'
+         .when('/salud/nivel2',{
+         	template: '<div load-on-demand="\'nivel2Controller\'" class="all_page"></div>'
          })
-         .when('/salud/puestos',{
-         	template: '<div load-on-demand="\'puestosController\'" class="all_page"></div>'
+         .when('/salud/nivel1',{
+         	template: '<div load-on-demand="\'nivel1Controller\'" class="all_page"></div>'
          })
          .when('/salud/niveles',{
          	template: '<div load-on-demand="\'nivelesController\'" class="all_page"></div>'
@@ -128,19 +128,19 @@ app.config(['$loadOnDemandProvider', function ($loadOnDemandProvider) {
 	    	   template: '/app/components/proyecto/proyecto.jsp'
 	       },
 	       {
-	    	   name: 'hospitalesController',
-	    	   script: '/app/components/salud/hospitales/hospitales.controller.js',
-	    	   template: '/app/components/salud/hospitales/hospitales.jsp'
+	    	   name: 'nivel3Controller',
+	    	   script: '/app/components/salud/nivel3/nivel3.controller.js',
+	    	   template: '/app/components/salud/nivel3/nivel3.jsp'
 	       },
 	       {
-	    	   name: 'centrosController',
-	    	   script: '/app/components/salud/centros/centros.controller.js',
-	    	   template: '/app/components/salud/centros/centros.jsp'
+	    	   name: 'nivel2Controller',
+	    	   script: '/app/components/salud/nivel2/nivel2.controller.js',
+	    	   template: '/app/components/salud/nivel2/nivel2.jsp'
 	       },
 	       {
-	    	   name: 'puestosController',
-	    	   script: '/app/components/salud/puestos/puestos.controller.js',
-	    	   template: '/app/components/salud/puestos/puestos.jsp'
+	    	   name: 'nivel1Controller',
+	    	   script: '/app/components/salud/nivel1/nivel1.controller.js',
+	    	   template: '/app/components/salud/nivel1/nivel1.jsp'
 	       },
 	       {
 	    	   name: 'nivelesController',

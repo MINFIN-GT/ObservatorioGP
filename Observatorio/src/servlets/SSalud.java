@@ -22,7 +22,6 @@ import dao.SaludDAO;
 import dao.SaludDAO.Centros;
 import dao.SaludDAO.Hospital;
 import dao.SaludDAO.Puestos;
-import utilities.Utils;
 
 @WebServlet("/SSalud")
 public class SSalud extends HttpServlet {
@@ -66,11 +65,16 @@ public class SSalud extends HttpServlet {
 			response_text = String.join(" ", "\"puestos\": ", puestos);
 			response_text = String.join(" ","{\"success\": true,", response_text, "}");
 		}
-		else if(accion.equals("getNivel")){
-			int nivel = map.get("nivel")!=null ? Utils.String2Int(map.get("nivel"),0) : 0;
-			ArrayList<Hospital> lstnivel = SaludDAO.getNivelAtencion(nivel);
-			String snivel = new GsonBuilder().serializeNulls().create().toJson(lstnivel);
-			response_text = String.join(" ", "\"nivel\": ", snivel);
+		else if(accion.equals("getNiveles")){
+			ArrayList<Hospital> nivel1 = SaludDAO.getNivelAtencion(1);
+			ArrayList<Hospital> nivel2 = SaludDAO.getNivelAtencion(2);
+			ArrayList<Hospital> nivel3 = SaludDAO.getNivelAtencion(3);
+			String snivel = new GsonBuilder().serializeNulls().create().toJson(nivel1);
+			response_text = String.join(" ", "\"nivel1\": ", snivel);
+			snivel = new GsonBuilder().serializeNulls().create().toJson(nivel2);
+			response_text = String.join(" ", response_text,",\"nivel2\": ", snivel);
+			snivel = new GsonBuilder().serializeNulls().create().toJson(nivel3);
+			response_text = String.join(" ", response_text, ",\"nivel3\": ", snivel);
 			response_text = String.join(" ","{\"success\": true,", response_text, "}");
 		}
 		
