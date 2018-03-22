@@ -1,6 +1,9 @@
-var app = angular.module('hospitalesController',[]).controller('hospitalesController',['$rootScope','$scope','$http','$routeParams',  
+var app = angular.module('nivel1Controller', []).controller('nivel1Controller',['$rootScope','$scope','$http','$routeParams', 
 	function($rootScope,$scope,$http,$routeParams){
 	var mi = this;
+	
+	$rootScope.page_title = 'Primer nivel de atención';
+		
 	var fecha = new Date();
 	mi.decimales = true;
 	mi.linealColors = ['#8ecf4c', '#88b4df', '#d92a27'];
@@ -29,11 +32,11 @@ var app = angular.module('hospitalesController',[]).controller('hospitalesContro
 	mi.tot_ejecutado = 0;
 	
 	$http.post('/SSalud',{
-		accion: 'getHospitales',
+		accion: 'getPuestos',
 		t: new Date().getTime()
 	}).then(function(response){
 		if(response.data.success){
-			mi.datos = response.data.hospitales;
+			mi.datos = response.data.puestos;
 			
 			for(var i=0; i<mi.datos.length; i++){
 				if(mi.datos[i].treeLevel==3){
@@ -145,5 +148,4 @@ var app = angular.module('hospitalesController',[]).controller('hospitalesContro
            }
         }
 	};
-}]);
-
+}])

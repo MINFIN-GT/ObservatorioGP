@@ -1,6 +1,9 @@
-var app = angular.module('centrosController', []).controller('centrosController',['$rootScope','$scope','$http','$routeParams', 
+var app = angular.module('nivel3Controller',[]).controller('nivel3Controller',['$rootScope','$scope','$http','$routeParams',  
 	function($rootScope,$scope,$http,$routeParams){
 	var mi = this;
+	
+	$rootScope.page_title = 'Tercer nivel de atención';
+		
 	var fecha = new Date();
 	mi.decimales = true;
 	mi.linealColors = ['#8ecf4c', '#88b4df', '#d92a27'];
@@ -29,11 +32,11 @@ var app = angular.module('centrosController', []).controller('centrosController'
 	mi.tot_ejecutado = 0;
 	
 	$http.post('/SSalud',{
-		accion: 'getCentros',
+		accion: 'getHospitales',
 		t: new Date().getTime()
 	}).then(function(response){
 		if(response.data.success){
-			mi.datos = response.data.centros;
+			mi.datos = response.data.hospitales;
 			
 			for(var i=0; i<mi.datos.length; i++){
 				if(mi.datos[i].treeLevel==3){
@@ -145,4 +148,5 @@ var app = angular.module('centrosController', []).controller('centrosController'
            }
         }
 	};
-}])
+}]);
+

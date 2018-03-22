@@ -1,6 +1,9 @@
-var app = angular.module('puestosController', []).controller('puestosController',['$rootScope','$scope','$http','$routeParams', 
+var app = angular.module('nivel2Controller', []).controller('nivel2Controller',['$rootScope','$scope','$http','$routeParams', 
 	function($rootScope,$scope,$http,$routeParams){
 	var mi = this;
+	
+	$rootScope.page_title = 'Segundo nivel de atención';
+		
 	var fecha = new Date();
 	mi.decimales = true;
 	mi.linealColors = ['#8ecf4c', '#88b4df', '#d92a27'];
@@ -29,11 +32,11 @@ var app = angular.module('puestosController', []).controller('puestosController'
 	mi.tot_ejecutado = 0;
 	
 	$http.post('/SSalud',{
-		accion: 'getPuestos',
+		accion: 'getCentros',
 		t: new Date().getTime()
 	}).then(function(response){
 		if(response.data.success){
-			mi.datos = response.data.puestos;
+			mi.datos = response.data.centros;
 			
 			for(var i=0; i<mi.datos.length; i++){
 				if(mi.datos[i].treeLevel==3){
