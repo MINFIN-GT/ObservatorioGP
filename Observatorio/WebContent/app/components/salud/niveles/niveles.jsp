@@ -57,8 +57,8 @@
 	    <div align="center" class="row" style="width: 90%; margin: 0 auto; font-size: 11px;">
 	    	<div class="table">
 	    		<div class="row" style="margin-bottom: 25px;">
-	    			<div class="col-sm-1 nivel_atencion" ng-click="ctrl.go(1)"><div class="numero">1</div><div class="ordinal">er</div></div>
-	    			<div class="col-sm-7 text-left"><table>
+	    			<div class="col-md-1 nivel_atencion" ng-click="ctrl.go(1)"><div class="numero">1</div><div class="ordinal">er</div></div>
+	    			<div class="col-md-7 text-left"><table>
 	    				<thead>
 	    					<tr>
 	    						<th></th>
@@ -104,7 +104,7 @@
 	    					<td>{{ ctrl.totales_1[4][2] | formatoMillones : true}}</td>
 	    				</tr>
 	    			</table></div>
-	    			<div class="col-sm-4 text-center">
+	    			<div class="col-md-4 text-center">
 	    				<canvas id="line" class="chart chart-bar" chart-data="ctrl.grafica_nivel1" chart-labels="ctrl.grafica_labels" 
 	    					chart-series="ctrl.grafica_series" chart-options="ctrl.grafica_opciones"
 	    					chart-dataset-override="ctrl.grafica_dataset" chart-colors="ctrl.chart_colors"></canvas>
@@ -120,8 +120,8 @@
 	    		</div>
 	    		<hr/>
 	    		<div class="row" style="margin-bottom: 25px;">
-	    			<div class="col-sm-1 nivel_atencion" ng-click="ctrl.go(2)"><div class="numero">2</div><div class="ordinal">do</div></div>
-	    			<div class="col-sm-7 text-left"><table>
+	    			<div class="col-md-1 nivel_atencion" ng-click="ctrl.go(2)"><div class="numero">2</div><div class="ordinal">do</div></div>
+	    			<div class="col-md-7 text-left"><table>
 	    				<thead>
 	    					<tr>
 	    						<th></th>
@@ -167,7 +167,7 @@
 	    					<td>{{ ctrl.totales_2[4][2] | formatoMillones : true}}</td>
 	    				</tr>
 	    			</table></div>
-	    			<div class="col-sm-4 text-center">
+	    			<div class="col-md-4 text-center">
 	    				<canvas id="line" class="chart chart-bar" chart-data="ctrl.grafica_nivel2" chart-labels="ctrl.grafica_labels" 
 	    					chart-series="ctrl.grafica_series" chart-options="ctrl.grafica_opciones"
 	    					chart-dataset-override="ctrl.grafica_dataset" chart-colors="ctrl.chart_colors"></canvas>
@@ -183,8 +183,8 @@
 	    		</div>
 	    		<hr/>
 	    		<div class="row" style="margin-bottom: 25px;">
-	    			<div class="col-sm-1 nivel_atencion" ng-click="ctrl.go(3)"><div class="numero">3</div><div class="ordinal">er</div></div>
-	    			<div class="col-sm-7 text-left"><table>
+	    			<div class="col-md-1 nivel_atencion" ng-click="ctrl.go(3)"><div class="numero">3</div><div class="ordinal">er</div></div>
+	    			<div class="col-md-7 text-left"><table>
 	    				<thead>
 	    					<tr>
 	    						<th></th>
@@ -230,7 +230,7 @@
 	    					<td>{{ ctrl.totales_3[4][2] | formatoMillones : true}}</td>
 	    				</tr>
 	    			</table></div>
-	    			<div class="col-sm-4 text-center">
+	    			<div class="col-md-4 text-center">
 	    				<canvas id="line" class="chart chart-bar" chart-data="ctrl.grafica_nivel3" chart-labels="ctrl.grafica_labels" 
 	    					chart-series="ctrl.grafica_series" chart-options="ctrl.grafica_opciones"
 	    					chart-dataset-override="ctrl.grafica_dataset" chart-colors="ctrl.chart_colors"></canvas>
@@ -247,8 +247,8 @@
 	    	</div>
 	    	<hr/>
 	    	<div class="row" style="margin-bottom: 25px;">
-	    			<div class="col-sm-1 nivel_atencion"><div class="numero">T</div></div>
-	    			<div class="col-sm-7 text-left"><table>
+	    			<div class="col-md-1 nivel_atencion"><div class="numero">T</div></div>
+	    			<div class="col-md-7 text-left"><table>
 	    				<thead>
 	    					<tr>
 	    						<th></th>
@@ -294,7 +294,7 @@
 	    					<td>{{ ctrl.totales_1[4][2] + ctrl.totales_2[4][2] + ctrl.totales_3[4][2] | formatoMillones : true}}</td>
 	    				</tr>
 	    			</table></div>
-	    			<div class="col-sm-4 text-center">
+	    			<div class="col-md-4 text-center">
 	    				<canvas id="line" class="chart chart-bar" chart-data="ctrl.grafica_total" chart-labels="ctrl.grafica_labels" 
 	    					chart-series="ctrl.grafica_series" chart-options="ctrl.grafica_opciones"
 	    					chart-dataset-override="ctrl.grafica_dataset" chart-colors="ctrl.chart_colors"></canvas>
