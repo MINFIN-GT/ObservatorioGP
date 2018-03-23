@@ -737,3 +737,19 @@ st-tree-caret,i.fa-caret-down:before {font-size: 15px; content:"-"; font-weight:
   	line-height: 1.428571429;
   	border-radius: 30px;
 }
+
+.label-form{
+	 font-size: 13px;
+	 opacity: 1;
+	 color: rgba(0,0,0,0.38) !important;
+	 font-weight: bold;
+}
+
+.verticalText{
+	transform: rotate(270deg);
+}
+.divlateral{
+    position: absolute;
+	top: 50%;
+	transform: translate(-50%,-50%);
+}

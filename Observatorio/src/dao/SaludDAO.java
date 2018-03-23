@@ -40,6 +40,7 @@ public class SaludDAO {
 	}
 	
 	class elementoBubble{
+		String label;
 		Integer x;
 		Integer y;
 		Integer r;
@@ -617,6 +618,7 @@ public class SaludDAO {
 						temp.x = x.nextInt(50);
 						temp.y = y.nextInt(50);
 						temp.r = r.nextInt(50);
+						temp.label = "hola"+i;
 						lsteb.add(temp);
 						hist.data_ejercicio.add(lsteb);
 					}

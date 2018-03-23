@@ -1,4 +1,4 @@
-	var app = angular.module('observatorio', ['ngRoute','chart.js','smart-table','ngUtilidades','loadOnDemand',
+	var app = angular.module('observatorio', ['ngRoute','chart.js','smart-table','ngUtilidades','loadOnDemand','ui.bootstrap',
 	'uiGmapgoogle-maps']);
 
 app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
