@@ -22,7 +22,7 @@ var app = angular.module('unidadEjecutoraController',[]).controller('unidadEjecu
 	mi.etiquetaX = "";
 	mi.labels2 = [];
 	mi.data2 = [];
-	mi.decimales = false;
+	mi.decimales = true;
 	mi.linealColors = ['#8ecf4c', '#88b4df', '#d92a27'];
 	mi.tipoDatos = 0;
 	

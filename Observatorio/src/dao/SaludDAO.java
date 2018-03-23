@@ -3,6 +3,7 @@ package dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Random;
 
 import org.joda.time.DateTime;
 
@@ -32,6 +33,16 @@ public class SaludDAO {
 		Integer treeLevel;
 		Integer[] ejercicios;
 		ArrayList<Double[]> data_ejercicio;
+	}
+	
+	public class Historia{
+		ArrayList<ArrayList<elementoBubble>> data_ejercicio = new ArrayList<>();
+	}
+	
+	class elementoBubble{
+		Integer x;
+		Integer y;
+		Integer r;
 	}
 	
 	public static ArrayList<Hospital> getInfoHospitales(){
@@ -191,9 +202,10 @@ public class SaludDAO {
 			return ret;
 		}catch(Exception e){
 			CLogger.write("1", SaludDAO.class, e);
+		}finally{
 			CMemsql.close();
-			return null;
 		}
+		return ret;
 	}
 	
 	public static ArrayList<Centros> getInfoCentros(){
@@ -353,9 +365,10 @@ public class SaludDAO {
 			return ret;
 		}catch(Exception e){
 			CLogger.write("2", SaludDAO.class, e);
+		}finally{
 			CMemsql.close();
-			return null;
 		}
+		return ret;
 	}
 	
 	public static ArrayList<Puestos> getInfoPuestos(){
@@ -515,9 +528,10 @@ public class SaludDAO {
 			return ret;
 		}catch(Exception e){
 			CLogger.write("3", SaludDAO.class, e);
+		}finally{
 			CMemsql.close();
-			return null;
 		}
+		return ret;
 	}
 	
 	public static ArrayList<Hospital> getNivelAtencion(int nivel){
@@ -574,6 +588,47 @@ public class SaludDAO {
 		}
 		finally{
 			CMemsql.close();
+		}
+		return ret;
+	}
+	
+	public static ArrayList<Historia> getHistoria(){
+		ArrayList<Historia> ret = new ArrayList<Historia>();
+		String query = "";
+		try{
+//			if(CMemsql.connect()){
+				query = String.join(" ", "");
+				
+//				PreparedStatement pstmt = CMemsql.getConnection().prepareStatement(query);
+//				ResultSet rs = pstmt.executeQuery();
+				
+//				while(rs.next()){
+//					
+//				}
+				
+				for(int j=0; j<18; j++){
+					Historia hist = (new SaludDAO()).new Historia();
+					for(int i=0; i<50; i++){
+						Random x = new Random();
+						Random y = new Random();
+						Random r = new Random();
+						elementoBubble temp = (new SaludDAO()).new elementoBubble();
+						ArrayList<elementoBubble> lsteb = new ArrayList<elementoBubble>();
+						temp.x = x.nextInt(50);
+						temp.y = y.nextInt(50);
+						temp.r = r.nextInt(50);
+						lsteb.add(temp);
+						hist.data_ejercicio.add(lsteb);
+					}
+					ret.add(hist);
+				}
+				
+//			}
+			return ret;
+		}catch(Exception e){
+			CLogger.write("5", SaludDAO.class, e);
+		}finally{
+			//CMemsql.close();
 		}
 		return ret;
 	}

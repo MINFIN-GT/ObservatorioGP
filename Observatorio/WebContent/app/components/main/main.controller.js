@@ -55,7 +55,7 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
          .when('/salud/niveles',{
          	template: '<div load-on-demand="\'nivelesController\'" class="all_page"></div>'
          })
-         .when('/historia',{
+         .when('/salud/historia',{
          	template: '<div load-on-demand="\'historiaController\'" class="all_page"></div>'
          })
          .when("/:redireccion?",{
@@ -152,8 +152,8 @@ app.config(['$loadOnDemandProvider', function ($loadOnDemandProvider) {
 	       },
 	       {
 	    	   name: 'historiaController',
-	    	   script: '/app/components/historia/historia.controller.js',
-	    	   template: '/app/components/historia/historia.jsp'
+	    	   script: '/app/components/salud/historia/historia.controller.js',
+	    	   template: '/app/components/salud/historia/historia.jsp'
 	       }
 	   ];
 	   $loadOnDemandProvider.config(modules);
