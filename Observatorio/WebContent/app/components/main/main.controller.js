@@ -1,4 +1,4 @@
-	var app = angular.module('observatorio', ['ngRoute','chart.js','smart-table','ngUtilidades','loadOnDemand',
+	var app = angular.module('observatorio', ['ngRoute','chart.js','smart-table','ngUtilidades','loadOnDemand','ui.bootstrap',
 	'uiGmapgoogle-maps']);
 
 app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
@@ -54,6 +54,9 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
          })
          .when('/salud/niveles',{
          	template: '<div load-on-demand="\'nivelesController\'" class="all_page"></div>'
+         })
+         .when('/salud/historia',{
+         	template: '<div load-on-demand="\'historiaController\'" class="all_page"></div>'
          })
          .when("/:redireccion?",{
             	controller:"MainController"
@@ -146,6 +149,11 @@ app.config(['$loadOnDemandProvider', function ($loadOnDemandProvider) {
 	    	   name: 'nivelesController',
 	    	   script: '/app/components/salud/niveles/niveles.controller.js',
 	    	   template: '/app/components/salud/niveles/niveles.jsp'
+	       },
+	       {
+	    	   name: 'historiaController',
+	    	   script: '/app/components/salud/historia/historia.controller.js',
+	    	   template: '/app/components/salud/historia/historia.jsp'
 	       }
 	   ];
 	   $loadOnDemandProvider.config(modules);

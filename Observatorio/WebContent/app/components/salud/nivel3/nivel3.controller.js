@@ -79,18 +79,18 @@ var app = angular.module('nivel3Controller',[]).controller('nivel3Controller',['
 			mi.labels = [mi.anio - 4, mi.anio - 3, mi.anio - 2, mi.anio - 1, mi.anio];
 			
 			var ejecucion = [];
-			ejecucion.push(mi.tot_ejecutado_4);
-			ejecucion.push(mi.tot_ejecutado_3);
-			ejecucion.push(mi.tot_ejecutado_2);
-			ejecucion.push(mi.tot_ejecutado_1);
-			ejecucion.push(mi.tot_ejecutado);
+			ejecucion.push(mi.tot_ejecutado_4/1000000);
+			ejecucion.push(mi.tot_ejecutado_3/1000000);
+			ejecucion.push(mi.tot_ejecutado_2/1000000);
+			ejecucion.push(mi.tot_ejecutado_1/1000000);
+			ejecucion.push(mi.tot_ejecutado/1000000);
 			
 			var vigente = [];
-			vigente.push(mi.tot_vigente_4);
-			vigente.push(mi.tot_vigente_3);
-			vigente.push(mi.tot_vigente_2);
-			vigente.push(mi.tot_vigente_1);
-			vigente.push(mi.tot_vigente);
+			vigente.push(mi.tot_vigente_4/1000000);
+			vigente.push(mi.tot_vigente_3/1000000);
+			vigente.push(mi.tot_vigente_2/1000000);
+			vigente.push(mi.tot_vigente_1/1000000);
+			vigente.push(mi.tot_vigente/1000000);
 			
 			mi.data = [];
 			mi.data.push(ejecucion, vigente);

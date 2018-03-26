@@ -20,6 +20,7 @@ import com.google.gson.reflect.TypeToken;
 
 import dao.SaludDAO;
 import dao.SaludDAO.Centros;
+import dao.SaludDAO.Historia;
 import dao.SaludDAO.Hospital;
 import dao.SaludDAO.Puestos;
 
@@ -64,8 +65,7 @@ public class SSalud extends HttpServlet {
 			String puestos = new GsonBuilder().serializeNulls().create().toJson(lstpuestos);
 			response_text = String.join(" ", "\"puestos\": ", puestos);
 			response_text = String.join(" ","{\"success\": true,", response_text, "}");
-		}
-		else if(accion.equals("getNiveles")){
+		}else if(accion.equals("getNiveles")){
 			ArrayList<Hospital> nivel1 = SaludDAO.getNivelAtencion(1);
 			ArrayList<Hospital> nivel2 = SaludDAO.getNivelAtencion(2);
 			ArrayList<Hospital> nivel3 = SaludDAO.getNivelAtencion(3);
@@ -76,6 +76,11 @@ public class SSalud extends HttpServlet {
 			snivel = new GsonBuilder().serializeNulls().create().toJson(nivel3);
 			response_text = String.join(" ", response_text, ",\"nivel3\": ", snivel);
 			response_text = String.join(" ","{\"success\": true,", response_text, "}");
+		}else if(accion.equals("getHistoria")){
+ 			ArrayList<Historia> lsthistoria = SaludDAO.getHistoria();
+			String historia = new GsonBuilder().serializeNulls().create().toJson(lsthistoria);
+			response_text = String.join(" ", "\"historia\": ", historia);
+			response_text = String.join(" ","{\"success\": true,", response_text, "}");	
 		}
 		
 		response.setHeader("Content-Encoding", "gzip");

@@ -7,7 +7,7 @@ angular.module('productoController', []).controller('productoController',['$root
 	mi.etiquetaX = "";
 	mi.labels = [];
 	mi.data = [];
-	mi.decimales = false;
+	mi.decimales = true;
 	
 	
 	mi.tipo_resultado = $routeParams.tipo_resultado;
