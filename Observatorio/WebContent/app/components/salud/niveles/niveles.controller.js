@@ -1,4 +1,4 @@
-var app = angular.module('nivelesController', []).controller('centrosController',['$rootScope','$scope','$http','$routeParams', 
+var app = angular.module('nivelesController', []).controller('nivelesController',['$rootScope','$scope','$http','$routeParams', 
 	function($rootScope,$scope,$http,$routeParams){
 	
 	mi = this;
@@ -120,7 +120,6 @@ var app = angular.module('nivelesController', []).controller('centrosController'
 					}
 				}
 			}
-			console.log(mi.grafica_nivel1);
 			for(var i=0; i< mi.rubros_nivel_2.length; i++){
 				for(var j=0; j<mi.rubros_nivel_2[i].ejercicios.length; j++){
 					if(mi.totales_2[j]===undefined)

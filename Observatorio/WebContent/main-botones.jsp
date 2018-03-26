@@ -154,9 +154,9 @@
 	<br/>
 	<div class="row">
 		<div class="col-sm-1"></div>
-		<div class="col-sm-2 text-center">Resultados Estratégicos</div>
 		<div class="col-sm-2 text-center">Resultados Institucionales</div>
-		<div class="col-sm-2 text-center">Sin Resultado</div>
+		<div class="col-sm-2 text-center">Resultados Estratégicos</div>
+		<div class="col-sm-2 text-center">Sin vinculación</div>
 		<div class="col-sm-2 text-center">Deuda</div>
 		<div class="col-sm-2 text-center">Obligaciones</div>
 		<div class="col-sm-1"></div>
@@ -170,8 +170,8 @@
 				  	<div class="button_front_money button_front_fisico" ng-click="ctrl.go(1)">{{ ctrl.resultados_institucionales.num_resultados }} metas</div>
 				  </li>
 				  <li class="list-group-item text-center button_front button_front_presupuestario" ng-click="ctrl.go(1)"><div style="margin-bottom: 5px;" ng-click="ctrl.go(1)">{{ (ctrl.resultados_institucionales.p_presupuestario*100).toFixed(0) }}%</div>
-				  			<div class="button_front_money button_front_presupuestario"><div class="row" ><div class="col-sm-3" ng-click="ctrl.go(1)">Vigente</div><div class="col-sm-9 text-right" ng-click="ctrl.go(1)">{{ ctrl.resultados_institucionales.vigente | formatoMillones : true }}</div></div></div>
-				  			<div class="button_front_money button_front_presupuestario"><div class="row"><div class="col-sm-3" ng-click="ctrl.go(1)">Ejecutado</div><div class="col-sm-9 text-right" ng-click="ctrl.go(1)">{{ ctrl.resultados_institucionales.ejecutado | formatoMillones : true }}</div></div></div>
+				  			<div class="button_front_money button_front_presupuestario"><div class="row" ><div class="col-sm-1" ng-click="ctrl.go(1)">V</div><div class="text-right" ng-click="ctrl.go(1)">{{ ctrl.resultados_institucionales.vigente | formatoMillones : true }}</div></div></div>
+				  			<div class="button_front_money button_front_presupuestario"><div class="row"><div class="col-sm-1" ng-click="ctrl.go(1)">E</div><div class="text-right" ng-click="ctrl.go(1)">{{ ctrl.resultados_institucionales.ejecutado | formatoMillones : true }}</div></div></div>
 				  </li>
 				</ul>
 			</div>
@@ -183,8 +183,8 @@
 				  	<div class="button_front_money button_front_fisico" ng-click="ctrl.go(2)">{{ ctrl.resultados_estrategicos.num_resultados }} metas</div>
 				  </li>
 				  <li class="list-group-item text-center button_front button_front_presupuestario" ng-click="ctrl.go(2)"><div style="margin-bottom: 5px;" ng-click="ctrl.go(2)">{{ (ctrl.resultados_estrategicos.p_presupuestario*100).toFixed(0) }}%</div>
-				  			<div class="button_front_money button_front_presupuestario" ng-click="ctrl.go(2)"><div class="row"><div class="col-sm-3" ng-click="ctrl.go(2)">Vigente</div><div class="col-sm-9 text-right" ng-click="ctrl.go(2)">{{ ctrl.resultados_estrategicos.vigente | formatoMillones : true }}</div></div></div>
-				  			<div class="button_front_money button_front_presupuestario" ng-click="ctrl.go(2)"><div class="row"><div class="col-sm-3" ng-click="ctrl.go(2)">Ejecutado</div><div class="col-sm-9 text-right" ng-click="ctrl.go(2)">{{ ctrl.resultados_estrategicos.ejecutado | formatoMillones : true }}</div></div></div>
+				  			<div class="button_front_money button_front_presupuestario" ng-click="ctrl.go(2)"><div class="row"><div class="col-sm-1" ng-click="ctrl.go(2)">V</div><div class="text-right" ng-click="ctrl.go(2)">{{ ctrl.resultados_estrategicos.vigente | formatoMillones : true }}</div></div></div>
+				  			<div class="button_front_money button_front_presupuestario" ng-click="ctrl.go(2)"><div class="row"><div class="col-sm-1" ng-click="ctrl.go(2)">E</div><div class="text-right" ng-click="ctrl.go(2)">{{ ctrl.resultados_estrategicos.ejecutado | formatoMillones : true }}</div></div></div>
 				  </li>
 				</ul>
 			</div>
@@ -196,8 +196,8 @@
 				  	<div class="button_front_money button_front_fisico" ng-click="ctrl.go(3)">{{ ctrl.resultados_otros.num_resultados }} metas</div>
 				  </li>
 				  <li class="list-group-item text-center button_front button_front_presupuestario" ng-click="ctrl.go(3)"><div style="margin-bottom: 5px;" ng-click="ctrl.go(3)">{{ (ctrl.resultados_otros.p_presupuestario*100).toFixed(0) }}%</div>
-				  			<div class="button_front_money button_front_presupuestario" ng-click="ctrl.go(3)"><div class="row"><div class="col-sm-3" ng-click="ctrl.go(3)">Vigente</div><div class="col-sm-9 text-right" ng-click="ctrl.go(3)">{{ ctrl.resultados_otros.vigente | formatoMillones : true }}</div></div></div>
-				  			<div class="button_front_money button_front_presupuestario" ng-click="ctrl.go(3)"><div class="row"><div class="col-sm-3" ng-click="ctrl.go(3)">Ejecutado</div><div class="col-sm-9 text-right" ng-click="ctrl.go(3)">{{ ctrl.resultados_otros.ejecutado | formatoMillones : true }}</div></div></div>
+				  			<div class="button_front_money button_front_presupuestario" ng-click="ctrl.go(3)"><div class="row"><div class="col-sm-1" ng-click="ctrl.go(3)">V</div><div class="text-right" ng-click="ctrl.go(3)">{{ ctrl.resultados_otros.vigente | formatoMillones : true }}</div></div></div>
+				  			<div class="button_front_money button_front_presupuestario" ng-click="ctrl.go(3)"><div class="row"><div class="col-sm-1" ng-click="ctrl.go(3)">E</div><div class="text-right" ng-click="ctrl.go(3)">{{ ctrl.resultados_otros.ejecutado | formatoMillones : true }}</div></div></div>
 				  </li>
 				</ul>
 			</div>
@@ -206,8 +206,8 @@
 			<div class="panel panel-default button_front_main" ng-click="ctrl.go(4)">
 				<ul class="list-group">
 				  <li class="list-group-item text-center button_front button_front_presupuestario"  ng-click="ctrl.go(4)"><div style="margin-bottom: 5px;"  ng-click="ctrl.go(4)">{{ (ctrl.deuda.p_presupuestario*100).toFixed(0) }}%</div>
-				  			<div class="button_front_money button_front_presupuestario"  ng-click="ctrl.go(4)"><div class="row"><div class="col-sm-3"  ng-click="ctrl.go(4)">Vigente</div><div class="col-sm-9 text-right"  ng-click="ctrl.go(4)">{{ ctrl.deuda.vigente | formatoMillones : true }}</div></div></div>
-				  			<div class="button_front_money button_front_presupuestario"  ng-click="ctrl.go(4)"><div class="row"><div class="col-sm-3"  ng-click="ctrl.go(4)">Ejecutado</div><div class="col-sm-9 text-right"  ng-click="ctrl.go(4)">{{ ctrl.deuda.ejecutado | formatoMillones : true }}</div></div></div>
+				  			<div class="button_front_money button_front_presupuestario"  ng-click="ctrl.go(4)"><div class="row"><div class="col-sm-1"  ng-click="ctrl.go(4)">V</div><div class="text-right"  ng-click="ctrl.go(4)">{{ ctrl.deuda.vigente | formatoMillones : true }}</div></div></div>
+				  			<div class="button_front_money button_front_presupuestario"  ng-click="ctrl.go(4)"><div class="row"><div class="col-sm-1"  ng-click="ctrl.go(4)">E</div><div class="text-right"  ng-click="ctrl.go(4)">{{ ctrl.deuda.ejecutado | formatoMillones : true }}</div></div></div>
 				  </li>
 				</ul>
 			</div>
@@ -216,8 +216,8 @@
 			<div class="panel panel-default button_front_main"  ng-click="ctrl.go(5)">
 				<ul class="list-group">
 				  <li class="list-group-item text-center button_front button_front_presupuestario"  ng-click="ctrl.go(5)"><div style="margin-bottom: 5px;"  ng-click="ctrl.go(5)">{{ (ctrl.obligaciones.p_presupuestario*100).toFixed(0) }}%</div>
-				  			<div class="button_front_money button_front_presupuestario"  ng-click="ctrl.go(5)"><div class="row"><div class="col-sm-3" ng-click="ctrl.go(5)">Vigente</div><div class="col-sm-9 text-right" ng-click="ctrl.go(5)">{{ ctrl.obligaciones.vigente | formatoMillones : true }}</div></div></div>
-				  			<div class="button_front_money button_front_presupuestario"  ng-click="ctrl.go(5)"><div class="row"><div class="col-sm-3" ng-click="ctrl.go(5)">Ejecutado</div><div class="col-sm-9 text-right" ng-click="ctrl.go(5)">{{ ctrl.obligaciones.ejecutado | formatoMillones : true }}</div></div></div>
+				  			<div class="button_front_money button_front_presupuestario"  ng-click="ctrl.go(5)"><div class="row"><div class="col-sm-1" ng-click="ctrl.go(5)">V</div><div class="text-right" ng-click="ctrl.go(5)">{{ ctrl.obligaciones.vigente | formatoMillones : true }}</div></div></div>
+				  			<div class="button_front_money button_front_presupuestario"  ng-click="ctrl.go(5)"><div class="row"><div class="col-sm-1" ng-click="ctrl.go(5)">E</div><div class="text-right" ng-click="ctrl.go(5)">{{ ctrl.obligaciones.ejecutado | formatoMillones : true }}</div></div></div>
 				  </li>
 				</ul>
 			</div>
