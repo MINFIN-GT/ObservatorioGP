@@ -76,26 +76,26 @@ body {
 /*Aqui main page*/
 
 .button_front{
-	font-size: 40px;
+	font-size: 50px;
 	font-weight: bold;
 }
 
 
 .button_front_money{
-	font-size: 10px;
+	font-size: 12px;
 	white-space: nowrap;
 	font-weight: normal;
 }
 
 .button_front_main{
-	width: 150px;
+	width: 220px;
 	cursor: pointer;
 	color: black;
 	opacity: 0.5;
 }
 
 .button_front_main:hover{
-	width: 150px;
+	width: 220px;
 	cursor: pointer;
 	opacity: 1;
 }
@@ -110,12 +110,12 @@ body {
 
 .graphics_footnote{
 	text-align: center;
-	font-size: 10px;
+	font-size: 11px;
 }
 
 .total_budget{
 	text-align: center;
-	font-size: 40px;
+	font-size: 50px;
 	font-weight: bold;
 }
 
@@ -713,3 +713,43 @@ body {
 /*---------smart-tree-table row---------*/
 st-tree-caret,i.fa-caret-right:before {font-size: 15px; content: "+"; font-weight: 600;}
 st-tree-caret,i.fa-caret-down:before {font-size: 15px; content:"-"; font-weight: 600;}
+
+/*----------Bubble Graphic-------------*/
+
+.centerBubble{
+	text-align: center;
+    margin: 0 auto;
+    position: relative;
+}
+.labelBubble{
+	z-index: -1;
+    position: absolute;
+	top: 50%; left: 50%;
+	transform: translate(-50%,-50%);
+}
+
+.btn-circle {
+	width: 40px;
+  	height: 40px;
+  	text-align: center;
+  	padding: 6px 0;
+  	font-size: 12px;
+  	line-height: 1.428571429;
+  	border-radius: 30px;
+}
+
+.label-form{
+	 font-size: 13px;
+	 opacity: 1;
+	 color: rgba(0,0,0,0.38) !important;
+	 font-weight: bold;
+}
+
+.verticalText{
+	transform: rotate(270deg);
+}
+.divlateral{
+    position: absolute;
+	top: 50%;
+	transform: translate(-50%,-50%);
+}
