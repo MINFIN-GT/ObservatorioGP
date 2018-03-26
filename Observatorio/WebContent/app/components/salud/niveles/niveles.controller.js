@@ -12,6 +12,8 @@ var app = angular.module('nivelesController', []).controller('nivelesController'
 	
 	mi.today = moment();
 	
+	$rootScope.page_title = 'Niveles de atención';
+	
 	mi.grafica_series=[mi.today.year()-2, mi.today.year()-1, mi.today.year()];
 	mi.grafica_labels=['Med','MMQ','Ins','APP','EM','RH','GA','GO','M'];
 	mi.grafica_dataset=[];

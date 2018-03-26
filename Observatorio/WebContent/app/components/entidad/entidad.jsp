@@ -45,7 +45,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr st-select-row="row" st-select-mode="single" ng-repeat="row in ctrl.displayedCollection" ng-click="ctrl.getGraficaIndividual(row);" ng-dblclick="ctrl.irPrograma(row.id, row.nombre_entidad)">
+					<tr st-select-row="row" st-select-mode="single" ng-repeat="row in ctrl.displayedCollection" ng-click="ctrl.getGraficaIndividual(row);" ng-dblclick="ctrl.irPrograma(row.id, row.nombre_entidad)" style="cursor: pointer;">
 						<td align="left" style="white-space: nowrap;">
 							{{row.nombre_entidad}}
 						</td>

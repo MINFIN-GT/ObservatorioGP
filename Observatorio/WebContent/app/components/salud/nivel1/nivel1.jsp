@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
     <div ng-controller="nivel1Controller as ctrl">
 	    <div align="center" class="row" style="width: 90%; margin: 0 auto; font-size: 11px;">
-	    	<table style="width: 90%;" st-table="ctrl.displayedCollection" st-safe-src="ctrl.rowCollection" st-tree-table st-tree-init-open="false" st-selected-row="selectedRow" class="table table-striped cuerpotabla">
+	    	<table st-table="ctrl.displayedCollection" st-safe-src="ctrl.rowCollection" st-tree-table st-tree-init-open="false" st-selected-row="selectedRow" class="table table-striped">
 				<thead>
 					<tr>
 						<th style="min-width: 250px;" class="sticky-col"></th>

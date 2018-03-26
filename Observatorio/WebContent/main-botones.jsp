@@ -153,17 +153,9 @@
 	</div>
 	<br/>
 	<div class="row">
-		<div class="col-sm-1"></div>
-		<div class="col-sm-2 text-center">Resultados Institucionales</div>
-		<div class="col-sm-2 text-center">Resultados Estratégicos</div>
-		<div class="col-sm-2 text-center">Sin vinculación</div>
-		<div class="col-sm-2 text-center">Deuda</div>
-		<div class="col-sm-2 text-center">Obligaciones</div>
-		<div class="col-sm-1"></div>
-	</div>
-	<div class="row">
-		<div class="col-sm-1"></div>
-		<div class="col-sm-2">
+		<div class="col-md-1"></div>
+		<div class="col-md-2">
+			<div class="button_title">Resutlados Institucionales</div>
 			<div class="panel panel-default button_front_main" ng-click="ctrl.go(1)">
 				<ul class="list-group" ng-click="ctrl.go(1)">
 				  <li class="list-group-item text-center button_front button_front_fisico" ng-click="ctrl.go(1)"><div style="margin-bottom: 5px;" ng-click="ctrl.go(1)">{{ (ctrl.resultados_institucionales.p_fisico*100).toFixed(0) }}%</div>
@@ -176,7 +168,8 @@
 				</ul>
 			</div>
 		</div>
-		<div class="col-sm-2">
+		<div class="col-md-2">
+			<div class="button_title">Resultados Estratégicos</div>
 			<div class="panel panel-default button_front_main" ng-click="ctrl.go(2)">
 				<ul class="list-group" ng-click="ctrl.go(2)">
 				  <li class="list-group-item text-center button_front button_front_fisico" ng-click="ctrl.go(2)"><div style="margin-bottom: 5px;" ng-click="ctrl.go(2)">{{ (ctrl.resultados_estrategicos.p_fisico*100).toFixed(0) }}%</div>
@@ -189,7 +182,8 @@
 				</ul>
 			</div>
 		</div>
-		<div class="col-sm-2">
+		<div class="col-md-2">
+			<div class="button_title">Sin vinculación</div>
 			<div class="panel panel-default button_front_main" ng-click="ctrl.go(3)">
 				<ul class="list-group">
 				  <li class="list-group-item text-center button_front button_front_fisico" ng-click="ctrl.go(3)"><div style="margin-bottom: 5px;" ng-click="ctrl.go(3)">{{ (ctrl.resultados_otros.p_fisico*100).toFixed(0) }}%</div>
@@ -202,7 +196,8 @@
 				</ul>
 			</div>
 		</div>
-		<div class="col-sm-2">
+		<div class="col-md-2">
+			<div class="button_title">Deuda</div>
 			<div class="panel panel-default button_front_main" ng-click="ctrl.go(4)">
 				<ul class="list-group">
 				  <li class="list-group-item text-center button_front button_front_presupuestario"  ng-click="ctrl.go(4)"><div style="margin-bottom: 5px;"  ng-click="ctrl.go(4)">{{ (ctrl.deuda.p_presupuestario*100).toFixed(0) }}%</div>
@@ -212,7 +207,8 @@
 				</ul>
 			</div>
 		</div>
-		<div class="col-sm-2">
+		<div class="col-md-2">
+			<div class="button_title">Obligaciones</div>
 			<div class="panel panel-default button_front_main"  ng-click="ctrl.go(5)">
 				<ul class="list-group">
 				  <li class="list-group-item text-center button_front button_front_presupuestario"  ng-click="ctrl.go(5)"><div style="margin-bottom: 5px;"  ng-click="ctrl.go(5)">{{ (ctrl.obligaciones.p_presupuestario*100).toFixed(0) }}%</div>
@@ -222,7 +218,7 @@
 				</ul>
 			</div>
 		</div>
-		<div class="col-sm-1"></div>
+		<div class="col-md-1"></div>
 	</div>
 	<div class="chart-legend">
 					<ul class="line-legend">

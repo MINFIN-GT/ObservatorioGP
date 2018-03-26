@@ -128,7 +128,8 @@ public class EntidadDAO {
 						( tipo_resultaldo.length()>0 ? " where tipo_resultado=? and entidad not in (11130018,11130019)" :  "" ), 
 						"    group by entidad, unidad_ejecutora, programa, subprograma, proyecto, actividad, obra, ejercicio ",  
 						"  ) t1 ", 
-						"  group by ejercicio, entidad, entidad_nombre;");
+						"  group by ejercicio, entidad, entidad_nombre ",
+						"  order by entidad, ejercicio");
 				
 				PreparedStatement pstmt = CMemsql.getConnection().prepareStatement(query);
 				if(tipo_resultaldo.length()>0)
