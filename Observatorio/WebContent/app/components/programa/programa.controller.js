@@ -91,8 +91,8 @@ angular.module('programaController',[]).controller('programaController', ['$root
 		mi.mensualPFinanciero = new Array(60).fill(0);
 		mi.mensualPFisico = new Array(60).fill(0);
 		
-		mi.anualPFinanciero = [];
-		mi.anualPFisico = [];
+		mi.anualPFinanciero = new Array(5).fill(0);
+		mi.anualPFisico = new Array(5).fill(0);
 		
 		var sumar = false;
 		if(datos.length > 0){
@@ -151,7 +151,7 @@ angular.module('programaController',[]).controller('programaController', ['$root
 							mi.mensualPFinanciero[posarr] += datos[i].ejercicio_data[pos][h];
 							
 							if(h==36)
-								mi.anualPFinanciero.push(datos[i].ejercicio_data[pos][h] * 100);
+								mi.anualPFinanciero[pos] += datos[i].ejercicio_data[pos][h];
 
 						}else if((h>=37) && (h<=48)){ //porcentaje fisico
 							if(pos==0 && h==48)
@@ -169,7 +169,7 @@ angular.module('programaController',[]).controller('programaController', ['$root
 							mi.mensualPFisico[posarr] += datos[i].ejercicio_data[pos][h];
 							
 							if(h==48)
-								mi.anualPFisico.push(datos[i].ejercicio_data[pos][h] * 100);
+								mi.anualPFisico[pos] += datos[i].ejercicio_data[pos][h];
 						}
 					}
 				}
@@ -200,6 +200,11 @@ angular.module('programaController',[]).controller('programaController', ['$root
 			for(var i=0; i<mi.mensualPFinanciero.length;i++){
 				mi.mensualPFinanciero[i] = (mi.mensualPFinanciero[i] / mi.dato.length) * 100;
 				mi.mensualPFisico[i] = (mi.mensualPFisico[i] / mi.dato.length) * 100;
+			}
+			
+			for(var i=0; i<mi.anualPFinanciero.length;i++){
+				mi.anualPFinanciero[i] = (mi.anualPFinanciero[i] / mi.dato.length) * 100;
+				mi.anualPFisico[i] = (mi.anualPFisico[i] / mi.dato.length) * 100;
 			}
 			
 			mi.tipoDatos = 1;

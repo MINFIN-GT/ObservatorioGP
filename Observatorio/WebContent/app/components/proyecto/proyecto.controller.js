@@ -94,8 +94,8 @@ var app = angular.module('proyectoController',[]).controller('proyectoController
 		mi.mensualPFinanciero = new Array(60).fill(0);
 		mi.mensualPFisico = new Array(60).fill(0);
 		
-		mi.anualPFinanciero = [];
-		mi.anualPFisico = [];
+		mi.anualPFinanciero = new Array(5).fill(0);
+		mi.anualPFisico = new Array(5).fill(0);
 		
 		var sumar = false;
 		if(datos.length > 0){
@@ -154,7 +154,7 @@ var app = angular.module('proyectoController',[]).controller('proyectoController
 							mi.mensualPFinanciero[posarr] += datos[i].ejercicio_data[pos][h];
 							
 							if(h==36)
-								mi.anualPFinanciero.push(datos[i].ejercicio_data[pos][h] * 100);
+								mi.anualPFinanciero[pos] += datos[i].ejercicio_data[pos][h];
 
 						}else if((h>=37) && (h<=48)){ //porcentaje fisico
 							if(pos==0 && h==48)
@@ -172,45 +172,50 @@ var app = angular.module('proyectoController',[]).controller('proyectoController
 							mi.mensualPFisico[posarr] += datos[i].ejercicio_data[pos][h];
 							
 							if(h==48)
-								mi.anualPFisico.push(datos[i].ejercicio_data[pos][h] * 100);
-							}
+								mi.anualPFisico[pos] += datos[i].ejercicio_data[pos][h];
 						}
 					}
 				}
-			
-				mi.tot_p_ejecucion_4 = (mi.tot_p_ejecucion_4 / mi.dato.length) * 100;
-				mi.tot_p_ejecucion_3 = (mi.tot_p_ejecucion_3 / mi.dato.length) * 100;
-				mi.tot_p_ejecucion_2 = (mi.tot_p_ejecucion_2 / mi.dato.length) * 100;
-				mi.tot_p_ejecucion_1 = (mi.tot_p_ejecucion_1 / mi.dato.length) * 100;
-				mi.tot_p_ejecucion = (mi.tot_p_ejecucion / mi.dato.length) * 100;
-				
-				mi.tot_p_avance_4 = (mi.tot_p_avance_4 / mi.dato.length) * 100;
-				mi.tot_p_avance_3 = (mi.tot_p_avance_3 / mi.dato.length) * 100;
-				mi.tot_p_avance_2 = (mi.tot_p_avance_2 / mi.dato.length) * 100;
-				mi.tot_p_avance_1 = (mi.tot_p_avance_1 / mi.dato.length) * 100;
-				mi.tot_p_avance = (mi.tot_p_avance / mi.dato.length) * 100;
-			
-				for(var i=0; i<1; i++){
-					for(var h=0; h<mi.dato[i].ejercicios.length;h++){
-						for(var j=0; j<12; j++){
-							if(mi.dato[i].ejercicios[h] == mi.anio && j==mi.mes)
-								break;
-							mi.labels2.push(mi.meses[j] + mi.dato[i].ejercicios[h]);
-						}
-					}
-				}
-			
-				for(var i=0; i<mi.mensualPFinanciero.length;i++){
-					mi.mensualPFinanciero[i] = (mi.mensualPFinanciero[i] / mi.dato.length) * 100;
-					mi.mensualPFisico[i] = (mi.mensualPFisico[i] / mi.dato.length) * 100;
-				}
-			
-				mi.tipoDatos = 1;
-				mi.data2.push(mi.mensualPFinanciero, mi.mensualPFisico);
-				
-				mi.options2.scales.xAxes["0"].scaleLabel.labelString = "Meses";
 			}
+			
+			mi.tot_p_ejecucion_4 = (mi.tot_p_ejecucion_4 / mi.dato.length) * 100;
+			mi.tot_p_ejecucion_3 = (mi.tot_p_ejecucion_3 / mi.dato.length) * 100;
+			mi.tot_p_ejecucion_2 = (mi.tot_p_ejecucion_2 / mi.dato.length) * 100;
+			mi.tot_p_ejecucion_1 = (mi.tot_p_ejecucion_1 / mi.dato.length) * 100;
+			mi.tot_p_ejecucion = (mi.tot_p_ejecucion / mi.dato.length) * 100;
+			
+			mi.tot_p_avance_4 = (mi.tot_p_avance_4 / mi.dato.length) * 100;
+			mi.tot_p_avance_3 = (mi.tot_p_avance_3 / mi.dato.length) * 100;
+			mi.tot_p_avance_2 = (mi.tot_p_avance_2 / mi.dato.length) * 100;
+			mi.tot_p_avance_1 = (mi.tot_p_avance_1 / mi.dato.length) * 100;
+			mi.tot_p_avance = (mi.tot_p_avance / mi.dato.length) * 100;
+		
+			for(var i=0; i<1; i++){
+				for(var h=0; h<mi.dato[i].ejercicios.length;h++){
+					for(var j=0; j<12; j++){
+						if(mi.dato[i].ejercicios[h] == mi.anio && j==mi.mes)
+							break;
+						mi.labels2.push(mi.meses[j] + mi.dato[i].ejercicios[h]);
+					}
+				}
+			}
+		
+			for(var i=0; i<mi.mensualPFinanciero.length;i++){
+				mi.mensualPFinanciero[i] = (mi.mensualPFinanciero[i] / mi.dato.length) * 100;
+				mi.mensualPFisico[i] = (mi.mensualPFisico[i] / mi.dato.length) * 100;
+			}
+			
+			for(var i=0; i<mi.anualPFinanciero.length;i++){
+				mi.anualPFinanciero[i] = (mi.anualPFinanciero[i] / mi.dato.length) * 100;
+				mi.anualPFisico[i] = (mi.anualPFisico[i] / mi.dato.length) * 100;
+			}
+		
+			mi.tipoDatos = 1;
+			mi.data2.push(mi.mensualPFinanciero, mi.mensualPFisico);
+			
+			mi.options2.scales.xAxes["0"].scaleLabel.labelString = "Meses";
 		}
+	}
 	
 	mi.getGraficaIndividual = function(row){
 		mi.labels2 = [];
