@@ -24,7 +24,7 @@ angular.module('programaController',[]).controller('programaController', ['$root
 	}
 	
 	mi.arregloSubtitulo = JSON.parse($window.localStorage.getItem("\"" + $routeParams.t + "\""));
-	mi.subtitulo = mi.arregloSubtitulo[0] + (mi.tipo_resultado=='0' ? ' \\ ' + mi.arregloSubtitulo[1] : '' );
+	mi.subtitulo = ((mi.tipo_resultado=='1' || mi.tipo_resultado=='2') ? mi.arregloSubtitulo[0] + '\\' : '') + mi.arregloSubtitulo[1] + (mi.tipo_resultado=='0' ? ' \\ ' + mi.arregloSubtitulo[2] : '' );
 	
 	mi.tot_asignado_4 = 0;
 	mi.tot_vigente_4 = 0;
@@ -63,6 +63,7 @@ angular.module('programaController',[]).controller('programaController', ['$root
 		entidad: mi.entidad,
 		unidad_ejecutora: mi.unidad_ejecutora,
 		tipo_resultado: mi.tipo_resultado,
+		resultado: mi.tipo_resultado==1 || mi.tipo_resultado==2 ? mi.arregloSubtitulo[0] : '',
 		t: new Date().getTime()
 	}).then(function(response){
 		if(response.data.success){
@@ -335,7 +336,7 @@ angular.module('programaController',[]).controller('programaController', ['$root
 		};
 	
 	mi.irSubprograma = function(programa_id, programa_nombre){
-		mi.arregloSubtitulo[2] = programa_nombre;
+		mi.arregloSubtitulo[3] = programa_nombre;
 		$window.localStorage.setItem("\"" + $routeParams.t + "\"", JSON.stringify(mi.arregloSubtitulo));
 		window.location = "main.jsp#!/subprograma/" + mi.tipo_resultado + "/" + mi.entidad + "/" + mi.unidad_ejecutora +"/" + programa_id + "/" + $routeParams.t;
 	}

@@ -203,9 +203,8 @@ public class SaludDAO {
 			return ret;
 		}catch(Exception e){
 			CLogger.write("1", SaludDAO.class, e);
-		}finally{
-			CMemsql.close();
 		}
+		CMemsql.close();
 		return ret;
 	}
 	
@@ -366,9 +365,8 @@ public class SaludDAO {
 			return ret;
 		}catch(Exception e){
 			CLogger.write("2", SaludDAO.class, e);
-		}finally{
-			CMemsql.close();
 		}
+		CMemsql.close();
 		return ret;
 	}
 	
@@ -529,9 +527,8 @@ public class SaludDAO {
 			return ret;
 		}catch(Exception e){
 			CLogger.write("3", SaludDAO.class, e);
-		}finally{
-			CMemsql.close();
 		}
+		CMemsql.close();
 		return ret;
 	}
 	
@@ -595,10 +592,10 @@ public class SaludDAO {
 	
 	public static ArrayList<Historia> getHistoria(){
 		ArrayList<Historia> ret = new ArrayList<Historia>();
-		String query = "";
+		//String query = "";
 		try{
 //			if(CMemsql.connect()){
-				query = String.join(" ", "");
+//				query = String.join(" ", "");
 				
 //				PreparedStatement pstmt = CMemsql.getConnection().prepareStatement(query);
 //				ResultSet rs = pstmt.executeQuery();
@@ -626,12 +623,12 @@ public class SaludDAO {
 				}
 				
 //			}
+			CMemsql.close();
 			return ret;
 		}catch(Exception e){
 			CLogger.write("5", SaludDAO.class, e);
-		}finally{
-			//CMemsql.close();
 		}
+		CMemsql.close();
 		return ret;
 	}
 }

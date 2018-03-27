@@ -59,9 +59,9 @@ public class SSubprograma extends HttpServlet {
 			case 2: tipo_resultado = "Institucional"; break;
 			case 3: tipo_resultado = "Otros"; break;
 		}
-		
+		String resultado = map.get("resultado");
 		if(accion.equals("getSubprogramas")){
-			ArrayList<Subprograma> lstsubprogramas = SubprogramaDAO.getSubprogramas(entidad, unidad_ejecutora, programa, tipo_resultado);
+			ArrayList<Subprograma> lstsubprogramas = SubprogramaDAO.getSubprogramas(entidad, unidad_ejecutora, programa, tipo_resultado, resultado);
 			
 			String subprogramas = new GsonBuilder().serializeNulls().create().toJson(lstsubprogramas);
 			response_text = String.join(" ", "\"subprogramas\": ", subprogramas);

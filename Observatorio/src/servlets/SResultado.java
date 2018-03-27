@@ -18,15 +18,15 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import dao.EntidadDAO;
-import dao.EntidadDAO.Entidad;
+import dao.ResultadoDAO;
+import dao.ResultadoDAO.Resultado;
 import utilities.Utils;
 
-@WebServlet("/SEntidad")
-public class SEntidad extends HttpServlet {
+@WebServlet("/SResultado")
+public class SResultado extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public SEntidad() {
+    public SResultado() {
         super();
     }
 
@@ -48,19 +48,13 @@ public class SEntidad extends HttpServlet {
 		String accion = map.get("accion");
 		String response_text="";
 		
-		String tipo_resultado = "";
-		switch(Utils.String2Int(map.get("tipo_resultado"))){
-			case 0: tipo_resultado = ""; break;
-			case 1: tipo_resultado = "Estrátegico"; break;
-			case 2: tipo_resultado = "Institucional"; break;
-			case 3: tipo_resultado = "Otros"; break;
-		}
-		String resultado = map.get("resultado");
-		if(accion.equals("getEntidades")){
-			ArrayList<Entidad> lstentidades = EntidadDAO.getEntidades(tipo_resultado,resultado);
+		String tipo_resultado = Utils.String2Int(map.get("tipo_resultado")) == 1 ? "Estrátegico" : (Utils.String2Int(map.get("tipo_resultado")) == 2 ? "Institucional" : "Otros");
+		
+		if(accion.equals("getResultados")){
+			ArrayList<Resultado> lstunidadesejecutoras = ResultadoDAO.getResultados(tipo_resultado);
 			
-			String entidades = new GsonBuilder().serializeNulls().create().toJson(lstentidades);
-			response_text = String.join(" ", "\"entidades\": ", entidades);
+			String unidadesEjecutoras = new GsonBuilder().serializeNulls().create().toJson(lstunidadesejecutoras);
+			response_text = String.join(" ", "\"resultados\": ", unidadesEjecutoras);
 			response_text = String.join(" ","{\"success\": true,", response_text, "}");
 		}
 		

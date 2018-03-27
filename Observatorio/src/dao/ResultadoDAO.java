@@ -5,25 +5,24 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import org.joda.time.DateTime;
-
 import utilities.CLogger;
 import utilities.CMemsql;
 
-public class ProyectoDAO {
-	public class Proyecto{
+public class ResultadoDAO {
+	public class Resultado{
 		Integer id;
-		String nombre_proyecto;
+		String nombre_resultado;
 		ArrayList<Integer> ejercicios;
 		ArrayList<Double[]> ejercicio_data;
 	}
 	
-	public static ArrayList<Proyecto> getProyectos(Integer entidad, Integer unidad_ejecutora, Integer programa, Integer subprograma){
-		ArrayList<Proyecto> ret = new ArrayList<Proyecto>();
+	public static ArrayList<Resultado> getResultados(String tipo_resultado){
+		ArrayList<Resultado> ret = new ArrayList<Resultado>();
 		String query = "";
 		try{
 			if(CMemsql.connect()){
 				query = String.join(" ", "SELECT ejercicio,", 
-						"       entidad, programa, proyecto, proyecto_nombre,", 
+						"       nombre_corto, ", 
 						"       SUM(financiero_asignado) financiero_asignado,", 
 						"       SUM(financiero_vigente_m1) financiero_vigente_m1,", 
 						"       SUM(financiero_vigente_m2) financiero_vigente_m2,", 
@@ -73,8 +72,8 @@ public class ProyectoDAO {
 						"       (SUM(p_fisico_m10 * financiero_vigente_m10) / SUM(financiero_vigente_m10)) pp_fisico_m10,", 
 						"       (SUM(p_fisico_m11 * financiero_vigente_m11) / SUM(financiero_vigente_m11)) pp_fisico_m11,", 
 						"       (SUM(p_fisico_m12 * financiero_vigente_m12) / SUM(financiero_vigente_m12)) pp_fisico_m12", 
-						"FROM (SELECT ejercicio, entidad, unidad_ejecutora, unidad_ejecutora_nombre, programa, programa_nombre, subprograma, subprograma_nombre, proyecto, proyecto_nombre,", 
-						"             obra, actividad, actividad_obra_nombre,", 
+						"FROM (SELECT ejercicio, entidad, unidad_ejecutora, unidad_ejecutora_nombre, programa, programa_nombre, subprograma, proyecto, ", 
+						"             obra, actividad, actividad_obra_nombre, nombre_corto,", 
 						"             AVG(financiero_asignado) financiero_asignado,", 
 						"             AVG(financiero_ejecutado_m1) financiero_ejecutado_m1,", 
 						"             AVG(financiero_ejecutado_m2) financiero_ejecutado_m2,", 
@@ -125,30 +124,24 @@ public class ProyectoDAO {
 						"             (AVG(IFNULL(fisico_ejecutado_m11, IF (fisico_asignado + IFNULL(fisico_modificacion_m11,0) <> 0, 0, NULL)) / IF (fisico_asignado + IFNULL(fisico_modificacion_m11,0) <> 0,fisico_asignado + IFNULL(fisico_modificacion_m11,0),1))) p_fisico_m11,", 
 						"             (AVG(IFNULL(fisico_ejecutado_m12, IF (fisico_asignado + IFNULL(fisico_modificacion_m12,0) <> 0, 0, NULL)) / IF (fisico_asignado + IFNULL(fisico_modificacion_m12,0) <> 0,fisico_asignado + IFNULL(fisico_modificacion_m12,0),1))) p_fisico_m12", 
 						"      FROM mv_financiera_fisica", 
-						"      WHERE entidad = ?", 
-						"	   AND	 programa = ?",
-						"      AND   unidad_ejecutora=?",
-						"      AND   subprograma=?",
-						"      GROUP BY entidad, unidad_ejecutora, programa, subprograma, proyecto, actividad, obra, ejercicio) t1", 
-						"GROUP BY ejercicio, entidad, unidad_ejecutora,programa, subprograma, proyecto, proyecto_nombre");
+						"      WHERE   tipo_resultado = ?",  
+						"      GROUP BY entidad, unidad_ejecutora, programa, subprograma, proyecto, actividad, obra, nombre_corto, ejercicio) t1", 
+						"GROUP BY ejercicio, nombre_corto");
 				
 				PreparedStatement pstmt = CMemsql.getConnection().prepareStatement(query);
-				pstmt.setInt(1, entidad);
-				pstmt.setInt(2, programa);
-				pstmt.setInt(3, unidad_ejecutora);
-				pstmt.setInt(4, subprograma);
+				pstmt.setString(1, tipo_resultado);
 				
 				ResultSet rs = pstmt.executeQuery();
 				
-				int proyecto_actual = -1;
-				Proyecto temp = null;
+				String resultado_actual = "";
+				Resultado temp = null;
 				while(rs.next()){
-					if(proyecto_actual != rs.getInt("proyecto")){
+					if(resultado_actual != rs.getString("nombre_corto")){
 						if(temp != null)
 							ret.add(temp);
-						temp = (new ProyectoDAO()).new Proyecto();
-						temp.id = rs.getInt("proyecto");
-						temp.nombre_proyecto = rs.getString("proyecto_nombre");
+						temp = (new ResultadoDAO()).new Resultado();
+						temp.id = 0;
+						temp.nombre_resultado = rs.getString("nombre_corto");
 						int year = DateTime.now().getYear();
 						temp.ejercicios = new ArrayList<Integer>();
 						temp.ejercicio_data = new ArrayList<Double[]>();
@@ -158,15 +151,15 @@ public class ProyectoDAO {
 							for(int z=0;z<49;z++)
 								temp.ejercicio_data.get(temp.ejercicio_data.size()-1)[z]=0.0d;
 						}
-						proyecto_actual = temp.id;
+						resultado_actual = temp.nombre_resultado;
 					}
 					
 					Double[] datos = new Double[49];
 					for(int i=0; i<49;i++){
-						datos[i] = rs.getDouble(i+6);
+						datos[i] = rs.getDouble(i+3);
 					}
 					temp.ejercicio_data.set(rs.getInt("ejercicio")-DateTime.now().getYear()+4,datos);
-					temp.nombre_proyecto = rs.getString("proyecto_nombre");
+					temp.nombre_resultado = rs.getString("nombre_corto");
 				}
 				
 				if(temp != null)
@@ -176,7 +169,7 @@ public class ProyectoDAO {
 			CMemsql.close();
 			return ret;
 		}catch(Exception e){
-			CLogger.write("1", ProyectoDAO.class, e);
+			CLogger.write("1", ResultadoDAO.class, e);
 			CMemsql.close();
 		}
 		return ret;

@@ -40,10 +40,8 @@ public class ObligacionesDAO {
 			return ret;
 		}
 		catch(Throwable e){
-			CLogger.write("1", ObligacionesDAO.class, e);
-		}
-		finally{
 			CMemsql.close();
+			CLogger.write("1", ObligacionesDAO.class, e);
 		}
 		return ret;
 	}

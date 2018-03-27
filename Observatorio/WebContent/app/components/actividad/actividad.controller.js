@@ -26,8 +26,9 @@ angular.module('actividadController',[]).controller('actividadController', ['$ro
 	}
 	
 	mi.arregloSubtitulo = JSON.parse($window.localStorage.getItem("\"" + $routeParams.t + "\""));
-	mi.subtitulo = mi.arregloSubtitulo[0] + (mi.tipo_resultado=='0' ? ' \\ ' + mi.arregloSubtitulo[1] : '' ) + ' \\ ' + mi.arregloSubtitulo[2] + ' \\ ' + mi.arregloSubtitulo[3] + (mi.tipo_resultado=='0' ? ' \\ ' + mi.arregloSubtitulo[4] : '' );
-
+	mi.subtitulo = ((mi.tipo_resultado=='1' || mi.tipo_resultado=='2') ? mi.arregloSubtitulo[0] + '\\' : '') + 
+	mi.arregloSubtitulo[1] + (mi.tipo_resultado=='0' ? ' \\ ' + mi.arregloSubtitulo[2] : '' ) + ' \\ ' + mi.arregloSubtitulo[3] + ' \\ ' + mi.arregloSubtitulo[4] + (mi.tipo_resultado=='0' ? ' \\ ' + mi.arregloSubtitulo[5] : '' );
+	
 	mi.tot_asignado_4 = 0;
 	mi.tot_vigente_4 = 0;
 	mi.tot_ejecutado_4 = 0;

@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <div ng-controller="entidadController as ctrl">
+    <div ng-controller="resultadoController as ctrl">
     	<div align="center" class="row" style="width: 90%; margin: 0 auto; font-size: 11px;">
-    		<h6 align="left" ng-if="ctrl.tipo_resultado==1 || ctrl.tipo_resultado==2">{{ctrl.subtitulo}}</h6>
+    		<h6 align="left">{{ctrl.subtitulo}}</h6>
     		<br>
 	    	<table st-table="ctrl.displayedCollection" st-safe-src="ctrl.rowCollection" class="table table-striped cuerpotabla">
 				<thead>
@@ -15,7 +15,7 @@
 						<th style="text-align: center;" colspan="5">{{ctrl.anio}}</th>
 					</tr>
 					<tr>
-						<th st-sort="nombre_entidad">Entidad</th>
+						<th st-sort="nombre_unidad_ejecutora">Nombre</th>
 						<th style="text-align: center; min-width: 50px; max-width: 50px;">Asig.</th>
 						<th style="text-align: center; min-width: 50px; max-width: 50px;">Vig.</th>
 						<th style="text-align: center; min-width: 50px; max-width: 50px;">Ejec.</th>
@@ -43,13 +43,13 @@
 						<th style="text-align: center; min-width: 50px; max-width: 50px;">% EF</th>
 					</tr>
 					<tr>
-						<th colspan="1"><input st-search="nombre_entidad" class="form-control" placeholder="Entidad..." type="text"/></th>
+						<th colspan="1"><input st-search="nombre_corto" class="form-control" placeholder="Resultado..." type="text"/></th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr st-select-row="row" st-select-mode="single" ng-repeat="row in ctrl.displayedCollection" ng-click="ctrl.getGraficaIndividual(row);" ng-dblclick="ctrl.irPrograma(row.id, row.nombre_entidad)" style="cursor: pointer;">
+					<tr st-select-row="row" st-select-mode="single" ng-repeat="row in ctrl.displayedCollection" ng-click="ctrl.getGraficaIndividual(row);" ng-dblclick="ctrl.irSiguienteNivel(row.nombre_resultado)">
 						<td align="left" style="white-space: nowrap;">
-							{{row.nombre_entidad}}
+							{{row.nombre_resultado}}
 						</td>
 						<td align="right">
 							<div style="white-space: nowrap;">{{row.ejercicio_data[0][0] | formatoMillones : ctrl.decimales}}</div>
@@ -66,7 +66,7 @@
 						<td align="right">
 							<div style="white-space: nowrap;">{{(row.ejercicio_data[0][48])*100 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
 						</td>
-						<td align="right">
+												<td align="right">
 							<div style="white-space: nowrap;">{{row.ejercicio_data[1][0] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
@@ -230,7 +230,7 @@
 					</canvas>
 				</div>
 			</div>
-			<div class="graphics_footnote">Fuente de información SICOIN. Cifras en porcentajes.</div>
+			<div style="text-align: center;">Fuente de información SICOIN. Cifras en porcentajes.</div>
 			<br>
 		</div>
     </div>

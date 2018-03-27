@@ -27,7 +27,8 @@ var app = angular.module('proyectoController',[]).controller('proyectoController
 	}
 	
 	mi.arregloSubtitulo = JSON.parse($window.localStorage.getItem("\"" + $routeParams.t + "\""));
-	mi.subtitulo = mi.arregloSubtitulo[0] + (mi.tipo_resultado=='0' ? ' \\ ' + mi.arregloSubtitulo[1] : '' ) + ' \\ ' + mi.arregloSubtitulo[2] + ' \\ ' + mi.arregloSubtitulo[3];
+	mi.subtitulo = ((mi.tipo_resultado=='1' || mi.tipo_resultado=='2') ? mi.arregloSubtitulo[0] + '\\' : '') + 
+	mi.arregloSubtitulo[1] + (mi.tipo_resultado=='0' ? ' \\ ' + mi.arregloSubtitulo[2] : '' ) + ' \\ ' + mi.arregloSubtitulo[3] + ' \\ ' + mi.arregloSubtitulo[4];
 	
 	mi.tot_asignado_4 = 0;
 	mi.tot_vigente_4 = 0;
@@ -338,7 +339,7 @@ var app = angular.module('proyectoController',[]).controller('proyectoController
 		};
 	
 	mi.irActividad = function(proyecto_id, proyecto_nombre){
-		mi.arregloSubtitulo[4] = proyecto_nombre;
+		mi.arregloSubtitulo[5] = proyecto_nombre;
 		$window.localStorage.setItem("\"" + $routeParams.t + "\"", JSON.stringify(mi.arregloSubtitulo));
 		
 		window.location = "main.jsp#!/actividad/" + mi.tipo_resultado + "/" + mi.entidad + "/" + mi.unidad_ejecutora + "/" + mi.programa + "/" + mi.subprograma + "/" + proyecto_id + "/" + $routeParams.t;

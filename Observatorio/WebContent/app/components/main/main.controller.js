@@ -40,8 +40,11 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
          .when('/unidadejecutora/:tipo_resultado/:entidad/:t',{
          	template: '<div load-on-demand="\'unidadEjecutoraController\'" class="all_page"></div>'
          })
-         .when('/entidad/:tipo_resultado',{
+         .when('/entidad/:tipo_resultado/:t?',{
          	template: '<div load-on-demand="\'entidadController\'" class="all_page"></div>'
+         })
+         .when('/resultados/:tipo_resultado',{
+         	template: '<div load-on-demand="\'resultadoController\'" class="all_page"></div>'
          })
          .when('/salud/nivel3',{
          	template: '<div load-on-demand="\'nivel3Controller\'" class="all_page"></div>'
@@ -124,6 +127,11 @@ app.config(['$loadOnDemandProvider', function ($loadOnDemandProvider) {
 	    	   name: 'entidadController',
 	    	   script: '/app/components/entidad/entidad.controller.js',
 	    	   template: '/app/components/entidad/entidad.jsp'
+	       },
+	       {
+	    	   name: 'resultadoController',
+	    	   script: '/app/components/resultado/resultado.controller.js',
+	    	   template: '/app/components/resultado/resultado.jsp'
 	       },
 	       {
 	    	   name: 'proyectoController',

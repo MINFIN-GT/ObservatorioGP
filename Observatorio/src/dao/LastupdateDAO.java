@@ -23,11 +23,10 @@ public class LastupdateDAO {
 				}
 				results.close();
 				pstm1.close();
+				CMemsql.close();
 			}
 			catch(Exception e){
 				CLogger.write("1", LastupdateDAO.class, e);
-			}
-			finally{
 				CMemsql.close();
 			}
 		}

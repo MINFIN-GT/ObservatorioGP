@@ -1,10 +1,19 @@
-var app = angular.module('subprogramaController',[]).controller('subprogramaController',['$rootScope','$scope','$http','$routeParams', '$window',
+var app = angular.module('resultadoController',[]).controller('resultadoController', ['$rootScope','$scope','$http','$routeParams', '$window',
 	function($rootScope,$scope,$http,$routeParams, $window){
-	mi = this;
-	
+	var mi = this;
 	var fecha = new Date();
 	mi.anio = fecha.getFullYear();
 	mi.mes = fecha.getMonth();
+	
+	mi.tipo_resultado = $routeParams.tipo_resultado;
+	
+	switch(mi.tipo_resultado){
+		case '1': $rootScope.page_title = 'Resultados estratégicos'; break;
+		case '2': $rootScope.page_title = 'Resultados institucionales'; break;
+	}
+	
+	//mi.arregloSubtitulo = JSON.parse($window.localStorage.getItem("\"" + $routeParams.t + "\""));
+	//mi.subtitulo = mi.arregloSubtitulo[0];
 	
 	mi.etiquetaX = "";
 	mi.labels2 = [];
@@ -12,22 +21,6 @@ var app = angular.module('subprogramaController',[]).controller('subprogramaCont
 	mi.decimales = true;
 	mi.linealColors = ['#8ecf4c', '#88b4df', '#d92a27'];
 	mi.tipoDatos = 0;
-	
-	mi.tipo_resultado = $routeParams.tipo_resultado;
-	mi.entidad = $routeParams.entidad;
-	mi.unidad_ejecutora = $routeParams.unidad_ejecutora;
-	mi.programa = $routeParams.programa;
-	
-	switch(mi.tipo_resultado){
-		case '0': $rootScope.page_title = 'Institucional [Subprogramas]'; break;
-		case '1': $rootScope.page_title = 'Resultados estratégicos [Subprogramas]'; break;
-		case '2': $rootScope.page_title = 'Resultados institucionales [Subprogramas]'; break;
-		case '3': $rootScope.page_title = 'Sin resultado [Subprogramas]'; break;
-	}
-	
-	mi.arregloSubtitulo = JSON.parse($window.localStorage.getItem("\"" + $routeParams.t + "\""));
-	mi.subtitulo = ((mi.tipo_resultado=='1' || mi.tipo_resultado=='2') ? mi.arregloSubtitulo[0] + '\\' : '') + 
-		mi.arregloSubtitulo[1] + (mi.tipo_resultado=='0' ? ' \\ ' + mi.arregloSubtitulo[2] : '' ) + ' \\ ' + mi.arregloSubtitulo[3];
 	
 	mi.tot_asignado_4 = 0;
 	mi.tot_vigente_4 = 0;
@@ -61,28 +54,24 @@ var app = angular.module('subprogramaController',[]).controller('subprogramaCont
 	
 	mi.meses = ['Ene-','Feb-','Mar-','Abr-','May-','Jun-','Jul-','Ago-','Sep-','Oct-','Nov-','Dic-'];
 	
-	$http.post('/SSubprograma',{
-		accion: 'getSubprogramas',
+	$http.post('/SResultado',{
+		accion: 'getResultados',
 		tipo_resultado: mi.tipo_resultado,
-		resultado: mi.tipo_resultado==1 || mi.tipo_resultado==2 ? mi.arregloSubtitulo[0] : '',
-		entidad: mi.entidad,
-		unidad_ejecutora: mi.unidad_ejecutora,
-		programa: mi.programa,
 		t: new Date().getTime()
 	}).then(function(response){
 		if(response.data.success){
 			mi.dato = [];
-			mi.dato = response.data.subprogramas;
+			mi.dato = response.data.resultados;
 			
 			mi.rowCollection = [];
 			mi.rowCollection = mi.dato;
-			
+				
 			mi.displayedCollection = [].concat(mi.rowCollection);
 			
 			mi.tipoDatos = 1;
 			mi.getGraficaGeneral(mi.dato);
 		}
-	})
+	});
 	
 	mi.getGraficaGeneral = function(datos){
 		mi.series2 = ['% Financiero' , '% Físico']
@@ -96,7 +85,6 @@ var app = angular.module('subprogramaController',[]).controller('subprogramaCont
 		mi.anualPFinanciero = [];
 		mi.anualPFisico = [];
 		
-		var sumar = false;
 		if(datos.length > 0){
 			for(var i=0; i<datos.length; i++){//row
 				for(var j=0; j<datos[i].ejercicios.length; j++){//años
@@ -104,50 +92,50 @@ var app = angular.module('subprogramaController',[]).controller('subprogramaCont
 					for(var h=0; h<datos[i].ejercicio_data[pos].length; h++){
 						if(h==0){
 							if(pos==0)
-								mi.tot_asignado_4 += datos[i].ejercicio_data[pos][h];
+								mi.tot_asignado_4 += datos[i].ejercicio_data[pos][0];
 							if(pos==1)
-								mi.tot_asignado_3 += datos[i].ejercicio_data[pos][h];
+								mi.tot_asignado_3 += datos[i].ejercicio_data[pos][0];
 							if(pos==2)
-								mi.tot_asignado_2 += datos[i].ejercicio_data[pos][h];
+								mi.tot_asignado_2 += datos[i].ejercicio_data[pos][0];
 							if(pos==3)
-								mi.tot_asignado_1 += datos[i].ejercicio_data[pos][h];
+								mi.tot_asignado_1 += datos[i].ejercicio_data[pos][0];
 							if(pos==4)
-								mi.tot_asignado += datos[i].ejercicio_data[pos][h];
-						}else if((h>=1) && (h<=12)){ //vigente
-							if(pos==0 && h==12)
-								mi.tot_vigente_4 += datos[i].ejercicio_data[pos][h];
-							if(pos==1 && h==12)
-								mi.tot_vigente_3 += datos[i].ejercicio_data[pos][h];
-							if(pos==2 && h==12)
-								mi.tot_vigente_2 += datos[i].ejercicio_data[pos][h];
-							if(pos==3 && h==12)
-								mi.tot_vigente_1 += datos[i].ejercicio_data[pos][h];
-							if(pos==4 && h==12)
-								mi.tot_vigente += datos[i].ejercicio_data[pos][h];
-							
-						}else if((h>=13) && (h<=24)){ //ejecutado
+								mi.tot_asignado += datos[i].ejercicio_data[pos][0];
+						}else if((h>=13) && (h<=24)){ //vigente
 							if(pos==0 && h==24)
-								mi.tot_ejecutado_4 += datos[i].ejercicio_data[pos][h];
+								mi.tot_vigente_4 += datos[i].ejercicio_data[pos][12];
 							if(pos==1 && h==24)
-								mi.tot_ejecutado_3 += datos[i].ejercicio_data[pos][h];
+								mi.tot_vigente_3 += datos[i].ejercicio_data[pos][12];
 							if(pos==2 && h==24)
-								mi.tot_ejecutado_2 += datos[i].ejercicio_data[pos][h];
+								mi.tot_vigente_2 += datos[i].ejercicio_data[pos][12];
 							if(pos==3 && h==24)
-								mi.tot_ejecutado_1 += datos[i].ejercicio_data[pos][h];
+								mi.tot_vigente_1 += datos[i].ejercicio_data[pos][12];
 							if(pos==4 && h==24)
-								mi.tot_ejecutado += datos[i].ejercicio_data[pos][h];
+								mi.tot_vigente += datos[i].ejercicio_data[pos][12];
+							
+						}else if((h>=1) && (h<=12)){ //ejecutado
+							if(pos==0 && h==12)
+								mi.tot_ejecutado_4 += datos[i].ejercicio_data[pos][24];
+							if(pos==1 && h==12)
+								mi.tot_ejecutado_3 += datos[i].ejercicio_data[pos][24];
+							if(pos==2 && h==12)
+								mi.tot_ejecutado_2 += datos[i].ejercicio_data[pos][24];
+							if(pos==3 && h==12)
+								mi.tot_ejecutado_1 += datos[i].ejercicio_data[pos][24];
+							if(pos==4 && h==12)
+								mi.tot_ejecutado += datos[i].ejercicio_data[pos][24];
 							
 						}else if((h>=25) && (h<=36)){ //porcentaje financiero presupuestario
 							if(pos==0 && h==36)
-								mi.tot_p_ejecucion_4 += datos[i].ejercicio_data[pos][h];
+								mi.tot_p_ejecucion_4 += datos[i].ejercicio_data[pos][36];
 							if(pos==1 && h==36)
-								mi.tot_p_ejecucion_3 += datos[i].ejercicio_data[pos][h];
+								mi.tot_p_ejecucion_3 += datos[i].ejercicio_data[pos][36];
 							if(pos==2 && h==36)
-								mi.tot_p_ejecucion_2 += datos[i].ejercicio_data[pos][h];
+								mi.tot_p_ejecucion_2 += datos[i].ejercicio_data[pos][36];
 							if(pos==3 && h==36)
-								mi.tot_p_ejecucion_1 += datos[i].ejercicio_data[pos][h];
+								mi.tot_p_ejecucion_1 += datos[i].ejercicio_data[pos][36];
 							if(pos==4 && h==36)
-								mi.tot_p_ejecucion += datos[i].ejercicio_data[pos][h];
+								mi.tot_p_ejecucion += datos[i].ejercicio_data[pos][36];
 							
 							var posarr = pos==0 ? (h-25+0) : pos==1 ? (h-25+12) : pos==2 ? (h-25+24) : pos==3 ? (h-25+36) : pos==4 ? (h-25+48) : 0;
 							mi.mensualPFinanciero[posarr] += datos[i].ejercicio_data[pos][h];
@@ -157,15 +145,15 @@ var app = angular.module('subprogramaController',[]).controller('subprogramaCont
 
 						}else if((h>=37) && (h<=48)){ //porcentaje fisico
 							if(pos==0 && h==48)
-								mi.tot_p_avance_4 += datos[i].ejercicio_data[pos][h];
+								mi.tot_p_avance_4 += datos[i].ejercicio_data[pos][48];
 							if(pos==1 && h==48)
-								mi.tot_p_avance_3 += datos[i].ejercicio_data[pos][h];
+								mi.tot_p_avance_3 += datos[i].ejercicio_data[pos][48];
 							if(pos==2 && h==48)
-								mi.tot_p_avance_2 += datos[i].ejercicio_data[pos][h];
+								mi.tot_p_avance_2 += datos[i].ejercicio_data[pos][48];
 							if(pos==3 && h==48)
-								mi.tot_p_avance_1 += datos[i].ejercicio_data[pos][h];
+								mi.tot_p_avance_1 += datos[i].ejercicio_data[pos][48];
 							if(pos==4 && h==48)
-								mi.tot_p_avance += datos[i].ejercicio_data[pos][h];
+								mi.tot_p_avance += datos[i].ejercicio_data[pos][48];
 							
 							var posarr = pos==0 ? (h-37+0) : pos==1 ? (h-37+12) : pos==2 ? (h-37+24) : pos==3 ? (h-37+36) : pos==4 ? (h-37+48) : 0;
 							mi.mensualPFisico[posarr] += datos[i].ejercicio_data[pos][h];
@@ -337,13 +325,9 @@ var app = angular.module('subprogramaController',[]).controller('subprogramaCont
 		        }
 		};
 	
-	mi.irActividad = function(subprograma_id, subprograma_nombre){
-		mi.arregloSubtitulo[4] = subprograma_nombre;
-		$window.localStorage.setItem("\"" + $routeParams.t + "\"", JSON.stringify(mi.arregloSubtitulo));
-		
-		if(mi.tipo_resultado=='0')
-			window.location = "main.jsp#!/proyecto/" + mi.tipo_resultado + "/" + mi.entidad + "/" + mi.unidad_ejecutora + "/" + mi.programa + "/" + subprograma_id + "/" + $routeParams.t;
-		else
-			window.location = "main.jsp#!/actividad/" + mi.tipo_resultado + "/" + mi.entidad + "/" + mi.unidad_ejecutora + "/" + mi.programa + "/" + subprograma_id + "/0/" + $routeParams.t;
-	}
+		mi.irSiguienteNivel = function(resultado){
+			var time = new Date().getTime();
+			$window.localStorage.setItem("\"" + time + "\"", JSON.stringify([resultado,"","","","","","",""]));
+			window.location = "main.jsp#!/entidad/" + mi.tipo_resultado + "/"+ time;
+		}
 }])

@@ -16,7 +16,7 @@ public class ProgramaDAO {
 		ArrayList<Double[]> ejercicio_data;
 	}
 	
-	public static ArrayList<Programa> getProgramas(Integer entidad, Integer unidad_ejecutora,Integer programa, String tipo_resultaldo){
+	public static ArrayList<Programa> getProgramas(Integer entidad, Integer unidad_ejecutora,Integer programa, String tipo_resultaldo, String resultado){
 		ArrayList<Programa> ret = new ArrayList<Programa>();
 		String query = "";
 		try{
@@ -125,14 +125,16 @@ public class ProgramaDAO {
 						"             (AVG(IFNULL(fisico_ejecutado_m12, IF (fisico_asignado + IFNULL(fisico_modificacion_m12,0) <> 0, 0, NULL)) / IF (fisico_asignado + IFNULL(fisico_modificacion_m12,0) <> 0,fisico_asignado + IFNULL(fisico_modificacion_m12,0),1))) p_fisico_m12", 
 						"      FROM mv_financiera_fisica", 
 						"      WHERE entidad = ?", 
-						(tipo_resultaldo.length()>0 ? "      AND   tipo_resultado = ? " : "AND unidad_ejecutora = ? "),  
+						(tipo_resultaldo.length()>0 ? "      AND   tipo_resultado = ? AND nombre_corto=? " : "AND unidad_ejecutora = ? "),  
 						"      GROUP BY entidad, unidad_ejecutora, programa, subprograma, proyecto, actividad, obra, ejercicio) t1", 
 						"GROUP BY ejercicio, entidad, "+(tipo_resultaldo.length()==0 ? "unidad_ejecutora," : "")+" programa, programa_nombre");
 				
 				PreparedStatement pstmt = CMemsql.getConnection().prepareStatement(query);
 				pstmt.setInt(1, entidad);
-				if(tipo_resultaldo.length()>0)
+				if(tipo_resultaldo.length()>0){
 					pstmt.setString(2, tipo_resultaldo);
+					pstmt.setString(3, resultado);
+				}
 				else
 					pstmt.setInt(2, unidad_ejecutora);
 				

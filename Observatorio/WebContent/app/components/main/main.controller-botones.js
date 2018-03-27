@@ -100,8 +100,8 @@ app.controller('mainController',['$rootScope','$scope','$http', function($rootSc
 	mi.go = function(level){
 		switch(level){
 			case 0: window.location.href = '/main.jsp#!/entidad/0'; break;
-			case 1: window.location.href = '/main.jsp#!/entidad/1'; break;
-			case 2: window.location.href = '/main.jsp#!/entidad/2'; break;
+			case 1: window.location.href = '/main.jsp#!/resultados/1'; break;
+			case 2: window.location.href = '/main.jsp#!/resultados/2'; break;
 			case 3: window.location.href = '/main.jsp#!/entidad/3'; break;
 			case 4: window.location.href = '/main.jsp#!/deuda'; break;
 			case 5: window.location.href = '/main.jsp#!/obligaciones'; break;

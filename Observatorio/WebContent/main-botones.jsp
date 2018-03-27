@@ -183,7 +183,7 @@
 			</div>
 		</div>
 		<div class="col-md-2">
-			<div class="button_title">Sin vinculación</div>
+			<div class="button_title">Otros programas y proyectos</div>
 			<div class="panel panel-default button_front_main" ng-click="ctrl.go(3)">
 				<ul class="list-group">
 				  <li class="list-group-item text-center button_front button_front_fisico" ng-click="ctrl.go(3)"><div style="margin-bottom: 5px;" ng-click="ctrl.go(3)">{{ (ctrl.resultados_otros.p_fisico*100).toFixed(0) }}%</div>

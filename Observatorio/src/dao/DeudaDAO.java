@@ -245,8 +245,6 @@ public class DeudaDAO {
 		}
 		catch(Throwable e){
 			CLogger.write("1", DeudaDAO.class, e);
-		}
-		finally{
 			CMemsql.close();
 		}
 		return ret;

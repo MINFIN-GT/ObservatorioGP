@@ -148,6 +148,7 @@ public class InfoDAO {
 			
 		}catch(Exception e){
 			CLogger.write("1", InfoDAO.class, e);
+			CMemsql.close();
 		}
 		return ret;
 	}
@@ -277,7 +278,7 @@ public class InfoDAO {
 		}
 		catch(Exception e){
 			CLogger.write("3", InfoDAO.class, e);
-			return ret;
+			CMemsql.close();
 		}
 		return ret;
 	}

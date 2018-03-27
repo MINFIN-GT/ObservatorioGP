@@ -59,9 +59,9 @@ public class SPrograma extends HttpServlet {
 			case 2: tipo_resultado = "Institucional"; break;
 			case 3: tipo_resultado = "Otros"; break;
 		}
-		
+		String resultado = map.get("resultado");
 		if(accion.equals("getProgramas")){
-			ArrayList<Programa> lstprogramas = ProgramaDAO.getProgramas(entidad, unidad_ejecutora,programa, tipo_resultado);
+			ArrayList<Programa> lstprogramas = ProgramaDAO.getProgramas(entidad, unidad_ejecutora,programa, tipo_resultado, resultado);
 			
 			String programas = new GsonBuilder().serializeNulls().create().toJson(lstprogramas);
 			response_text = String.join(" ", "\"programas\": ", programas);

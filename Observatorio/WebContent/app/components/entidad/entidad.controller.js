@@ -46,6 +46,11 @@ var app = angular.module('entidadController',[]).controller('entidadController',
 	
 	mi.tipo_resultado = $routeParams.tipo_resultado;
 	
+	if(mi.tipo_resultado==1 || mi.tpo_resultado==2){
+		mi.arregloSubtitulo = JSON.parse($window.localStorage.getItem("\"" + $routeParams.t + "\""));
+		mi.subtitulo = mi.arregloSubtitulo[0];
+	}
+	
 	switch(mi.tipo_resultado){
 		case '0': $rootScope.page_title = 'Institucional'; break;
 		case '1': $rootScope.page_title = 'Resultados institucionales'; break;
@@ -56,6 +61,7 @@ var app = angular.module('entidadController',[]).controller('entidadController',
 	$http.post('/SEntidad',{
 		accion: 'getEntidades',
 		tipo_resultado: mi.tipo_resultado,
+		resultado: mi.tipo_resultado==1 || mi.tipo_resultado==2 ? mi.arregloSubtitulo[0] : '',
 		t: new Date().getTime()
 	}).then(function(response){
 		if(response.data.success){
@@ -323,8 +329,8 @@ var app = angular.module('entidadController',[]).controller('entidadController',
 		};
 	
 	mi.irPrograma = function(entidad_id, entidad_nombre){
-		var time = new Date().getTime();
-		$window.localStorage.setItem("\"" + time + "\"", JSON.stringify([entidad_nombre,"","","","","",""]));
+		var time = (mi.tipo_resultado==0 || mi.tipo_resultado==3) ? new Date().getTime() : $routeParams.t;
+		$window.localStorage.setItem("\"" + time + "\"", JSON.stringify([(mi.tipo_resultado==0 || mi.tipo_resultado==3) ? "" : mi.arregloSubtitulo[0],entidad_nombre,"","","","","",""]));
 		if(mi.tipo_resultado=='0')
 			window.location = "main.jsp#!/unidadejecutora/" + mi.tipo_resultado + "/" + entidad_id + "/" + time;
 		else

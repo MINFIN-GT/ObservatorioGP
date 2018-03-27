@@ -129,7 +129,7 @@ public class ActividadDAO {
 		}catch(Exception e){
 			CLogger.write("1", ActividadDAO.class, e);
 			CMemsql.close();
-			return null;
 		}
+		return null;
 	}
 }
