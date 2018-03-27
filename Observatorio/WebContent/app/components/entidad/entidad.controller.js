@@ -46,7 +46,7 @@ var app = angular.module('entidadController',[]).controller('entidadController',
 	
 	mi.tipo_resultado = $routeParams.tipo_resultado;
 	
-	if(mi.tipo_resultado==1 || mi.tpo_resultado==2){
+	if(mi.tipo_resultado=="1" || mi.tipo_resultado=="2"){
 		mi.arregloSubtitulo = JSON.parse($window.localStorage.getItem("\"" + $routeParams.t + "\""));
 		mi.subtitulo = mi.arregloSubtitulo[0];
 	}
