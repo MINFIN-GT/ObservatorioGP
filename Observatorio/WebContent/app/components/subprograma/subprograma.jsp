@@ -69,10 +69,10 @@
 							<div style="white-space: nowrap;">{{row.ejercicio_data[0][24] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{(row.ejercicio_data[0][36])*100  | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{(row.ejercicio_data[0][36])*100  | formatoPorcentaje}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{(row.ejercicio_data[0][48])*100 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{(row.ejercicio_data[0][48])*100 | formatoPorcentaje}}</div>
 						</td>
 												<td align="right">
 							<div style="white-space: nowrap;">{{row.ejercicio_data[1][0] | formatoMillones : ctrl.decimales}}</div>
@@ -84,10 +84,10 @@
 							<div style="white-space: nowrap;">{{row.ejercicio_data[1][24] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{(row.ejercicio_data[1][36])*100  | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{(row.ejercicio_data[1][36])*100  | formatoPorcentaje}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{(row.ejercicio_data[1][48])*100 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{(row.ejercicio_data[1][48])*100 | formatoPorcentaje}}</div>
 						</td>
 						<td align="right">
 							<div style="white-space: nowrap;">{{row.ejercicio_data[2][0] | formatoMillones : ctrl.decimales}}</div>
@@ -99,10 +99,10 @@
 							<div style="white-space: nowrap;">{{row.ejercicio_data[2][24] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{(row.ejercicio_data[2][36])*100  | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{(row.ejercicio_data[2][36])*100  | formatoPorcentaje}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{(row.ejercicio_data[2][48])*100 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{(row.ejercicio_data[2][48])*100 | formatoPorcentaje}}</div>
 						</td>
 						<td align="right">
 							<div style="white-space: nowrap;">{{row.ejercicio_data[3][0] | formatoMillones : ctrl.decimales}}</div>
@@ -114,10 +114,10 @@
 							<div style="white-space: nowrap;">{{row.ejercicio_data[3][24] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{(row.ejercicio_data[3][36])*100  | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{(row.ejercicio_data[3][36])*100  | formatoPorcentaje}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{(row.ejercicio_data[3][48])*100 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{(row.ejercicio_data[3][48])*100 | formatoPorcentaje}}</div>
 						</td>
 						<td align="right">
 							<div style="white-space: nowrap;">{{row.ejercicio_data[4][0] | formatoMillones : ctrl.decimales}}</div>
@@ -129,10 +129,10 @@
 							<div style="white-space: nowrap;">{{row.ejercicio_data[4][24] | formatoMillones : ctrl.decimales}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{(row.ejercicio_data[4][36])*100  | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{(row.ejercicio_data[4][36])*100  | formatoPorcentaje}}</div>
 						</td>
 						<td align="right">
-							<div style="white-space: nowrap;">{{(row.ejercicio_data[4][48])*100 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{(row.ejercicio_data[4][48])*100 | formatoPorcentaje}}</div>
 						</td>
 					</tr>
 				</tbody>
@@ -149,10 +149,10 @@
 							<div style="white-space: nowrap;">{{ctrl.tot_ejecutado_4 | formatoMillones : ctrl.decimales}}</div>
 						</th>
 						<th style="text-align: right;">
-							<div style="white-space: nowrap;">{{ctrl.tot_p_ejecucion_4 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{ctrl.tot_p_ejecucion_4 | formatoPorcentaje}}</div>
 						</th>
 						<th style="text-align: right;">
-							<div style="white-space: nowrap;">{{ctrl.tot_p_avance_4 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{ctrl.tot_p_avance_4 | formatoPorcentaje}}</div>
 						</th>
 						<th style="text-align: right;">
 							<div style="white-space: nowrap;">{{ctrl.tot_asignado_3 | formatoMillones : ctrl.decimales}}</div>
@@ -164,10 +164,10 @@
 							<div style="white-space: nowrap;">{{ctrl.tot_ejecutado_3 | formatoMillones : ctrl.decimales}}</div>
 						</th>
 						<th style="text-align: right;">
-							<div style="white-space: nowrap;">{{ctrl.tot_p_ejecucion_3 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{ctrl.tot_p_ejecucion_3 | formatoPorcentaje}}</div>
 						</th>
 						<th style="text-align: right;">
-							<div style="white-space: nowrap;">{{ctrl.tot_p_avance_3 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{ctrl.tot_p_avance_3 | formatoPorcentaje}}</div>
 						</th>
 						<th style="text-align: right;">
 							<div style="white-space: nowrap;">{{ctrl.tot_asignado_2 | formatoMillones : ctrl.decimales}}</div>
@@ -179,10 +179,10 @@
 							<div style="white-space: nowrap;">{{ctrl.tot_ejecutado_2 | formatoMillones : ctrl.decimales}}</div>
 						</th>
 						<th style="text-align: right;">
-							<div style="white-space: nowrap;">{{ctrl.tot_p_ejecucion_2 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{ctrl.tot_p_ejecucion_2 | formatoPorcentaje}}</div>
 						</th>
 						<th style="text-align: right;">
-							<div style="white-space: nowrap;">{{ctrl.tot_p_avance_2 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{ctrl.tot_p_avance_2 | formatoPorcentaje}}</div>
 						</th>
 						<th style="text-align: right;">
 							<div style="white-space: nowrap;">{{ctrl.tot_asignado_1 | formatoMillones : ctrl.decimales}}</div>
@@ -194,10 +194,10 @@
 							<div style="white-space: nowrap;">{{ctrl.tot_ejecutado_1 | formatoMillones : ctrl.decimales}}</div>
 						</th>
 						<th style="text-align: right;">
-							<div style="white-space: nowrap;">{{ctrl.tot_p_ejecucion_1 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{ctrl.tot_p_ejecucion_1 | formatoPorcentaje}}</div>
 						</th>
 						<th style="text-align: right;">
-							<div style="white-space: nowrap;">{{ctrl.tot_p_avance_1 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{ctrl.tot_p_avance_1 | formatoPorcentaje}}</div>
 						</th>
 						<th style="text-align: right;">
 							<div style="white-space: nowrap;">{{ctrl.tot_asignado | formatoMillones : ctrl.decimales}}</div>
@@ -209,10 +209,10 @@
 							<div style="white-space: nowrap;">{{ctrl.tot_ejecutado | formatoMillones : ctrl.decimales}}</div>
 						</th>
 						<th style="text-align: right;">
-							<div style="white-space: nowrap;">{{ctrl.tot_p_ejecucion | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{ctrl.tot_p_ejecucion | formatoPorcentaje}}</div>
 						</th>
 						<th style="text-align: right;">
-							<div style="white-space: nowrap;">{{ctrl.tot_p_avance | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div style="white-space: nowrap;">{{ctrl.tot_p_avance | formatoPorcentaje}}</div>
 						</th>
 					</tr>
 				</tfoot>

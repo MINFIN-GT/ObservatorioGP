@@ -28,19 +28,19 @@
 							{{row.unidad_medida}}
 						</td>
 						<td align="right">
-							{{row.ejercicio_data[0][11] * 100 | formatoMillonesSinTipo : ctrl.decimales}}%
+							{{row.ejercicio_data[0][11] * 100 | formatoPorcentaje}}
 						</td>
 						<td align="right">
-							{{row.ejercicio_data[1][11] * 100 | formatoMillonesSinTipo : ctrl.decimales}}%
+							{{row.ejercicio_data[1][11] * 100 | formatoPorcentaje}}
 						</td>
 						<td align="right">
-							{{row.ejercicio_data[2][11] * 100 | formatoMillonesSinTipo : ctrl.decimales}}%
+							{{row.ejercicio_data[2][11] * 100 | formatoPorcentaje}}
 						</td>
 						<td align="right">
-							{{row.ejercicio_data[3][11] * 100 | formatoMillonesSinTipo : ctrl.decimales}}%
+							{{row.ejercicio_data[3][11] * 100 | formatoPorcentaje}}
 						</td>
 						<td align="right">
-							{{row.ejercicio_data[4][11] * 100 | formatoMillonesSinTipo : ctrl.decimales}}%
+							{{row.ejercicio_data[4][11] * 100 | formatoPorcentaje}}
 						</td>
 					</tr>
 				</tbody>
@@ -49,19 +49,19 @@
 						<th></th>
 						<th style="text-align: right;">Totales:</th>
 						<th style="text-align: right;">
-							<div>{{ctrl.tot_p_avance_4 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div>{{ctrl.tot_p_avance_4 | formatoPorcentaje}}</div>
 						</th>
 						<th style="text-align: right;">
-							<div>{{ctrl.tot_p_avance_3 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div>{{ctrl.tot_p_avance_3 | formatoPorcentaje}}</div>
 						</th>
 						<th style="text-align: right;">
-							<div>{{ctrl.tot_p_avance_2 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div>{{ctrl.tot_p_avance_2 | formatoPorcentaje}}</div>
 						</th>
 						<th style="text-align: right;">
-							<div>{{ctrl.tot_p_avance_1 | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div>{{ctrl.tot_p_avance_1 | formatoPorcentaje}}</div>
 						</th>
 						<th style="text-align: right;">
-							<div>{{ctrl.tot_p_avance | formatoMillonesSinTipo : ctrl.decimales}}%</div>
+							<div>{{ctrl.tot_p_avance | formatoPorcentaje}}</div>
 						</th>
 					</tr>
 				</tfoot>
