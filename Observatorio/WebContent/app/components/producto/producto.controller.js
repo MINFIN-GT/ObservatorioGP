@@ -149,7 +149,7 @@ angular.module('productoController', []).controller('productoController',['$root
 			}
 			
 			for(var i=0; i<mi.mensualPFisico.length;i++){
-				mi.mensualPFisico[i] = (mi.mensualPFisico[i] / 5) * 100;
+				mi.mensualPFisico[i] = (mi.mensualPFisico[i] / mi.dato.length) * 100;
 			}
 			
 			for(var i=0; i<mi.anualPFisico.length;i++){
@@ -157,7 +157,7 @@ angular.module('productoController', []).controller('productoController',['$root
 			}
 			
 			for(var i=0; i<mi.mensualPFisicoAcum.length;i++){
-				mi.mensualPFisicoAcum[i] = (mi.mensualPFisicoAcum[i] / 5);
+				mi.mensualPFisicoAcum[i] = (mi.mensualPFisicoAcum[i] / mi.dato.length) * 100;
 			}
 			
 			mi.tipoDatos = 1;
@@ -248,7 +248,7 @@ angular.module('productoController', []).controller('productoController',['$root
 		}
 		
 		for(var i=0; i<mi.mensualPFisicoAcum.length; i++){
-			cantidades.push(Number(mi.mensualPFisicoAcum[i] * 100).toFixed(2));
+			cantidades.push(Number(mi.mensualPFisicoAcum[i]).toFixed(2));
 		}
 		
 		mi.data.push(cantidades);
@@ -306,4 +306,10 @@ angular.module('productoController', []).controller('productoController',['$root
 	           }
 	        }
 	};
+	
+	$http.post('/SLastupdate', { dashboard: 'ejecucionpresupuestaria', t: new Date().getTime() }).then(function(response){
+	    if(response.data.success){
+	    	mi.lastupdate = response.data.lastupdate;
+		}
+	});
 }])

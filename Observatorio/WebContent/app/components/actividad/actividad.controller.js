@@ -348,4 +348,10 @@ angular.module('actividadController',[]).controller('actividadController', ['$ro
 			$window.localStorage.setItem("\"" + $routeParams.t + "\"", JSON.stringify(mi.arregloSubtitulo));
 			window.location = "main.jsp#!/producto/" + mi.tipo_resultado + "/" + mi.entidad + "/" + mi.unidad_ejecutora + "/" + mi.programa + "/" + mi.subprograma + "/" + mi.proyecto + "/" + actividad_id + "/" + obra_id + "/" + $routeParams.t;
 		}
+		
+		$http.post('/SLastupdate', { dashboard: 'ejecucionpresupuestaria', t: new Date().getTime() }).then(function(response){
+		    if(response.data.success){
+		    	mi.lastupdate = response.data.lastupdate;
+			}
+		});
 }]);

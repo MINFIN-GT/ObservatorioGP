@@ -66,7 +66,7 @@
 					</tr>
 				</tfoot>
 			</table>
-			<div style="text-align: center; font-size: 11px;">Fuente de información SICOIN. Cifras en porcentajes.</div>
+			<div class="graphics_footnote">Fuente de información SICOIN. Cifras en porcentajes.</div>
 		</div>
 		<br>
 		<br>
@@ -87,6 +87,9 @@
 				</canvas>
 			</div>
 		</div>
-		<div style="text-align: center; font-size: 11px;">Fuente de información SICOIN. Cifras en porcentajes.</div>
-		<br>
+		<div class="graphics_footnote">Fuente de información SICOIN. Cifras en porcentajes.</div>
+		<br />
+		<div class="row">
+			<div class="graphics_footnote">Última actualización: {{ ctrl.lastupdate }}</div>
+		</div>
 	</div>

@@ -349,4 +349,10 @@ var app = angular.module('proyectoController',[]).controller('proyectoController
 		
 		window.location = "main.jsp#!/actividad/" + mi.tipo_resultado + "/" + mi.entidad + "/" + mi.unidad_ejecutora + "/" + mi.programa + "/" + mi.subprograma + "/" + proyecto_id + "/" + $routeParams.t;
 	}
+	
+	$http.post('/SLastupdate', { dashboard: 'ejecucionpresupuestaria', t: new Date().getTime() }).then(function(response){
+	    if(response.data.success){
+	    	mi.lastupdate = response.data.lastupdate;
+		}
+	});
 }])

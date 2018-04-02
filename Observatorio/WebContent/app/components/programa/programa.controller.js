@@ -345,4 +345,10 @@ angular.module('programaController',[]).controller('programaController', ['$root
 		$window.localStorage.setItem("\"" + $routeParams.t + "\"", JSON.stringify(mi.arregloSubtitulo));
 		window.location = "main.jsp#!/subprograma/" + mi.tipo_resultado + "/" + mi.entidad + "/" + mi.unidad_ejecutora +"/" + programa_id + "/" + $routeParams.t;
 	}
+	
+	$http.post('/SLastupdate', { dashboard: 'ejecucionpresupuestaria', t: new Date().getTime() }).then(function(response){
+	    if(response.data.success){
+	    	mi.lastupdate = response.data.lastupdate;
+		}
+	});
 }]);

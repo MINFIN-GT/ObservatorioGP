@@ -341,4 +341,10 @@ var app = angular.module('unidadEjecutoraController',[]).controller('unidadEjecu
 			$window.localStorage.setItem("\"" + $routeParams.t + "\"", JSON.stringify(mi.arregloSubtitulo));
 			window.location = "main.jsp#!/programa/" + mi.tipo_resultado + "/" + mi.entidad + "/" + unidadEjecutora_id + "/" + $routeParams.t;
 		}
+		
+		$http.post('/SLastupdate', { dashboard: 'ejecucionpresupuestaria', t: new Date().getTime() }).then(function(response){
+		    if(response.data.success){
+		    	mi.lastupdate = response.data.lastupdate;
+			}
+		});
 }])

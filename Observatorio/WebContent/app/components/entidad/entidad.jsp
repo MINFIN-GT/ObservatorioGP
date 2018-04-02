@@ -209,7 +209,7 @@
 					</tr>
 				</tfoot>
 			</table>
-			<div style="text-align: center; font-size: 11px;">Fuente de información SICOIN. Cifras en millones de Quetzales y porcentajes.</div>
+			<div class="graphics_footnote">Fuente de información SICOIN. Cifras en millones de Quetzales y porcentajes.</div>
 	    </div>
 	    <br>
 	    <br>
@@ -231,6 +231,9 @@
 				</div>
 			</div>
 			<div class="graphics_footnote">Fuente de información SICOIN. Cifras en porcentajes.</div>
-			<br>
+		</div>
+		<br />
+		<div class="row">
+			<div class="graphics_footnote">Última actualización: {{ ctrl.lastupdate }}</div>
 		</div>
     </div>

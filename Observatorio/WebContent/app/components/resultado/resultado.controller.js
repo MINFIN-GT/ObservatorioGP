@@ -335,4 +335,10 @@ var app = angular.module('resultadoController',[]).controller('resultadoControll
 			$window.localStorage.setItem("\"" + time + "\"", JSON.stringify([resultado,"","","","","","",""]));
 			window.location = "main.jsp#!/entidad/" + mi.tipo_resultado + "/"+ time;
 		}
+		
+		$http.post('/SLastupdate', { dashboard: 'ejecucionpresupuestaria', t: new Date().getTime() }).then(function(response){
+		    if(response.data.success){
+		    	mi.lastupdate = response.data.lastupdate;
+			}
+		});
 }])

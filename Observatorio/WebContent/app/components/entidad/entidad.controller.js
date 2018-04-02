@@ -341,4 +341,10 @@ var app = angular.module('entidadController',[]).controller('entidadController',
 		else
 			window.location = "main.jsp#!/programa/" + mi.tipo_resultado + "/" + entidad_id + "/0/" + time;
 	}
+	
+	$http.post('/SLastupdate', { dashboard: 'ejecucionpresupuestaria', t: new Date().getTime() }).then(function(response){
+	    if(response.data.success){
+	    	mi.lastupdate = response.data.lastupdate;
+		}
+	});
 }])
