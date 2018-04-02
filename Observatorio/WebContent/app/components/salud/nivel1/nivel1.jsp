@@ -116,7 +116,7 @@
 					</tr>
 				</tfoot>
 			</table>
-			<div style="text-align: center;">Fuente de información SICOIN. Cifras en millones de Quetzales.</div>
+			<div class="graphics_footnote">Fuente de información SICOIN. Cifras en millones de Quetzales.</div>
 	    </div>
 	    <br>
 		<br>
@@ -130,7 +130,10 @@
 					</canvas>
 				</div>
 			</div>
-			<div style="text-align: center;">Fuente de información SICOIN. Cifras en millones de Quetzales.</div>
-			<br>
+			<div class="graphics_footnote">Fuente de información SICOIN. Cifras en millones de Quetzales.</div>
+		</div>
+		<br />
+		<div class="row">
+			<div class="graphics_footnote">Última actualización: {{ ctrl.lastupdate }}</div>
 		</div>
     </div>

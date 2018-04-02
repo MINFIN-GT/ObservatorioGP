@@ -148,4 +148,10 @@ var app = angular.module('nivel2Controller', []).controller('nivel2Controller',[
            }
         }
 	};
+	
+	$http.post('/SLastupdate', { dashboard: 'ejecucionpresupuestaria', t: new Date().getTime() }).then(function(response){
+	    if(response.data.success){
+	    	mi.lastupdate = response.data.lastupdate;
+		}
+	});
 }])
