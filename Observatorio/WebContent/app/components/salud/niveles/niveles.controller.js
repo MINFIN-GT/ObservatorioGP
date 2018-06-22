@@ -107,9 +107,9 @@ var app = angular.module('nivelesController', []).controller('nivelesController'
 		t: new Date().getTime()
 	}).then(function(response){
 		if(response.data.success){
-			mi.rubros_nivel_1 = response.data.nivel1;
+			mi.rubros_nivel_3 = response.data.nivel1;
 			mi.rubros_nivel_2 = response.data.nivel2;
-			mi.rubros_nivel_3 = response.data.nivel3;
+			mi.rubros_nivel_1 = response.data.nivel3;
 			for(var i=0; i< mi.rubros_nivel_1.length; i++){
 				for(var j=0; j<mi.rubros_nivel_1[i].ejercicios.length; j++){
 					if(mi.totales_1[j]===undefined)

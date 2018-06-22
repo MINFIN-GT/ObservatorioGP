@@ -1,19 +1,19 @@
 package dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import pojo.TipoInfo;
 import utilities.CLogger;
-import utilities.CMemsql;
 
 public class InfoDAO {
 	
-	public static TipoInfo getTipoResultado(String tipo_resultado){
+	public static TipoInfo getTipoResultado(Connection conn,String tipo_resultado){
 		TipoInfo ret = null;
 		String query = "";
 		try{
-			if(CMemsql.connect()){
+			if(!conn.isClosed()){
 				query = String.join(" ", "select ", 
 						"  case month(CURRENT_TIMESTAMP())", 
 						"    when 1 then sum(financiero_ejecutado_m1)", 
@@ -130,7 +130,7 @@ public class InfoDAO {
 						"	) t1  ", 
 						"	group by ejercicio, tipo_resultado;");
 				
-				PreparedStatement pstmt = CMemsql.getConnection().prepareStatement(query);
+				PreparedStatement pstmt = conn.prepareStatement(query);
 				pstmt.setString(1, tipo_resultado);
 				
 				ResultSet rs = pstmt.executeQuery();
@@ -143,21 +143,19 @@ public class InfoDAO {
 					ret.p_fisico = rs.getDouble("pp_fisico");
 					ret.cantidad = rs.getInt("cantidad_resultados");
 				}
-				CMemsql.close();
 			}
 			
 		}catch(Exception e){
 			CLogger.write("1", InfoDAO.class, e);
-			CMemsql.close();
 		}
 		return ret;
 	}
 	
-	public static TipoInfo getDeuda(){
+	public static TipoInfo getDeuda(Connection conn){
 		TipoInfo ret = null;
 		String query = "";
 		try{
-			if(CMemsql.connect()){
+			if(!conn.isClosed()){
 				query = "select sum(ejecutado) ejecutado, sum(vigente) vigente " + 
 						"from ( " + 
 						"select avg(case month(current_timestamp) " + 
@@ -194,9 +192,9 @@ public class InfoDAO {
 						"and entidad = 11130019 " + 
 						"group by entidad, unidad_ejecutora, programa, subprograma, proyecto, actividad, obra " + 
 						") t1";
-				PreparedStatement pstmt = CMemsql.getConnection().prepareStatement(query);
+				PreparedStatement pstmt = conn.prepareStatement(query);
 				
-				ResultSet rs = CMemsql.runPreparedStatement(pstmt);
+				ResultSet rs = pstmt.executeQuery();
 				
 				if(rs.next()){
 					ret = new TipoInfo();
@@ -208,7 +206,6 @@ public class InfoDAO {
 					
 				}
 				
-				CMemsql.close();
 			}
 		}
 		catch(Exception e){
@@ -218,11 +215,11 @@ public class InfoDAO {
 		return ret;
 	}
 	
-	public static TipoInfo getObligaciones(){
+	public static TipoInfo getObligaciones(Connection conn){
 		TipoInfo ret = null;
 		String query = "";
 		try{
-			if(CMemsql.connect()){
+			if(!conn.isClosed()){
 				query = "select sum(ejecutado) ejecutado, sum(vigente) vigente " + 
 						"from ( " + 
 						"select avg(case month(current_timestamp) " + 
@@ -259,7 +256,7 @@ public class InfoDAO {
 						"and entidad = 11130018 " + 
 						"group by entidad, unidad_ejecutora, programa, subprograma, proyecto, actividad, obra " + 
 						") t1";
-				PreparedStatement pstmt = CMemsql.getConnection().prepareStatement(query);
+				PreparedStatement pstmt = conn.prepareStatement(query);
 				
 				ResultSet rs = pstmt.executeQuery();
 				
@@ -273,12 +270,10 @@ public class InfoDAO {
 					
 				}
 				
-				CMemsql.close();
 			}
 		}
 		catch(Exception e){
 			CLogger.write("3", InfoDAO.class, e);
-			CMemsql.close();
 		}
 		return ret;
 	}

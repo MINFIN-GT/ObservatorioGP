@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.lang.reflect.Type;
+import java.sql.Connection;
 import java.util.Map;
 import java.util.zip.GZIPOutputStream;
 
@@ -20,6 +21,7 @@ import com.google.gson.reflect.TypeToken;
 import dao.InfoDAO;
 import pojo.TipoInfo;
 import utilities.CLogger;
+import utilities.CMemsql;
 import utilities.Utils;
 
 @WebServlet("/SInfo")
@@ -49,58 +51,98 @@ public class SInfo extends HttpServlet {
 		String response_text="";
 		
 		String tipo_resultado = Utils.String2Int(map.get("tipo_resultado")) == 1 ? "Estrátegico" : (Utils.String2Int(map.get("tipo_resultado")) == 2 ? "Institucional" : "Otros");
-		
+		Connection conn=null;
 		if (accion.equals("getTipoResultado")){
 			try{
-				TipoInfo lsttiporesultado = InfoDAO.getTipoResultado(tipo_resultado);
+				CMemsql.connect();
+				conn = CMemsql.getConnection();
+				TipoInfo lsttiporesultado = InfoDAO.getTipoResultado(conn,tipo_resultado);
 				String tipoResultado = new GsonBuilder().serializeNulls().create().toJson(lsttiporesultado);
 				response_text = String.join(" ", "\"tiporesultado\": ", tipoResultado);
 				response_text = String.join(" ","{\"success\": true,", response_text, "}");
 			}catch(Exception e){
 				CLogger.write("1", SInfo.class, e);
 			}
+			finally{
+				try{
+					conn.close();
+				}
+				catch(Exception e){
+					
+				}
+			}
 		}
 		else if(accion.equals("getDeuda")){
 			try{
-				TipoInfo deuda = InfoDAO.getDeuda();
+				CMemsql.connect();
+				conn = CMemsql.getConnection();
+				TipoInfo deuda = InfoDAO.getDeuda(conn);
 				String sdeuda = new GsonBuilder().serializeNulls().create().toJson(deuda);
 				response_text = String.join(" ", "\"tiporesultado\": ", sdeuda);
 				response_text = String.join(" ","{\"success\": true,", response_text, "}");
 			}catch(Exception e){
 				CLogger.write("2", SInfo.class, e);
 			}
+			finally{
+				try{
+					conn.close();
+				}
+				catch(Exception e){
+					
+				}
+			}
 		}
 		else if(accion.equals("getObligaciones")){
 			try{
-				TipoInfo obligaciones = InfoDAO.getObligaciones();
+				CMemsql.connect();
+				conn = CMemsql.getConnection();
+				TipoInfo obligaciones = InfoDAO.getObligaciones(conn);
 				String sobligaciones = new GsonBuilder().serializeNulls().create().toJson(obligaciones);
 				response_text = String.join(" ", "\"tiporesultado\": ", sobligaciones);
 				response_text = String.join(" ","{\"success\": true,", response_text, "}");
 			}catch(Exception e){
 				CLogger.write("3", SInfo.class, e);
 			}
+			finally{
+				try{
+					conn.close();
+				}
+				catch(Exception e){
+					
+				}
+			}
 		}
 		else if(accion.equals("getAll")){
 			try{
-				TipoInfo estrategico = InfoDAO.getTipoResultado("Estrátegico");
+				CMemsql.connect();
+				conn = CMemsql.getConnection();
+				TipoInfo estrategico = InfoDAO.getTipoResultado(conn,"Estrátegico");
 				String tipoResultado = new GsonBuilder().serializeNulls().create().toJson(estrategico);
 				response_text = String.join(" ", "\"resultados_estrategicos\": ", tipoResultado);
-				TipoInfo institucional = InfoDAO.getTipoResultado("Institucional");
+				TipoInfo institucional = InfoDAO.getTipoResultado(conn,"Institucional");
 				tipoResultado = new GsonBuilder().serializeNulls().create().toJson(institucional);
 				response_text = String.join(" ", response_text,", \"resultados_institucionales\": ", tipoResultado);
-				TipoInfo otros = InfoDAO.getTipoResultado("Otros");
+				TipoInfo otros = InfoDAO.getTipoResultado(conn,"Otros");
 				tipoResultado = new GsonBuilder().serializeNulls().create().toJson(otros);
 				response_text = String.join(" ", response_text,", \"resultados_otros\": ", tipoResultado);
-				TipoInfo deuda = InfoDAO.getDeuda();
+				TipoInfo deuda = InfoDAO.getDeuda(conn);
 				String sdeuda = new GsonBuilder().serializeNulls().create().toJson(deuda);
 				response_text = String.join(" ",response_text, ", \"deuda\": ", sdeuda);
-				TipoInfo obligaciones = InfoDAO.getObligaciones();
+				TipoInfo obligaciones = InfoDAO.getObligaciones(conn);
 				String sobligaciones = new GsonBuilder().serializeNulls().create().toJson(obligaciones);
 				response_text = String.join(" ", response_text, ", \"obligaciones\": ", sobligaciones);
 				response_text = String.join(" ","{\"success\": true,", response_text, "}");
 			}
 			catch(Exception e){
 				CLogger.write("4", SInfo.class, e);
+			}
+			finally{
+				try{
+					conn.close();
+				}
+				catch(Exception e){
+					
+				}
 			}
 		}
 		
